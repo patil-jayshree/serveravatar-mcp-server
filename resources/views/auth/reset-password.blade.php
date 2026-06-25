@@ -170,9 +170,7 @@
                                 autofocus
                             >
                         </div>
-                        @error('email')
-                            <span class="error-text">{{ $message }}</span>
-                        @enderror
+                        
                     </div>
 
                     <div class="form-group">
@@ -201,9 +199,7 @@
                             </svg>
                             Minimum 8 characters
                         </div>
-                        @error('password')
-                            <span class="error-text">{{ $message }}</span>
-                        @enderror
+                        
                     </div>
 
                     <div class="form-group">
