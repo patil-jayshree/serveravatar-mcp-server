@@ -123,7 +123,7 @@
             <div class="auth-card">
                 <div class="auth-brand">
                     <div class="auth-logo-wrap">
-                        <span class="auth-logo-icon">🔑</span>
+                        <span class="auth-logo-icon">⚡</span>
                     </div>
                     <div class="auth-mcp-badge">ServerAvatar MCP Server</div>
                     <h1 class="auth-title">Reset Password</h1>
