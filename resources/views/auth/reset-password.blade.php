@@ -224,9 +224,7 @@
                                 required
                             >
                         </div>
-                        @error('password_confirmation')
-                            <span class="error-text">{{ $message }}</span>
-                        @enderror
+
                     </div>
 
                     <button type="submit" class="btn-primary">
