@@ -62,6 +62,7 @@ class ResetPasswordNotification extends Notification
             ->markdown('emails.reset-password', [
                 'url' => $url,
                 'email' => $notifiable->getEmailForPasswordReset(),
+                'name' => $notifiable->name,
             ]);
     }
 
