@@ -27,6 +27,12 @@
         body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; }
 
         /* Navbar */
+        /* Theme Toggle */
+        .theme-toggle { background: none; border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 8px; cursor: pointer; color: var(--text-secondary); display: flex; align-items: center; justify-content: center; transition: all var(--transition-fast); flex-shrink: 0; }
+        .theme-toggle:hover { background: var(--bg-tertiary); color: var(--text-primary); border-color: var(--border-color-hover); }
+        .theme-toggle svg { width: 18px; height: 18px; }
+
+        /* Navbar */
         .navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: var(--bg-nav); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-color); padding: 0 2rem; }
         .nav-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 72px; gap: 2rem; }
         .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text-primary); }
@@ -170,6 +176,22 @@
                 <span class="nav-logo-text">Server<span>Avatar</span> MCP</span>
             </a>
             <div class="nav-right">
+                <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">
+                    <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                    <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
                 <a href="{{ route('login') }}" class="btn btn-ghost">LOGIN</a>
                 <a href="{{ route('register') }}" class="btn btn-primary">Get Started</a>
             </div>
@@ -338,5 +360,33 @@
         <p>&copy; {{ date('Y') }} ServerAvatar MCP. Built with Laravel & MCP Protocol</p>
         <p style="margin-top: 4px;">Powered by <a href="https://serveravatar.com" target="_blank">ServerAvatar</a></p>
     </footer>
+
+    <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcons(newTheme);
+        }
+
+        function updateThemeIcons(theme) {
+            document.querySelectorAll('.sun-icon').forEach(el => {
+                el.style.display = theme === 'dark' ? 'block' : 'none';
+            });
+            document.querySelectorAll('.moon-icon').forEach(el => {
+                el.style.display = theme === 'light' ? 'block' : 'none';
+            });
+        }
+
+        function initTheme() {
+            const saved = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', saved);
+            updateThemeIcons(saved);
+        }
+
+        initTheme();
+    </script>
 </body>
 </html>

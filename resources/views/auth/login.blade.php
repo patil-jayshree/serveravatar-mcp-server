@@ -36,6 +36,11 @@
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         html { font-size: 16px; -webkit-font-smoothing: antialiased; }
         body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; min-height: 100vh; transition: background var(--transition-normal), color var(--transition-normal); }
+
+        /* Theme Toggle */
+        .theme-toggle-fixed { position: fixed; top: 20px; right: 20px; z-index: 200; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 8px; cursor: pointer; color: var(--text-secondary); display: flex; align-items: center; justify-content: center; transition: all var(--transition-fast); box-shadow: var(--shadow-lg); }
+        .theme-toggle-fixed:hover { background: var(--bg-tertiary); color: var(--text-primary); border-color: var(--border-color-hover); }
+        .theme-toggle-fixed svg { width: 18px; height: 18px; }
         .auth-page { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 2rem; position: relative; overflow: hidden; }
         .auth-page::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle at 30% 20%, var(--accent-primary-muted) 0%, transparent 50%), radial-gradient(circle at 70% 80%, rgba(139, 92, 246, 0.08) 0%, transparent 50%); pointer-events: none; }
         .auth-wrapper { width: 100%; max-width: 440px; position: relative; z-index: 1; }
@@ -77,6 +82,23 @@
     </style>
 </head>
 <body>
+    <button class="theme-toggle-fixed" onclick="toggleTheme()" title="Toggle theme">
+        <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+        <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+    </button>
+
     <div class="auth-page">
         <div class="auth-wrapper">
             <div class="auth-card">
@@ -163,6 +185,32 @@
                 }, 5000);
             });
         });
+
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcons(newTheme);
+        }
+
+        function updateThemeIcons(theme) {
+            document.querySelectorAll('.sun-icon').forEach(el => {
+                el.style.display = theme === 'dark' ? 'block' : 'none';
+            });
+            document.querySelectorAll('.moon-icon').forEach(el => {
+                el.style.display = theme === 'light' ? 'block' : 'none';
+            });
+        }
+
+        function initTheme() {
+            const saved = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', saved);
+            updateThemeIcons(saved);
+        }
+
+        initTheme();
     </script>
 </body>
 </html>
