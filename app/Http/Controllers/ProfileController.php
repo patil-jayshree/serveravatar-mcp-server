@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Exception;
 
 /**
  * Profile Controller
@@ -20,114 +21,131 @@ class ProfileController extends Controller
      */
     public function show()
     {
-        return view('profile');
+        try {
+            return view('profile');
+        } catch (Exception $e) {
+            return redirect()->route('dashboard')->with('error', 'Unable to load profile. Please try again.');
+        }
     }
 
     /**
      * Get the current user's profile data.
      *
-     * Returns basic profile information for the authenticated user.
-     *
      * @return \Illuminate\Http\JsonResponse User profile data (id, name, email)
      */
     public function getProfile()
     {
-        $user = auth()->user();
-        return response()->json([
-            'id' => $user->id,
-            'name' => $user->name,
-            'email' => $user->email,
-        ]);
+        try {
+            $user = auth()->user();
+            return response()->json([
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'error' => 'Unable to fetch profile. Please try again.',
+            ], 500);
+        }
     }
 
     /**
      * Update the user's profile name only.
-     *
-     * A simplified endpoint for updating just the display name.
      *
      * @param Request $request The incoming HTTP request
      * @return \Illuminate\Http\JsonResponse Success message
      */
     public function updateProfile(Request $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-        ]);
+        try {
+            $validated = $request->validate([
+                'name' => 'required|string|max:255',
+            ]);
 
-        auth()->user()->update($validated);
+            auth()->user()->update($validated);
 
-        return response()->json(['success' => true, 'message' => 'Profile updated successfully!']);
+            return response()->json(['success' => true, 'message' => 'Profile updated successfully!']);
+        } catch (Exception $e) {
+            $statusCode = method_exists($e, 'status') ? $e->status() : 500;
+            return response()->json([
+                'success' => false,
+                'error' => 'Failed to update profile. Please try again.',
+            ], $statusCode);
+        }
     }
 
     /**
      * Update the user's password.
-     *
-     * Requires the current password for verification before setting a new one.
-     * New password must be at least 8 characters and contain:
-     * - At least one uppercase letter
-     * - At least one lowercase letter
-     * - At least one number
-     * - At least one special character (@$!%*?&)
      *
      * @param Request $request The incoming HTTP request
      * @return \Illuminate\Http\JsonResponse Success message or error
      */
     public function updatePassword(Request $request)
     {
-        // First validate current_password exists
-        $request->validate([
-            'current_password' => 'required|string',
-        ]);
+        try {
+            $request->validate([
+                'current_password' => 'required|string',
+            ]);
 
-        $user = auth()->user();
+            $user = auth()->user();
 
-        // Check current password FIRST
-        if (!Hash::check($request->current_password, $user->password)) {
+            if (!Hash::check($request->current_password, $user->password)) {
+                return response()->json([
+                    'success' => false,
+                    'error' => 'Current password is incorrect',
+                ], 422);
+            }
+
+            $validated = $request->validate([
+                'password' => [
+                    'required',
+                    'string',
+                    'min:8',
+                    'confirmed',
+                    'regex:/[A-Z]/',
+                    'regex:/[a-z]/',
+                    'regex:/[0-9]/',
+                    'regex:/[@$!%*?&]/',
+                ],
+            ], [
+                'password.regex:/[A-Z]/' => 'Password must contain at least one uppercase letter',
+                'password.regex:/[a-z]/' => 'Password must contain at least one lowercase letter',
+                'password.regex:/[0-9]/' => 'Password must contain at least one number',
+                'password.regex:/[@$!%*?&]/' => 'Password must contain at least one special character (@$!%*?&)',
+            ]);
+
+            $user->update(['password' => Hash::make($validated['password'])]);
+
+            return response()->json(['success' => true, 'message' => 'Password updated successfully!']);
+        } catch (Exception $e) {
+            $statusCode = method_exists($e, 'status') ? $e->status() : 500;
             return response()->json([
                 'success' => false,
-                'error' => 'Current password is incorrect'
-            ], 422);
+                'error' => 'Failed to update password. Please try again.',
+            ], $statusCode);
         }
-
-        // Only if current password is correct, validate new password requirements
-        $validated = $request->validate([
-            'password' => [
-                'required',
-                'string',
-                'min:8',
-                'confirmed',
-                'regex:/[A-Z]/',      // uppercase letter
-                'regex:/[a-z]/',      // lowercase letter
-                'regex:/[0-9]/',      // number
-                'regex:/[@$!%*?&]/',  // special character
-            ],
-        ], [
-            'password.regex:/[A-Z]/' => 'Password must contain at least one uppercase letter',
-            'password.regex:/[a-z]/' => 'Password must contain at least one lowercase letter',
-            'password.regex:/[0-9]/' => 'Password must contain at least one number',
-            'password.regex:/[@$!%*?&]/' => 'Password must contain at least one special character (@$!%*?&)',
-        ]);
-
-        $user->update(['password' => Hash::make($validated['password'])]);
-
-        return response()->json(['success' => true, 'message' => 'Password updated successfully!']);
     }
 
     /**
      * Delete the user's account.
-     *
-     * Permanently deletes the authenticated user's account and all associated data.
-     * This action cannot be undone.
      *
      * @param Request $request The incoming HTTP request
      * @return \Illuminate\Http\JsonResponse Success message
      */
     public function deleteAccount(Request $request)
     {
-        $user = auth()->user();
-        $user->delete();
+        try {
+            $user = auth()->user();
+            $user->delete();
 
-        return response()->json(['success' => true, 'message' => 'Account deleted successfully!']);
+            return response()->json(['success' => true, 'message' => 'Account deleted successfully!']);
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'error' => 'Failed to delete account. Please try again.',
+            ], 500);
+        }
     }
 
     /**
@@ -137,20 +155,25 @@ class ProfileController extends Controller
      */
     public function password()
     {
-        return view('profile.password');
+        try {
+            return view('profile.password');
+        } catch (Exception $e) {
+            return redirect()->route('dashboard')->with('error', 'Unable to load password page. Please try again.');
+        }
     }
 
     /**
      * Display the API settings page.
      *
-     * Shows the user's API token management interface where they can
-     * create and revoke personal access tokens for MCP clients.
-     *
      * @return \Illuminate\View\View The API settings view with user data
      */
     public function api()
     {
-        $user = auth()->user();
-        return view('profile.api', compact('user'));
+        try {
+            $user = auth()->user();
+            return view('profile.api', compact('user'));
+        } catch (Exception $e) {
+            return redirect()->route('dashboard')->with('error', 'Unable to load API settings. Please try again.');
+        }
     }
 }
