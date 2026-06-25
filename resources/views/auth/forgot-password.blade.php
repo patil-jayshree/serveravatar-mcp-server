@@ -101,10 +101,23 @@
         .btn-resend { background: var(--gradient-primary); color: white; border: none; padding: 10px 20px; border-radius: var(--radius-md); font-weight: 600; font-size: 0.875rem; cursor: pointer; transition: all var(--transition-fast); box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3); display: inline-flex; align-items: center; gap: 6px; font-family: inherit; }
         .btn-resend:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4); }
         .btn-resend svg { width: 16px; height: 16px; }
+
+        /* Toast */
+        .toast { position: fixed; top: 90px; right: 20px; background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%); color: white; padding: 14px 20px; border-radius: 12px; display: none; align-items: center; gap: 12px; box-shadow: 0 8px 30px rgba(220, 38, 38, 0.4); z-index: 10000; max-width: 350px; }
+        .toast.show { display: flex; animation: slideIn 0.3s ease; }
+        .toast-icon { width: 28px; height: 28px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: bold; }
+        .toast-message { font-size: 0.9rem; font-weight: 600; }
+        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
     </style>
 </head>
 <body>
     <button class="theme-toggle-fixed" onclick="toggleTheme()" title="Toggle theme"></button>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+        <span class="toast-icon">✕</span>
+        <span class="toast-message"></span>
+    </div>
 
     <div class="auth-page">
         <div class="auth-wrapper">
@@ -205,6 +218,23 @@
                 document.documentElement.setAttribute('data-theme', saved);
             }
         })();
+
+        // Toast notification
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.querySelector('.toast-message').textContent = message;
+            toast.classList.add('show');
+            setTimeout(function() {
+                toast.classList.remove('show');
+            }, 4000);
+        }
+
+        // Show error toast if there are validation errors (page load with errors)
+        @if ($errors->any())
+            document.addEventListener('DOMContentLoaded', function() {
+                showToast('{{ $errors->first() }}');
+            });
+        @endif
     </script>
 </body>
 </html>

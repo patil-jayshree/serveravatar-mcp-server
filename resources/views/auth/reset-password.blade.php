@@ -43,6 +43,13 @@
         .theme-toggle-fixed::before { content: '🌙'; position: absolute; left: 4px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; border-radius: 50%; background: var(--bg-tertiary); display: flex; align-items: center; justify-content: center; font-size: 12px; transition: all var(--transition-normal); }
         [data-theme="light"] .theme-toggle-fixed::before { content: '☀️'; left: calc(100% - 24px); }
 
+        /* Toast */
+        .toast { position: fixed; top: 90px; right: 20px; background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%); color: white; padding: 14px 20px; border-radius: 12px; display: none; align-items: center; gap: 12px; box-shadow: 0 8px 30px rgba(220, 38, 38, 0.4); z-index: 10000; max-width: 350px; }
+        .toast.show { display: flex; animation: slideIn 0.3s ease; }
+        .toast-icon { width: 28px; height: 28px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: bold; }
+        .toast-message { font-size: 0.9rem; font-weight: 600; }
+        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+
         /* Page */
         .auth-page { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 2rem; position: relative; overflow: hidden; }
         .auth-page::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle at 30% 20%, var(--accent-primary-muted) 0%, transparent 50%), radial-gradient(circle at 70% 80%, rgba(139, 92, 246, 0.08) 0%, transparent 50%); pointer-events: none; }
@@ -67,14 +74,6 @@
         .alert-success-text { flex: 1; }
         .alert-success-title { font-weight: 600; margin-bottom: 4px; }
         .alert-success-desc { color: var(--text-secondary); font-size: 0.85rem; line-height: 1.5; }
-
-        /* Error Alert */
-        .alert-error { background: var(--accent-danger-muted); color: var(--accent-danger); border: 1px solid var(--accent-danger); border-left: 4px solid var(--accent-danger); border-radius: var(--radius-md); padding: 1rem 1.25rem; margin-bottom: 1.5rem; display: flex; align-items: flex-start; gap: 12px; font-size: 0.9rem; }
-        .alert-error .error-icon { width: 24px; height: 24px; background: var(--accent-danger); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
-        .alert-error .error-icon svg { width: 14px; height: 14px; color: white; }
-        .alert-error-text { flex: 1; }
-        .alert-error-title { font-weight: 600; margin-bottom: 4px; }
-        .alert-error-desc { color: var(--text-secondary); font-size: 0.85rem; line-height: 1.5; }
 
         /* Form */
         .form-group { margin-bottom: 1.25rem; }
@@ -113,6 +112,12 @@
 <body>
     <button class="theme-toggle-fixed" onclick="toggleTheme()" title="Toggle theme"></button>
 
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+        <span class="toast-icon">✕</span>
+        <span class="toast-message"></span>
+    </div>
+
     <div class="auth-page">
         <div class="auth-wrapper">
             <div class="auth-card">
@@ -140,24 +145,8 @@
                     </div>
                 @endif
 
-                {{-- Error State --}}
-                @if ($errors->any())
-                    <div class="alert-error">
-                        <div class="error-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                                <line x1="18" y1="6" x2="6" y2="18"></line>
-                                <line x1="6" y1="6" x2="18" y2="18"></line>
-                            </svg>
-                        </div>
-                        <div class="alert-error-text">
-                            <div class="alert-error-title">Unable to reset password</div>
-                            <div class="alert-error-desc">{{ $errors->first() }}</div>
-                        </div>
-                    </div>
-                @endif
-
                 {{-- Reset Form --}}
-                <form method="post" action="{{ route('password.update') }}">
+                <form method="post" action="{{ route('password.update') }}" id="resetForm">
                     @csrf
                     <input type="hidden" name="token" value="{{ $token }}">
 
@@ -269,6 +258,23 @@
                 document.documentElement.setAttribute('data-theme', saved);
             }
         })();
+
+        // Toast notification
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.querySelector('.toast-message').textContent = message;
+            toast.classList.add('show');
+            setTimeout(function() {
+                toast.classList.remove('show');
+            }, 4000);
+        }
+
+        // Show error toast if there are validation errors (page load with errors)
+        @if ($errors->any())
+            document.addEventListener('DOMContentLoaded', function() {
+                showToast('{{ $errors->first() }}');
+            });
+        @endif
     </script>
 </body>
 </html>
