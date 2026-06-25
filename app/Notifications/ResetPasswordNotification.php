@@ -59,7 +59,7 @@ class ResetPasswordNotification extends Notification
     {
         return (new MailMessage)
             ->subject('Reset Your ServerAvatar MCP Password')
-            ->view('emails.reset-password', [
+            ->markdown('emails.reset-password', [
                 'url' => $url,
                 'email' => $notifiable->getEmailForPasswordReset(),
                 'name' => $notifiable->name,
