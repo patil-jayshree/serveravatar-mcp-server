@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - ServerAvatar MCP</title>
+    <title>Forgot Password - ServerAvatar MCP</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -41,10 +42,16 @@
         .theme-toggle-fixed { position: fixed; top: 20px; right: 20px; z-index: 200; width: 48px; height: 28px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 20px; cursor: pointer; transition: all var(--transition-normal); }
         .theme-toggle-fixed::before { content: '🌙'; position: absolute; left: 4px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; border-radius: 50%; background: var(--bg-tertiary); display: flex; align-items: center; justify-content: center; font-size: 12px; transition: all var(--transition-normal); }
         [data-theme="light"] .theme-toggle-fixed::before { content: '☀️'; left: calc(100% - 24px); }
+
+        /* Page */
         .auth-page { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 2rem; position: relative; overflow: hidden; }
         .auth-page::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle at 30% 20%, var(--accent-primary-muted) 0%, transparent 50%), radial-gradient(circle at 70% 80%, rgba(139, 92, 246, 0.08) 0%, transparent 50%); pointer-events: none; }
+
+        /* Card */
         .auth-wrapper { width: 100%; max-width: 440px; position: relative; z-index: 1; }
         .auth-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-xl); padding: 2.5rem; box-shadow: var(--shadow-lg); }
+
+        /* Brand */
         .auth-brand { text-align: center; margin-bottom: 2rem; }
         .auth-logo-wrap { width: 72px; height: 72px; background: var(--gradient-primary); border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; box-shadow: 0 8px 32px rgba(99, 102, 241, 0.3); position: relative; }
         .auth-logo-wrap::after { content: ''; position: absolute; inset: -2px; border-radius: calc(var(--radius-lg) + 2px); background: var(--gradient-primary); opacity: 0.3; filter: blur(12px); z-index: -1; }
@@ -52,33 +59,48 @@
         .auth-mcp-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--accent-primary-muted); color: var(--accent-primary); padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.75rem; }
         .auth-title { font-size: 1.75rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 0.5rem; }
         .auth-subtitle { color: var(--text-secondary); font-size: 0.95rem; }
+
+        /* Success Alert */
+        .alert-success { background: var(--accent-success-muted); color: var(--accent-success); border: 1px solid var(--accent-success); border-left: 4px solid var(--accent-success); border-radius: var(--radius-md); padding: 1rem 1.25rem; margin-bottom: 1.5rem; display: flex; align-items: flex-start; gap: 12px; font-size: 0.9rem; }
+        .alert-success .check-icon { width: 24px; height: 24px; background: var(--accent-success); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+        .alert-success .check-icon svg { width: 14px; height: 14px; color: white; }
+        .alert-success-text { flex: 1; }
+        .alert-success-title { font-weight: 600; margin-bottom: 4px; }
+        .alert-success-desc { color: var(--text-secondary); font-size: 0.85rem; line-height: 1.5; }
+
+        /* Form */
         .form-group { margin-bottom: 1.25rem; }
         .form-label { display: block; font-weight: 600; font-size: 0.875rem; margin-bottom: 0.5rem; color: var(--text-primary); }
         .form-label .required { color: #ef4444; margin-left: 2px; }
-        .form-input { width: 100%; padding: 12px 16px; background: var(--bg-input); border: 1px solid var(--border-color); border-radius: var(--radius-md); color: var(--text-primary); font-size: 0.95rem; font-family: inherit; transition: all var(--transition-fast); }
+        .input-wrap { position: relative; }
+        .input-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text-muted); display: flex; align-items: center; pointer-events: none; }
+        .input-icon svg { width: 18px; height: 18px; }
+        .form-input { width: 100%; padding: 12px 16px 12px 44px; background: var(--bg-input); border: 1.5px solid var(--border-color); border-radius: var(--radius-md); color: var(--text-primary); font-size: 0.95rem; font-family: inherit; transition: all var(--transition-fast); }
+        [data-theme="light"] .form-input { border-color: #c4b5fd; }
         .form-input:focus { outline: none; border-color: var(--accent-primary); box-shadow: 0 0 0 3px var(--accent-primary-muted); }
         .form-input::placeholder { color: var(--text-muted); }
-        .btn-primary { background: var(--gradient-primary); color: white; border: none; padding: 14px 24px; border-radius: var(--radius-md); font-weight: 700; font-size: 0.95rem; width: 100%; cursor: pointer; transition: all var(--transition-fast); box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3); display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .form-input.is-invalid { border-color: var(--accent-danger); }
+
+        /* Error message */
+        .error-text { color: var(--accent-danger); font-size: 0.8rem; margin-top: 0.4rem; display: block; }
+
+        /* Primary Button */
+        .btn-primary { background: var(--gradient-primary); color: white; border: none; padding: 14px 24px; border-radius: var(--radius-md); font-weight: 700; font-size: 0.95rem; width: 100%; cursor: pointer; transition: all var(--transition-fast); box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3); display: flex; align-items: center; justify-content: center; gap: 8px; font-family: inherit; }
         .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4); }
+        .btn-primary:active { transform: translateY(0); }
+        .btn-primary svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+        /* Footer Link */
         .auth-footer { text-align: center; margin-top: 1.5rem; color: var(--text-secondary); font-size: 0.9rem; }
         .auth-footer a { color: var(--accent-primary); text-decoration: none; font-weight: 600; }
         .auth-footer a:hover { text-decoration: underline; }
-        .alert { padding: 1rem 1.25rem; border-radius: var(--radius-md); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 12px; font-size: 0.9rem; }
-        .alert-error { background: var(--accent-danger-muted); color: var(--accent-danger); border: 1px solid var(--accent-danger); }
-        .alert-success { background: var(--accent-success-muted); color: var(--accent-success); border: 1px solid var(--accent-success); }
-        .toast-container { position: fixed; top: 80px; right: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; }
-        .toast { padding: 14px 20px; border-radius: 10px; display: flex; align-items: center; gap: 10px; font-size: 0.9rem; font-weight: 500; box-shadow: 0 4px 20px rgba(0,0,0,0.15); animation: slideIn 0.3s ease forwards; min-width: 280px; max-width: 400px; }
-        .toast-error { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
-        .toast-success { background: #f0fdf4; color: #16a34a; border: 1px solid #bbf7d0; }
-        .toast-info { background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; }
-        .toast.hiding { animation: slideOut 0.3s ease forwards; }
-        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-        @keyframes slideOut { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
-        .form-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
-        .remember-me { display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 0.9rem; color: var(--text-secondary); }
-        .remember-me input { width: 16px; height: 16px; accent-color: var(--accent-primary); }
-        .forgot-link { font-size: 0.9rem; color: var(--accent-primary); text-decoration: none; font-weight: 500; }
-        .forgot-link:hover { text-decoration: underline; }
+
+        /* Resend section */
+        .resend-section { margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border-color); text-align: center; }
+        .resend-text { color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 1rem; }
+        .btn-resend { background: var(--gradient-primary); color: white; border: none; padding: 10px 20px; border-radius: var(--radius-md); font-weight: 600; font-size: 0.875rem; cursor: pointer; transition: all var(--transition-fast); box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3); display: inline-flex; align-items: center; gap: 6px; font-family: inherit; }
+        .btn-resend:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4); }
+        .btn-resend svg { width: 16px; height: 16px; }
     </style>
 </head>
 <body>
@@ -92,88 +114,85 @@
                         <span class="auth-logo-icon">⚡</span>
                     </div>
                     <div class="auth-mcp-badge">ServerAvatar MCP Server</div>
-                    <h1 class="auth-title">Welcome Back</h1>
-                    <p class="auth-subtitle">Login to continue</p>
+                    <h1 class="auth-title">Forgot Password</h1>
+                    <p class="auth-subtitle">Enter your email to receive a reset link.</p>
                 </div>
-                <form method="post" action="{{ route('login') }}">
-                    @csrf
-                    <div class="form-group">
-                        <label class="form-label" for="email">Email Address <span class="required">*</span></label>
-                        <input type="email" id="email" name="email" class="form-input" value="{{ old('email', '') }}" placeholder="you@example.com" required autofocus>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="password">Password <span class="required">*</span></label>
-                        <div style="position: relative;">
-                            <input type="password" id="password" name="password" class="form-input" placeholder="••••••••" required style="padding-right: 44px;">
-                            <button type="button" onclick="toggleLoginPassword()" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: var(--text-muted); padding: 0; display: flex; align-items: center;">
-                                <svg class="eye-icon-login" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                                    <circle cx="12" cy="12" r="3"></circle>
-                                </svg>
-                                <svg class="eye-off-icon-login" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">
-                                    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
-                                    <line x1="1" y1="1" x2="23" y2="23"></line>
-                                </svg>
-                            </button>
+
+                {{-- Success State --}}
+                @if (session('status'))
+                    <div class="alert-success">
+                        <div class="check-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                        </div>
+                        <div class="alert-success-text">
+                            <div class="alert-success-title">Password reset link sent successfully!</div>
+                            <div class="alert-success-desc">If an account exists for this email, you'll receive a password reset link shortly.</div>
                         </div>
                     </div>
-                    <div class="form-row">
-                        <label class="remember-me">
-                            <input type="checkbox" name="remember" id="remember">
-                            Remember me
-                        </label>
+
+                    <div class="resend-section">
+                        <p class="resend-text">Didn't receive the email?</p>
+                        <form method="post" action="{{ route('password.email') }}">
+                            @csrf
+                            <input type="hidden" name="email" value="{{ session('sent_email', old('email')) }}">
+                            <button type="submit" class="btn-resend">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="1 4 1 10 7 10"></polyline>
+                                    <path d="M3.51 15a9 9 0 1 0 .49-3.51"></path>
+                                </svg>
+                                Resend Reset Link
+                            </button>
+                        </form>
                     </div>
-                    <button type="submit" class="btn-primary"><span>🔓</span> Login</button>
-                    <div style="text-align: center; margin-top: 1rem;">
-                        <a href="{{ route('password.request') }}" class="forgot-link">Forgot your password?</a>
-                    </div>
-                </form>
-                <div class="auth-footer">Don't have an account? <a href="{{ route('register') }}">Register</a></div>
+                {{-- Default State --}}
+                @else
+                    <form method="post" action="{{ route('password.email') }}">
+                        @csrf
+                        <div class="form-group">
+                            <label class="form-label" for="email">Email Address <span class="required">*</span></label>
+                            <div class="input-wrap">
+                                <span class="input-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                        <polyline points="22,6 12,13 2,6"></polyline>
+                                    </svg>
+                                </span>
+                                <input
+                                    type="email"
+                                    id="email"
+                                    name="email"
+                                    class="form-input @error('email') is-invalid @enderror"
+                                    value="{{ old('email', '') }}"
+                                    placeholder="you@example.com"
+                                    required
+                                    autofocus
+                                >
+                            </div>
+                            @error('email')
+                                <span class="error-text">{{ $message }}</span>
+                            @enderror
+                        </div>
+
+                        <button type="submit" class="btn-primary">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                <polyline points="22,6 12,13 2,6"></polyline>
+                            </svg>
+                            Send Reset Link
+                        </button>
+                    </form>
+                @endif
+
+                <div class="auth-footer">
+                    Remember your password? <a href="{{ route('login') }}">Login</a>
+                </div>
             </div>
         </div>
     </div>
-    <div class="toast-container" id="toast-container">
-        @if ($errors->any())
-        <div class="toast toast-error" id="toast-error">
-            <span>⚠️</span>
-            <span>{{ $errors->first() }}</span>
-        </div>
-        @endif
-        @if (session('status'))
-        <div class="toast toast-success" id="toast-success">
-            <span>✓</span>
-            <span>{{ session('status') }}</span>
-        </div>
-        @endif
-    </div>
-    <script>
-        function toggleLoginPassword() {
-            var input = document.getElementById('password');
-            var eyeIcon = document.querySelector('.eye-icon-login');
-            var eyeOffIcon = document.querySelector('.eye-off-icon-login');
-            if (input.type === 'password') {
-                input.type = 'text';
-                eyeIcon.style.display = 'none';
-                eyeOffIcon.style.display = 'block';
-            } else {
-                input.type = 'password';
-                eyeIcon.style.display = 'block';
-                eyeOffIcon.style.display = 'none';
-            }
-        }
-        // Auto-dismiss toasts after 5 seconds
-        document.addEventListener('DOMContentLoaded', function() {
-            var toasts = document.querySelectorAll('.toast');
-            toasts.forEach(function(toast) {
-                setTimeout(function() {
-                    toast.classList.add('hiding');
-                    setTimeout(function() {
-                        toast.remove();
-                    }, 300);
-                }, 5000);
-            });
-        });
 
+    <script>
         function toggleTheme() {
             const html = document.documentElement;
             const theme = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';

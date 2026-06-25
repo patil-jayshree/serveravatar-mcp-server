@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Auth\{LoginController, RegisterController};
+use App\Http\Controllers\Auth\{LoginController, RegisterController, ForgotPasswordController};
 use App\Http\Controllers\{DashboardController, ToolsController, ClientsController,ProfileController};
 use Illuminate\Support\Facades\Route;
 
@@ -22,6 +22,11 @@ Route::middleware('guest')->group(function () {
     Route::controller(RegisterController::class)->group(function () {
         Route::get('register', 'showRegisterForm')->name('register');
         Route::post('register', 'register');
+    });
+
+    Route::controller(ForgotPasswordController::class)->group(function () {
+        Route::get('forgot-password', 'showForgotPasswordForm')->name('password.request');
+        Route::post('forgot-password', 'sendResetLink')->name('password.email');
     });
 });
 
