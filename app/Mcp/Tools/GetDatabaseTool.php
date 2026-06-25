@@ -17,24 +17,13 @@ class GetDatabaseTool extends Tool
     public function handle(Request $request): Response
     {
         $user = $request->user();
-        $databaseId = $request->get('database_id');
-        $organizationId = $request->get('organization_id');
         
+        $organizationId = $this->getOrganizationId($request);
+        if ($organizationId instanceof Response) return $organizationId;
+        
+        $databaseId = $request->get('database_id');
         if (!$databaseId) {
             return Response::error('database_id is required.');
-        }
-        
-        if (!$organizationId) {
-            $orgs = $this->apiCall('/organizations', $user);
-            if (isset($orgs['organizations'])) {
-                foreach ($orgs['organizations'] as $org) {
-                    $result = $this->findDatabaseInOrg($org['id'], $databaseId, $user);
-                    if ($result) {
-                        return Response::text(json_encode(['database' => $result], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
-                    }
-                }
-            }
-            return Response::error("Database with ID $databaseId not found.");
         }
         
         $result = $this->findDatabaseInOrg($organizationId, $databaseId, $user);
@@ -49,7 +38,7 @@ class GetDatabaseTool extends Tool
     {
         return [
             'database_id' => $schema->string()->description('The database ID'),
-            'organization_id' => $schema->string()->description('The organization ID (optional - searches all orgs if not provided)'),
+            'organization_id' => $schema->string()->description('The organization ID (required)'),
         ];
     }
     

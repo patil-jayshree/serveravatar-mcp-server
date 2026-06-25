@@ -17,14 +17,9 @@ class ListBackupsTool extends Tool
     public function handle(Request $request): Response
     {
         $user = $request->user();
-        $organizationId = $request->get('organization_id');
         
-        if (!$organizationId) {
-            $organizationId = $this->getDefaultOrgId($user);
-            if (!$organizationId) {
-                return Response::error('No organizations found for this account.');
-            }
-        }
+        $organizationId = $this->getOrganizationId($request);
+        if ($organizationId instanceof Response) return $organizationId;
         
         $data = $this->apiCall("/organizations/$organizationId/backups", $user);
         
@@ -43,7 +38,7 @@ class ListBackupsTool extends Tool
     public function schema(JsonSchema $schema): array
     {
         return [
-            'organization_id' => $schema->string()->description('The organization ID (optional - uses first org if not provided)'),
+            'organization_id' => $schema->string()->description('The organization ID (required)'),
         ];
     }
 }

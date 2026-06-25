@@ -18,14 +18,9 @@ class ListServersTool extends Tool
     {
         $user = $request->user();
         $page = $request->get('page', 1);
-        $organizationId = $request->get('organization_id');
         
-        if (!$organizationId) {
-            $organizationId = $this->getDefaultOrgId($user);
-            if (!$organizationId) {
-                return Response::error('No organizations found for this account.');
-            }
-        }
+        $organizationId = $this->getOrganizationId($request);
+        if ($organizationId instanceof Response) return $organizationId;
         
         $data = $this->apiCall("/organizations/$organizationId/servers?page=$page", $user);
         
@@ -36,7 +31,7 @@ class ListServersTool extends Tool
     {
         return [
             'page' => $schema->integer()->description('Page number')->default(1),
-            'organization_id' => $schema->string()->description('The organization ID (optional - uses first org if not provided)'),
+            'organization_id' => $schema->string()->description('The organization ID (required)'),
         ];
     }
 }

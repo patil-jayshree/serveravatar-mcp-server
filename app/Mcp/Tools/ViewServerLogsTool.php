@@ -17,21 +17,14 @@ class ViewServerLogsTool extends Tool
     public function handle(Request $request): Response
     {
         $user = $request->user();
-        $serverId = $request->get('server_id');
-        $organizationId = $request->get('organization_id');
         $log = $request->get('log');
         $lines = $request->get('lines', 100);
         
-        if (!$serverId) {
-            return Response::error('server_id is required.');
-        }
+        $organizationId = $this->getOrganizationId($request);
+        if ($organizationId instanceof Response) return $organizationId;
         
-        if (!$organizationId) {
-            $organizationId = $this->getDefaultOrgId($user);
-            if (!$organizationId) {
-                return Response::error('No organizations found for this account.');
-            }
-        }
+        $serverId = $this->getServerId($request);
+        if ($serverId instanceof Response) return $serverId;
         
         if ($log) {
             $data = $this->apiCall("/organizations/$organizationId/servers/$serverId/logs", $user, [
@@ -49,7 +42,7 @@ class ViewServerLogsTool extends Tool
     {
         return [
             'server_id' => $schema->string()->description('The server ID'),
-            'organization_id' => $schema->string()->description('The organization ID (optional - uses first org if not provided)'),
+            'organization_id' => $schema->string()->description('The organization ID (required)'),
             'log' => $schema->string()->description('Log file path (e.g., apache2/error.log). If not provided, returns list of available logs.'),
             'lines' => $schema->integer()->description('Number of log lines to fetch')->default(100),
         ];

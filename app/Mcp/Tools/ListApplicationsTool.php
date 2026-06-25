@@ -17,16 +17,12 @@ class ListApplicationsTool extends Tool
     public function handle(Request $request): Response
     {
         $user = $request->user();
-        $serverId = $request->get('server_id');
-        $organizationId = $request->get('organization_id');
         
-        if (!$serverId) {
-            return Response::error('server_id is required. Please provide the server ID.');
-        }
+        $organizationId = $this->getOrganizationId($request);
+        if ($organizationId instanceof Response) return $organizationId;
         
-        if (!$organizationId) {
-            return Response::error('organization_id is required. Please provide your ServerAvatar organization ID.');
-        }
+        $serverId = $this->getServerId($request);
+        if ($serverId instanceof Response) return $serverId;
         
         $data = $this->apiCall("/organizations/$organizationId/servers/$serverId/applications", $user);
         
@@ -36,7 +32,7 @@ class ListApplicationsTool extends Tool
     public function schema(JsonSchema $schema): array
     {
         return [
-            'server_id' => $schema->string()->description('The server ID (required)'),
+            'server_id' => $schema->string()->description('The server ID'),
             'organization_id' => $schema->string()->description('The organization ID (required)'),
         ];
     }

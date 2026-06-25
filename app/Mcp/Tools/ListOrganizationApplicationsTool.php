@@ -17,11 +17,9 @@ class ListOrganizationApplicationsTool extends Tool
     public function handle(Request $request): Response
     {
         $user = $request->user();
-        $organizationId = $request->get('organization_id');
         
-        if (!$organizationId) {
-            return Response::error('organization_id is required. Please provide your ServerAvatar organization ID.');
-        }
+        $organizationId = $this->getOrganizationId($request);
+        if ($organizationId instanceof Response) return $organizationId;
         
         $data = $this->apiCall("/organizations/$organizationId/applications", $user);
         

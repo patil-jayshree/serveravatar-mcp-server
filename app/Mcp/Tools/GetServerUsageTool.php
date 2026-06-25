@@ -17,20 +17,12 @@ class GetServerUsageTool extends Tool
     public function handle(Request $request): Response
     {
         $user = $request->user();
-        $serverId = $request->get('server_id');
-        $organizationId = $request->get('organization_id');
         
-        if (!$serverId) {
-            return Response::error('server_id is required.');
-        }
+        $organizationId = $this->getOrganizationId($request);
+        if ($organizationId instanceof Response) return $organizationId;
         
-        if (!$organizationId) {
-            $orgId = $this->getDefaultOrgId($user);
-            if (!$orgId) {
-                return Response::error('No organizations found for this account.');
-            }
-            $organizationId = $orgId;
-        }
+        $serverId = $this->getServerId($request);
+        if ($serverId instanceof Response) return $serverId;
         
         $data = $this->apiCall("/organizations/$organizationId/servers/$serverId/usage", $user);
         
@@ -41,7 +33,7 @@ class GetServerUsageTool extends Tool
     {
         return [
             'server_id' => $schema->string()->description('The server ID'),
-            'organization_id' => $schema->string()->description('The organization ID (optional - uses first org if not provided)'),
+            'organization_id' => $schema->string()->description('The organization ID (required)'),
         ];
     }
 }

@@ -17,20 +17,16 @@ class GetApplicationTool extends Tool
     public function handle(Request $request): Response
     {
         $user = $request->user();
-        $serverId = $request->get('server_id');
+        
+        $organizationId = $this->getOrganizationId($request);
+        if ($organizationId instanceof Response) return $organizationId;
+        
+        $serverId = $this->getServerId($request);
+        if ($serverId instanceof Response) return $serverId;
+        
         $applicationId = $request->get('application_id');
-        $organizationId = $request->get('organization_id');
-        
-        if (!$serverId) {
-            return Response::error('server_id is required. Please provide the server ID.');
-        }
-        
         if (!$applicationId) {
-            return Response::error('application_id is required. Please provide the application ID.');
-        }
-        
-        if (!$organizationId) {
-            return Response::error('organization_id is required. Please provide your ServerAvatar organization ID.');
+            return Response::error('application_id is required.');
         }
         
         $data = $this->apiCall("/organizations/$organizationId/servers/$serverId/applications/$applicationId", $user);
@@ -41,7 +37,7 @@ class GetApplicationTool extends Tool
     public function schema(JsonSchema $schema): array
     {
         return [
-            'server_id' => $schema->string()->description('The server ID (required)'),
+            'server_id' => $schema->string()->description('The server ID'),
             'application_id' => $schema->string()->description('The application ID to retrieve details for (required)'),
             'organization_id' => $schema->string()->description('The organization ID (required)'),
         ];

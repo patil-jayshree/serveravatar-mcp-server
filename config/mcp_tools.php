@@ -87,13 +87,6 @@ return [
             'icon' => '☁️',
         ],
         [
-            'name' => 'list_ssl_certificates',
-            'class' => \App\Mcp\Tools\ListSslCertificatesTool::class,
-            'description' => 'List all SSL certificates',
-            'usage' => 'listSslCertificates()',
-            'icon' => '🔐',
-        ],
-        [
             'name' => 'view_server_logs',
             'class' => \App\Mcp\Tools\ViewServerLogsTool::class,
             'description' => 'View server logs',

@@ -3,6 +3,8 @@
 namespace App\Mcp\Traits;
 
 use Illuminate\Support\Facades\Http;
+use Illuminate\Http\Request;
+use Laravel\Mcp\Response;
 
 trait InteractsWithServerAvatarApi
 {
@@ -36,12 +38,21 @@ trait InteractsWithServerAvatarApi
         }
     }
 
-    private function getDefaultOrgId($user): ?string
+    private function getOrganizationId(Request $request): string|Response
     {
-        $data = $this->apiCall('/organizations', $user);
-        if (isset($data['organizations']) && count($data['organizations']) > 0) {
-            return $data['organizations'][0]['id'] ?? null;
+        $orgId = $request->get('organization_id');
+        if (!$orgId) {
+            return Response::error('organization_id is required. Please provide your ServerAvatar organization ID.');
         }
-        return null;
+        return $orgId;
+    }
+
+    private function getServerId(Request $request): string|Response
+    {
+        $serverId = $request->get('server_id');
+        if (!$serverId) {
+            return Response::error('server_id is required.');
+        }
+        return $serverId;
     }
 }

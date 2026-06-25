@@ -18,14 +18,9 @@ class ListDatabasesTool extends Tool
     {
         $user = $request->user();
         $search = $request->get('search', '');
-        $organizationId = $request->get('organization_id');
         
-        if (!$organizationId) {
-            $organizationId = $this->getDefaultOrgId($user);
-            if (!$organizationId) {
-                return Response::error('No organizations found for this account.');
-            }
-        }
+        $organizationId = $this->getOrganizationId($request);
+        if ($organizationId instanceof Response) return $organizationId;
         
         $endpoint = "/organizations/$organizationId/databases";
         if ($search) {
@@ -41,7 +36,7 @@ class ListDatabasesTool extends Tool
     {
         return [
             'search' => $schema->string()->description('Search term for filtering databases'),
-            'organization_id' => $schema->string()->description('The organization ID (optional - uses first org if not provided)'),
+            'organization_id' => $schema->string()->description('The organization ID (required)'),
         ];
     }
 }
