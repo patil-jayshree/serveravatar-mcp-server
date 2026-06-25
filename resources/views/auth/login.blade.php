@@ -38,7 +38,7 @@
         body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; min-height: 100vh; transition: background var(--transition-normal), color var(--transition-normal); }
 
         /* Theme Toggle */
-        .theme-toggle-fixed { position: fixed; top: 20px; right: 20px; z-index: 200; width: 48px; height: 28px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 20px; cursor: pointer; position: relative; transition: all var(--transition-normal); }
+        .theme-toggle-fixed { position: fixed; top: 20px; right: 20px; z-index: 200; width: 48px; height: 28px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 20px; cursor: pointer; transition: all var(--transition-normal); }
         .theme-toggle-fixed::before { content: '🌙'; position: absolute; left: 4px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; border-radius: 50%; background: var(--bg-tertiary); display: flex; align-items: center; justify-content: center; font-size: 12px; transition: all var(--transition-normal); }
         [data-theme="light"] .theme-toggle-fixed::before { content: '☀️'; left: calc(100% - 24px); }
         .auth-page { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 2rem; position: relative; overflow: hidden; }
