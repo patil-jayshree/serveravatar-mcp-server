@@ -39,7 +39,9 @@ class ForgotPasswordController extends Controller
 
             // Always redirect back with success, regardless of result
             // (Laravel security: don't reveal whether email exists)
-            return redirect()->back()->with('status', 'reset_link_sent');
+            return redirect()->back()
+                ->with('status', 'reset_link_sent')
+                ->with('sent_email', $request->email);
         } catch (\Exception $e) {
             return redirect()->back()
                 ->withErrors(['email' => 'Unable to send reset link. Please try again.'])
