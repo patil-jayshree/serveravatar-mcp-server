@@ -3,7 +3,7 @@
 namespace App\Mcp\Traits;
 
 use Illuminate\Support\Facades\Http;
-use Illuminate\Http\Request;
+use Laravel\Mcp\Request;
 use Laravel\Mcp\Response;
 
 trait InteractsWithServerAvatarApi
