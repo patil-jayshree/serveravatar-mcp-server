@@ -1,8 +1,6 @@
 @component('mail::message')
 # Password Reset Request
 
-![ServerAvatar](https://mcp.178.105.137.4.nip.io/favicon.png)
-
 Hi **{{ $name }}**,
 
 We received a request to reset the password for your **ServerAvatar MCP** account.
