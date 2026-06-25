@@ -1,14 +1,14 @@
-<table role=\"presentation\" border=\"0\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" style=\"max-width: 600px; margin: 0 auto;\">
+<table role="presentation" border="0" width="100%" cellspacing="0" cellpadding="0" style="max-width: 600px; margin: 0 auto;">
     <tr>
-        <td style=\"background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%); padding: 30px; text-align: center;\">
-            <table role=\"presentation\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" style=\"margin: 0 auto;\">
+        <td style="background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%); padding: 30px; text-align: center;">
+            <table role="presentation" border="0" cellspacing="0" cellpadding="0" style="margin: 0 auto;">
                 <tr>
-                    <td style=\"padding-right: 12px;\">
-                        <span style=\"font-size: 32px;\">⚡</span>
+                    <td style="padding-right: 12px;">
+                        <span style="font-size: 32px;">⚡</span>
                     </td>
-                    <td style=\"text-align: left;\">
-                        <span style=\"font-size: 24px; font-weight: 800; color: white;\">ServerAvatar</span>
-                        <span style=\"display: inline-block; background: rgba(255,255,255,0.2); color: white; padding: 2px 10px; border-radius: 10px; font-size: 12px; font-weight: 700; vertical-align: middle; margin-left: 8px;\">MCP</span>
+                    <td style="text-align: left;">
+                        <span style="font-size: 24px; font-weight: 800; color: white;">ServerAvatar</span>
+                        <span style="display: inline-block; background: rgba(255,255,255,0.2); color: white; padding: 2px 10px; border-radius: 10px; font-size: 12px; font-weight: 700; vertical-align: middle; margin-left: 8px;">MCP</span>
                     </td>
                 </tr>
             </table>
