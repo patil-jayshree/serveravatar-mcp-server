@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
 use Laravel\Passport\Http\Controllers\AuthorizationController as BaseAuthorizationController;
+use Exception;
 
 /**
  * OAuth Authorization Controller
@@ -23,17 +24,17 @@ class OAuthAuthorizeController extends BaseAuthorizationController
     /**
      * Authorize an OAuth client request.
      *
+     * @param Request $request The incoming HTTP request
+     * @param callable|null $nextAuthDecision
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
-     *
-     * @note This bypasses the standard Passport CSRF and approval prompts
-     *       as the user has already authorized via our custom form.
      */
     public function authorize(Request $request, callable $nextAuthDecision = null)
     {
-        // For MCP OAuth, always approve since user already authorized via our custom form
-        // This sets the approve parameter that Passport checks
-        $request->merge(['approve' => true]);
-
-        return parent::authorize($request, $nextAuthDecision);
+        try {
+            $request->merge(['approve' => true]);
+            return parent::authorize($request, $nextAuthDecision);
+        } catch (Exception $e) {
+            return redirect('/')->with('error', 'OAuth authorization failed. Please try again.');
+        }
     }
 }
