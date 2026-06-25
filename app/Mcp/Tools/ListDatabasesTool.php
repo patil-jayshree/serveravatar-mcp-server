@@ -17,16 +17,11 @@ class ListDatabasesTool extends Tool
     public function handle(Request $request): Response
     {
         $user = $request->user();
-        
-        
-        $apiKey = $user->api_key;
-        $apiKey = $user->api_key;
         $search = $request->get('search', '');
         $organizationId = $request->get('organization_id');
         
-        // If organization_id not provided, get from default org
         if (!$organizationId) {
-            $organizationId = $this->getDefaultOrgId($apiKey);
+            $organizationId = $this->getDefaultOrgId($user);
             if (!$organizationId) {
                 return Response::error('No organizations found for this account.');
             }
@@ -37,7 +32,7 @@ class ListDatabasesTool extends Tool
             $endpoint .= '?search=' . urlencode($search);
         }
         
-        $data = $this->apiCall($endpoint, $apiKey);
+        $data = $this->apiCall($endpoint, $user);
         
         return Response::text(json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
     }
@@ -48,14 +43,5 @@ class ListDatabasesTool extends Tool
             'search' => $schema->string()->description('Search term for filtering databases'),
             'organization_id' => $schema->string()->description('The organization ID (optional - uses first org if not provided)'),
         ];
-    }
-    
-    private function getDefaultOrgId(string $apiKey): ?string
-    {
-        $data = $this->apiCall('/organizations', $apiKey);
-        if (isset($data['organizations']) && count($data['organizations']) > 0) {
-            return $data['organizations'][0]['id'] ?? null;
-        }
-        return null;
     }
 }

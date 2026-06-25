@@ -17,29 +17,22 @@ class ListSslCertificatesTool extends Tool
     public function handle(Request $request): Response
     {
         $user = $request->user();
-        
-        
-        $apiKey = $user->api_key;
-        $apiKey = $user->api_key;
         $organizationId = $request->get('organization_id');
         
-        // If organization_id not provided, get from default org
         if (!$organizationId) {
-            $organizationId = $this->getDefaultOrgId($apiKey);
+            $organizationId = $this->getDefaultOrgId($user);
             if (!$organizationId) {
                 return Response::error('No organizations found for this account.');
             }
         }
         
-        // Try to get SSL certificates from server applications
-        $servers = $this->getServers($apiKey, $organizationId);
+        $servers = $this->getServers($organizationId, $user);
         $certificates = [];
         
         foreach ($servers as $server) {
             if (!isset($server['id'])) continue;
             
-            // Check server's SSL certificates
-            $data = $this->apiCall("/organizations/$organizationId/servers/" . $server['id'] . "/applications", $apiKey);
+            $data = $this->apiCall("/organizations/$organizationId/servers/" . $server['id'] . "/applications", $user);
             if (isset($data['data']) && is_array($data['data'])) {
                 foreach ($data['data'] as $app) {
                     if (isset($app['ssl']) && !empty($app['ssl'])) {
@@ -72,18 +65,9 @@ class ListSslCertificatesTool extends Tool
         ];
     }
     
-    private function getDefaultOrgId(string $apiKey): ?string
+    private function getServers(string $orgId, $user): array
     {
-        $data = $this->apiCall('/organizations', $apiKey);
-        if (isset($data['organizations']) && count($data['organizations']) > 0) {
-            return $data['organizations'][0]['id'] ?? null;
-        }
-        return null;
-    }
-    
-    private function getServers(string $apiKey, string $orgId): array
-    {
-        $data = $this->apiCall("/organizations/$orgId/servers", $apiKey);
+        $data = $this->apiCall("/organizations/$orgId/servers", $user);
         return $data['servers'] ?? [];
     }
 }

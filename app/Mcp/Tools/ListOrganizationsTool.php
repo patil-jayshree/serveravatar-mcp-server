@@ -17,8 +17,7 @@ class ListOrganizationsTool extends Tool
     public function handle(Request $request): Response
     {
         $user = $request->user();
-        $apiKey = $user->api_key;
-        $data = $this->apiCall('/organizations', $apiKey);
+        $data = $this->apiCall('/organizations', $user);
         
         return Response::text(json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
     }

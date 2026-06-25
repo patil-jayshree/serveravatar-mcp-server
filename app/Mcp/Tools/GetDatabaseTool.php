@@ -17,10 +17,6 @@ class GetDatabaseTool extends Tool
     public function handle(Request $request): Response
     {
         $user = $request->user();
-        
-        
-        $apiKey = $user->api_key;
-        $apiKey = $user->api_key;
         $databaseId = $request->get('database_id');
         $organizationId = $request->get('organization_id');
         
@@ -28,12 +24,11 @@ class GetDatabaseTool extends Tool
             return Response::error('database_id is required.');
         }
         
-        // If organization_id not provided, search all organizations
         if (!$organizationId) {
-            $orgs = $this->apiCall('/organizations', $apiKey);
+            $orgs = $this->apiCall('/organizations', $user);
             if (isset($orgs['organizations'])) {
                 foreach ($orgs['organizations'] as $org) {
-                    $result = $this->findDatabaseInOrg($org['id'], $databaseId, $apiKey);
+                    $result = $this->findDatabaseInOrg($org['id'], $databaseId, $user);
                     if ($result) {
                         return Response::text(json_encode(['database' => $result], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
                     }
@@ -42,7 +37,7 @@ class GetDatabaseTool extends Tool
             return Response::error("Database with ID $databaseId not found.");
         }
         
-        $result = $this->findDatabaseInOrg($organizationId, $databaseId, $apiKey);
+        $result = $this->findDatabaseInOrg($organizationId, $databaseId, $user);
         if ($result) {
             return Response::text(json_encode(['database' => $result], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
         }
@@ -58,9 +53,9 @@ class GetDatabaseTool extends Tool
         ];
     }
     
-    private function findDatabaseInOrg(string $orgId, string $databaseId, string $apiKey): ?array
+    private function findDatabaseInOrg(string $orgId, string $databaseId, $user): ?array
     {
-        $data = $this->apiCall("/organizations/$orgId/databases", $apiKey);
+        $data = $this->apiCall("/organizations/$orgId/databases", $user);
         if (isset($data['databases'])) {
             foreach ($data['databases'] as $db) {
                 if ($db['id'] == $databaseId) {

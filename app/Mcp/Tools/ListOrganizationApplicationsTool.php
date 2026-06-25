@@ -17,17 +17,13 @@ class ListOrganizationApplicationsTool extends Tool
     public function handle(Request $request): Response
     {
         $user = $request->user();
-        
-        
-        $apiKey = $user->api_key;
-        $apiKey = $user->api_key;
         $organizationId = $request->get('organization_id');
         
         if (!$organizationId) {
             return Response::error('organization_id is required. Please provide your ServerAvatar organization ID.');
         }
         
-        $data = $this->apiCall("/organizations/$organizationId/applications", $apiKey);
+        $data = $this->apiCall("/organizations/$organizationId/applications", $user);
         
         return Response::text(json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
     }

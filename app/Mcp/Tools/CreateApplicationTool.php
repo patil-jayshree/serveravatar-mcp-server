@@ -23,7 +23,6 @@ class CreateApplicationTool extends Tool
     public function handle(Request $request): Response
     {
         $user = $request->user();
-        $apiKey = $user->api_key;
 
         // =============================================
         // LARAVEL VALIDATION - Throws ValidationException on failure
@@ -106,7 +105,6 @@ class CreateApplicationTool extends Tool
             'mailer_email.email' => 'mailer_email must be a valid email address.',
         ]);
 
-        // Build request payload from validated data
         $serverId = $validated['server_id'];
         $organizationId = $validated['organization_id'];
         $framework = $validated['framework'] ?? 'custom';
@@ -120,14 +118,12 @@ class CreateApplicationTool extends Tool
             'www' => $validated['www'] ?? false,
         ];
 
-        // Domain configuration
         if ($validated['temp_domain'] ?? true) {
             $data['temp_sub_domain_name'] = $validated['temp_sub_domain_name'];
         } else {
             $data['hostname'] = $validated['hostname'];
         }
 
-        // System user configuration - using camelCase as per API docs
         $systemUser = $validated['system_user'] ?? 'new';
         $data['systemUser'] = $systemUser;
 
@@ -135,13 +131,11 @@ class CreateApplicationTool extends Tool
             $data['systemUserId'] = $validated['system_user_id'];
         }
 
-        // Always include systemUserInfo
         $data['systemUserInfo'] = [
             'username' => $validated['system_user_username'] ?? null,
             'password' => $validated['system_user_password'] ?? null,
         ];
 
-        // Optional parameters
         if (isset($validated['webroot'])) {
             $data['webroot'] = $validated['webroot'];
         }
@@ -154,7 +148,6 @@ class CreateApplicationTool extends Tool
             $data['database_name'] = $validated['database_name'];
         }
 
-        // Framework-specific parameters
         if ($framework === 'wordpress') {
             if (isset($validated['title'])) $data['title'] = $validated['title'];
             if (isset($validated['wordpress_username'])) $data['username'] = $validated['wordpress_username'];
@@ -209,8 +202,7 @@ class CreateApplicationTool extends Tool
             if (isset($validated['password'])) $data['password'] = $validated['password'];
         }
 
-        // Make API call
-        $result = $this->apiCall("/organizations/$organizationId/servers/$serverId/applications", $apiKey, $data, 'POST');
+        $result = $this->apiCall("/organizations/$organizationId/servers/$serverId/applications", $user, $data, 'POST');
 
         return Response::text(json_encode($result, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
     }

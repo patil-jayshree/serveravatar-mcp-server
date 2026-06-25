@@ -17,10 +17,6 @@ class DeleteApplicationTool extends Tool
     public function handle(Request $request): Response
     {
         $user = $request->user();
-        
-        
-        $apiKey = $user->api_key;
-        $apiKey = $user->api_key;
         $serverId = $request->get('server_id');
         $applicationId = $request->get('application_id');
         $organizationId = $request->get('organization_id');
@@ -37,7 +33,7 @@ class DeleteApplicationTool extends Tool
             return Response::error('organization_id is required. Please provide your ServerAvatar organization ID.');
         }
         
-        $data = $this->apiCall("/organizations/$organizationId/servers/$serverId/applications/$applicationId", $apiKey, [], 'DELETE');
+        $data = $this->apiCall("/organizations/$organizationId/servers/$serverId/applications/$applicationId", $user, [], 'DELETE');
         
         return Response::text(json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
     }

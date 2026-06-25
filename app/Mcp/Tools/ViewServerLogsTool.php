@@ -17,10 +17,6 @@ class ViewServerLogsTool extends Tool
     public function handle(Request $request): Response
     {
         $user = $request->user();
-        
-        
-        $apiKey = $user->api_key;
-        $apiKey = $user->api_key;
         $serverId = $request->get('server_id');
         $organizationId = $request->get('organization_id');
         $log = $request->get('log');
@@ -30,25 +26,22 @@ class ViewServerLogsTool extends Tool
             return Response::error('server_id is required.');
         }
         
-        // If organization_id not provided, get from default org
         if (!$organizationId) {
-            $organizationId = $this->getDefaultOrgId($apiKey);
+            $organizationId = $this->getDefaultOrgId($user);
             if (!$organizationId) {
                 return Response::error('No organizations found for this account.');
             }
         }
         
-        // If log name provided, fetch specific log content via POST
         if ($log) {
-            $data = $this->apiCall("/organizations/$organizationId/servers/$serverId/logs", $apiKey, [
+            $data = $this->apiCall("/organizations/$organizationId/servers/$serverId/logs", $user, [
                 'log' => $log,
                 'lines' => $lines
             ]);
             return Response::text(json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
         }
         
-        // Otherwise, return list of available log files via GET
-        $data = $this->apiCall("/organizations/$organizationId/servers/$serverId/logs", $apiKey);
+        $data = $this->apiCall("/organizations/$organizationId/servers/$serverId/logs", $user);
         return Response::text(json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
     }
 
@@ -60,14 +53,5 @@ class ViewServerLogsTool extends Tool
             'log' => $schema->string()->description('Log file path (e.g., apache2/error.log). If not provided, returns list of available logs.'),
             'lines' => $schema->integer()->description('Number of log lines to fetch')->default(100),
         ];
-    }
-    
-    private function getDefaultOrgId(string $apiKey): ?string
-    {
-        $data = $this->apiCall('/organizations', $apiKey);
-        if (isset($data['organizations']) && count($data['organizations']) > 0) {
-            return $data['organizations'][0]['id'] ?? null;
-        }
-        return null;
     }
 }
