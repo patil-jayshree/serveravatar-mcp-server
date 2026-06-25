@@ -1,4 +1,3 @@
-{{-- Layout for the email --}}
 @component('mail::layout')
     {{-- Header --}}
     @slot('header')
@@ -19,7 +18,7 @@
             Password Reset Request
         </h1>
 
-        <p style="font-size: 16px; color: #475569; line-height: 1.6; margin: 0 0 24px 0; text-align: center;">
+        <p style="font-size: 16px; color: #475569; line-height: 1.6; margin: 0 0 16px 0; text-align: center;">
             Hi there,
         </p>
 

@@ -52,7 +52,7 @@ class ResetPasswordController extends Controller
             );
 
             if ($status === Password::PASSWORD_RESET) {
-                return redirect()->route('login')->with('status', 'password_reset_success');
+                return redirect()->route('login')->with('status', 'Your password has been updated successfully.');
             }
 
             return redirect()->back()
