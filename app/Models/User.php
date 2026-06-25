@@ -58,12 +58,4 @@ class User extends Authenticatable
         return !empty($this->serveravatar_access_token) 
             && (!$this->serveravatar_token_expires_at || $this->serveravatar_token_expires_at->isFuture());
     }
-
-    /**
-     * Send the password reset notification.
-     */
-    public function sendPasswordResetNotification($token): void
-    {
-        $this->notify(new ResetPasswordNotification($token));
-    }
 }

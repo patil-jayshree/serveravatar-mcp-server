@@ -4,71 +4,61 @@ namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notifiable;
+use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Content;
+use Illuminate\Mail\Mailables\Envelope;
+use Illuminate\Queue\SerializesModels;
 
-class ResetPasswordMail extends Notifiable
+class ResetPasswordMail extends Mailable
 {
-    use Queueable;
+    use Queueable, SerializesModels;
 
-    protected string $token;
-    protected string $email;
+    public string $token;
+    public string $email;
+    public string $name;
+    public string $resetUrl;
 
     /**
      * Create a new message instance.
      */
-    public function __construct(string $email, string $token)
+    public function __construct(string $name, string $email, string $token)
     {
-        $this->token = $token;
+        $this->name = $name;
         $this->email = $email;
+        $this->token = $token;
+        $this->resetUrl = config('app.url') . '/reset-password/' . $token . '?email=' . urlencode($email);
     }
 
     /**
-     * Build the message.
+     * Get the message envelope.
      */
-    public function build(): self
+    public function envelope(): Envelope
     {
-        $resetUrl = url(config('app.url') . '/reset-password/' . $this->token . '?email=' . urlencode($this->email));
+        return new Envelope(
+            subject: 'Reset Your ServerAvatar MCP Password',
+        );
+    }
 
-        return $this
-            ->subject('Reset Your ServerAvatar MCP Password')
-            ->markdown('emails.reset-password', [
-                'url' => $resetUrl,
+    /**
+     * Get the message content definition.
+     */
+    public function content(): Content
+    {
+        return new Content(
+            markdown: 'emails.reset-password',
+            with: [
+                'name' => $this->name,
                 'email' => $this->email,
-            ]);
+                'url' => $this->resetUrl,
+            ],
+        );
     }
 
     /**
-     * Get the notifications for the mail.
+     * Get the attachments for the message.
      */
-    public function via(object $notifiable): array
+    public function attachments(): array
     {
-        return ['mail'];
-    }
-
-    /**
-     * Get the mail representation of the notification.
-     */
-    public function toMail(object $notifiable): MailMessage
-    {
-        $resetUrl = url(config('app.url') . '/reset-password/' . $this->token . '?email=' . urlencode($this->notifiable->email));
-
-        return (new MailMessage)
-            ->subject('Reset Your ServerAvatar MCP Password')
-            ->markdown('emails.reset-password', [
-                'url' => $resetUrl,
-                'email' => $this->notifiable->email,
-            ]);
-    }
-
-    /**
-     * Get the array representation of the notification.
-     */
-    public function toArray(object $notifiable): array
-    {
-        return [
-            'token' => $this->token,
-            'email' => $this->email,
-        ];
+        return [];
     }
 }

@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ResetPasswordMail;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Validator;
 
@@ -33,9 +36,17 @@ class ForgotPasswordController extends Controller
                     ->withInput(['email' => $request->email]);
             }
 
-            $status = Password::sendResetLink(
-                $request->only('email')
-            );
+            // Find user by email
+            $user = User::where('email', $request->email)->first();
+
+            // If user exists, send password reset email using our Mailable
+            if ($user) {
+                // Generate token
+                $token = Password::getRepository()->create($user);
+
+                // Send email using our ResetPasswordMail mailable
+                Mail::to($user->email)->send(new ResetPasswordMail($user->name, $user->email, $token));
+            }
 
             // Always redirect back with success, regardless of result
             // (Laravel security: don't reveal whether email exists)
