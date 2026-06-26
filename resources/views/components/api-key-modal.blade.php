@@ -42,44 +42,59 @@
                 </div>
             </div>
             <script>
-                function openApiKeyModal() {
-                    var modal = document.getElementById('apiKeyModal');
-                    var input = document.getElementById('apiKeyInput');
-                    var titleEl = modal.querySelector('.modal-title-row h3');
-                    var saveBtn = modal.querySelector('.btn-modal-save');
-                    var hasApiKey = {{ isset($hasApiKey) && $hasApiKey ? 'true' : 'false' }};
+                // Override layout functions AFTER layout scripts load (ensures our versions win)
+                document.addEventListener('DOMContentLoaded', function() {
+                    window.openApiKeyModal = function() {
+                        var modal = document.getElementById('apiKeyModal');
+                        var input = document.getElementById('apiKeyInput');
+                        var titleEl = modal.querySelector('.modal-title-row h3');
+                        var saveBtn = modal.querySelector('.btn-modal-save');
+                        var hasApiKey = {{ isset($hasApiKey) && $hasApiKey ? 'true' : 'false' }};
 
-                    if (hasApiKey) {
-                        titleEl.textContent = 'Update API Key';
-                        saveBtn.textContent = 'Update API Key';
-                        input.value = '{{ $apiKey ?? '' }}';
-                    } else {
-                        titleEl.textContent = 'Add API Key';
-                        saveBtn.textContent = 'Add API Key';
-                        input.value = '';
-                    }
+                        if (hasApiKey) {
+                            titleEl.textContent = 'Update API Key';
+                            saveBtn.textContent = 'Update API Key';
+                            input.value = '{{ $apiKey ?? '' }}';
+                        } else {
+                            titleEl.textContent = 'Add API Key';
+                            saveBtn.textContent = 'Add API Key';
+                            input.value = '';
+                        }
 
-                    if (modal) { modal.style.display = 'flex'; }
-                    if (input) { input.focus(); }
-                }
-                function closeApiKeyModal() {
-                    var modal = document.getElementById('apiKeyModal');
-                    if (modal) { modal.style.display = 'none'; }
-                }
-                function togglePasswordVisibility() {
-                    var input = document.getElementById('apiKeyInput');
-                    var eyeIcon = document.querySelector('.eye-icon');
-                    var eyeOffIcon = document.querySelector('.eye-off-icon');
-                    if (input.type === 'password') {
-                        input.type = 'text';
-                        if (eyeIcon) eyeIcon.style.display = 'none';
-                        if (eyeOffIcon) eyeOffIcon.style.display = 'block';
-                    } else {
-                        input.type = 'password';
-                        if (eyeIcon) eyeIcon.style.display = 'block';
-                        if (eyeOffIcon) eyeOffIcon.style.display = 'none';
-                    }
-                }
+                        if (modal) { modal.style.display = 'flex'; }
+                        if (input) { input.focus(); }
+                    };
+
+                    window.closeApiKeyModal = function() {
+                        var modal = document.getElementById('apiKeyModal');
+                        var input = document.getElementById('apiKeyInput');
+                        if (modal) { modal.style.display = 'none'; }
+                        if (input) {
+                            input.value = '';
+                            input.type = 'password';
+                            var eyeIcon = document.querySelector('.eye-icon');
+                            var eyeOffIcon = document.querySelector('.eye-off-icon');
+                            if (eyeIcon) eyeIcon.style.display = 'block';
+                            if (eyeOffIcon) eyeOffIcon.style.display = 'none';
+                        }
+                    };
+
+                    window.togglePasswordVisibility = function() {
+                        var input = document.getElementById('apiKeyInput');
+                        var eyeIcon = document.querySelector('.eye-icon');
+                        var eyeOffIcon = document.querySelector('.eye-off-icon');
+                        if (input.type === 'password') {
+                            input.type = 'text';
+                            if (eyeIcon) eyeIcon.style.display = 'none';
+                            if (eyeOffIcon) eyeOffIcon.style.display = 'block';
+                        } else {
+                            input.type = 'password';
+                            if (eyeIcon) eyeIcon.style.display = 'block';
+                            if (eyeOffIcon) eyeOffIcon.style.display = 'none';
+                        }
+                    };
+                }, { once: true });
+
                 document.getElementById('apiKeyForm').addEventListener('submit', function(e) {
                     e.preventDefault();
                     var form = this;

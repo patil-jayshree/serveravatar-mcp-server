@@ -147,6 +147,7 @@
 </div>
 
 <script>
+// v=20260626-1 - cache-bust: hard-refresh (Ctrl+Shift+R) if old code runs
 function togglePassword(id) {
     var input = document.getElementById(id);
     var btn = input.nextElementSibling;
@@ -197,9 +198,11 @@ function updatePassword(doLogout) {
         });
     })
     .then(function(result) {
-        if (result.data.success) {
+        // SUCCESS: only when HTTP status is 2xx AND response has success=true
+        var isSuccess = (result.ok === true && result.data && result.data.success === true);
+        
+        if (isSuccess) {
             if (doLogout) {
-                // Logout after successful password update
                 fetch('/api/logout', {
                     method: 'POST',
                     headers: {
@@ -210,36 +213,33 @@ function updatePassword(doLogout) {
                     window.location.href = '/login';
                 });
             } else {
-                var t = document.getElementById('toast');
-                if (!t) {
-                    t = document.createElement('div');
-                    t.id = 'toast';
-                    t.style.cssText = 'position:fixed;top:5rem;right:2rem;background:linear-gradient(135deg, #22c55e 0%, #16a34a 100%);color:white;padding:14px 20px;border-radius:12px;display:flex;align-items:center;gap:12px;box-shadow:0 8px 30px rgba(34,197,94,0.4);z-index:10000;max-width:350px;';
-                    document.body.appendChild(t);
-                }
-                t.innerHTML = '<span style="width:28px;height:28px;background:rgba(255,255,255,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.9rem;font-weight:bold;">✓</span><span style="font-size:0.9rem;font-weight:600;">Password updated successfully!</span>';
-                t.style.display = 'flex';
-                setTimeout(function() { t.style.display = 'none'; }, 3000);
+                showSuccessToast('Password updated successfully!');
                 form.reset();
             }
-        } else if (result.data.errors) {
-            var errors = result.data.errors;
-            if (errors.current_password) {
-                showErrorToast(errors.current_password[0]);
-            } else if (errors.password) {
-                showErrorToast(errors.password[0]);
-            } else {
-                showErrorToast('Validation failed');
-            }
         } else {
-            showErrorToast(result.data.error || 'Error updating password');
+            // ERROR: any non-success case (validation errors, 422, 500, etc.)
+            var errorMsg = 'An error occurred';
+            if (result.data && result.data.errors && typeof result.data.errors === 'object') {
+                var errors = result.data.errors;
+                for (var field in errors) {
+                    if (errors[field] && errors[field].length > 0) {
+                        errorMsg = errors[field][0];
+                        break;
+                    }
+                }
+            } else if (result.data && result.data.error) {
+                errorMsg = result.data.error;
+            }
+            showErrorToast(errorMsg);
         }
+        
         btn.disabled = false;
         btn.textContent = doLogout ? 'Update & Logout' : 'Update Password';
         document.getElementById('updatePasswordBtn').disabled = false;
         document.getElementById('updateLogoutBtn').disabled = false;
     })
     .catch(function() {
+        showErrorToast('Network error. Please try again.');
         btn.disabled = false;
         btn.textContent = doLogout ? 'Update & Logout' : 'Update Password';
         document.getElementById('updatePasswordBtn').disabled = false;
@@ -269,17 +269,30 @@ document.getElementById('current_password').addEventListener('input', checkFormF
 document.getElementById('password').addEventListener('input', checkFormFields);
 document.getElementById('password_confirmation').addEventListener('input', checkFormFields);
 
-function showErrorToast(msg) {
-    var t = document.getElementById('toast');
-    if (!t) {
-        t = document.createElement('div');
-        t.id = 'toast';
-        document.body.appendChild(t);
+// Remove any existing global toast functions to avoid conflicts with layout
+if (typeof window.showToast === 'function') { window.showToast = undefined; try { delete window.showToast; } catch(e) {} }
+
+function passwordPageToast(msg, type) {
+    var toastId = type === 'success' ? 'ppt-success' : 'ppt-error';
+    var t = document.getElementById(toastId);
+    if (t) { t.remove(); }
+    t = document.createElement('div');
+    t.id = toastId;
+    if (type === 'success') {
+        t.style.cssText = 'position:fixed;top:5rem;right:2rem;background:linear-gradient(135deg, #22c55e 0%, #16a34a 100%);color:white;padding:14px 20px;border-radius:12px;display:flex;align-items:center;gap:12px;box-shadow:0 8px 30px rgba(34,197,94,0.4);z-index:10000;max-width:350px;';
+        t.innerHTML = '<span style="width:28px;height:28px;background:rgba(255,255,255,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.9rem;font-weight:bold;">&#10003;</span><span style="font-size:0.9rem;font-weight:600;">' + msg + '</span>';
+    } else {
+        t.style.cssText = 'position:fixed;top:5rem;right:2rem;background:linear-gradient(135deg, #ef4444 0%, #dc2626 100%);color:white;padding:14px 20px;border-radius:12px;display:flex;align-items:center;gap:12px;box-shadow:0 8px 30px rgba(239,68,68,0.4);z-index:10000;max-width:350px;';
+        t.innerHTML = '<span style="width:28px;height:28px;background:rgba(255,255,255,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.9rem;font-weight:bold;">&#10007;</span><span style="font-size:0.9rem;font-weight:600;">' + msg + '</span>';
     }
-    t.style.cssText = 'position:fixed;top:5rem;right:2rem;background:linear-gradient(135deg, #ef4444 0%, #dc2626 100%);color:white;padding:14px 20px;border-radius:12px;display:flex;align-items:center;gap:12px;box-shadow:0 8px 30px rgba(239,68,68,0.4);z-index:10000;max-width:350px;';
-    t.innerHTML = '<span style="width:28px;height:28px;background:rgba(255,255,255,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.9rem;font-weight:bold;">✕</span><span style="font-size:0.9rem;font-weight:600;">' + msg + '</span>';
-    t.style.display = 'flex';
+    document.body.appendChild(t);
     setTimeout(function() { t.style.display = 'none'; }, 3000);
 }
+function passwordPageToastSuccess(msg) { passwordPageToast(msg, 'success'); }
+function passwordPageToastError(msg) { passwordPageToast(msg, 'error'); }
+
+// Update references from old names to new unique names
+var showSuccessToast = passwordPageToastSuccess;
+var showErrorToast = passwordPageToastError;
 </script>
 @endsection

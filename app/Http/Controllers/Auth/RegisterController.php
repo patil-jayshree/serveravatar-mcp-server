@@ -39,8 +39,8 @@ class RegisterController extends Controller
      */
     public function register(Request $request)
     {
-        try {
-            $validated = $request->validate([
+        // Validate first — let ValidationException propagate naturally (toast errors work)
+        $validated = $request->validate([
                 'name' => 'required|string|max:255',
                 'email' => 'required|email|unique:users,email',
                 'password' => [
@@ -60,6 +60,7 @@ class RegisterController extends Controller
                 'password.regex:/[@$!%*?&]/' => 'Password must contain at least one special character (@$!%*?&)',
             ]);
 
+        try {
             $user = User::create([
                 'name' => $validated['name'],
                 'email' => $validated['email'],

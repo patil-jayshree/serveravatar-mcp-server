@@ -83,47 +83,48 @@ class ProfileController extends Controller
      */
     public function updatePassword(Request $request)
     {
+        // Validate first — let ValidationException propagate naturally (errors returned properly)
+        $request->validate([
+            'current_password' => 'required|string',
+        ]);
+
+        $user = auth()->user();
+
+        if (!Hash::check($request->current_password, $user->password)) {
+            return response()->json([
+                'success' => false,
+                'errors' => ['current_password' => ['Current password is incorrect']],
+            ], 422);
+        }
+
+        // Validate password format — let ValidationException propagate for specific messages
+        $request->validate([
+            'password' => [
+                'required',
+                'string',
+                'min:8',
+                'confirmed',
+                'regex:/[A-Z]/',
+                'regex:/[a-z]/',
+                'regex:/[0-9]/',
+                'regex:/[@$!%*?&]/',
+            ],
+        ], [
+            'password.regex:/[A-Z]/' => 'Password must contain at least one uppercase letter',
+            'password.regex:/[a-z]/' => 'Password must contain at least one lowercase letter',
+            'password.regex:/[0-9]/' => 'Password must contain at least one number',
+            'password.regex:/[@$!%*?&]/' => 'Password must contain at least one special character (@$!%*?&)',
+            'password.confirmed' => 'Password confirmation does not match',
+        ]);
+
         try {
-            $request->validate([
-                'current_password' => 'required|string',
-            ]);
-
-            $user = auth()->user();
-
-            if (!Hash::check($request->current_password, $user->password)) {
-                return response()->json([
-                    'success' => false,
-                    'error' => 'Current password is incorrect',
-                ], 422);
-            }
-
-            $validated = $request->validate([
-                'password' => [
-                    'required',
-                    'string',
-                    'min:8',
-                    'confirmed',
-                    'regex:/[A-Z]/',
-                    'regex:/[a-z]/',
-                    'regex:/[0-9]/',
-                    'regex:/[@$!%*?&]/',
-                ],
-            ], [
-                'password.regex:/[A-Z]/' => 'Password must contain at least one uppercase letter',
-                'password.regex:/[a-z]/' => 'Password must contain at least one lowercase letter',
-                'password.regex:/[0-9]/' => 'Password must contain at least one number',
-                'password.regex:/[@$!%*?&]/' => 'Password must contain at least one special character (@$!%*?&)',
-            ]);
-
-            $user->update(['password' => Hash::make($validated['password'])]);
-
+            $user->update(['password' => Hash::make($request->password)]);
             return response()->json(['success' => true, 'message' => 'Password updated successfully!']);
         } catch (Exception $e) {
-            $statusCode = method_exists($e, 'status') ? $e->status() : 500;
             return response()->json([
                 'success' => false,
                 'error' => 'Failed to update password. Please try again.',
-            ], $statusCode);
+            ], 500);
         }
     }
 

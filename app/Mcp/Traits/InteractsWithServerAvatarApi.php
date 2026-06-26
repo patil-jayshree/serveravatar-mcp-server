@@ -8,7 +8,7 @@ use Laravel\Mcp\Response;
 
 trait InteractsWithServerAvatarApi
 {
-    private function apiCall(string $endpoint, $user = null, array $body = null, string $method = 'GET'): array
+    private function apiCall(string $endpoint, $user = null, array $body = null, string $method = 'GET', int $timeout = 300): array
     {
         $apiKey = $user->api_key;
         $baseUrl = config('services.serveravatar.api_url', 'https://api.serveravatar.com');
@@ -16,7 +16,7 @@ trait InteractsWithServerAvatarApi
         try {
             $response = Http::withToken($apiKey, 'Bearer')
                 ->withHeaders(['Accept' => 'application/json'])
-                ->timeout(30)
+                ->timeout($timeout)
                 ->{strtolower($method)}($baseUrl . $endpoint, $body ?? []);
 
             if ($response->successful()) {
