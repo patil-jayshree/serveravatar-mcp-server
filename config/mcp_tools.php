@@ -59,6 +59,13 @@ return [
             'icon' => '🗑️',
         ],
         [
+            'name' => 'update_php_settings',
+            'class' => \App\Mcp\Tools\UpdatePhpSettingsTool::class,
+            'description' => 'Update PHP settings for an application (PHP version, directives, PHP-FPM process manager)',
+            'usage' => 'updatePhpSettings(serverId, applicationId, organizationId, phpVersion, ...)',
+            'icon' => '🐘',
+        ],
+        [
             'name' => 'create_application',
             'class' => \App\Mcp\Tools\CreateApplicationTool::class,
             'description' => 'Create a new application (website) on a server',
