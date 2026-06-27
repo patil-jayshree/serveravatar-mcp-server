@@ -8,8 +8,7 @@ use Illuminate\JsonSchema\Types\StringType;
  * SecretType represents a sensitive string field (password, secret, etc.).
  * 
  * This type extends StringType but marks the field as sensitive.
- * Currently outputs as "string" type for JSON Schema compliance,
- * but the SecretType class is available for future UI/hint differentiation.
+ * Outputs "string" type for JSON Schema compliance.
  */
 class SecretType extends StringType
 {
@@ -20,7 +19,7 @@ class SecretType extends StringType
 
     /**
      * Convert the type to an array.
-     * Outputs "string" type for JSON Schema compliance with MCP spec.
+     * Outputs "string" type for JSON Schema compliance.
      *
      * @return array<string, mixed>
      */
@@ -35,8 +34,8 @@ class SecretType extends StringType
         // Remove internal properties
         unset($attributes['mcpType']);
         
-        // Filter out null values and ignored properties
-        $ignore = ['required', 'nullable', 'mcpType'];
+        // Only filter out nullable from JSON Schema output (required is needed for parent ObjectType)
+        $ignore = ['nullable', 'mcpType'];
         $attributes = array_filter($attributes, static function (mixed $value, string $key) use ($ignore) {
             if (in_array($key, $ignore, true)) {
                 return false;

@@ -349,7 +349,7 @@ class CreateApplicationTool extends Tool
             'systemUserId' => $schema->integer()->description('Existing user ID (required if systemUser=existing)'),
             'systemUserInfo' => $schema->object([
                 'username' => $schema->string()->description('System user username (required if systemUser=new)'),
-                'password' => $schema->secret()->description('System user password min 6 chars (required if systemUser=new)'),
+                'password' => $schema->secret()->description('System user password min 6 chars (required if systemUser=new)')->required(),
             ]),
             'webroot' => $schema->string()->description('Webroot path'),
             'database_server' => $schema->integer()->description('Remote DB server ID'),

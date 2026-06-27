@@ -65,11 +65,12 @@ class Serializer extends BaseSerializer
         if (count($attributes['properties']) === 0) {
             unset($attributes['properties']);
         } else {
+            // Use custom isRequired check that handles PHP's get_object_vars() converting true to 1
             $required = array_map(
                 'strval',
                 array_keys(array_filter(
                     $attributes['properties'],
-                    static fn (Type $property) => static::isRequired($property),
+                    static fn (Type $property) => static::checkRequired($property),
                 ))
             );
             
@@ -84,14 +85,32 @@ class Serializer extends BaseSerializer
             );
         }
         
-        // Filter out null values and ignored properties
+        // Filter out null values and ignored properties (but keep 'required' for ObjectType)
         $attributes = array_filter($attributes, static function (mixed $value, string $key) {
+            // 'required' should be kept if it's a non-empty array
+            if ($key === 'required') {
+                return !empty($value);
+            }
             if (in_array($key, static::$ignore, true)) {
                 return false;
             }
             return $value !== null;
         }, ARRAY_FILTER_USE_BOTH);
         
+        error_log('serializeObjectType: final attributes keys = ' . json_encode(array_keys($attributes)));
+        
         return $attributes;
+    }
+    
+    /**
+     * Check if a type is required.
+     * Overrides parent to handle PHP's get_object_vars() converting boolean true to integer 1.
+     */
+    protected static function checkRequired(Type $type): bool
+    {
+        $attributes = (fn () => get_object_vars($type))->call($type);
+
+        // Handle both boolean true and integer 1 (PHP quirk with get_object_vars)
+        return isset($attributes['required']) && ($attributes['required'] === true || $attributes['required'] === 1);
     }
 }
