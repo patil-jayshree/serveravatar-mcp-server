@@ -7,7 +7,7 @@ use Illuminate\Contracts\JsonSchema\JsonSchema;
 use Laravel\Mcp\Request;
 use Laravel\Mcp\Response;
 use Laravel\Mcp\Server\Attributes\Description;
-use Laravel\Mcp\Server\Tool;
+use App\Mcp\Tools\Tool;
 
 #[Description('Delete a specific application (website) from a server. This will permanently remove the application and all associated data.')]
 class DeleteApplicationTool extends Tool

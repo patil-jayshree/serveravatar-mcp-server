@@ -8,9 +8,9 @@ use Illuminate\Validation\Rule;
 use Laravel\Mcp\Request;
 use Laravel\Mcp\Response;
 use Laravel\Mcp\Server\Attributes\Description;
-use Laravel\Mcp\Server\Tool;
+use App\Mcp\Tools\Tool;
 
-#[Description('Create a new application on a server. Framework types: custom, wordpress, prestashop, joomla, moodle, nextcloud, statamic, akaunting, mautic, phpmyadmin, craftcms.\n\nQUICK REFERENCE:\n- custom: needs php_version only\n- wordpress: needs title, username, password, install_litespeed_cache_plugin, database_name\n- prestashop: needs firstname, lastname, cms_password, cms_database_name\n- moodle: needs fullname, shortname, summary, moodle_username, moodle_password, moodle_database_name\n- joomla: needs NOTHING extra beyond core fields\n- nextcloud: needs nc_username, nc_password, nc_database_name\n- statamic: needs statamic_email, statamic_password, statamic_webroot\n- akaunting: needs akaunting_password\n- mautic: needs mautic_firstname, mautic_lastname, mautic_title, mautic_username, mautic_password, mautic_database_name, mailer_name, mailer_host, mailer_port, mailer_username\n- phpmyadmin: needs NOTHING extra beyond core fields\n- craftcms: needs craft_email, craft_password')]
+#[Description('Create a new application on a server. Framework types: custom, wordpress, prestashop, joomla, moodle, nextcloud, statamic, akaunting, mautic, phpmyadmin, craftcms.\n\nQUICK REFERENCE:\n- custom: needs php_version only\n- wordpress: needs title, username, password, install_litespeed_cache_plugin, database_name\n- prestashop: needs firstname, lastname, cms_password, cms_database_name\n- moodle: needs fullname, shortname, summary, moodle_username, moodle_password, moodle_database_name\n- joomla: needs NOTHING extra beyond core fields\n- nextcloud: needs nc_username, nc_password, nc_database_name\n- statamic: needs statamic_email, statamic_password, statamic_webroot\n- akaunting: needs akaunting_password\n- mautic: needs mautic_firstname, mautic_lastname, mautic_title, mautic_username, mautic_password, mautic_database_name, mailer_name, mailer_host, mailer_port, mailer_username, mailer_password\n- phpmyadmin: needs NOTHING extra beyond core fields\n- craftcms: needs craft_email, craft_password')]
 class CreateApplicationTool extends Tool
 {
     use InteractsWithServerAvatarApi;
@@ -105,14 +105,14 @@ class CreateApplicationTool extends Tool
             'mautic_lastname' => ['required_if:framework,mautic'],
             'mautic_title' => ['required_if:framework,mautic'],
             'mautic_username' => ['required_if:framework,mautic'],
-            'mautic_password' => ['required_if:framework,mautic'],
+            'mautic_password' => ['required_if:framework,mautic', 'min:8'],
             'mautic_database_name' => ['required_if:framework,mautic'],
             'mailer_name' => ['required_if:framework,mautic'],
             'mailer_host' => ['required_if:framework,mautic'],
             'mailer_port' => ['required_if:framework,mautic'],
             'mailer_username' => ['required_if:framework,mautic'],
             'mailer_email' => ['email'],
-            'mailer_password' => [],
+            'mailer_password' => ['required_if:framework,mautic'],
 
             // =============================================
             // AKAUNTING
@@ -349,7 +349,7 @@ class CreateApplicationTool extends Tool
             'systemUserId' => $schema->integer()->description('Existing user ID (required if systemUser=existing)'),
             'systemUserInfo' => $schema->object([
                 'username' => $schema->string()->description('System user username (required if systemUser=new)'),
-                'password' => $schema->string()->description('System user password min 6 chars (required if systemUser=new)'),
+                'password' => $schema->secret()->description('System user password min 6 chars (required if systemUser=new)'),
             ]),
             'webroot' => $schema->string()->description('Webroot path'),
             'database_server' => $schema->integer()->description('Remote DB server ID'),
@@ -359,7 +359,7 @@ class CreateApplicationTool extends Tool
             // =============================================
             'title' => $schema->string()->description('[WordPress] Site title (required)'),
             'username' => $schema->string()->description('[WordPress] Admin username (required)'),
-            'password' => $schema->string()->description('[WordPress] Admin password (required)'),
+            'password' => $schema->secret()->description('[WordPress] Admin password (required)'),
             'email' => $schema->string()->description('[WordPress] Admin email'),
             'site_language' => $schema->string()->description('[WordPress] Language code e.g. en_US'),
             'timezone' => $schema->string()->description('[WordPress] Timezone e.g. UTC'),
@@ -373,7 +373,7 @@ class CreateApplicationTool extends Tool
             // =============================================
             'firstname' => $schema->string()->description('[PrestaShop] Admin first name (required)'),
             'lastname' => $schema->string()->description('[PrestaShop] Admin last name (required)'),
-            'cms_password' => $schema->string()->description('[PrestaShop] Admin password (required)'),
+            'cms_password' => $schema->secret()->description('[PrestaShop] Admin password (required)'),
             'cms_database_name' => $schema->string()->description('[PrestaShop] Database name (required)'),
 
             // =============================================
@@ -388,21 +388,21 @@ class CreateApplicationTool extends Tool
             'shortname' => $schema->string()->description('[Moodle] Short name (required)'),
             'summary' => $schema->string()->description('[Moodle] Site description (required)'),
             'moodle_username' => $schema->string()->description('[Moodle] Admin username (required)'),
-            'moodle_password' => $schema->string()->description('[Moodle] Admin password (required)'),
+            'moodle_password' => $schema->secret()->description('[Moodle] Admin password (required)'),
             'moodle_database_name' => $schema->string()->description('[Moodle] Database name (required)'),
 
             // =============================================
             // NEXTCLOUD
             // =============================================
             'nc_username' => $schema->string()->description('[Nextcloud] Admin username (required)'),
-            'nc_password' => $schema->string()->description('[Nextcloud] Admin password (required)'),
+            'nc_password' => $schema->secret()->description('[Nextcloud] Admin password (required)'),
             'nc_database_name' => $schema->string()->description('[Nextcloud] Database name (required)'),
 
             // =============================================
             // STATAMIC
             // =============================================
             'statamic_email' => $schema->string()->description('[Statamic] Admin email (required)'),
-            'statamic_password' => $schema->string()->description('[Statamic] Admin password (required)'),
+            'statamic_password' => $schema->secret()->description('[Statamic] Admin password (required)'),
             'statamic_webroot' => $schema->string()->description('[Statamic] Webroot path e.g. /public (required)'),
 
             // =============================================
@@ -412,25 +412,25 @@ class CreateApplicationTool extends Tool
             'mautic_lastname' => $schema->string()->description('[Mautic] Admin last name (required)'),
             'mautic_title' => $schema->string()->description('[Mautic] Site title (required)'),
             'mautic_username' => $schema->string()->description('[Mautic] Admin username (required)'),
-            'mautic_password' => $schema->string()->description('[Mautic] Admin password min 8 chars (required)'),
+            'mautic_password' => $schema->secret()->description('[Mautic] Admin password min 8 chars (required)'),
             'mautic_database_name' => $schema->string()->description('[Mautic] Database name (required)'),
             'mailer_name' => $schema->string()->description('[Mautic] Mailer sender name (required)'),
             'mailer_host' => $schema->string()->description('[Mautic] Mailer SMTP host (required)'),
             'mailer_port' => $schema->integer()->description('[Mautic] Mailer port 587/465 (required)'),
             'mailer_username' => $schema->string()->description('[Mautic] Mailer username (required)'),
             'mailer_email' => $schema->string()->description('[Mautic] Mailer email'),
-            'mailer_password' => $schema->string()->description('[Mautic] Mailer password'),
+            'mailer_password' => $schema->secret()->description('[Mautic] Mailer password (required)'),
 
             // =============================================
             // AKAUNTING
             // =============================================
-            'akaunting_password' => $schema->string()->description('[Akaunting] Admin password (required)'),
+            'akaunting_password' => $schema->secret()->description('[Akaunting] Admin password (required)'),
 
             // =============================================
             // CRAFT CMS
             // =============================================
             'craft_email' => $schema->string()->description('[Craft CMS] Admin email (required)'),
-            'craft_password' => $schema->string()->description('[Craft CMS] Admin password (required)'),
+            'craft_password' => $schema->secret()->description('[Craft CMS] Admin password (required)'),
 
             // =============================================
             // PHPMYADMIN

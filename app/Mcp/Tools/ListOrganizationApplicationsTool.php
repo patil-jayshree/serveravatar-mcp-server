@@ -7,7 +7,7 @@ use Illuminate\Contracts\JsonSchema\JsonSchema;
 use Laravel\Mcp\Request;
 use Laravel\Mcp\Response;
 use Laravel\Mcp\Server\Attributes\Description;
-use Laravel\Mcp\Server\Tool;
+use App\Mcp\Tools\Tool;
 
 #[Description('List all applications (websites) across all servers in an organization. Use this to view all websites hosted in your ServerAvatar organization.')]
 class ListOrganizationApplicationsTool extends Tool

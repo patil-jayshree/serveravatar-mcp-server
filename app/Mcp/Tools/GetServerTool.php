@@ -7,7 +7,7 @@ use Illuminate\Contracts\JsonSchema\JsonSchema;
 use Laravel\Mcp\Request;
 use Laravel\Mcp\Response;
 use Laravel\Mcp\Server\Attributes\Description;
-use Laravel\Mcp\Server\Tool;
+use App\Mcp\Tools\Tool;
 
 #[Description('Get details of a specific server by server ID')]
 class GetServerTool extends Tool
