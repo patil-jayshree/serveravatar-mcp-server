@@ -2,7 +2,7 @@
 
 namespace App\Mcp\Servers;
 
-use App\Mcp\Tools\Server\{ListServersTool, GetServerTool, GetServerUsageTool, ViewServerLogsTool,};
+use App\Mcp\Tools\Server\{ListServersTool, GetServerTool, GetServerUsageTool, ViewServerLogsTool, GetServerProcessesTool, GetServerServicesTool, UpdateServerServiceTool, GetPhpFpmContentTool, InstallPhpVersionTool,};
 use App\Mcp\Tools\Application\{ListApplicationsTool, ListOrganizationApplicationsTool, CreateApplicationTool, GetApplicationTool, DeleteApplicationTool, ToggleApplicationTool, UpdatePhpSettingsTool, ManageBasicAuthTool,};
 use App\Mcp\Tools\Database\{ListDatabasesTool, GetDatabaseTool,};
 use App\Mcp\Tools\Backup\ListBackupsTool;
@@ -40,6 +40,11 @@ class ServerAvatarServer extends Server
         ListDatabasesTool::class,
         GetDatabaseTool::class,
         ViewServerLogsTool::class,
+        GetServerProcessesTool::class,
+        GetServerServicesTool::class,
+        UpdateServerServiceTool::class,
+        GetPhpFpmContentTool::class,
+        InstallPhpVersionTool::class,
         ListBackupsTool::class,
         UpdatePhpSettingsTool::class,
         ToggleApplicationTool::class,
