@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Mcp\Tools;
+namespace App\Mcp\Tools\Database;
 
 use App\Mcp\Traits\InteractsWithServerAvatarApi;
 use Illuminate\Contracts\JsonSchema\JsonSchema;
@@ -9,22 +9,25 @@ use Laravel\Mcp\Response;
 use Laravel\Mcp\Server\Attributes\Description;
 use App\Mcp\Tools\Tool;
 
-#[Description('Get CPU, Memory, and Disk usage for a server')]
-class GetServerUsageTool extends Tool
+#[Description('List all databases in your ServerAvatar account')]
+class ListDatabasesTool extends Tool
 {
     use InteractsWithServerAvatarApi;
     
     public function handle(Request $request): Response
     {
         $user = $request->user();
+        $search = $request->get('search', '');
         
         $organizationId = $this->getOrganizationId($request);
         if ($organizationId instanceof Response) return $organizationId;
         
-        $serverId = $this->getServerId($request);
-        if ($serverId instanceof Response) return $serverId;
+        $endpoint = "/organizations/$organizationId/databases";
+        if ($search) {
+            $endpoint .= '?search=' . urlencode($search);
+        }
         
-        $data = $this->apiCall("/organizations/$organizationId/servers/$serverId/usage", $user);
+        $data = $this->apiCall($endpoint, $user);
         
         return Response::text(json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
     }
@@ -33,7 +36,7 @@ class GetServerUsageTool extends Tool
     {
         return [
             'organization_id' => $schema->string()->description('The organization ID')->required(),
-            'server_id' => $schema->string()->description('The server ID')->required(),
+            'search' => $schema->string()->description('Search term for filtering databases'),
         ];
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Mcp\Tools;
+namespace App\Mcp\Tools\Application;
 
 use App\Mcp\Traits\InteractsWithServerAvatarApi;
 use Illuminate\Contracts\JsonSchema\JsonSchema;
@@ -9,8 +9,8 @@ use Laravel\Mcp\Response;
 use Laravel\Mcp\Server\Attributes\Description;
 use App\Mcp\Tools\Tool;
 
-#[Description('List all backups in your ServerAvatar account')]
-class ListBackupsTool extends Tool
+#[Description('List all applications (websites) across all servers in an organization. Use this to view all websites hosted in your ServerAvatar organization.')]
+class ListOrganizationApplicationsTool extends Tool
 {
     use InteractsWithServerAvatarApi;
     
@@ -21,16 +21,7 @@ class ListBackupsTool extends Tool
         $organizationId = $this->getOrganizationId($request);
         if ($organizationId instanceof Response) return $organizationId;
         
-        $data = $this->apiCall("/organizations/$organizationId/backups", $user);
-        
-        if (isset($data['data'])) {
-            $data = ['backups' => $data['data'], 'pagination' => [
-                'current_page' => $data['current_page'] ?? 1,
-                'last_page' => $data['last_page'] ?? 1,
-                'per_page' => $data['per_page'] ?? null,
-                'total' => $data['total'] ?? count($data['data']),
-            ]];
-        }
+        $data = $this->apiCall("/organizations/$organizationId/applications", $user);
         
         return Response::text(json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
     }

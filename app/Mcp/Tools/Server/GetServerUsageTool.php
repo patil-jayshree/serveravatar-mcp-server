@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Mcp\Tools;
+namespace App\Mcp\Tools\Server;
 
 use App\Mcp\Traits\InteractsWithServerAvatarApi;
 use Illuminate\Contracts\JsonSchema\JsonSchema;
@@ -9,8 +9,8 @@ use Laravel\Mcp\Response;
 use Laravel\Mcp\Server\Attributes\Description;
 use App\Mcp\Tools\Tool;
 
-#[Description('Delete a specific application (website) from a server. This will permanently remove the application and all associated data.')]
-class DeleteApplicationTool extends Tool
+#[Description('Get CPU, Memory, and Disk usage for a server')]
+class GetServerUsageTool extends Tool
 {
     use InteractsWithServerAvatarApi;
     
@@ -24,12 +24,7 @@ class DeleteApplicationTool extends Tool
         $serverId = $this->getServerId($request);
         if ($serverId instanceof Response) return $serverId;
         
-        $applicationId = $request->get('application_id');
-        if (!$applicationId) {
-            return Response::error('application_id is required. Please provide the application ID to delete.');
-        }
-        
-        $data = $this->apiCall("/organizations/$organizationId/servers/$serverId/applications/$applicationId", $user, [], 'DELETE');
+        $data = $this->apiCall("/organizations/$organizationId/servers/$serverId/usage", $user);
         
         return Response::text(json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
     }
@@ -39,7 +34,6 @@ class DeleteApplicationTool extends Tool
         return [
             'organization_id' => $schema->string()->description('The organization ID')->required(),
             'server_id' => $schema->string()->description('The server ID')->required(),
-            'application_id' => $schema->string()->description('The application ID to delete')->required(),
         ];
     }
 }

@@ -100,5 +100,12 @@ return [
             'usage' => 'viewServerLogs(serverId)',
             'icon' => '📋',
         ],
+        [
+            'name' => 'toggle_application',
+            'class' => \App\Mcp\Tools\ToggleApplicationTool::class,
+            'description' => 'Enable or disable an application on a server',
+            'usage' => 'toggleApplication(organizationId, serverId, applicationId)',
+            'icon' => '🔄',
+        ],
     ],
 ];

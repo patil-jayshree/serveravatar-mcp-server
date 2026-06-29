@@ -2,7 +2,11 @@
 
 namespace App\Mcp\Servers;
 
-use App\Mcp\Tools\{ListOrganizationsTool, ListServersTool, GetServerTool, GetServerUsageTool, ListApplicationsTool, ListOrganizationApplicationsTool, CreateApplicationTool, GetApplicationTool, DeleteApplicationTool, ListDatabasesTool, GetDatabaseTool, ViewServerLogsTool, ListBackupsTool, UpdatePhpSettingsTool,};
+use App\Mcp\Tools\Server\{ListServersTool, GetServerTool, GetServerUsageTool, ViewServerLogsTool,};
+use App\Mcp\Tools\Application\{ListApplicationsTool, ListOrganizationApplicationsTool, CreateApplicationTool, GetApplicationTool, DeleteApplicationTool, ToggleApplicationTool, UpdatePhpSettingsTool,};
+use App\Mcp\Tools\Database\{ListDatabasesTool, GetDatabaseTool,};
+use App\Mcp\Tools\Backup\ListBackupsTool;
+use App\Mcp\Tools\Organization\ListOrganizationsTool;
 use Laravel\Mcp\Server\Attributes\Instructions;
 use Laravel\Mcp\Server\Attributes\Name;
 use Laravel\Mcp\Server\Attributes\Version;
@@ -33,6 +37,7 @@ class ServerAvatarServer extends Server
         ViewServerLogsTool::class,
         ListBackupsTool::class,
         UpdatePhpSettingsTool::class,
+        ToggleApplicationTool::class,
     ];
 
     /**

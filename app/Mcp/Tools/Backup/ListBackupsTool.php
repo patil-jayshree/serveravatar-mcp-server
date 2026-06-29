@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Mcp\Tools;
+namespace App\Mcp\Tools\Backup;
 
 use App\Mcp\Traits\InteractsWithServerAvatarApi;
 use Illuminate\Contracts\JsonSchema\JsonSchema;
@@ -9,20 +9,28 @@ use Laravel\Mcp\Response;
 use Laravel\Mcp\Server\Attributes\Description;
 use App\Mcp\Tools\Tool;
 
-#[Description('List all servers in your ServerAvatar account')]
-class ListServersTool extends Tool
+#[Description('List all backups in your ServerAvatar account')]
+class ListBackupsTool extends Tool
 {
     use InteractsWithServerAvatarApi;
     
     public function handle(Request $request): Response
     {
         $user = $request->user();
-        $page = $request->get('page', 1);
         
         $organizationId = $this->getOrganizationId($request);
         if ($organizationId instanceof Response) return $organizationId;
         
-        $data = $this->apiCall("/organizations/$organizationId/servers?page=$page", $user);
+        $data = $this->apiCall("/organizations/$organizationId/backups", $user);
+        
+        if (isset($data['data'])) {
+            $data = ['backups' => $data['data'], 'pagination' => [
+                'current_page' => $data['current_page'] ?? 1,
+                'last_page' => $data['last_page'] ?? 1,
+                'per_page' => $data['per_page'] ?? null,
+                'total' => $data['total'] ?? count($data['data']),
+            ]];
+        }
         
         return Response::text(json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
     }
@@ -31,7 +39,6 @@ class ListServersTool extends Tool
     {
         return [
             'organization_id' => $schema->string()->description('The organization ID')->required(),
-            'page' => $schema->integer()->description('Page number')->default(1),
         ];
     }
 }

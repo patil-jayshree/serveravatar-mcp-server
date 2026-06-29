@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Mcp\Tools;
+namespace App\Mcp\Tools\Application;
 
 use App\Mcp\Traits\InteractsWithServerAvatarApi;
 use Illuminate\Contracts\JsonSchema\JsonSchema;
@@ -10,12 +10,12 @@ use Laravel\Mcp\Server\Attributes\Description;
 use App\Mcp\Tools\Tool;
 
 /**
- * List all applications (websites) on a server.
+ * Toggle application (enable/disable) on a server.
  * 
- * @example listServerApplications(organizationId: "227", serverId: "5432")
+ * @example toggleApplication(organizationId: "227", serverId: "5432", applicationId: "14000")
  */
-#[Description('List all applications (websites) on a server. Use this to view all websites or web applications hosted on a specific server. Requires organization_id and server_id.')]
-class ListApplicationsTool extends Tool
+#[Description('Enable or disable a specific application on a server. This toggles the application between enabled and disabled states. Requires organization_id, server_id, and application_id.')]
+class ToggleApplicationTool extends Tool
 {
     use InteractsWithServerAvatarApi;
 
@@ -33,7 +33,15 @@ class ListApplicationsTool extends Tool
             return $serverId;
         }
 
-        $data = $this->apiCall("/organizations/$organizationId/servers/$serverId/applications", $user);
+        $applicationId = $request->get('application_id');
+        if (!$applicationId) {
+            return Response::error('application_id is required. Please provide the application ID to toggle.');
+        }
+
+        $data = $this->apiCall(
+            "/organizations/$organizationId/servers/$serverId/applications/$applicationId/toggle",
+            $user
+        );
 
         return Response::text(json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
     }
@@ -43,6 +51,7 @@ class ListApplicationsTool extends Tool
         return [
             'organization_id' => $schema->string()->description('The organization ID')->required(),
             'server_id' => $schema->string()->description('The server ID')->required(),
+            'application_id' => $schema->string()->description('The application ID to toggle')->required(),
         ];
     }
 }

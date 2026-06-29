@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Mcp\Tools;
+namespace App\Mcp\Tools\Server;
 
 use App\Mcp\Traits\InteractsWithServerAvatarApi;
 use Illuminate\Contracts\JsonSchema\JsonSchema;
@@ -9,14 +9,16 @@ use Laravel\Mcp\Response;
 use Laravel\Mcp\Server\Attributes\Description;
 use App\Mcp\Tools\Tool;
 
-#[Description('Get details of a specific application (website) including PHP settings, database info, domains, and more.')]
-class GetApplicationTool extends Tool
+#[Description('View server logs. Use server_id to specify which server.')]
+class ViewServerLogsTool extends Tool
 {
     use InteractsWithServerAvatarApi;
     
     public function handle(Request $request): Response
     {
         $user = $request->user();
+        $log = $request->get('log');
+        $lines = $request->get('lines', 100);
         
         $organizationId = $this->getOrganizationId($request);
         if ($organizationId instanceof Response) return $organizationId;
@@ -24,13 +26,15 @@ class GetApplicationTool extends Tool
         $serverId = $this->getServerId($request);
         if ($serverId instanceof Response) return $serverId;
         
-        $applicationId = $request->get('application_id');
-        if (!$applicationId) {
-            return Response::error('application_id is required.');
+        if ($log) {
+            $data = $this->apiCall("/organizations/$organizationId/servers/$serverId/logs", $user, [
+                'log' => $log,
+                'lines' => $lines
+            ]);
+            return Response::text(json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
         }
         
-        $data = $this->apiCall("/organizations/$organizationId/servers/$serverId/applications/$applicationId", $user);
-        
+        $data = $this->apiCall("/organizations/$organizationId/servers/$serverId/logs", $user);
         return Response::text(json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
     }
 
@@ -39,7 +43,8 @@ class GetApplicationTool extends Tool
         return [
             'organization_id' => $schema->string()->description('The organization ID')->required(),
             'server_id' => $schema->string()->description('The server ID')->required(),
-            'application_id' => $schema->string()->description('The application ID to retrieve')->required(),
+            'log' => $schema->string()->description('Log file path (e.g., apache2/error.log). If not provided, returns list of available logs.'),
+            'lines' => $schema->integer()->description('Number of log lines to fetch')->default(100),
         ];
     }
 }
