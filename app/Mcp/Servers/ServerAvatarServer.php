@@ -18,6 +18,11 @@ use Laravel\Mcp\Server;
 class ServerAvatarServer extends Server
 {
     /**
+     * Default pagination length - show all tools on one page.
+     */
+    public int $defaultPaginationLength = 50;
+
+    /**
      * The tools registered with this MCP server.
      *
      * @var array<int, class-string<\Laravel\Mcp\Server\Tool>>

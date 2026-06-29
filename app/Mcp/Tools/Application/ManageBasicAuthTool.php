@@ -17,7 +17,7 @@ use App\Mcp\Tools\Tool;
  * @example manageBasicAuth(organizationId: "227", serverId: "5432", applicationId: "14000", action: "create", username: "admin", password: "secret123")
  * @example manageBasicAuth(organizationId: "227", serverId: "5432", applicationId: "14000", action: "disable")
  */
-#[Description('Manage basic authentication for an application. Actions: "get" to retrieve current settings, "create" to enable with username/password, "disable" to remove basic auth. Requires organization_id, server_id, application_id, and action. For create action, also requires username and password.')]
+#[Description('Manage HTTP Basic Authentication for an application. Use action="get" to check current status, action="create" with username and password to enable, action="disable" to turn it off.')]
 class ManageBasicAuthTool extends Tool
 {
     use InteractsWithServerAvatarApi;
@@ -68,7 +68,19 @@ class ManageBasicAuthTool extends Tool
                 break;
 
             case 'disable':
-                $data = $this->apiCall($endpoint, $user, [], 'DELETE');
+                // First get the current basic auth to find the ID
+                $currentAuth = $this->apiCall($endpoint, $user);
+                
+                if (empty($currentAuth['basicAuth']) || !isset($currentAuth['basicAuth']['id'])) {
+                    return Response::error('No basic authentication found to disable.');
+                }
+                
+                $basicAuthId = $currentAuth['basicAuth']['id'];
+                $disableEndpoint = $endpoint . '/' . $basicAuthId;
+                
+                $data = $this->apiCall($disableEndpoint, $user, [
+                    'enabled' => false,
+                ], 'PATCH');
                 break;
         }
 
@@ -83,7 +95,7 @@ class ManageBasicAuthTool extends Tool
             'application_id' => $schema->string()->description('The application ID')->required(),
             'action' => $schema->string()->description('Action to perform: get, create, or disable')->required(),
             'username' => $schema->string()->description('Username for basic auth (required only for action=create)'),
-            'password' => $schema->string()->description('Password for basic auth (required only for action=create)'),
+            'password' => $schema->string()->format('password')->description('Password for basic auth (required only for action=create)'),
         ];
     }
 }
