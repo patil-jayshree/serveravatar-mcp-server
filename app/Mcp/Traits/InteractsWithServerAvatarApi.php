@@ -24,9 +24,8 @@ trait InteractsWithServerAvatarApi
             }
 
             return [
-                'error' => 'API request failed',
+                'error' => 'API request failed: ' . $response->body(),
                 'http_code' => $response->status(),
-                'response' => $response->body(),
                 'endpoint' => $baseUrl . $endpoint
             ];
         } catch (\Exception $e) {

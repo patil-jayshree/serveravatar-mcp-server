@@ -37,8 +37,8 @@ class GetDatabaseTool extends Tool
     public function schema(JsonSchema $schema): array
     {
         return [
-            'database_id' => $schema->string()->description('The database ID'),
-            'organization_id' => $schema->string()->description('The organization ID (required)'),
+            'organization_id' => $schema->string()->description('The organization ID')->required(),
+            'database_id' => $schema->string()->description('The database ID')->required(),
         ];
     }
     

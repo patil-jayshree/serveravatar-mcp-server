@@ -30,8 +30,8 @@ class ListServersTool extends Tool
     public function schema(JsonSchema $schema): array
     {
         return [
+            'organization_id' => $schema->string()->description('The organization ID')->required(),
             'page' => $schema->integer()->description('Page number')->default(1),
-            'organization_id' => $schema->string()->description('The organization ID (required)'),
         ];
     }
 }

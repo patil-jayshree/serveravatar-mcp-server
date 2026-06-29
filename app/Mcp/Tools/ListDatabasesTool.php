@@ -35,8 +35,8 @@ class ListDatabasesTool extends Tool
     public function schema(JsonSchema $schema): array
     {
         return [
+            'organization_id' => $schema->string()->description('The organization ID')->required(),
             'search' => $schema->string()->description('Search term for filtering databases'),
-            'organization_id' => $schema->string()->description('The organization ID (required)'),
         ];
     }
 }

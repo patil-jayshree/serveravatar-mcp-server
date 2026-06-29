@@ -32,8 +32,8 @@ class GetServerUsageTool extends Tool
     public function schema(JsonSchema $schema): array
     {
         return [
-            'server_id' => $schema->string()->description('The server ID'),
-            'organization_id' => $schema->string()->description('The organization ID (required)'),
+            'organization_id' => $schema->string()->description('The organization ID')->required(),
+            'server_id' => $schema->string()->description('The server ID')->required(),
         ];
     }
 }

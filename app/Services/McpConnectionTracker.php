@@ -48,7 +48,7 @@ class McpConnectionTracker
     public static function getConnectedClients($user)
     {
         return McpConnection::where('user_id', $user->id)
-            ->where('last_activity_at', '>', now()->subMinutes(5))
+            ->where('last_activity_at', '>', now()->subMinutes(15))
             ->orderBy('last_activity_at', 'desc')
             ->get();
     }

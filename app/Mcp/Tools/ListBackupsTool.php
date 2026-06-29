@@ -38,7 +38,7 @@ class ListBackupsTool extends Tool
     public function schema(JsonSchema $schema): array
     {
         return [
-            'organization_id' => $schema->string()->description('The organization ID (required)'),
+            'organization_id' => $schema->string()->description('The organization ID')->required(),
         ];
     }
 }

@@ -37,9 +37,9 @@ class DeleteApplicationTool extends Tool
     public function schema(JsonSchema $schema): array
     {
         return [
-            'server_id' => $schema->string()->description('The server ID'),
-            'application_id' => $schema->string()->description('The application ID to delete (required)'),
-            'organization_id' => $schema->string()->description('The organization ID (required)'),
+            'organization_id' => $schema->string()->description('The organization ID')->required(),
+            'server_id' => $schema->string()->description('The server ID')->required(),
+            'application_id' => $schema->string()->description('The application ID to delete')->required(),
         ];
     }
 }

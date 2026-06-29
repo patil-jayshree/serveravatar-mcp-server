@@ -41,8 +41,8 @@ class ViewServerLogsTool extends Tool
     public function schema(JsonSchema $schema): array
     {
         return [
-            'server_id' => $schema->string()->description('The server ID'),
-            'organization_id' => $schema->string()->description('The organization ID (required)'),
+            'organization_id' => $schema->string()->description('The organization ID')->required(),
+            'server_id' => $schema->string()->description('The server ID')->required(),
             'log' => $schema->string()->description('Log file path (e.g., apache2/error.log). If not provided, returns list of available logs.'),
             'lines' => $schema->integer()->description('Number of log lines to fetch')->default(100),
         ];

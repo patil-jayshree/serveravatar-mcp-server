@@ -61,7 +61,7 @@ return [
         [
             'name' => 'update_php_settings',
             'class' => \App\Mcp\Tools\UpdatePhpSettingsTool::class,
-            'description' => 'Update PHP settings for an application (PHP version, directives, PHP-FPM process manager)',
+            'description' => 'Update PHP config for application.',
             'usage' => 'updatePhpSettings(serverId, applicationId, organizationId, phpVersion, ...)',
             'icon' => '🐘',
         ],
