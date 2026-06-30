@@ -26,13 +26,13 @@ trait InteractsWithServerAvatarApi
             return [
                 'error' => 'API request failed: ' . $response->body(),
                 'http_code' => $response->status(),
-                'endpoint' => $baseUrl . $endpoint
+                'endpoint' => $baseUrl . $endpoint,
             ];
         } catch (\Exception $e) {
             return [
                 'error' => 'HTTP request failed',
                 'exception' => $e->getMessage(),
-                'endpoint' => $baseUrl . $endpoint
+                'endpoint' => $baseUrl . $endpoint,
             ];
         }
     }

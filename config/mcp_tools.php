@@ -73,6 +73,27 @@ return [
             'icon' => '📦',
         ],
         [
+            'name' => 'update_server_general_settings',
+            'class' => \App\Mcp\Tools\Server\UpdateServerGeneralSettingsTool::class,
+            'description' => 'Update general settings of server (name, hostname, timezone, php_cli_version)',
+            'usage' => 'updateServerGeneralSettings(organizationId, serverId, name, hostname, timezone, phpCliVersion?, olsAutoRestart?)',
+            'icon' => '⚙️',
+        ],
+        [
+            'name' => 'restart_server',
+            'class' => \App\Mcp\Tools\Server\RestartServerTool::class,
+            'description' => 'Restart the server (use with caution)',
+            'usage' => 'restartServer(organizationId, serverId)',
+            'icon' => '🔄',
+        ],
+        [
+            'name' => 'get_server_summary',
+            'class' => \App\Mcp\Tools\Server\GetServerSummaryTool::class,
+            'description' => 'Get server summary with counts of system users, applications, databases, and cronjobs',
+            'usage' => 'getServerSummary(organizationId, serverId)',
+            'icon' => '📊',
+        ],
+        [
             'name' => 'list_organization_applications',
             'class' => \App\Mcp\Tools\Application\ListOrganizationApplicationsTool::class,
             'description' => 'List all applications across all servers in an organization',

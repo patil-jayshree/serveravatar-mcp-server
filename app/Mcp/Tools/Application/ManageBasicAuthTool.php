@@ -9,15 +9,7 @@ use Laravel\Mcp\Response;
 use Laravel\Mcp\Server\Attributes\Description;
 use App\Mcp\Tools\Tool;
 
-/**
- * Manage basic authentication for an application.
- * Supports three actions: get (retrieve), create, and disable.
- * 
- * @example manageBasicAuth(organizationId: "227", serverId: "5432", applicationId: "14000", action: "get")
- * @example manageBasicAuth(organizationId: "227", serverId: "5432", applicationId: "14000", action: "create", username: "admin", password: "secret123")
- * @example manageBasicAuth(organizationId: "227", serverId: "5432", applicationId: "14000", action: "disable")
- */
-#[Description('Manage HTTP Basic Authentication for an application. Use action="get" to check current status, action="create" with username and password to enable, action="disable" to turn it off.')]
+#[Description('Manage HTTP Basic Authentication for an application. Use action="get" to check current status, action="create" with username and auth_pass to enable, action="disable" to turn it off.')]
 class ManageBasicAuthTool extends Tool
 {
     use InteractsWithServerAvatarApi;
@@ -55,10 +47,13 @@ class ManageBasicAuthTool extends Tool
 
             case 'create':
                 $username = $request->get('username');
-                $password = $request->get('password');
+                if (!$username) {
+                    return Response::error('username is required for create action.');
+                }
 
-                if (!$username || !$password) {
-                    return Response::error('username and password are required for create action.');
+                $password = $request->get('auth_pass');
+                if (!$password) {
+                    return Response::error('auth_pass is required for create action.');
                 }
 
                 $data = $this->apiCall($endpoint, $user, [
@@ -68,16 +63,15 @@ class ManageBasicAuthTool extends Tool
                 break;
 
             case 'disable':
-                // First get the current basic auth to find the ID
                 $currentAuth = $this->apiCall($endpoint, $user);
-                
+
                 if (empty($currentAuth['basicAuth']) || !isset($currentAuth['basicAuth']['id'])) {
                     return Response::error('No basic authentication found to disable.');
                 }
-                
+
                 $basicAuthId = $currentAuth['basicAuth']['id'];
                 $disableEndpoint = $endpoint . '/' . $basicAuthId;
-                
+
                 $data = $this->apiCall($disableEndpoint, $user, [
                     'enabled' => false,
                 ], 'PATCH');
@@ -95,7 +89,7 @@ class ManageBasicAuthTool extends Tool
             'application_id' => $schema->string()->description('The application ID')->required(),
             'action' => $schema->string()->description('Action to perform: get, create, or disable')->required(),
             'username' => $schema->string()->description('Username for basic auth (required only for action=create)'),
-            'password' => $schema->string()->format('password')->description('Password for basic auth (required only for action=create)'),
+            'auth_pass' => $schema->string()->description('Auth credential for basic auth (required only for action=create)'),
         ];
     }
 }

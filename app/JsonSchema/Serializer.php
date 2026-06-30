@@ -97,11 +97,9 @@ class Serializer extends BaseSerializer
             return $value !== null;
         }, ARRAY_FILTER_USE_BOTH);
         
-        error_log('serializeObjectType: final attributes keys = ' . json_encode(array_keys($attributes)));
-        
         return $attributes;
     }
-    
+
     /**
      * Check if a type is required.
      * Overrides parent to handle PHP's get_object_vars() converting boolean true to integer 1.

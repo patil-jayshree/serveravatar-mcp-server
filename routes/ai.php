@@ -9,11 +9,29 @@ use Laravel\Passport\Passport;
 // Register the ServerAvatar MCP web server with OAuth token validation
 Mcp::web('/mcp/serveravatar', ServerAvatarServer::class)->middleware('validate_mcp_token');
 
-// Register OAuth routes for MCP authentication
-Mcp::oAuthRoutesFor('serveravatar', [
-    Passport::class,
-    'callback',
-]);
+// MCP OAuth connect endpoint — redirects to Passport authorization.
+// AI clients redirect users here with OAuth parameters (client_id, redirect_uri, etc.)
+// The user logs in via Passport, then Passport redirects back to the AI client's redirect_uri
+Route::get('/mcp/serveravatar/connect', function () {
+    $params = [
+        'client_id' => request()->query('client_id'),
+        'redirect_uri' => request()->query('redirect_uri'),
+        'response_type' => request()->query('response_type', 'code'),
+        'scope' => request()->query('scope', 'mcp:use'),
+        'state' => request()->query('state'),
+    ];
+
+    // Add PKCE params if provided
+    if ($codeChallenge = request()->query('code_challenge')) {
+        $params['code_challenge'] = $codeChallenge;
+        $params['code_challenge_method'] = request()->query('code_challenge_method', 'S256');
+    }
+
+    // Remove null values
+    $params = array_filter($params, fn ($v) => $v !== null);
+
+    return redirect()->to(route('passport.authorizations.authorize').'?'.http_build_query($params));
+})->name('mcp.oauth.connect');
 
 // Register OAuth well-known endpoints for MCP clients (ChatGPT, etc.)
 Route::get('/.well-known/oauth-protected-resource', fn () => response()->json([
