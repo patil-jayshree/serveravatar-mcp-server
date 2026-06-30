@@ -3,11 +3,32 @@
 return [
     'tools' => [
         [
+            'name' => 'create_organization',
+            'class' => \App\Mcp\Tools\Organization\CreateOrganizationTool::class,
+            'description' => 'Create a new organization in ServerAvatar',
+            'usage' => 'createOrganization(name, description?)',
+            'icon' => '🏢',
+        ],
+        [
             'name' => 'list_organizations',
             'class' => \App\Mcp\Tools\Organization\ListOrganizationsTool::class,
             'description' => 'List all organizations in your ServerAvatar account',
             'usage' => 'listOrganizations()',
             'icon' => '🏢',
+        ],
+        [
+            'name' => 'get_organization',
+            'class' => \App\Mcp\Tools\Organization\GetOrganizationTool::class,
+            'description' => 'Get details of a specific organization by its ID',
+            'usage' => 'getOrganization(organizationId)',
+            'icon' => '🏢',
+        ],
+        [
+            'name' => 'delete_server',
+            'class' => \App\Mcp\Tools\Server\DeleteServerTool::class,
+            'description' => 'Delete/destroy a server (WARNING: cannot reconnect without support)',
+            'usage' => 'destroyServer(organizationId, serverId, deleteFromProvider?)',
+            'icon' => '🗑️',
         ],
         [
             'name' => 'list_cloud_provider_sizes',
