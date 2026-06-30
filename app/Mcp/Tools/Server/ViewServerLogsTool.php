@@ -9,7 +9,7 @@ use Laravel\Mcp\Response;
 use Laravel\Mcp\Server\Attributes\Description;
 use App\Mcp\Tools\Tool;
 
-#[Description('View server logs. Use server_id to specify which server.')]
+#[Description('View server logs. If log is provided, fetches that log file. If log is omitted, returns list of available log files.')]
 class ViewServerLogsTool extends Tool
 {
     use InteractsWithServerAvatarApi;
@@ -17,8 +17,6 @@ class ViewServerLogsTool extends Tool
     public function handle(Request $request): Response
     {
         $user = $request->user();
-        $log = $request->get('log');
-        $lines = $request->get('lines', 100);
         
         $organizationId = $this->getOrganizationId($request);
         if ($organizationId instanceof Response) return $organizationId;
@@ -26,15 +24,24 @@ class ViewServerLogsTool extends Tool
         $serverId = $this->getServerId($request);
         if ($serverId instanceof Response) return $serverId;
         
-        if ($log) {
-            $data = $this->apiCall("/organizations/$organizationId/servers/$serverId/logs", $user, [
-                'log' => $log,
-                'lines' => $lines
-            ]);
+        $log = $request->get('log');
+        
+        // If no log specified, return list of available log files
+        if (!$log) {
+            $data = $this->apiCall("/organizations/$organizationId/servers/$serverId/logs", $user);
             return Response::text(json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
         }
         
-        $data = $this->apiCall("/organizations/$organizationId/servers/$serverId/logs", $user);
+        // Fetch specific log file
+        $selectTailLines = $request->get('select_tail_lines', true);
+        $numberOfTailLines = $request->get('number_of_tail_lines', 100);
+        
+        $data = $this->apiCall("/organizations/$organizationId/servers/$serverId/logs", $user, [
+            'log' => $log,
+            'selectTailLines' => $selectTailLines,
+            'numberOfTailLines' => $numberOfTailLines,
+        ]);
+        
         return Response::text(json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
     }
 
@@ -43,8 +50,9 @@ class ViewServerLogsTool extends Tool
         return [
             'organization_id' => $schema->string()->description('The organization ID')->required(),
             'server_id' => $schema->string()->description('The server ID')->required(),
-            'log' => $schema->string()->description('Log file path (e.g., apache2/error.log). If not provided, returns list of available logs.'),
-            'lines' => $schema->integer()->description('Number of log lines to fetch')->default(100),
+            'log' => $schema->string()->description('Log file path e.g. apache2/error.log. If omitted, returns list of available log files.'),
+            'select_tail_lines' => $schema->boolean()->description('Set true to fetch latest log lines. Default: true')->default(true),
+            'number_of_tail_lines' => $schema->integer()->description('Number of log lines to fetch. Default: 100')->default(100),
         ];
     }
 }
