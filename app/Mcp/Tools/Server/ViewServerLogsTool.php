@@ -32,7 +32,7 @@ class ViewServerLogsTool extends Tool
             return Response::text(json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
         }
         
-        // Fetch specific log file
+        // Fetch specific log file - POST to /logs with body params
         $selectTailLines = $request->get('select_tail_lines', true);
         $numberOfTailLines = $request->get('number_of_tail_lines', 100);
         
@@ -40,7 +40,7 @@ class ViewServerLogsTool extends Tool
             'log' => $log,
             'selectTailLines' => $selectTailLines,
             'numberOfTailLines' => $numberOfTailLines,
-        ]);
+        ], 'POST');
         
         return Response::text(json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
     }
