@@ -5,6 +5,7 @@ namespace App\Mcp\Servers;
 use App\Mcp\Tools\Server\{CreateServerTool, ListCloudServerProvidersTool, ListCloudProviderRegionsTool, ListCloudProviderSizesTool, DeleteServerTool, ListServersTool, GetServerTool, GetServerUsageTool, ViewServerLogsTool, GetServerProcessesTool, GetServerServicesTool, UpdateServerServiceTool, GetPhpFpmContentTool, InstallPhpVersionTool, UpdateServerGeneralSettingsTool, RestartServerTool, GetServerSummaryTool, SetServerRestartScheduleTool, UpdateServerTagsTool, DeleteServerTagsTool};
 use App\Mcp\Tools\Firewall\{ToggleServerFirewallTool, ListFirewallRulesTool, CreateFirewallRuleTool, DeleteFirewallRuleTool};
 use App\Mcp\Tools\Cronjob\{CreateCronjobTool, ListCronjobsTool, GetCronjobTool, UpdateCronjobTool, ToggleCronjobTool, DeleteCronjobTool};
+use App\Mcp\Tools\ApplicationUser\{ListApplicationUsersTool, CreateApplicationUserTool, GetApplicationUserTool, UpdateApplicationUserTool, DeleteApplicationUserTool};
 use App\Mcp\Tools\Application\{ListApplicationsTool, ListOrganizationApplicationsTool, CreateApplicationTool, GetApplicationTool, DeleteApplicationTool, ToggleApplicationTool, UpdatePhpSettingsTool, ManageBasicAuthTool,};
 use App\Mcp\Tools\Database\{ListDatabasesTool, GetDatabaseTool,};
 use App\Mcp\Tools\Backup\ListBackupsTool;
@@ -70,6 +71,11 @@ class ServerAvatarServer extends Server
         UpdateCronjobTool::class,
         ToggleCronjobTool::class,
         DeleteCronjobTool::class,
+        ListApplicationUsersTool::class,
+        CreateApplicationUserTool::class,
+        GetApplicationUserTool::class,
+        UpdateApplicationUserTool::class,
+        DeleteApplicationUserTool::class,
 
         ListBackupsTool::class,
         UpdatePhpSettingsTool::class,

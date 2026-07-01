@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Mcp\Tools\Cronjob;
+namespace App\Mcp\Tools\ApplicationUser;
 
 use App\Mcp\Traits\InteractsWithServerAvatarApi;
 use Illuminate\Contracts\JsonSchema\JsonSchema;
@@ -10,10 +10,10 @@ use Laravel\Mcp\Server\Attributes\Description;
 use App\Mcp\Tools\Tool;
 
 /**
- * List all cronjobs for a server.
+ * Get details of a specific application user.
  */
-#[Description('List all cronjobs for a server. Returns cronjob details including name, command, schedule, system_user, enabled status, and timing.')]
-class ListCronjobsTool extends Tool
+#[Description('Get details of a specific application user including username, password, public_key, group, ssh_access, and root_access.')]
+class GetApplicationUserTool extends Tool
 {
     use InteractsWithServerAvatarApi;
 
@@ -31,7 +31,12 @@ class ListCronjobsTool extends Tool
             return $serverId;
         }
 
-        $endpoint = "/organizations/$organizationId/servers/$serverId/cronjobs?pagination=1";
+        $systemUserId = $request->get('system_user_id');
+        if (!$systemUserId) {
+            return Response::error('system_user_id is required. Use listApplicationUsers to get the user ID.');
+        }
+
+        $endpoint = "/organizations/$organizationId/servers/$serverId/system-users/$systemUserId";
         $result = $this->apiCall($endpoint, $user, [], 'GET');
 
         return Response::text(json_encode($result, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
@@ -42,6 +47,7 @@ class ListCronjobsTool extends Tool
         return [
             'organization_id' => $schema->string()->description('The organization ID')->required(),
             'server_id' => $schema->string()->description('The server ID')->required(),
+            'system_user_id' => $schema->number()->description('The application user ID (from listApplicationUsers)')->required(),
         ];
     }
 }

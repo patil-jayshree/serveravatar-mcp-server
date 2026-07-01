@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Mcp\Tools\Cronjob;
+namespace App\Mcp\Tools\ApplicationUser;
 
 use App\Mcp\Traits\InteractsWithServerAvatarApi;
 use Illuminate\Contracts\JsonSchema\JsonSchema;
@@ -10,10 +10,10 @@ use Laravel\Mcp\Server\Attributes\Description;
 use App\Mcp\Tools\Tool;
 
 /**
- * List all cronjobs for a server.
+ * Delete application users from a server.
  */
-#[Description('List all cronjobs for a server. Returns cronjob details including name, command, schedule, system_user, enabled status, and timing.')]
-class ListCronjobsTool extends Tool
+#[Description('Delete application users from a server. Requires array of application user IDs (from listApplicationUsers). Note: users with associated applications cannot be deleted.')]
+class DeleteApplicationUserTool extends Tool
 {
     use InteractsWithServerAvatarApi;
 
@@ -31,8 +31,17 @@ class ListCronjobsTool extends Tool
             return $serverId;
         }
 
-        $endpoint = "/organizations/$organizationId/servers/$serverId/cronjobs?pagination=1";
-        $result = $this->apiCall($endpoint, $user, [], 'GET');
+        $ids = $request->get('ids');
+        if (!is_array($ids) || empty($ids)) {
+            return Response::error('ids is required. Array of application user IDs to delete (from listApplicationUsers).');
+        }
+
+        $data = [
+            'ids' => $ids,
+        ];
+
+        $endpoint = "/organizations/$organizationId/servers/$serverId/system-users/delete";
+        $result = $this->apiCall($endpoint, $user, $data, 'POST');
 
         return Response::text(json_encode($result, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
     }
@@ -42,6 +51,9 @@ class ListCronjobsTool extends Tool
         return [
             'organization_id' => $schema->string()->description('The organization ID')->required(),
             'server_id' => $schema->string()->description('The server ID')->required(),
+            'ids' => $schema->array([
+                'items' => $schema->integer()->description('Application user ID'),
+            ])->description('Array of application user IDs to delete (from listApplicationUsers)')->required(),
         ];
     }
 }

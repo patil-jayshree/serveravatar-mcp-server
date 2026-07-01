@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Mcp\Tools\Cronjob;
+namespace App\Mcp\Tools\ApplicationUser;
 
 use App\Mcp\Traits\InteractsWithServerAvatarApi;
 use Illuminate\Contracts\JsonSchema\JsonSchema;
@@ -10,10 +10,10 @@ use Laravel\Mcp\Server\Attributes\Description;
 use App\Mcp\Tools\Tool;
 
 /**
- * List all cronjobs for a server.
+ * List all application users (system users) for a server.
  */
-#[Description('List all cronjobs for a server. Returns cronjob details including name, command, schedule, system_user, enabled status, and timing.')]
-class ListCronjobsTool extends Tool
+#[Description('List all application users (system users) for a server. Returns username, password, public_key, group, ssh_access, root_access, and associated applications.')]
+class ListApplicationUsersTool extends Tool
 {
     use InteractsWithServerAvatarApi;
 
@@ -31,7 +31,7 @@ class ListCronjobsTool extends Tool
             return $serverId;
         }
 
-        $endpoint = "/organizations/$organizationId/servers/$serverId/cronjobs?pagination=1";
+        $endpoint = "/organizations/$organizationId/servers/$serverId/system-users?pagination=1";
         $result = $this->apiCall($endpoint, $user, [], 'GET');
 
         return Response::text(json_encode($result, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
