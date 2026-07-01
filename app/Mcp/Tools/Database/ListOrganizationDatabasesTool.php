@@ -9,26 +9,22 @@ use Laravel\Mcp\Response;
 use Laravel\Mcp\Server\Attributes\Description;
 use App\Mcp\Tools\Tool;
 
-#[Description('List all databases in your ServerAvatar account')]
-class ListDatabasesTool extends Tool
+#[Description('List all databases within an organization. Use this to view all databases across all servers in your organization. Requires organization_id.')]
+class ListOrganizationDatabasesTool extends Tool
 {
     use InteractsWithServerAvatarApi;
-    
+
     public function handle(Request $request): Response
     {
         $user = $request->user();
-        $search = $request->get('search', '');
-        
+
         $organizationId = $this->getOrganizationId($request);
-        if ($organizationId instanceof Response) return $organizationId;
-        
-        $endpoint = "/organizations/$organizationId/databases";
-        if ($search) {
-            $endpoint .= '?search=' . urlencode($search);
+        if ($organizationId instanceof Response) {
+            return $organizationId;
         }
-        
-        $data = $this->apiCall($endpoint, $user);
-        
+
+        $data = $this->apiCall("/organizations/$organizationId/databases", $user);
+
         return Response::text(json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
     }
 
@@ -36,7 +32,6 @@ class ListDatabasesTool extends Tool
     {
         return [
             'organization_id' => $schema->string()->description('The organization ID')->required(),
-            'search' => $schema->string()->description('Search term for filtering databases'),
         ];
     }
 }

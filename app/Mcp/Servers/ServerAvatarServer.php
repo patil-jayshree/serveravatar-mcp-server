@@ -2,12 +2,13 @@
 
 namespace App\Mcp\Servers;
 
+use App\Mcp\Tools\Database\{ListServerDatabasesTool, ListOrganizationDatabasesTool, CreateDatabaseTool, DeleteDatabaseTool};
 use App\Mcp\Tools\Server\{CreateServerTool, ListCloudServerProvidersTool, ListCloudProviderRegionsTool, ListCloudProviderSizesTool, DeleteServerTool, ListServersTool, GetServerTool, GetServerUsageTool, ViewServerLogsTool, GetServerProcessesTool, GetServerServicesTool, UpdateServerServiceTool, GetPhpFpmContentTool, InstallPhpVersionTool, UpdateServerGeneralSettingsTool, RestartServerTool, GetServerSummaryTool, SetServerRestartScheduleTool, UpdateServerTagsTool, DeleteServerTagsTool};
 use App\Mcp\Tools\Firewall\{ToggleServerFirewallTool, ListFirewallRulesTool, CreateFirewallRuleTool, DeleteFirewallRuleTool};
 use App\Mcp\Tools\Cronjob\{CreateCronjobTool, ListCronjobsTool, GetCronjobTool, UpdateCronjobTool, ToggleCronjobTool, DeleteCronjobTool};
 use App\Mcp\Tools\ApplicationUser\{ListUsersTool, CreateUserTool, GetUserTool, UpdateUserTool, DeleteUserTool, ToggleUserSshAccessTool, ToggleUserRootAccessTool, RemoveUserSshKeyTool};
 use App\Mcp\Tools\Application\{ListApplicationsTool, ListOrganizationApplicationsTool, CreateApplicationTool, GetApplicationTool, DeleteApplicationTool, ToggleApplicationTool, UpdatePhpSettingsTool, ManageBasicAuthTool,};
-use App\Mcp\Tools\Database\{ListDatabasesTool, GetDatabaseTool,};
+
 use App\Mcp\Tools\Backup\ListBackupsTool;
 use App\Mcp\Tools\Organization\{ListOrganizationsTool, CreateOrganizationTool, GetOrganizationTool};
 use Laravel\Mcp\Server\Attributes\Instructions;
@@ -35,6 +36,10 @@ class ServerAvatarServer extends Server
         CreateOrganizationTool::class,
         GetOrganizationTool::class,
         ListServersTool::class,
+        ListServerDatabasesTool::class,
+        ListOrganizationDatabasesTool::class,
+        CreateDatabaseTool::class,
+        DeleteDatabaseTool::class,
         CreateServerTool::class,
         ListCloudServerProvidersTool::class,
         ListCloudProviderRegionsTool::class,
@@ -47,8 +52,6 @@ class ServerAvatarServer extends Server
         CreateApplicationTool::class,
         GetApplicationTool::class,
         DeleteApplicationTool::class,
-        ListDatabasesTool::class,
-        GetDatabaseTool::class,
         ViewServerLogsTool::class,
         GetServerProcessesTool::class,
         GetServerServicesTool::class,
