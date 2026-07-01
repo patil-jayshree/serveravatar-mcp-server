@@ -136,6 +136,27 @@ return [
             'icon' => '🔄',
         ],
         [
+            'name' => 'set_server_restart_schedule',
+            'class' => \App\Mcp\Tools\Server\SetServerRestartScheduleTool::class,
+            'description' => 'Set the server restart schedule (daily, weekly, monthly, or specific_hour with hour in UTC)',
+            'usage' => 'setServerRestartSchedule(organizationId, serverId, restartSchedule, restartHour?)',
+            'icon' => '⏰',
+        ],
+        [
+            'name' => 'update_server_tags',
+            'class' => \App\Mcp\Tools\Server\UpdateServerTagsTool::class,
+            'description' => 'Update (replace) all tags for a server. Provide an array of tag names (strings). Example: tags=["Production", "Backend"]',
+            'usage' => 'updateServerTags(organizationId, serverId, tags)',
+            'icon' => '🏷️',
+        ],
+        [
+            'name' => 'delete_server_tags',
+            'class' => \App\Mcp\Tools\Server\DeleteServerTagsTool::class,
+            'description' => 'Delete all tags from a server',
+            'usage' => 'deleteServerTags(organizationId, serverId)',
+            'icon' => '🗑️',
+        ],
+        [
             'name' => 'get_server_summary',
             'class' => \App\Mcp\Tools\Server\GetServerSummaryTool::class,
             'description' => 'Get server summary with counts of system users, applications, databases, and cronjobs',
