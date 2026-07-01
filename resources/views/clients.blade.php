@@ -107,33 +107,34 @@
         .page-subtitle { font-size: 14px; color: var(--text-secondary); font-weight: 400; line-height: 22px; }
         .clients-count { display: inline-flex; align-items: center; gap: 6px; background: var(--accent-primary-muted); color: var(--accent-primary); padding: 4px 12px; border-radius: 20px; font-size: 13px; font-weight: 600; }
         
-        .clients-table-wrap { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 0; overflow: hidden; }
-        .clients-table { width: 100%; }
-        .table-header { display: grid; grid-template-columns: 1fr 140px 180px 150px; padding: 0 1.5rem; background: var(--bg-secondary); border-bottom: 1px solid var(--border-color); font-size: 12px; font-weight: 600; line-height: 16px; letter-spacing: 0.08em; text-transform: uppercase; gap: 3rem; box-sizing: border-box; }
+        .clients-table-wrap { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 0; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+        .clients-table { width: 100%; min-width: 700px; }
+        .table-header { display: grid; grid-template-columns: minmax(150px, 1fr) minmax(100px, 120px) minmax(130px, 160px) minmax(110px, 140px); padding: 0 1rem; background: var(--bg-secondary); border-bottom: 1px solid var(--border-color); font-size: 11px; font-weight: 600; line-height: 16px; letter-spacing: 0.05em; text-transform: uppercase; gap: 1rem; box-sizing: border-box; }
         [data-theme="light"] .table-header { color: #64748B; }
         [data-theme="dark"] .table-header { color: #94A3B8; }
-        .table-header > div { display: flex; align-items: center; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 12px 12px; justify-content: flex-start; }
-        .table-header > div:first-child { padding-left: 1.5rem; }
-        .table-header > div:last-child { text-align: left; padding-right: 1.5rem; }
+        .table-header > div { display: flex; align-items: center; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 12px 8px; justify-content: flex-start; }
+        .table-header > div:first-child { padding-left: 1rem; }
+        .table-header > div:last-child { padding-right: 1rem; }
         .table-body { display: flex; flex-direction: column; }
-        .table-row { display: grid; grid-template-columns: 1fr 140px 180px 150px; padding: 0 1.5rem; border-bottom: 1px solid var(--border-color); align-items: center; transition: background 0.2s; gap: 3rem; box-sizing: border-box; }
+        .table-row { display: grid; grid-template-columns: minmax(150px, 1fr) minmax(100px, 120px) minmax(130px, 160px) minmax(110px, 140px); padding: 0 1rem; border-bottom: 1px solid var(--border-color); align-items: center; transition: background 0.2s; gap: 1rem; box-sizing: border-box; }
         .table-row:hover { background: rgba(99, 102, 241, 0.05); }
-        .table-row > div { overflow: hidden; padding: 16px 12px; }
-        .table-row > div:first-child { padding-left: 1.5rem; }
-        .table-row > div:last-child { text-align: left; padding-right: 1.5rem; }
+        .table-row > div { overflow: hidden; padding: 12px 8px; }
+        .table-row > div:first-child { padding-left: 1rem; }
+        .table-row > div:last-child { padding-right: 1rem; }
         .table-row:last-child { border-bottom: none; }
         
-        .client-info { display: flex; align-items: center; gap: 12px; }
-        .client-icon { width: 40px; height: 40px; border-radius: 10px; background: var(--bg-tertiary); display: flex; align-items: center; justify-content: center; font-size: 1.25rem; }
-        .client-name { font-size: 15px; font-weight: 600; line-height: 22px; color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .client-info { display: flex; align-items: center; gap: 10px; }
+        .client-icon { width: 36px; height: 36px; border-radius: 8px; background: var(--bg-tertiary); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+        .client-icon img { width: 28px; height: 28px; }
+        .client-name { font-size: 13px; font-weight: 600; line-height: 20px; color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         [data-theme="light"] .client-name { color: #0F172A; }
         [data-theme="dark"] .client-name { color: #F8FAFC; }
-        .client-meta { font-size: 0.8rem; color: var(--text-muted); margin-top: 2px; }
+        .client-meta { font-size: 0.75rem; color: var(--text-muted); margin-top: 2px; }
         
-        .status-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--accent-success-muted); color: var(--accent-success); padding: 6px 12px; border-radius: 20px; font-size: 13px; font-weight: 600; line-height: 18px; justify-content: center; white-space: nowrap; }
-        .status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent-success); }
+        .status-badge { display: inline-flex; align-items: center; gap: 4px; background: var(--accent-success-muted); color: var(--accent-success); padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; line-height: 16px; justify-content: center; white-space: nowrap; }
+        .status-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent-success); flex-shrink: 0; }
         
-        .date-time { font-size: 14px; font-weight: 400; line-height: 22px; color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .date-time { font-size: 12px; font-weight: 400; line-height: 20px; color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         [data-theme="light"] .date-time { color: #475569; }
         [data-theme="dark"] .date-time { color: #CBD5E1; }
         .last-activity-text { text-align: left; }
@@ -147,12 +148,44 @@
         .footer a { color: var(--accent-primary); text-decoration: none; font-weight: 600; }
         .footer a:hover { text-decoration: underline; }
         
+        @media (max-width: 1024px) {
+            .clients-table { min-width: 600px; }
+            .table-header { grid-template-columns: minmax(130px, 1fr) minmax(90px, 110px) minmax(110px, 140px) minmax(100px, 120px); gap: 0.75rem; font-size: 0.7rem; padding: 0 0.75rem; }
+            .table-row { grid-template-columns: minmax(130px, 1fr) minmax(90px, 110px) minmax(110px, 140px) minmax(100px, 120px); gap: 0.75rem; padding: 0 0.75rem; }
+            .client-name { font-size: 12px; }
+            .date-time { font-size: 0.7rem; }
+            .status-badge { font-size: 0.65rem; padding: 3px 8px; }
+        }
+        
         @media (max-width: 768px) {
             .navbar { padding: 0 1rem; }
             .container { padding: 1rem; }
-            .table-header, .table-row { grid-template-columns: 1fr; gap: 0.5rem; }
-            .table-header > div:last-child { text-align: left; }
-            .table-row > div:last-child { text-align: left; }
+            .clients-table { min-width: 500px; }
+            .table-header { grid-template-columns: minmax(110px, 130px) minmax(80px, 100px) minmax(100px, 120px) minmax(80px, 100px); gap: 0.5rem; font-size: 0.65rem; padding: 0 0.5rem; }
+            .table-row { grid-template-columns: minmax(110px, 130px) minmax(80px, 100px) minmax(100px, 120px) minmax(80px, 100px); gap: 0.5rem; padding: 0 0.5rem; }
+            .table-header > div, .table-row > div { padding: 10px 6px; }
+            .table-header > div:first-child { padding-left: 0.5rem; }
+            .table-row > div:first-child { padding-left: 0.5rem; }
+            .client-info { gap: 8px; }
+            .client-icon { width: 30px; height: 30px; }
+            .client-icon img { width: 22px; height: 22px; }
+            .client-name { font-size: 11px; }
+            .date-time { font-size: 0.65rem; white-space: normal; line-height: 1.3; }
+            .status-badge { font-size: 0.6rem; padding: 3px 6px; }
+        }
+        
+        @media (max-width: 480px) {
+            .clients-table { min-width: 380px; }
+            .table-header { grid-template-columns: minmax(90px, 110px) minmax(70px, 90px) minmax(80px, 100px) minmax(70px, 80px); gap: 0.5rem; font-size: 0.6rem; padding: 0 0.5rem; }
+            .table-row { grid-template-columns: minmax(90px, 110px) minmax(70px, 90px) minmax(80px, 100px) minmax(70px, 80px); gap: 0.5rem; padding: 0 0.5rem; }
+            .table-header > div, .table-row > div { padding: 8px 4px; }
+            .client-info { gap: 6px; }
+            .client-icon { width: 26px; height: 26px; }
+            .client-icon img { width: 18px; height: 18px; }
+            .client-name { font-size: 10px; }
+            .date-time { font-size: 0.6rem; }
+            .status-badge { font-size: 0.55rem; padding: 2px 5px; gap: 3px; }
+            .status-dot { width: 4px; height: 4px; }
         }
     </style>
 </head>

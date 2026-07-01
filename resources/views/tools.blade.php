@@ -103,35 +103,36 @@
         .search-input:focus { outline: none; border-color: var(--accent-primary); background: var(--bg-secondary); }
         .search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 1rem; }
         
-        .tools-table-wrap { overflow-x: auto; border-radius: 0; }
-        .tools-table { background: var(--bg-card); border: 1px solid var(--border-color); width: 100%; }
-        .table-header { display: grid; grid-template-columns: 240px 1fr 100px; padding: 0 1.5rem; background: var(--bg-secondary); border-bottom: 1px solid var(--border-color); font-size: 12px; font-weight: 600; line-height: 16px; letter-spacing: 0.08em; text-transform: uppercase; gap: 5.5rem; box-sizing: border-box; }
+        .tools-table-wrap { overflow-x: auto; border-radius: 0; -webkit-overflow-scrolling: touch; }
+        .tools-table { background: var(--bg-card); border: 1px solid var(--border-color); width: 100%; min-width: 600px; }
+        .table-header { display: grid; grid-template-columns: minmax(140px, 180px) 1fr minmax(70px, 90px); padding: 0 1rem; background: var(--bg-secondary); border-bottom: 1px solid var(--border-color); font-size: 11px; font-weight: 600; line-height: 16px; letter-spacing: 0.05em; text-transform: uppercase; gap: 1rem; box-sizing: border-box; }
         [data-theme="light"] .table-header { color: #64748B; }
         [data-theme="dark"] .table-header { color: #94A3B8; }
-        .table-header > div { display: flex; align-items: center; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 12px 4px; justify-content: flex-start; }
+        .table-header > div { display: flex; align-items: center; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 12px 8px; justify-content: flex-start; }
         .table-header > div:last-child { justify-content: center; }
         .th-text { display: block; text-align: left; line-height: 1.4; }
         .th-text-center { display: block; text-align: center; line-height: 1.4; }
         .header-status-cell { display: flex; justify-content: center; align-items: center; width: 100%; height: 100%; }
         .table-body { display: flex; flex-direction: column; }
-        .table-row { display: grid; grid-template-columns: 240px 1fr 100px; padding: 0 1.5rem; border-bottom: 1px solid var(--border-color); align-items: stretch; transition: background 0.2s; gap: 5rem; box-sizing: border-box; }
-        .table-row > div { display: flex; align-items: center; overflow: visible; padding: 16px 12px; }
+        .table-row { display: grid; grid-template-columns: minmax(140px, 180px) 1fr minmax(70px, 90px); padding: 0 1rem; border-bottom: 1px solid var(--border-color); align-items: center; transition: background 0.2s; gap: 1rem; box-sizing: border-box; }
+        .table-row > div { display: flex; align-items: center; overflow: hidden; padding: 12px 8px; }
         .table-row > div:last-child { justify-content: center; }
         .table-row:last-child { border-bottom: none; }
         .table-row:hover { background: rgba(99, 102, 241, 0.05); }
-        .tool-name-cell { display: flex; align-items: center; gap: 8px; width: 100%; height: 100%; min-width: 0; flex-shrink: 0; }
-        .tool-name { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.85rem; color: var(--accent-primary); font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .tool-name-cell { display: flex; align-items: center; gap: 8px; width: 100%; min-width: 0; flex-shrink: 0; }
+        .tool-name { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.8rem; color: var(--accent-primary); font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .tool-name-icon { font-size: 1rem; flex-shrink: 0; }
-        .tool-name-text { font-size: 15px; font-weight: 600; line-height: 22px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+        .tool-name-text { font-size: 13px; font-weight: 600; line-height: 20px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
         [data-theme="light"] .tool-name-text { color: #0F172A; }
         [data-theme="dark"] .tool-name-text { color: #F8FAFC; }
-        .tool-desc-cell { font-size: 14px; font-weight: 400; line-height: 22px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; height: 100%; display: flex; align-items: center; }
-        [data-theme="light"] .tool-desc-cell { color: #475569; }
-        [data-theme="dark"] .tool-desc-cell { color: #CBD5E1; }
+        .tool-desc-cell { min-width: 0; flex-basis: 0; flex-grow: 1; display: flex; align-items: center; }
+        .tool-desc-cell span { font-size: 13px; font-weight: 400; line-height: 20px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--text-secondary); }
+        [data-theme="light"] .tool-desc-cell span { color: #475569; }
+        [data-theme="dark"] .tool-desc-cell span { color: #CBD5E1; }
         
-        .tool-status-cell { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; }
-        .status-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--accent-success-muted); color: var(--accent-success); padding: 6px 12px; border-radius: 20px; font-size: 13px; font-weight: 600; line-height: 18px; justify-content: center; white-space: nowrap; }
-        .status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent-success); flex-shrink: 0; }
+        .tool-status-cell { display: flex; align-items: center; justify-content: center; width: 100%; }
+        .status-badge { display: inline-flex; align-items: center; gap: 4px; background: var(--accent-success-muted); color: var(--accent-success); padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; line-height: 16px; justify-content: center; white-space: nowrap; }
+        .status-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent-success); flex-shrink: 0; }
         
         /* Tooltip - Pure CSS */
         [data-tooltip] { position: relative; cursor: pointer; }
@@ -139,39 +140,37 @@
         
         /* Responsive Table */
         @media (max-width: 1024px) {
-            .table-header { grid-template-columns: 200px 1fr 80px; gap: 5rem; }
-            .table-row { grid-template-columns: 200px 1fr 80px; gap: 5rem; }
-            .table-header > div, .table-row > div { padding: 14px 12px; }
-            .tool-name { font-size: 0.8rem; }
-            .tool-desc-cell { font-size: 0.8rem; }
-            
+            .table-header { grid-template-columns: minmax(130px, 160px) 1fr 70px; gap: 1rem; font-size: 0.7rem; }
+            .table-row { grid-template-columns: minmax(130px, 160px) 1fr 70px; gap: 1rem; }
+            .tool-name { font-size: 0.75rem; }
+            .tool-desc-cell span { font-size: 0.75rem; }
+            .status-badge { font-size: 0.65rem; padding: 3px 8px; }
         }
         
         @media (max-width: 768px) {
-            .tools-table-wrap { overflow-x: auto; }
-            .tools-table { min-width: 600px; }
-            .table-header { grid-template-columns: 160px 1fr 70px; gap: 5rem; font-size: 0.7rem; }
-            .table-row { grid-template-columns: 160px 1fr 70px; gap: 5rem; }
-            .table-header > div, .table-row > div { padding: 12px 12px; }
-            .tool-name { font-size: 0.75rem; }
-            .tool-name-icon { font-size: 0.9rem; }
-            .tool-desc-cell { font-size: 0.75rem; }
-            
-            .status-badge { font-size: 0.65rem; padding: 4px 8px; }
-            .th-text, .th-text-center { font-size: 0.7rem; }
+            .tools-table { min-width: 500px; }
+            .table-header { grid-template-columns: minmax(110px, 140px) 1fr 60px; gap: 0.75rem; font-size: 0.65rem; padding: 0 0.75rem; }
+            .table-row { grid-template-columns: minmax(110px, 140px) 1fr 60px; gap: 0.75rem; padding: 0 0.75rem; }
+            .table-header > div, .table-row > div { padding: 10px 6px; }
+            .tool-name { font-size: 0.7rem; }
+            .tool-name-icon { font-size: 0.85rem; }
+            .tool-name-text { font-size: 12px; }
+            .tool-desc-cell span { font-size: 0.7rem; }
+            .status-badge { font-size: 0.6rem; padding: 3px 6px; }
+            .th-text, .th-text-center { font-size: 0.65rem; }
         }
         
         @media (max-width: 480px) {
-            .tools-table-wrap { overflow-x: auto; }
-            .tools-table { min-width: 450px; }
-            .table-header { grid-template-columns: 120px 1fr 60px; gap: 5rem; }
-            .table-row { grid-template-columns: 120px 1fr 60px; gap: 5rem; }
-            .table-header > div, .table-row > div { padding: 6px 4px; }
-            .tool-name { font-size: 0.7rem; }
-            .tool-name-icon { font-size: 0.8rem; }
-            .tool-desc-cell { font-size: 0.7rem; white-space: normal; line-height: 1.3; }
-            
-            .status-badge { font-size: 0.6rem; padding: 3px 6px; gap: 4px; }
+            .tools-table { min-width: 400px; }
+            .table-header { grid-template-columns: minmax(90px, 120px) 1fr 50px; gap: 0.5rem; font-size: 0.6rem; padding: 0 0.5rem; }
+            .table-row { grid-template-columns: minmax(90px, 120px) 1fr 50px; gap: 0.5rem; padding: 0 0.5rem; }
+            .table-header > div, .table-row > div { padding: 8px 4px; }
+            .tool-name { font-size: 0.65rem; }
+            .tool-name-icon { font-size: 0.75rem; }
+            .tool-name-text { font-size: 11px; }
+            .tool-desc-cell span { font-size: 0.65rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+            .status-badge { font-size: 0.55rem; padding: 2px 5px; gap: 3px; }
+            .status-dot { width: 4px; height: 4px; }
         }
         
         .pagination { display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.5rem; background: var(--bg-secondary); border-top: 1px solid var(--border-color); border-radius: 0 0 var(--radius-lg) var(--radius-lg); }
@@ -269,7 +268,15 @@
                     <span class="page-btn disabled">← Previous</span>
                     @endif
                     
-                    @for($i = 1; $i <= $totalPages; $i++)
+                    @php
+                        $start = max(1, $currentPage - 1);
+                        $end = min($totalPages, $start + 2);
+                        if ($end - $start < 2) {
+                            $start = max(1, $end - 2);
+                        }
+                    @endphp
+                    
+                    @for($i = $start; $i <= $end; $i++)
                         @if($i == $currentPage)
                         <span class="page-btn active">{{ $i }}</span>
                         @else
