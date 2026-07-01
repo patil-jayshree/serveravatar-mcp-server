@@ -10,10 +10,10 @@ use Laravel\Mcp\Server\Attributes\Description;
 use App\Mcp\Tools\Tool;
 
 /**
- * Get details of a specific application user.
+ * List all application users (system users) for a server.
  */
-#[Description('Get details of a specific application user including username, password, public_key, group, ssh_access, and root_access.')]
-class GetApplicationUserTool extends Tool
+#[Description('List all application users (system users) for a server. Returns username, password, public_key, group, ssh_access, root_access, and associated applications.')]
+class ListUsersTool extends Tool
 {
     use InteractsWithServerAvatarApi;
 
@@ -31,12 +31,7 @@ class GetApplicationUserTool extends Tool
             return $serverId;
         }
 
-        $systemUserId = $request->get('system_user_id');
-        if (!$systemUserId) {
-            return Response::error('system_user_id is required. Use listApplicationUsers to get the user ID.');
-        }
-
-        $endpoint = "/organizations/$organizationId/servers/$serverId/system-users/$systemUserId";
+        $endpoint = "/organizations/$organizationId/servers/$serverId/system-users?pagination=1";
         $result = $this->apiCall($endpoint, $user, [], 'GET');
 
         return Response::text(json_encode($result, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
@@ -47,7 +42,6 @@ class GetApplicationUserTool extends Tool
         return [
             'organization_id' => $schema->string()->description('The organization ID')->required(),
             'server_id' => $schema->string()->description('The server ID')->required(),
-            'system_user_id' => $schema->number()->description('The application user ID (from listApplicationUsers)')->required(),
         ];
     }
 }

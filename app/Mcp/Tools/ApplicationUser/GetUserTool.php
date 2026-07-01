@@ -10,10 +10,10 @@ use Laravel\Mcp\Server\Attributes\Description;
 use App\Mcp\Tools\Tool;
 
 /**
- * Delete application users from a server.
+ * Get details of a specific application user.
  */
-#[Description('Delete application users from a server. Requires array of application user IDs (from listApplicationUsers). Note: users with associated applications cannot be deleted.')]
-class DeleteApplicationUserTool extends Tool
+#[Description('Get details of a specific application user including username, password, public_key, group, ssh_access, and root_access.')]
+class GetUserTool extends Tool
 {
     use InteractsWithServerAvatarApi;
 
@@ -31,17 +31,13 @@ class DeleteApplicationUserTool extends Tool
             return $serverId;
         }
 
-        $ids = $request->get('ids');
-        if (!is_array($ids) || empty($ids)) {
-            return Response::error('ids is required. Array of application user IDs to delete (from listApplicationUsers).');
+        $systemUserId = $request->get('system_user_id');
+        if (!$systemUserId) {
+            return Response::error('system_user_id is required. Use listUsers to get the user ID.');
         }
 
-        $data = [
-            'ids' => $ids,
-        ];
-
-        $endpoint = "/organizations/$organizationId/servers/$serverId/system-users/delete";
-        $result = $this->apiCall($endpoint, $user, $data, 'POST');
+        $endpoint = "/organizations/$organizationId/servers/$serverId/system-users/$systemUserId";
+        $result = $this->apiCall($endpoint, $user, [], 'GET');
 
         return Response::text(json_encode($result, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
     }
@@ -51,9 +47,7 @@ class DeleteApplicationUserTool extends Tool
         return [
             'organization_id' => $schema->string()->description('The organization ID')->required(),
             'server_id' => $schema->string()->description('The server ID')->required(),
-            'ids' => $schema->array([
-                'items' => $schema->integer()->description('Application user ID'),
-            ])->description('Array of application user IDs to delete (from listApplicationUsers)')->required(),
+            'system_user_id' => $schema->number()->description('The application user ID (from listUsers)')->required(),
         ];
     }
 }

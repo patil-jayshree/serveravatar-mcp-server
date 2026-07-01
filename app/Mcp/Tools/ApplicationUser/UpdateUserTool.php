@@ -13,7 +13,7 @@ use App\Mcp\Tools\Tool;
  * Update an application user (change password or update SSH key).
  */
 #[Description('Update an application user. Use type="password" to change password (requires password + confirmation), or type="key" to update public_key.')]
-class UpdateApplicationUserTool extends Tool
+class UpdateUserTool extends Tool
 {
     use InteractsWithServerAvatarApi;
 
@@ -33,7 +33,7 @@ class UpdateApplicationUserTool extends Tool
 
         $systemUserId = $request->get('system_user_id');
         if (!$systemUserId) {
-            return Response::error('system_user_id is required. Use listApplicationUsers to get the user ID.');
+            return Response::error('system_user_id is required. Use listUsers to get the user ID.');
         }
 
         $type = $request->get('type');
@@ -81,7 +81,7 @@ class UpdateApplicationUserTool extends Tool
         return [
             'organization_id' => $schema->string()->description('The organization ID')->required(),
             'server_id' => $schema->string()->description('The server ID')->required(),
-            'system_user_id' => $schema->number()->description('The application user ID (from listApplicationUsers)')->required(),
+            'system_user_id' => $schema->number()->description('The application user ID (from listUsers)')->required(),
             'type' => $schema->string()->description('Type of update: "password" or "key"')->required(),
             'password' => $schema->string()->description('New password (min 8 chars) - required if type is password'),
             'password_confirmation' => $schema->string()->description('Confirm new password - required if type is password'),

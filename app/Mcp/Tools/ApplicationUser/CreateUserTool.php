@@ -13,7 +13,7 @@ use App\Mcp\Tools\Tool;
  * Create a new application user for a server.
  */
 #[Description('Create a new application user for a server. Required: username (alpha-numeric, min 5 chars), password (min 8 chars), password_confirmation. Optional: public_key.')]
-class CreateApplicationUserTool extends Tool
+class CreateUserTool extends Tool
 {
     use InteractsWithServerAvatarApi;
 
