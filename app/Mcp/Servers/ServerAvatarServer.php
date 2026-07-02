@@ -3,6 +3,7 @@
 namespace App\Mcp\Servers;
 
 use App\Mcp\Tools\Database\{ListServerDatabasesTool, ListOrganizationDatabasesTool, CreateDatabaseTool, DeleteDatabaseTool};
+use App\Mcp\Tools\DatabaseUser\{ListDatabaseUsersTool, CreateDatabaseUserTool, UpdateDatabaseUserTool, DeleteDatabaseUserTool};
 use App\Mcp\Tools\Server\{CreateServerTool, ListCloudServerProvidersTool, ListCloudProviderRegionsTool, ListCloudProviderSizesTool, DeleteServerTool, ListServersTool, GetServerTool, GetServerUsageTool, ViewServerLogsTool, GetServerProcessesTool, GetServerServicesTool, UpdateServerServiceTool, GetPhpFpmContentTool, InstallPhpVersionTool, UpdateServerGeneralSettingsTool, RestartServerTool, GetServerSummaryTool, SetServerRestartScheduleTool, UpdateServerTagsTool, DeleteServerTagsTool};
 use App\Mcp\Tools\Firewall\{ToggleServerFirewallTool, ListFirewallRulesTool, CreateFirewallRuleTool, DeleteFirewallRuleTool};
 use App\Mcp\Tools\Cronjob\{CreateCronjobTool, ListCronjobsTool, GetCronjobTool, UpdateCronjobTool, ToggleCronjobTool, DeleteCronjobTool};
@@ -40,6 +41,10 @@ class ServerAvatarServer extends Server
         ListOrganizationDatabasesTool::class,
         CreateDatabaseTool::class,
         DeleteDatabaseTool::class,
+        ListDatabaseUsersTool::class,
+        CreateDatabaseUserTool::class,
+        UpdateDatabaseUserTool::class,
+        DeleteDatabaseUserTool::class,
         CreateServerTool::class,
         ListCloudServerProvidersTool::class,
         ListCloudProviderRegionsTool::class,

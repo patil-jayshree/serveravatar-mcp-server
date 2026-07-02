@@ -31,7 +31,7 @@ class ListCloudProviderSizesTool extends Tool
             return Response::error('region is required.');
         }
 
-        $endpoint = "/organizations/$organizationId/cloud-server-providers/$cloudServerProviderId/sizes?region=" . urlencode($region);
+        $endpoint = "/organizations/$organizationId/cloud-server-providers/$cloudServerProviderId/sizes?region=" . $region;
 
         $data = $this->apiCall($endpoint, $user);
 
