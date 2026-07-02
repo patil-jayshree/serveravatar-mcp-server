@@ -402,6 +402,13 @@ return [
             'icon' => '🔐',
         ],
         [
+            'name' => 'toggle_8g_firewall',
+            'class' => \App\Mcp\Tools\Application\Toggle8gFirewallTool::class,
+            'description' => 'Enable or disable the 8G Firewall on an application',
+            'usage' => 'toggle8gFirewall(organizationId, serverId, applicationId, enabled)',
+            'icon' => '🛡️',
+        ],
+        [
             'name' => 'list_backups',
             'class' => \App\Mcp\Tools\Backup\ListBackupsTool::class,
             'description' => 'List all backups',
