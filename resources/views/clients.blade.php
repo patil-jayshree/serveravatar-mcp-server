@@ -7,6 +7,7 @@
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/fontawesome.css">
     <style>
         :root, [data-theme="dark"] {
             --bg-primary: #0b0e14;
@@ -198,7 +199,7 @@
             
             <div class="page-header">
                 <h1 class="page-title">
-                    <span class="page-title-icon">🤖</span>
+                    <span class="page-title-icon"><i class="fas fa-robot" style="color: var(--accent-primary);"></i></span>
                     <span class="page-title-wrap">
                         <span class="page-title-text">Active AI Clients <span class="clients-count">{{ $connectedClients->count() }} Active {{ $connectedClients->count() == 1 ? 'Client' : 'Clients' }}</span></span>
                         <span class="page-subtitle">View AI clients currently connected to your ServerAvatar MCP server</span>
@@ -207,6 +208,11 @@
             </div>
             
             @if($connectedClients->count() > 0)
+            <div style="display: flex; justify-content: flex-end; margin-bottom: 0.75rem;">
+                <button onclick="location.reload()" style="background: var(--bg-card); border: 1px solid var(--border-color); padding: 10px 12px; border-radius: var(--radius-md); cursor: pointer; display: flex; align-items: center; justify-content: center;" title="Refresh">
+                    <i class="fas fa-sync-alt" style="color: var(--accent-primary);"></i>
+                </button>
+            </div>
             <div class="clients-table-wrap">
                 <div class="clients-table">
                     <div class="table-header">
@@ -222,15 +228,15 @@
                                 <div class="client-info">
                                     <div class="client-icon">
                                         @if(in_array($client->client_name, ['ChatGPT', 'OpenAI']))
-                                            <img src="/images/clients/chatgpt-light.png" class="icon-light" width="32" height="32" style="border-radius: 6px; object-fit: contain;" /><img src="/images/clients/chatgpt-dark.png" class="icon-dark" width="32" height="32" style="border-radius: 6px; object-fit: contain;" onerror="this.style.display='none';this.parentElement.innerHTML='🤖';" />
+                                            <img src="/images/clients/chatgpt-light.png" class="icon-light" width="32" height="32" style="border-radius: 6px; object-fit: contain;" /><img src="/images/clients/chatgpt-dark.png" class="icon-dark" width="32" height="32" style="border-radius: 6px; object-fit: contain;" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=fas fa-robot style=color:var(--accent-primary)></i>';" />
                                         @elseif($client->client_name == 'Claude')
-                                            <img src="/images/clients/claude.png" width="32" height="32" style="border-radius: 6px; object-fit: contain;" onerror="this.style.display='none';this.parentElement.innerHTML='🟣';" />
+                                            <img src="/images/clients/claude.png" width="32" height="32" style="border-radius: 6px; object-fit: contain;" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=fas fa-comment style=color:#a855f7></i>';" />
                                         @elseif($client->client_name == 'Cursor')
-                                            <img src="/images/clients/cursor-light.png" class="icon-light" width="32" height="32" style="border-radius: 6px; object-fit: contain;" /><img src="/images/clients/cursor-dark.png" class="icon-dark" width="32" height="32" style="border-radius: 6px; object-fit: contain;" onerror="this.style.display='none';this.parentElement.innerHTML='💚';" />
+                                            <img src="/images/clients/cursor-light.png" class="icon-light" width="32" height="32" style="border-radius: 6px; object-fit: contain;" /><img src="/images/clients/cursor-dark.png" class="icon-dark" width="32" height="32" style="border-radius: 6px; object-fit: contain;" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=fas fa-laptop style=color:#22c55e></i>';" />
                                         @elseif($client->client_name == 'VS Code')
                                             <img src="/images/clients/vscode.png" width="32" height="32" style="border-radius: 6px; object-fit: contain;" onerror="this.style.display='none';this.parentElement.innerHTML='💙';" />
                                         @elseif($client->client_name == 'Zed')
-                                            <img src="/images/clients/zed.png" width="32" height="32" style="border-radius: 6px; object-fit: contain;" onerror="this.style.display='none';this.parentElement.innerHTML='⚡';" />
+                                            <img src="/images/clients/zed.png" width="32" height="32" style="border-radius: 6px; object-fit: contain;" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=fas fa-bolt style=color:var(--accent-primary)></i>';" />
                                         @elseif($client->client_name == 'Cline')
                                             <img src="/images/clients/cline-light.png" class="icon-light" width="32" height="32" style="border-radius: 6px; object-fit: contain;" /><img src="/images/clients/cline-dark.png" class="icon-dark" width="32" height="32" style="border-radius: 6px; object-fit: contain;" onerror="this.style.display='none';this.parentElement.innerHTML='🟢';" />
                                         @elseif($client->client_name == 'Continue')
@@ -238,7 +244,7 @@
                                         @elseif($client->client_name == 'Windsurf')
                                             <img src="/images/clients/windsurf-light.png" class="icon-light" width="32" height="32" style="border-radius: 6px; object-fit: contain;" /><img src="/images/clients/windsurf-dark.png" class="icon-dark" width="32" height="32" style="border-radius: 6px; object-fit: contain;" onerror="this.style.display='none';this.parentElement.innerHTML='🌊';" />
                                         @else
-                                            <img src="/images/default-icon.png" width="32" height="32" style="border-radius: 6px; object-fit: contain;" onerror="this.style.display='none';this.parentElement.innerHTML='🌐';" />
+                                            <img src="/images/default-icon.png" width="32" height="32" style="border-radius: 6px; object-fit: contain;" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=fas fa-globe style=color:var(--accent-primary)></i>';" />
                                         @endif
                                     </div>
                                     <div class="client-name">{{ $client->client_name }}</div>
@@ -260,7 +266,7 @@
             @else
             <div class="clients-table-wrap">
                 <div class="empty-state">
-                    <div class="empty-icon">🤖</div>
+                    <div class="empty-icon"><i class="fas fa-robot" style="color: var(--accent-primary);"></i></div>
                     <div class="empty-title">No Active Clients</div>
                     <div class="empty-desc">Connect ServerAvatar MCP to any AI client to see them here.</div>
                 </div>

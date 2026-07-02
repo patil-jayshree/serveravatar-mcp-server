@@ -10,12 +10,12 @@
                                 <div class="profile-menu-email">{{ auth()->user()->email }}</div>
                             </div>
                             @if(!request()->is('account') && !request()->is('account/password') && !request()->is('account/api'))
-                            <a href="/account" class="profile-menu-item">👤 Account</a>
+                            <a href="/account" class="profile-menu-item"><i class="fas fa-user-circle" style="width:16px;"></i> Account</a>
                             <div class="profile-menu-divider"></div>
                             @endif
                             <form method="POST" action="{{ route('logout') }}" style="display:inline;">
                                 @csrf
-                                <button type="submit" class="profile-menu-item danger" style="width:100%;border:none;background:none;text-align:left;cursor:pointer;">🚪 Logout</button>
+                                <button type="submit" class="profile-menu-item danger" style="width:100%;border:none;background:none;text-align:left;cursor:pointer;"><i class="fas fa-sign-out-alt" style="width:16px;"></i> Logout</button>
                             </form>
                         </div>
                     </div>

@@ -7,6 +7,7 @@
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/fontawesome.css">
     <style>
         :root, [data-theme="dark"] {
             --bg-primary: #0b0e14;
@@ -215,7 +216,7 @@
             <a href="/dashboard" class="back-link">← Back to Dashboard</a>
             <div class="page-header">
                 <h1 class="page-title">
-                    <span class="page-title-icon">🛠</span>
+                    <span class="page-title-icon"><i class="fas fa-wrench" style="color: var(--accent-primary);"></i></span>
                     <span class="page-title-wrap">
                         <span class="page-title-text">Tools Library <span class="tools-count-badge">{{ $totalTools }} Tools</span></span>
                         <span class="page-subtitle">Browse all MCP tools available in your ServerAvatar account</span>
@@ -223,10 +224,10 @@
                 </h1>
             </div>
             
-            <div class="tools-controls">
-                <form method="GET" action="{{ route('tools') }}" id="searchForm" style="display: flex; align-items: center; gap: 0.5rem;">
+            <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem;">
+                <form method="GET" action="{{ route('tools') }}" id="searchForm" style="display: flex; align-items: center; gap: 0.5rem; flex: 1;">
                     <input type="hidden" name="page" id="searchPage" value="1">
-                    <div class="search-box" style="max-width: 400px; position: relative;">
+                    <div class="search-box" style="max-width: 400px; position: relative; flex: 1;">
                         <span class="search-icon">🔍</span>
                         <input type="text" name="q" class="search-input" placeholder="Search tools..." id="searchInput" value="{{ $searchQuery ?? '' }}" style="padding-right: 35px;">
                         @if(!empty($searchQuery))
@@ -235,6 +236,9 @@
                     </div>
                     <button type="submit" class="btn-card-action" style="display: inline-block; width: auto; padding: 10px 16px; background: var(--accent-primary); color: white; border-radius: var(--radius-md); font-size: 14px; font-weight: 600; text-decoration: none; text-align: center; transition: all var(--transition-fast); border: none; cursor: pointer; white-space: nowrap;">Search</button>
                 </form>
+                <button onclick="location.reload()" style="background: var(--bg-card); border: 1px solid var(--border-color); padding: 10px 12px; border-radius: var(--radius-md); cursor: pointer; display: flex; align-items: center; justify-content: center;" title="Refresh">
+                    <i class="fas fa-sync-alt" style="color: var(--accent-primary);"></i>
+                </button>
             </div>
             
             <div class="tools-table-wrap">

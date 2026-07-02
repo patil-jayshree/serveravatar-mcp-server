@@ -47,15 +47,15 @@
     <div class="settings-sidebar">
         <nav class="settings-nav">
             <a href="/account" class="settings-nav-item active">
-                <span class="icon">👤</span>
+                <span class="icon"><i class="fas fa-user-circle" style="color: var(--accent-primary);"></i></span>
                 Account
             </a>
             <a href="/account/password" class="settings-nav-item">
-                <span class="icon">🔒</span>
+                <span class="icon"><i class="fas fa-lock" style="color: var(--accent-primary);"></i></span>
                 Change Password
             </a>
             <a href="/account/api" class="settings-nav-item">
-                <span class="icon">🔑</span>
+                <span class="icon"><i class="fas fa-key" style="color: var(--accent-primary);"></i></span>
                 API Access
             </a>
         </nav>

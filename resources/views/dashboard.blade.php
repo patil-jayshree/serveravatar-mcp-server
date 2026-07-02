@@ -7,6 +7,7 @@
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/fontawesome.css">
     <style>
         :root, [data-theme="dark"] {
             --bg-primary: #0b1220;
@@ -19,7 +20,7 @@
             --text-secondary: #94a3b8;
             --text-muted: #5c6478;
             --section-title-color: #f8fafc;
-            --step-title-color: #f8fafc;
+            --step-title-color: #7C3AED;
             --border-color: #1e293b;
             --border-color-hover: rgba(255, 255, 255, 0.15);
             --accent-primary: #7c3aed;
@@ -52,7 +53,7 @@
             --text-secondary: #6b7280;
             --text-muted: #8b92a5;
             --section-title-color: #111827;
-            --step-title-color: #111827;
+            --step-title-color: #7C3AED;
             --border-color: #e5e7eb;
             --border-color-hover: rgba(0, 0, 0, 0.15);
             --accent-primary: #7c3aed;
@@ -119,12 +120,12 @@
         .quick-setup-section { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 1.5rem; margin-bottom: 1.5rem; }
         .quick-setup-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
         .quick-setup-steps { display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
-        .setup-step-card { background: var(--bg-primary); border: 2px solid var(--border-color); border-radius: var(--radius-md); padding: 1rem; text-align: center; display: flex; flex-direction: column; align-items: center; min-width: 120px; flex: 1; height: 140px; }
-        .step-number { width: 36px; height: 36px; border-radius: 50%; background: var(--accent-primary); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; margin-bottom: 0.75rem; }
+        
+        .step-number { width: 36px; height: 36px; border-radius: 50%; background: #7C3AED; color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; margin-bottom: 0.75rem; }
         .step-content { width: 100%; flex: 1; display: flex; flex-direction: column; justify-content: center; }
-        .step-title { font-size: 15px; font-weight: 600; margin-bottom: 0.25rem; color: var(--step-title-color); }
-        .step-desc { font-size: 12px; font-weight: 400; color: var(--text-secondary); line-height: 1.4; }
-        .step-arrow { color: var(--text-muted); font-size: 1.5rem; flex-shrink: 0; }
+        .step-title { font-size: 15px; font-weight: 600; margin-bottom: 0.25rem; color: #7C3AED; }
+        .step-desc { font-size: 12px; font-weight: 400; color: #7C3AED; line-height: 1.4; opacity: 0.8; }
+        .step-arrow { color: #7C3AED; font-size: 1.5rem; flex-shrink: 0; }
 
         /* MCP Status Card */
         .mcp-status-card { background: linear-gradient(135deg, #1a1033 0%, #2d1f5c 100%); border: 1px solid #3d2d6b; border-radius: var(--radius-lg); padding: 1.5rem 2rem; margin-bottom: 1.5rem; position: relative; overflow: hidden; }
@@ -208,7 +209,7 @@
         .btn-card-action.secondary:hover { background: rgba(250, 204, 21, 0.25); }
         [data-theme="light"] .btn-card-action.secondary { background: rgba(161, 98, 7, 0.1); color: #a16207; border-color: rgba(161, 98, 7, 0.2); }
         [data-theme="light"] .info-card-icon.person-icon { background: rgba(124, 92, 252, 0.15); }
-        [data-theme="light"] .info-card-icon.shield-icon { background: rgba(59, 130, 246, 0.15); }
+        [data-theme="light"] .info-card-icon.shield-icon { background: rgba(124, 92, 252, 0.15); }
         [data-theme="light"] .info-card-icon.key-icon { background: rgba(139, 92, 246, 0.12); }
         /* Modal */
         .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center; z-index: 9999; backdrop-filter: blur(4px); }
@@ -311,8 +312,8 @@
         .quick-action-btn:hover { border-color: var(--accent-primary); background: var(--bg-card-hover); transform: translateY(-1px); }
         .qa-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
         .qa-tools { background: rgba(139, 92, 246, 0.12); color: var(--accent-primary); }
-        .qa-key { background: rgba(250, 204, 21, 0.15); color: #eab308; }
-        .qa-clients { background: rgba(59, 130, 246, 0.15); color: var(--accent-info); }
+        .qa-key { background: rgba(139, 92, 246, 0.12); color: var(--accent-primary); }
+        .qa-clients { background: rgba(139, 92, 246, 0.12); color: var(--accent-primary); }
         .qa-label { font-size: 14px; font-weight: 600; color: var(--text-primary); white-space: nowrap; }
 
         /* MCP Meta Grid */
@@ -546,50 +547,50 @@
             <!-- Quick Setup Guide -->
             <div class="quick-setup-section">
                 <div class="quick-setup-header">
-                    <div class="section-icon" style="background: rgba(139, 92, 246, 0.12);">🚀</div>
+                    <div class="section-icon" style="background: rgba(139, 92, 246, 0.12);"><i class="fas fa-rocket" style="color: var(--accent-primary);"></i></div>
                     <div>
                         <div class="section-title">Quick Setup</div>
                         <div class="section-desc">Connect ServerAvatar MCP with any MCP-compatible client in just a few steps.</div>
                     </div>
                 </div>
                 <div class="quick-setup-steps">
-                    <div class="setup-step-card">
-                        <div class="step-number">1</div>
-                        <div class="step-content">
-                            <h3 class="step-title">Add API Key</h3>
-                            <p class="step-desc">Connect your ServerAvatar account</p>
+                    <div style="background:#F3EEFF;border:2px solid #D8B4FE;border-radius:10px;padding:1rem;text-align:center;display:flex;flex-direction:column;align-items:center;min-width:120px;flex:1;height:140px;" data-dt-bg="#2A1F45" data-dt-border="#7E22CE" data-dt-color="#F3E8FF">
+                        <div style="width:36px;height:36px;border-radius:50%;background:#7C3AED;color:white;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;margin-bottom:0.75rem;">1</div>
+                        <div style="width:100%;flex:1;display:flex;flex-direction:column;justify-content:center;">
+                            <h3 style="font-size:15px;font-weight:600;margin-bottom:0.25rem;color:#7C3AED;">Add API Key</h3>
+                            <p style="font-size:12px;font-weight:400;color:#7C3AED;line-height:1.4;opacity:0.8;">Connect your ServerAvatar account</p>
                         </div>
                     </div>
-                    <div class="step-arrow">→</div>
-                    <div class="setup-step-card">
-                        <div class="step-number">2</div>
-                        <div class="step-content">
-                            <h3 class="step-title">Copy MCP URL</h3>
-                            <p class="step-desc">Get your MCP endpoint</p>
+                    <div style="color:#7C3AED;font-size:1.5rem;flex-shrink:0;">→</div>
+                    <div style="background:#F3EEFF;border:2px solid #D8B4FE;border-radius:10px;padding:1rem;text-align:center;display:flex;flex-direction:column;align-items:center;min-width:120px;flex:1;height:140px;" data-dt-bg="#2A1F45" data-dt-border="#7E22CE" data-dt-color="#F3E8FF">
+                        <div style="width:36px;height:36px;border-radius:50%;background:#7C3AED;color:white;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;margin-bottom:0.75rem;">2</div>
+                        <div style="width:100%;flex:1;display:flex;flex-direction:column;justify-content:center;">
+                            <h3 style="font-size:15px;font-weight:600;margin-bottom:0.25rem;color:#7C3AED;">Copy MCP URL</h3>
+                            <p style="font-size:12px;font-weight:400;color:#7C3AED;line-height:1.4;opacity:0.8;">Get your MCP endpoint</p>
                         </div>
                     </div>
-                    <div class="step-arrow">→</div>
-                    <div class="setup-step-card">
-                        <div class="step-number">3</div>
-                        <div class="step-content">
-                            <h3 class="step-title">Add to Client</h3>
-                            <p class="step-desc">Connect ChatGPT, Claude, Cursor & more</p>
+                    <div style="color:#7C3AED;font-size:1.5rem;flex-shrink:0;">→</div>
+                    <div style="background:#F3EEFF;border:2px solid #D8B4FE;border-radius:10px;padding:1rem;text-align:center;display:flex;flex-direction:column;align-items:center;min-width:120px;flex:1;height:140px;" data-dt-bg="#2A1F45" data-dt-border="#7E22CE" data-dt-color="#F3E8FF">
+                        <div style="width:36px;height:36px;border-radius:50%;background:#7C3AED;color:white;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;margin-bottom:0.75rem;">3</div>
+                        <div style="width:100%;flex:1;display:flex;flex-direction:column;justify-content:center;">
+                            <h3 style="font-size:15px;font-weight:600;margin-bottom:0.25rem;color:#7C3AED;">Add to Client</h3>
+                            <p style="font-size:12px;font-weight:400;color:#7C3AED;line-height:1.4;opacity:0.8;">Connect ChatGPT, Claude, Cursor & more</p>
                         </div>
                     </div>
-                    <div class="step-arrow">→</div>
-                    <div class="setup-step-card">
-                        <div class="step-number">4</div>
-                        <div class="step-content">
-                            <h3 class="step-title">Authenticate</h3>
-                            <p class="step-desc">Verify your connection</p>
+                    <div style="color:#7C3AED;font-size:1.5rem;flex-shrink:0;">→</div>
+                    <div style="background:#F3EEFF;border:2px solid #D8B4FE;border-radius:10px;padding:1rem;text-align:center;display:flex;flex-direction:column;align-items:center;min-width:120px;flex:1;height:140px;" data-dt-bg="#2A1F45" data-dt-border="#7E22CE" data-dt-color="#F3E8FF">
+                        <div style="width:36px;height:36px;border-radius:50%;background:#7C3AED;color:white;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;margin-bottom:0.75rem;">4</div>
+                        <div style="width:100%;flex:1;display:flex;flex-direction:column;justify-content:center;">
+                            <h3 style="font-size:15px;font-weight:600;margin-bottom:0.25rem;color:#7C3AED;">Authenticate</h3>
+                            <p style="font-size:12px;font-weight:400;color:#7C3AED;line-height:1.4;opacity:0.8;">Verify your connection</p>
                         </div>
                     </div>
-                    <div class="step-arrow">→</div>
-                    <div class="setup-step-card">
-                        <div class="step-number">5</div>
-                        <div class="step-content">
-                            <h3 class="step-title">Start Using</h3>
-                            <p class="step-desc">Access ServerAvatar tools</p>
+                    <div style="color:#7C3AED;font-size:1.5rem;flex-shrink:0;">→</div>
+                    <div style="background:#F3EEFF;border:2px solid #D8B4FE;border-radius:10px;padding:1rem;text-align:center;display:flex;flex-direction:column;align-items:center;min-width:120px;flex:1;height:140px;" data-dt-bg="#2A1F45" data-dt-border="#7E22CE" data-dt-color="#F3E8FF">
+                        <div style="width:36px;height:36px;border-radius:50%;background:#7C3AED;color:white;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;margin-bottom:0.75rem;">5</div>
+                        <div style="width:100%;flex:1;display:flex;flex-direction:column;justify-content:center;">
+                            <h3 style="font-size:15px;font-weight:600;margin-bottom:0.25rem;color:#7C3AED;">Start Using</h3>
+                            <p style="font-size:12px;font-weight:400;color:#7C3AED;line-height:1.4;opacity:0.8;">Access ServerAvatar tools</p>
                         </div>
                     </div>
                 </div>
@@ -645,7 +646,7 @@
             <div class="info-cards-row">
                 <div class="info-card">
                     <div class="info-card-header">
-                        <div class="info-card-icon person-icon">👤</div>
+                        <div class="info-card-icon person-icon"><i class="fas fa-user" style="color: var(--accent-primary);"></i></div>
                         <div class="info-card-label">Account</div>
                     </div>
                     <div class="info-card-body">
@@ -656,7 +657,7 @@
                 </div>
                 <div class="info-card">
                     <div class="info-card-header">
-                        <div class="info-card-icon shield-icon">🛡️</div>
+                        <div class="info-card-icon shield-icon"><i class="fas fa-shield-halved" style="color: var(--accent-primary);"></i></div>
                         <div class="info-card-label">Authentication</div>
                     </div>
                     <div class="info-card-body">
@@ -667,7 +668,7 @@
                 </div>
                 <div class="info-card">
                     <div class="info-card-header">
-                        <div class="info-card-icon key-icon">🔑</div>
+                        <div class="info-card-icon key-icon"><i class="fas fa-key" style="color: var(--accent-primary);"></i></div>
                         <div class="info-card-label">ServerAvatar API Access</div>
                     </div>
                     <div class="info-card-body">
@@ -683,7 +684,7 @@
                 <div class="modal-content api-modal">
                     <div class="modal-header">
                         <div class="modal-title-row">
-                            <span class="modal-icon">🔑</span>
+                            <span class="modal-icon"><i class="fas fa-key" style="color: var(--accent-primary);"></i></span>
                             <h3>Update API Key</h3>
                         </div>
                         <button class="modal-close" onclick="closeApiKeyModal()">&times;</button>
@@ -731,7 +732,7 @@
 
             <div class="card">
                 <div class="section-header">
-                    <div class="section-icon" style="background: rgba(139, 92, 246, 0.12);">🌐</div>
+                    <div class="section-icon" style="background: rgba(139, 92, 246, 0.12);"><i class="fas fa-globe" style="color: var(--accent-primary);"></i></div>
                     <div>
                         <div class="section-title">MCP Server URL</div>
                         <div class="section-desc">Use this URL to connect ServerAvatar MCP to any MCP-compatible clients</div>
@@ -762,12 +763,12 @@
                     </div>
                     <div class="mcp-status-divider"></div>
                     <div class="mcp-status-item">
-                        <span class="mcp-status-icon">🔧</span>
+                        <span class="mcp-status-icon"><i class="fas fa-wrench" style="color: var(--accent-primary);"></i></span>
                         <span class="mcp-status-text">{{ $toolsCount }} Tools Available</span>
                     </div>
                     <div class="mcp-status-divider"></div>
                     <div class="mcp-status-item">
-                        <span class="mcp-status-icon">👥</span>
+                        <span class="mcp-status-icon"><i class="fas fa-users" style="color: var(--accent-primary);"></i></span>
                         <span class="mcp-status-text">Compatible with MCP Clients</span>
                     </div>
                 </div>
@@ -776,7 +777,7 @@
             <!-- Quick Actions Card -->
             <div class="card">
                 <div class="section-header">
-                    <div class="section-icon" style="background: rgba(139, 92, 246, 0.12);">⚡</div>
+                    <div class="section-icon" style="background: rgba(139, 92, 246, 0.12);"><i class="fas fa-bolt" style="color: var(--accent-primary);"></i></div>
                     <div>
                         <div class="section-title">Quick Actions</div>
                         <div class="section-desc">Manage your MCP server and integrations</div>
@@ -785,28 +786,19 @@
                 <div class="quick-actions-grid">
                     <a href="{{ route('tools') }}" class="quick-action-btn">
                         <div class="qa-icon qa-tools">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
-                            </svg>
+                            <i class="fas fa-wrench" style="color: var(--accent-primary);"></i>
                         </div>
                         <span class="qa-label">View Tools</span>
                     </a>
                     <button class="quick-action-btn" onclick="openApiKeyModal()">
                         <div class="qa-icon qa-key">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0 3 3L22 7l-3-3m-3.5 3.5L19 4"></path>
-                            </svg>
+                            <i class="fas fa-key" style="color: var(--accent-primary);"></i>
                         </div>
                         <span class="qa-label">{{ $user->hasApiKey() ? 'Update API Key' : 'Add API Key' }}</span>
                     </button>
                     <a href="{{ route('clients') }}" class="quick-action-btn" style="text-decoration: none;">
                         <div class="qa-icon qa-clients">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                                <circle cx="9" cy="7" r="4"></circle>
-                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                            </svg>
+                            <i class="fas fa-users" style="color: var(--accent-primary);"></i>
                         </div>
                         <span class="qa-label">Active AI Clients</span>
                     </a>
@@ -816,7 +808,7 @@
             <!-- Integrate Anywhere Card -->
             <div class="card">
                 <div class="section-header">
-                    <div class="section-icon" style="background: rgba(139, 92, 246, 0.12);">⚙️</div>
+                    <div class="section-icon" style="background: rgba(139, 92, 246, 0.12);"><i class="fas fa-gear" style="color: var(--accent-primary);"></i></div>
                     <div>
                         <div class="section-title">Integrate Anywhere</div>
                         <div class="section-desc">Connect ServerAvatar MCP to any MCP-compatible AI client. A few popular ones are shown below.</div>
@@ -828,7 +820,7 @@
                         @if($connectedClients->where('client_name', 'ChatGPT')->count() > 0)
                         <span class="badge badge-success badge-top-right">✓ Connected</span>
                         @else
-                        <span class="badge badge-popular badge-top-right">✨ Popular</span>
+                        <span class="badge badge-popular badge-top-right"><i class="fas fa-sparkles"></i> Popular</span>
                         @endif
                         <div class="integration-logo" style="background: rgba(139, 92, 246, 0.12);">
                             <img src="/images/clients/chatgpt-light.png" class="icon-light" width="28" height="28" style="object-fit: contain;" /><img src="/images/clients/chatgpt-dark.png" class="icon-dark" width="28" height="28" style="object-fit: contain;" onerror="this.style.display='none';this.parentElement.innerHTML='🤖';" />
@@ -843,7 +835,7 @@
                         @if($connectedClients->where('client_name', 'Claude')->count() > 0)
                         <span class="badge badge-success badge-top-right">✓ Connected</span>
                         @else
-                        <span class="badge badge-popular badge-top-right">✨ Popular</span>
+                        <span class="badge badge-popular badge-top-right"><i class="fas fa-sparkles"></i> Popular</span>
                         @endif
                         <div class="integration-logo" style="background: rgba(139, 92, 246, 0.12);">
                             <img src="/images/clients/claude.png" width="28" height="28" style="object-fit: contain; border-radius: 4px;" onerror="this.style.display='none';this.parentElement.innerHTML='🟣';" />
@@ -858,7 +850,7 @@
                         @if($connectedClients->where('client_name', 'Cursor')->count() > 0)
                         <span class="badge badge-success badge-top-right">✓ Connected</span>
                         @else
-                        <span class="badge badge-popular badge-top-right">✨ Popular</span>
+                        <span class="badge badge-popular badge-top-right"><i class="fas fa-sparkles"></i> Popular</span>
                         @endif
                         <div class="integration-logo" style="background: rgba(139, 92, 246, 0.12);">
                             <img src="/images/clients/cursor-light.png" class="icon-light" width="28" height="28" style="object-fit: contain;" /><img src="/images/clients/cursor-dark.png" class="icon-dark" width="28" height="28" style="object-fit: contain;" onerror="this.style.display='none';this.parentElement.innerHTML='💚';" />
@@ -900,7 +892,7 @@
                         <span class="badge badge-success badge-top-right">✓ Connected</span>
                         @endif
                         <div class="integration-logo" style="background: rgba(139, 92, 246, 0.12);">
-                            <img src="/images/clients/zed.png" width="28" height="28" style="object-fit: contain; border-radius: 4px;" onerror="this.style.display='none';this.parentElement.innerHTML='⚡';" />
+                            <img src="/images/clients/zed.png" width="28" height="28" style="object-fit: contain; border-radius: 4px;" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=fas fa-bolt></i>';"/>
                         </div>
                         <div class="integration-text">
                             <span class="integration-name">Zed</span>
@@ -926,7 +918,7 @@
                         <span class="badge badge-success badge-top-right">✓ Connected</span>
                         @endif
                         <div class="integration-logo" style="background: rgba(139, 92, 246, 0.12);">
-                            <img src="/images/clients/cline-light.png" class="icon-light" width="28" height="28" style="object-fit: contain; border-radius: 4px;" /><img src="/images/clients/cline-dark.png" class="icon-dark" width="28" height="28" style="object-fit: contain; border-radius: 4px;" onerror="this.style.display='none';this.parentElement.innerHTML='⚡';" />
+                            <img src="/images/clients/cline-light.png" class="icon-light" width="28" height="28" style="object-fit: contain; border-radius: 4px;" /><img src="/images/clients/cline-dark.png" class="icon-dark" width="28" height="28" style="object-fit: contain; border-radius: 4px;" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=fas fa-bolt></i>';"/>
                         </div>
                         <div class="integration-text">
                             <span class="integration-name">Cline</span>
@@ -952,7 +944,7 @@
                         <span class="badge badge-success badge-top-right">✓ Connected</span>
                         @endif
                         <div class="integration-logo" style="background: rgba(139, 92, 246, 0.12);">
-                            <img src="/images/clients/lmstudio.webp" width="28" height="28" style="object-fit: contain;" onerror="this.style.display='none';this.parentElement.innerHTML='💻';" />
+                            <img src="/images/clients/lmstudio.webp" width="28" height="28" style="object-fit: contain;" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=fas fa-laptop></i>';"/>
                         </div>
                         <div class="integration-text">
                             <span class="integration-name">LM Studio</span>
@@ -978,7 +970,7 @@
                 <div class="card" style="position: relative;">
                     <div class="section-header-row">
                         <div class="section-header-left">
-                            <div class="section-icon" style="background: rgba(139, 92, 246, 0.12);">🔧</div>
+                            <div class="section-icon" style="background: rgba(139, 92, 246, 0.12);"><i class="fas fa-wrench" style="color: var(--accent-primary);"></i></div>
                             <div>
                                 <div class="section-title">Available Tools</div>
                                 <div class="section-desc">MCP tools available for your AI clients</div>
@@ -1018,7 +1010,7 @@
                 <div class="card" style="position: relative;">
                     <div class="section-header-row">
                         <div class="section-header-left">
-                            <div class="section-icon" style="background: rgba(139, 92, 246, 0.12);">👥</div>
+                            <div class="section-icon" style="background: rgba(139, 92, 246, 0.12);"><i class="fas fa-users" style="color: var(--accent-primary);"></i></div>
                             <div>
                                 <div class="section-title">Connected Clients</div>
                                 <div class="section-desc">AI clients currently connected</div>
@@ -1039,7 +1031,7 @@
                                     <span class="client-icon-fallback" style="display: none;">💚</span>
                                 @elseif($client->client_name == "VS Code" || $client->client_name == "VSCode")
                                     <img src="/images/clients/vscode.png" width="28" height="28" style="border-radius: 6px; object-fit: contain;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
-                                    <span class="client-icon-fallback" style="display: none;">💻</span>
+                                    <span class="client-icon-fallback" style="display: none;"><i class="fas fa-laptop"></i></span>
                                 @else
                                     <img src="/images/clients/chatgpt-light.png" class="icon-light" width="28" height="28" style="border-radius: 6px; object-fit: contain;" /><img src="/images/clients/chatgpt-dark.png" class="icon-dark" width="28" height="28" style="border-radius: 6px; object-fit: contain;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
                                     <span class="client-icon-fallback" style="display: none;">🤖</span>
@@ -1105,12 +1097,36 @@
             const theme = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
             html.setAttribute('data-theme', theme);
             localStorage.setItem('theme', theme);
+            updateStepCards();
         }
+        
+        function updateStepCards() {
+            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+            document.querySelectorAll('[data-dt-bg]').forEach(function(card) {
+                if (isDark) {
+                    card.style.background = card.getAttribute('data-dt-bg');
+                    card.style.borderColor = card.getAttribute('data-dt-border');
+                    card.style.color = card.getAttribute('data-dt-color');
+                    card.querySelectorAll('h3, p').forEach(function(el) {
+                        el.style.color = card.getAttribute('data-dt-color');
+                    });
+                } else {
+                    card.style.background = '#F3EEFF';
+                    card.style.borderColor = '#D8B4FE';
+                    card.style.color = '#7C3AED';
+                    card.querySelectorAll('h3, p').forEach(function(el) {
+                        el.style.color = '#7C3AED';
+                    });
+                }
+            });
+        }
+        
         (function() {
             const saved = localStorage.getItem('theme');
             if (saved) {
                 document.documentElement.setAttribute('data-theme', saved);
             }
+            updateStepCards();
         })();
 
         // Profile Menu

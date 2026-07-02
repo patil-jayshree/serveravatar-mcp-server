@@ -57,15 +57,15 @@ $userApiKey = auth()->user()->api_key ?? '';
     <div class="settings-sidebar">
         <nav class="settings-nav">
             <a href="/account" class="settings-nav-item">
-                <span class="icon">👤</span>
+                <span class="icon"><i class="fas fa-user-circle" style="color: var(--accent-primary);"></i></span>
                 Account
             </a>
             <a href="/account/password" class="settings-nav-item">
-                <span class="icon">🔒</span>
+                <span class="icon"><i class="fas fa-lock" style="color: var(--accent-primary);"></i></span>
                 Change Password
             </a>
             <a href="/account/api" class="settings-nav-item active">
-                <span class="icon">🔑</span>
+                <span class="icon"><i class="fas fa-key" style="color: var(--accent-primary);"></i></span>
                 API Access
             </a>
         </nav>
@@ -109,7 +109,7 @@ $userApiKey = auth()->user()->api_key ?? '';
                 </div>
                 @else
                 <div class="api-empty-box">
-                    <div class="api-empty-icon">🔑</div>
+                    <div class="api-empty-icon"><i class="fas fa-key" style="color: var(--accent-primary);"></i></div>
                     <div class="api-empty-title">No API key added yet</div>
                     <div class="api-empty-desc">Add an API key to connect your ServerAvatar account with MCP clients</div>
                     <button class="btn-outline" onclick="openApiKeyModal()">Add API Key</button>
@@ -118,21 +118,21 @@ $userApiKey = auth()->user()->api_key ?? '';
             </div>
             <div class="api-features">
                 <div class="api-feature">
-                    <div class="api-feature-icon">🔒</div>
+                    <div class="api-feature-icon"><i class="fas fa-lock" style="color: var(--accent-primary);"></i></div>
                     <div class="api-feature-content">
                         <div class="api-feature-title">Secure Access</div>
                         <div class="api-feature-desc">Your API key is encrypted and stored securely.</div>
                     </div>
                 </div>
                 <div class="api-feature">
-                    <div class="api-feature-icon">⚡</div>
+                    <div class="api-feature-icon"><i class="fas fa-bolt" style="color: var(--accent-primary);"></i></div>
                     <div class="api-feature-content">
                         <div class="api-feature-title">Full Control</div>
                         <div class="api-feature-desc">Manage servers, sites, and databases via MCP.</div>
                     </div>
                 </div>
                 <div class="api-feature">
-                    <div class="api-feature-icon">📋</div>
+                    <div class="api-feature-icon"><i class="fas fa-clipboard-list" style="color: var(--accent-primary);"></i></div>
                     <div class="api-feature-content">
                         <div class="api-feature-title">MCP Protocol</div>
                         <div class="api-feature-desc">Connect with any MCP-compatible AI client.</div>
