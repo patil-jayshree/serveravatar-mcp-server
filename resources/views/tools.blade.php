@@ -224,10 +224,17 @@
             </div>
             
             <div class="tools-controls">
-                <div class="search-box" style="max-width: 400px;">
-                    <span class="search-icon">🔍</span>
-                    <input type="text" class="search-input" placeholder="Search tools..." id="searchInput">
-                </div>
+                <form method="GET" action="{{ route('tools') }}" id="searchForm" style="display: flex; align-items: center; gap: 0.5rem;">
+                    <input type="hidden" name="page" id="searchPage" value="1">
+                    <div class="search-box" style="max-width: 400px; position: relative;">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" name="q" class="search-input" placeholder="Search tools..." id="searchInput" value="{{ $searchQuery ?? '' }}" style="padding-right: 35px;">
+                        @if(!empty($searchQuery))
+                        <a href="{{ route('tools') }}" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 18px; text-decoration: none;">&times;</a>
+                        @endif
+                    </div>
+                    <button type="submit" class="btn-card-action" style="display: inline-block; width: auto; padding: 10px 16px; background: var(--accent-primary); color: white; border-radius: var(--radius-md); font-size: 14px; font-weight: 600; text-decoration: none; text-align: center; transition: all var(--transition-fast); border: none; cursor: pointer; white-space: nowrap;">Search</button>
+                </form>
             </div>
             
             <div class="tools-table-wrap">
@@ -257,13 +264,14 @@
             </div>
             </div>
             
+            @if(empty($searchQuery))
             <div class="pagination">
                 <div class="pagination-info">
                     Showing {{ ($currentPage - 1) * $perPage + 1 }} to {{ min($currentPage * $perPage, $totalTools) }} of {{ $totalTools }} tools
                 </div>
                 <div class="pagination-buttons">
                     @if($currentPage > 1)
-                    <a href="{{ route('tools') }}?page={{ $currentPage - 1 }}" class="page-btn">← Previous</a>
+                    <a href="{{ route('tools') }}?page={{ $currentPage - 1 }}&q={{ urlencode($searchQuery ?? '') }}" class="page-btn" onclick="return submitWithSearch({{ $currentPage - 1 }})">← Previous</a>
                     @else
                     <span class="page-btn disabled">← Previous</span>
                     @endif
@@ -280,17 +288,18 @@
                         @if($i == $currentPage)
                         <span class="page-btn active">{{ $i }}</span>
                         @else
-                        <a href="{{ route('tools') }}?page={{ $i }}" class="page-btn">{{ $i }}</a>
+                        <a href="{{ route('tools') }}?page={{ $i }}&q={{ urlencode($searchQuery ?? '') }}" class="page-btn" onclick="return submitWithSearch({{ $i }})">{{ $i }}</a>
                         @endif
                     @endfor
                     
                     @if($currentPage < $totalPages)
-                    <a href="{{ route('tools') }}?page={{ $currentPage + 1 }}" class="page-btn">Next →</a>
+                    <a href="{{ route('tools') }}?page={{ $currentPage + 1 }}&q={{ urlencode($searchQuery ?? '') }}" class="page-btn" onclick="return submitWithSearch({{ $currentPage + 1 }})">Next →</a>
                     @else
                     <span class="page-btn disabled">Next →</span>
                     @endif
                 </div>
             </div>
+            @endif
         </div>
 
         <!-- Footer -->
@@ -319,24 +328,19 @@
             }
         });
         
-        document.addEventListener('DOMContentLoaded', function() {
+        function submitWithSearch(page) {
             var searchInput = document.getElementById('searchInput');
-            if (searchInput) {
-                searchInput.addEventListener('input', function(e) {
-                    const query = e.target.value.toLowerCase();
-                    const rows = document.querySelectorAll('.table-row');
-                    
-                    rows.forEach(row => {
-                        const nameText = row.querySelector('.tool-name-text').textContent.toLowerCase();
-                        const desc = row.querySelector('.tool-desc-cell').textContent.toLowerCase();
-                        if (nameText.includes(query) || desc.includes(query)) {
-                            row.style.display = '';
-                        } else {
-                            row.style.display = 'none';
-                        }
-                    });
-                });
+            var searchPage = document.getElementById('searchPage');
+            var searchForm = document.getElementById('searchForm');
+            if (searchInput && searchPage && searchForm) {
+                searchPage.value = page;
+                searchForm.submit();
             }
+            return false;
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // No live filtering - only filter when Search button is clicked
             
             // Tooltip functionality
             var tooltipEl = document.getElementById('tooltipBox');
