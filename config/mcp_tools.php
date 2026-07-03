@@ -409,6 +409,13 @@ return [
             'icon' => '🛡️',
         ],
         [
+            'name' => 'list_application_domains',
+            'class' => \App\Mcp\Tools\ApplicationDomain\ListApplicationDomainsTool::class,
+            'description' => 'List all domain names (including temp domains) for an application',
+            'usage' => 'listApplicationDomains(organizationId, serverId, applicationId)',
+            'icon' => '🌐',
+        ],
+        [
             'name' => 'list_backups',
             'class' => \App\Mcp\Tools\Backup\ListBackupsTool::class,
             'description' => 'List all backups',

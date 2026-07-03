@@ -54,4 +54,13 @@ trait InteractsWithServerAvatarApi
         }
         return $serverId;
     }
+
+    private function getApplicationId(Request $request): string|Response
+    {
+        $applicationId = $request->get('application_id');
+        if (!$applicationId) {
+            return Response::error('application_id is required.');
+        }
+        return $applicationId;
+    }
 }

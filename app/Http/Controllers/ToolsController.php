@@ -33,13 +33,28 @@ class ToolsController extends Controller
                 $segments = explode('\\', $classPath);
                 $category = $segments[count($segments) - 2] ?? 'Other';
                 
+                // Map category to display name for dropdown (full names)
+                $categoryDropdownMap = [
+                    'ApplicationDomain' => 'Application Domain',
+                    'ApplicationUser' => 'Application User',
+                    'DatabaseUser' => 'Database User',
+                ];
+                // Map category to short name for table badge
+                $categoryBadgeMap = [
+                    'ApplicationDomain' => 'Domain',
+                    'ApplicationUser' => 'App User',
+                    'DatabaseUser' => 'DB User',
+                ];
+                
                 return [
                     'name' => $tool['name'],
                     'description' => $tool['description'],
                     'usage' => $tool['usage'],
                     'status' => 'Enabled',
                     'icon' => $tool['icon'],
-                    'category' => $category,
+                    'category' => $categoryDropdownMap[$category] ?? $category, // Full name for dropdown/display
+                    'category_badge' => $categoryBadgeMap[$category] ?? $category, // Short name for badge
+                    'category_internal' => $category, // Store internal name for filtering
                 ];
             });
 
@@ -54,8 +69,16 @@ class ToolsController extends Controller
 
             // Filter by category
             if (!empty($category)) {
-                $allTools = $allTools->filter(function ($tool) use ($category) {
-                    return $tool['category'] === $category;
+                // Map dropdown display name to internal category if needed
+                $categoryDisplayToInternal = [
+                    'Application Domain' => 'ApplicationDomain',
+                    'Application User' => 'ApplicationUser',
+                    'Database User' => 'DatabaseUser',
+                ];
+                $internalCategory = $categoryDisplayToInternal[$category] ?? $category;
+                
+                $allTools = $allTools->filter(function ($tool) use ($internalCategory) {
+                    return $tool['category_internal'] === $internalCategory;
                 });
             }
 

@@ -246,7 +246,10 @@
                         <select name="category" onchange="document.getElementById('filterForm').submit();" autocomplete="off" style="padding: 11px 36px 11px 32px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); color: var(--text-primary); font-size: 13px; font-weight: 500; cursor: pointer; appearance: none; -webkit-appearance: none; min-width: 140px; height: 44px;">
                             <option value="" {{ empty($selectedCategory) ? 'selected' : '' }}>All Categories</option>
                             @foreach($categories as $cat)
-                            <option value="{{ $cat }}" {{ $selectedCategory === $cat ? 'selected' : '' }}>{{ ucwords(preg_replace('/(?<=[a-z])([A-Z])/', ' $1', $cat)) }}</option>
+                            @php
+                            $catDisplay = $cat === 'ApplicationDomain' ? 'Application Domain' : ($cat === 'ApplicationUser' ? 'Application User' : ($cat === 'DatabaseUser' ? 'Database User' : $cat));
+                            @endphp
+                            <option value="{{ $cat }}" {{ ($selectedCategory ?? '') === $cat ? 'selected' : '' }}>{{ $catDisplay }}</option>
                             @endforeach
                         </select>
                         <i class="fas fa-chevron-down" style="position: absolute; right: 10px; color: var(--text-muted); font-size: 10px; pointer-events: none;"></i>
@@ -281,7 +284,7 @@
                             <span class="tool-name-text" data-tooltip="{{ Str::title(str_replace('_', ' ', $tool['name'])) }}">{{ Str::title(str_replace('_', ' ', $tool['name'])) }}</span>
                         </div>
                         <div>
-                            <span class="category-badge" style="display: inline-flex; align-items: center; gap: 4px; background: var(--accent-primary-muted); color: var(--accent-primary); padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600;">{{ ucwords(preg_replace('/(?<=[a-z])([A-Z])/', ' $1', $tool['category'])) }}</span>
+                            <span class="category-badge" style="display: inline-flex; align-items: center; gap: 4px; background: var(--accent-primary-muted); color: var(--accent-primary); padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600;">{{ $tool['category_badge'] }}</span>
                         </div>
                         <div class="tool-desc-cell"><span data-tooltip="{{ $tool['description'] }}">{{ $tool['description'] }}</span></div>
                         <div class="tool-status-cell">
@@ -292,6 +295,14 @@
                         </div>
                     </div>
                     @endforeach
+                    
+                    @if(count($tools) === 0)
+                    <div style="padding: 3rem 1rem; text-align: center; color: var(--text-muted);">
+                        <i class="fas fa-search" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.3;"></i>
+                        <p style="font-size: 16px; font-weight: 500; margin-bottom: 0.5rem;">No tools found</p>
+                        <p style="font-size: 14px;">Try selecting a different category or clear the filter</p>
+                    </div>
+                    @endif
                 </div>
             </div>
             </div>
@@ -423,45 +434,8 @@
             });
         });
         
-        // Reset filter form on page load to default "All Categories" only on hard refresh
-        (function() {
-            var url = new URL(window.location);
-            var hasCategory = url.searchParams.has('category') && url.searchParams.get('category') !== '';
-            
-            if (hasCategory) {
-                // Page has category param - check if it's a form submission or hard refresh
-                var formSubmitted = sessionStorage.getItem('filter_submitted');
-                
-                if (!formSubmitted) {
-                    // Hard refresh - clear category and reload
-                    url.searchParams.delete('category');
-                    url.searchParams.delete('page');
-                    history.replaceState({}, '', url);
-                    location.reload();
-                    return;
-                } else {
-                    // Form was submitted - clear the flag but keep category
-                    sessionStorage.removeItem('filter_submitted');
-                }
-            }
-            
-            // Normal load or form submission - reset dropdown UI to match URL
-            var categorySelect = document.querySelector('select[name="category"]');
-            var categoryInput = document.querySelector('input[name="category"]');
-            if (categorySelect) categorySelect.value = url.searchParams.get('category') || '';
-            if (categoryInput) categoryInput.value = url.searchParams.get('category') || '';
-        })();
-        
-        // Mark filter as submitted when dropdown changes (before form submit)
-        document.querySelectorAll('select[name="category"]').forEach(function(select) {
-            select.addEventListener('change', function() {
-                sessionStorage.setItem('filter_submitted', 'true');
-                // Small delay to ensure sessionStorage is set before form submits
-                var form = this.closest('form');
-                var originalAction = form.action;
-                // Let the form submit naturally
-            });
-        });
+        // No need for complex sessionStorage - form submits normally via GET
+        // The dropdown change event triggers form submission directly
     </script>
     <div id="tooltipBox" class="tooltip-box"></div>
 </body>
