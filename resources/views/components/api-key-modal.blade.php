@@ -2,7 +2,7 @@
                 <div class="modal-content api-modal">
                     <div class="modal-header">
                         <div class="modal-title-row">
-                            <span class="modal-icon">🔑</span>
+                            <span class="modal-icon"><i class="fas fa-key" style="color: var(--accent-primary);"></i></span>
                             <h3>{{ isset($hasApiKey) && $hasApiKey ? 'Update API Key' : 'Add API Key' }}</h3>
                         </div>
                         <button type="button" class="modal-close" onclick="closeApiKeyModal()">&times;</button>
@@ -15,14 +15,8 @@
                             <div class="input-password-wrap">
                                 <input type="password" id="apiKeyInput" name="api_key" placeholder="Enter your API key" required value="{{ $apiKey ?? '' }}">
                                 <button type="button" class="toggle-password" onclick="togglePasswordVisibility()">
-                                    <svg class="eye-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                                        <circle cx="12" cy="12" r="3"></circle>
-                                    </svg>
-                                    <svg class="eye-off-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;">
-                                        <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
-                                        <line x1="1" y1="1" x2="23" y2="23"></line>
-                                    </svg>
+                                    <i class="fas fa-eye eye-icon" style="font-size: 15px;"></i>
+                                    <i class="fas fa-eye-slash eye-off-icon" style="font-size: 15px; display: none;"></i>
                                 </button>
                             </div>
                             <div class="security-tips">
@@ -116,12 +110,12 @@
                         if (data.success || data.message || data.status) {
                             closeApiKeyModal();
                             var toast = document.getElementById('toast') || createToast();
-                            toast.innerHTML = '<span class="toast-icon">✓</span><span class="toast-message">API Key updated successfully!</span>';
+                            toast.innerHTML = '<span class="toast-icon"><i class="fas fa-check"></i></span><span class="toast-message">API Key updated successfully!</span>';
                             toast.classList.add('show');
                             setTimeout(function() { toast.classList.remove('show'); location.reload(); }, 1500);
                         } else {
                             var toast = document.getElementById('toast') || createToastError();
-                            toast.innerHTML = '<span class="toast-icon">✕</span><span class="toast-message">' + (data.error || 'Error updating API key') + '</span>';
+                            toast.innerHTML = '<span class="toast-icon"><i class="fas fa-times"></i></span><span class="toast-message">' + (data.error || 'Error updating API key') + '</span>';
                             toast.style.background = 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)';
                             toast.style.boxShadow = '0 8px 30px rgba(239,68,68,0.4)';
                             toast.classList.add('show');
@@ -132,7 +126,7 @@
                     })
                     .catch(function(error) {
                         var toast = document.getElementById('toast') || createToastError();
-                        toast.innerHTML = '<span class="toast-icon">✕</span><span class="toast-message">Error updating API key</span>';
+                        toast.innerHTML = '<span class="toast-icon"><i class="fas fa-times"></i></span><span class="toast-message">Error updating API key</span>';
                         toast.style.background = 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)';
                         toast.style.boxShadow = '0 8px 30px rgba(239,68,68,0.4)';
                         toast.classList.add('show');

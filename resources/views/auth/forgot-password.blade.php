@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Forgot Password - ServerAvatar MCP</title>
     <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -63,7 +64,7 @@
         /* Success Alert */
         .alert-success { background: var(--accent-success-muted); color: var(--accent-success); border: 1px solid var(--accent-success); border-left: 4px solid var(--accent-success); border-radius: var(--radius-md); padding: 1rem 1.25rem; margin-bottom: 1.5rem; display: flex; align-items: flex-start; gap: 12px; font-size: 0.9rem; }
         .alert-success .check-icon { width: 24px; height: 24px; background: var(--accent-success); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
-        .alert-success .check-icon svg { width: 14px; height: 14px; color: white; }
+        .alert-success .check-icon svg, .alert-success .check-icon i { width: 14px; height: 14px; font-size: 14px; color: white; }
         .alert-success-text { flex: 1; }
         .alert-success-title { font-weight: 600; margin-bottom: 4px; }
         .alert-success-desc { color: var(--text-secondary); font-size: 0.85rem; line-height: 1.5; }
@@ -74,7 +75,7 @@
         .form-label .required { color: #ef4444; margin-left: 2px; }
         .input-wrap { position: relative; }
         .input-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text-muted); display: flex; align-items: center; pointer-events: none; }
-        .input-icon svg { width: 18px; height: 18px; }
+        .input-icon svg, .input-icon i { width: auto; height: auto; font-size: 18px; }
         .form-input { width: 100%; padding: 12px 16px 12px 44px; background: var(--bg-input); border: 1.5px solid var(--border-color); border-radius: var(--radius-md); color: var(--text-primary); font-size: 0.95rem; font-family: inherit; transition: all var(--transition-fast); }
         [data-theme="light"] .form-input { border-color: #c4b5fd; }
         .form-input:focus { outline: none; border-color: var(--accent-primary); box-shadow: 0 0 0 3px var(--accent-primary-muted); }
@@ -115,7 +116,7 @@
 
     <!-- Toast Notification -->
     <div id="toast" class="toast">
-        <span class="toast-icon">✕</span>
+        <span class="toast-icon"><i class="fas fa-times"></i></span>
         <span class="toast-message"></span>
     </div>
 
@@ -124,7 +125,7 @@
             <div class="auth-card">
                 <div class="auth-brand">
                     <div class="auth-logo-wrap">
-                        <span class="auth-logo-icon">⚡</span>
+                        <span class="auth-logo-icon"><i class="fas fa-bolt" style="color: #fbbf24;"></i></span>
                     </div>
                     <div class="auth-mcp-badge">ServerAvatar MCP Server</div>
                     <h1 class="auth-title">Forgot Password</h1>
@@ -135,9 +136,7 @@
                 @if (session('status'))
                     <div class="alert-success">
                         <div class="check-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg>
+                            <i class="fas fa-check"></i>
                         </div>
                         <div class="alert-success-text">
                             <div class="alert-success-title">Password reset link sent successfully!</div>
@@ -151,10 +150,7 @@
                             @csrf
                             <input type="hidden" name="email" value="{{ session('sent_email', old('email')) }}">
                             <button type="submit" class="btn-resend">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <polyline points="1 4 1 10 7 10"></polyline>
-                                    <path d="M3.51 15a9 9 0 1 0 .49-3.51"></path>
-                                </svg>
+                                <i class="fas fa-redo" style="font-size: 16px;"></i>
                                 Resend Reset Link
                             </button>
                         </form>
@@ -167,10 +163,7 @@
                             <label class="form-label" for="email">Email Address <span class="required">*</span></label>
                             <div class="input-wrap">
                                 <span class="input-icon">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                                        <polyline points="22,6 12,13 2,6"></polyline>
-                                    </svg>
+                                    <i class="fas fa-envelope" style="font-size: 18px;"></i>
                                 </span>
                                 <input
                                     type="email"
@@ -189,10 +182,7 @@
                         </div>
 
                         <button type="submit" class="btn-primary">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                                <polyline points="22,6 12,13 2,6"></polyline>
-                            </svg>
+                            <i class="fas fa-paper-plane" style="font-size: 16px;"></i>
                             Send Reset Link
                         </button>
                     </form>

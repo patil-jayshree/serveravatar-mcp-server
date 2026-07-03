@@ -191,7 +191,7 @@
     <nav class="navbar">
         <div class="nav-container">
             <a href="{{ auth()->check() ? '/dashboard' : '/' }}" class="nav-brand">
-                <div class="nav-logo">⚡</div>
+                <div class="nav-logo"><i class="fas fa-bolt" style="color: #fbbf24;"></i></div>
                 <span class="nav-title">Server<span>Avatar</span> MCP</span>
             </a>
             @if(auth()->check())
@@ -240,9 +240,9 @@
         function copyMcpUrl() {
             navigator.clipboard.writeText('{{ config('app.url') }}/mcp/serveravatar').then(function() {
                 var btn = document.querySelector('.copy-btn');
-                btn.textContent = '✓ Copied!';
+                btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
                 btn.style.color = 'var(--accent-success)';
-                setTimeout(function() { btn.textContent = '📋 Copy'; btn.style.color = ''; }, 2000);
+                setTimeout(function() { btn.innerHTML = '<i class="fas fa-clipboard"></i> Copy'; btn.style.color = ''; }, 2000);
             });
         }
         document.querySelectorAll('.integration-copy-btn').forEach(function(btn) {
@@ -251,8 +251,8 @@
                 if (!code) return;
                 navigator.clipboard.writeText(code.textContent).then(function() {
                     btn.classList.add('copied');
-                    btn.textContent = '✓';
-                    setTimeout(function() { btn.classList.remove('copied'); btn.textContent = '📋'; }, 1500);
+                    btn.innerHTML = '<i class="fas fa-check"></i>';
+                    setTimeout(function() { btn.classList.remove('copied'); btn.innerHTML = '<i class="fas fa-clipboard"></i>'; }, 1500);
                 });
             });
         });
@@ -261,9 +261,9 @@
                 var url = btn.getAttribute('data-copy-url') || '{{ config('app.url') }}/mcp/serveravatar';
                 navigator.clipboard.writeText(url).then(function() {
                     btn.classList.add('copied');
-                    var orig = btn.textContent;
-                    btn.textContent = '✓ Copied!';
-                    setTimeout(function() { btn.classList.remove('copied'); btn.textContent = orig; }, 1500);
+                    var orig = btn.innerHTML;
+                    btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                    setTimeout(function() { btn.classList.remove('copied'); btn.innerHTML = orig; }, 1500);
                 });
             });
         });

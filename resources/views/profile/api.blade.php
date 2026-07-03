@@ -90,20 +90,11 @@ $userApiKey = auth()->user()->api_key ?? '';
                     <div class="api-key-box">
                         <input type="password" id="apiKeyField" value="{{ $userApiKey }}" readonly>
                         <button type="button" class="icon-btn eye-btn" id="eyeBtn">
-                            <svg id="eyeShowIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                                <circle cx="12" cy="12" r="3"></circle>
-                            </svg>
-                            <svg id="eyeHideIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;">
-                                <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
-                                <line x1="1" y1="1" x2="23" y2="23"></line>
-                            </svg>
+                            <i id="eyeShowIcon" class="fas fa-eye" style="font-size: 15px;"></i>
+                            <i id="eyeHideIcon" class="fas fa-eye-slash" style="font-size: 15px; display: none;"></i>
                         </button>
                         <button type="button" class="icon-btn copy-btn" id="copyBtn">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                            </svg>
+                            <i class="fas fa-copy" style="font-size: 15px;"></i>
                         </button>
                     </div>
                 </div>
@@ -176,10 +167,10 @@ document.addEventListener('DOMContentLoaded', function() {
         copyBtn.addEventListener('click', function() {
             navigator.clipboard.writeText(apiKeyField.value).then(function() {
                 copyBtn.classList.add('copied');
-                copyBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+                copyBtn.innerHTML = '<i class="fas fa-check" style="font-size: 15px;"></i>';
                 setTimeout(function() {
                     copyBtn.classList.remove('copied');
-                    copyBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>';
+                    copyBtn.innerHTML = '<i class="fas fa-copy" style="font-size: 15px;"></i>';
                 }, 2000);
             });
         });

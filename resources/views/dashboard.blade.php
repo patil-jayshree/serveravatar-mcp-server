@@ -820,10 +820,10 @@
                         @if($connectedClients->where('client_name', 'ChatGPT')->count() > 0)
                         <span class="badge badge-success badge-top-right">✓ Connected</span>
                         @else
-                        <span class="badge badge-popular badge-top-right"><i class="fas fa-sparkles"></i> Popular</span>
+                        <span class="badge badge-popular badge-top-right"><i class="fas fa-magic-wand-sparkles" style="color: #fbbf24;"></i> Popular</span>
                         @endif
                         <div class="integration-logo" style="background: rgba(139, 92, 246, 0.12);">
-                            <img src="/images/clients/chatgpt-light.png" class="icon-light" width="28" height="28" style="object-fit: contain;" /><img src="/images/clients/chatgpt-dark.png" class="icon-dark" width="28" height="28" style="object-fit: contain;" onerror="this.style.display='none';this.parentElement.innerHTML='🤖';" />
+                            <img src="/images/clients/chatgpt-light.png" class="icon-light" width="28" height="28" style="object-fit: contain;" /><img src="/images/clients/chatgpt-dark.png" class="icon-dark" width="28" height="28" style="object-fit: contain;" onerror="this.style.display='none';this.parentElement.innerHTML='<i style=&quot;color:#7c3aed;font-size:20px;&quot; class=&quot;fas fa-robot&quot;></i>'" />
                         </div>
                         <div class="integration-text">
                             <span class="integration-name">ChatGPT</span>
@@ -835,7 +835,7 @@
                         @if($connectedClients->where('client_name', 'Claude')->count() > 0)
                         <span class="badge badge-success badge-top-right">✓ Connected</span>
                         @else
-                        <span class="badge badge-popular badge-top-right"><i class="fas fa-sparkles"></i> Popular</span>
+                        <span class="badge badge-popular badge-top-right"><i class="fas fa-magic-wand-sparkles" style="color: #fbbf24;"></i> Popular</span>
                         @endif
                         <div class="integration-logo" style="background: rgba(139, 92, 246, 0.12);">
                             <img src="/images/clients/claude.png" width="28" height="28" style="object-fit: contain; border-radius: 4px;" onerror="this.style.display='none';this.parentElement.innerHTML='🟣';" />
@@ -850,7 +850,7 @@
                         @if($connectedClients->where('client_name', 'Cursor')->count() > 0)
                         <span class="badge badge-success badge-top-right">✓ Connected</span>
                         @else
-                        <span class="badge badge-popular badge-top-right"><i class="fas fa-sparkles"></i> Popular</span>
+                        <span class="badge badge-popular badge-top-right"><i class="fas fa-magic-wand-sparkles" style="color: #fbbf24;"></i> Popular</span>
                         @endif
                         <div class="integration-logo" style="background: rgba(139, 92, 246, 0.12);">
                             <img src="/images/clients/cursor-light.png" class="icon-light" width="28" height="28" style="object-fit: contain;" /><img src="/images/clients/cursor-dark.png" class="icon-dark" width="28" height="28" style="object-fit: contain;" onerror="this.style.display='none';this.parentElement.innerHTML='💚';" />
@@ -892,7 +892,7 @@
                         <span class="badge badge-success badge-top-right">✓ Connected</span>
                         @endif
                         <div class="integration-logo" style="background: rgba(139, 92, 246, 0.12);">
-                            <img src="/images/clients/zed.png" width="28" height="28" style="object-fit: contain; border-radius: 4px;" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=fas fa-bolt></i>';"/>
+                            <img src="/images/clients/zed.png" width="28" height="28" style="object-fit: contain; border-radius: 4px;" onerror="this.style.display='none';this.parentElement.innerHTML='<i style=&quot;color:#7c3aed;font-size:20px;&quot; class=&quot;fas fa-bolt&quot;></i>'" />
                         </div>
                         <div class="integration-text">
                             <span class="integration-name">Zed</span>
@@ -918,7 +918,7 @@
                         <span class="badge badge-success badge-top-right">✓ Connected</span>
                         @endif
                         <div class="integration-logo" style="background: rgba(139, 92, 246, 0.12);">
-                            <img src="/images/clients/cline-light.png" class="icon-light" width="28" height="28" style="object-fit: contain; border-radius: 4px;" /><img src="/images/clients/cline-dark.png" class="icon-dark" width="28" height="28" style="object-fit: contain; border-radius: 4px;" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=fas fa-bolt></i>';"/>
+                            <img src="/images/clients/cline-light.png" class="icon-light" width="28" height="28" style="object-fit: contain; border-radius: 4px;" /><img src="/images/clients/cline-dark.png" class="icon-dark" width="28" height="28" style="object-fit: contain; border-radius: 4px;" onerror="this.style.display='none';this.parentElement.innerHTML='<i style=&quot;color:#7c3aed;font-size:20px;&quot; class=&quot;fas fa-bolt&quot;></i>'" />
                         </div>
                         <div class="integration-text">
                             <span class="integration-name">Cline</span>
@@ -944,7 +944,7 @@
                         <span class="badge badge-success badge-top-right">✓ Connected</span>
                         @endif
                         <div class="integration-logo" style="background: rgba(139, 92, 246, 0.12);">
-                            <img src="/images/clients/lmstudio.webp" width="28" height="28" style="object-fit: contain;" onerror="this.style.display='none';this.parentElement.innerHTML='<i class=fas fa-laptop></i>';"/>
+                            <img src="/images/clients/lmstudio.webp" width="28" height="28" style="object-fit: contain;" onerror="this.style.display='none';this.parentElement.innerHTML='<i style=&quot;color:#7c3aed;font-size:20px;&quot; class=&quot;fas fa-laptop&quot;></i>'" />
                         </div>
                         <div class="integration-text">
                             <span class="integration-name">LM Studio</span>

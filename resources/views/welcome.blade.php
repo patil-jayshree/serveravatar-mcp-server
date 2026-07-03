@@ -185,7 +185,7 @@
     <nav class="navbar">
         <div class="nav-inner">
             <a href="/" class="nav-logo">
-                <div class="nav-logo-icon">⚡</div>
+                <div class="nav-logo-icon"><i class="fas fa-bolt" style="color: #fbbf24;"></i></div>
                 <span class="nav-logo-text">Server<span>Avatar</span> MCP</span>
             </a>
             <div class="nav-right">
@@ -217,7 +217,7 @@
             <div class="star star-14"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z" fill="url(#yellow3)"/><defs><linearGradient id="yellow3" x1="2" y1="2" x2="22" y2="22"><stop stop-color="#fde68a"/><stop offset="1" stop-color="#fcd34d"/></linearGradient></defs></svg></div>
         </div>
         <div class="hero-wrapper">
-            <div class="hero-badge">✨ MCP SERVER FOR AI WORKFLOWS</div>
+            <div class="hero-badge"><i class="fas fa-magic-wand-sparkles"></i> MCP SERVER FOR AI WORKFLOWS</div>
             <h1 class="hero-title">Connect Your AI.<br><span>Manage Your Servers.</span></h1>
             <p class="hero-subtitle">ServerAvatar MCP helps you connect AI clients to your servers and automate server management tasks with ease.</p>
             <div class="hero-buttons">
@@ -236,32 +236,32 @@
         </div>
         <div class="why-grid">
             <div class="why-card why-card-highlight">
-                <div class="why-icon icon-purple"><span>🔧</span></div>
+                <div class="why-icon icon-purple"><span><i class="fas fa-server" style="color: #7c3aed;"></i></span></div>
                 <h3 class="why-card-title">14+ server tools</h3>
                 <p class="why-card-subtitle">Manage servers, sites, databases, SSL, logs, and more through MCP tools.</p>
             </div>
             <div class="why-card why-card-highlight">
-                <div class="why-icon icon-purple"><span>🌐</span></div>
+                <div class="why-icon icon-purple"><span><i class="fas fa-globe" style="color: #7c3aed;"></i></span></div>
                 <h3 class="why-card-title">Works with MCP Clients</h3>
                 <p class="why-card-subtitle">Connect with ChatGPT, Claude, and other MCP-compatible clients.</p>
             </div>
             <div class="why-card why-card-highlight">
-                <div class="why-icon icon-purple"><span>🔑</span></div>
+                <div class="why-icon icon-purple"><span><i class="fas fa-key" style="color: #7c3aed;"></i></span></div>
                 <h3 class="why-card-title">Scoped & secure</h3>
                 <p class="why-card-subtitle">Securely authenticate MCP requests with your ServerAvatar API key.</p>
             </div>
             <div class="why-card why-card-highlight">
-                <div class="why-icon icon-purple"><span>🔌</span></div>
+                <div class="why-icon icon-purple"><span><i class="fas fa-network-wired" style="color: #7c3aed;"></i></span></div>
                 <h3 class="why-card-title">Multi-client support</h3>
                 <p class="why-card-subtitle">Connect multiple AI clients simultaneously to the same server</p>
             </div>
             <div class="why-card why-card-highlight">
-                <div class="why-icon icon-purple"><span>⚡</span></div>
+                <div class="why-icon icon-purple"><span><i class="fas fa-bolt" style="color: #7c3aed;"></i></span></div>
                 <h3 class="why-card-title">Lightning fast</h3>
                 <p class="why-card-subtitle">Powered by MCP protocol for instant tool responses</p>
             </div>
             <div class="why-card why-card-highlight">
-                <div class="why-icon icon-purple"><span>🚀</span></div>
+                <div class="why-icon icon-purple"><span><i class="fas fa-rocket" style="color: #7c3aed;"></i></span></div>
                 <h3 class="why-card-title">Developer friendly</h3>
                 <p class="why-card-subtitle">Simple setup and powerful tools to supercharge your AI workflows.</p>
             </div>
@@ -319,19 +319,19 @@
             <h2 class="how-heading">How It Works</h2>
             <div class="how-grid">
                 <div class="how-card">
-                    <div class="how-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"><path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4M10 17l5-5-5-5M13.8 12H3" stroke="#7c3aed" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                    <div class="how-icon"><i class="fas fa-plug" style="color: #7c3aed; font-size: 28px;"></i></div>
                     <h3 class="how-title">Connect</h3>
                     <p class="how-desc">Add your MCP server to get started.</p>
                 </div>
-                <div class="how-arrow"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" width="24" height="24"><path d="M5 12h14M12 5l7 7-7 7" stroke="#7c3aed" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                <div class="how-arrow"><i class="fas fa-arrow-right" style="color: #7c3aed; font-size: 24px;"></i></div>
                 <div class="how-card">
-                    <div class="how-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71" stroke="#7c3aed" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71" stroke="#7c3aed" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                    <div class="how-icon"><i class="fas fa-link" style="color: #7c3aed; font-size: 28px;"></i></div>
                     <h3 class="how-title">Integrate</h3>
                     <p class="how-desc">Connect with your favorite AI client.</p>
                 </div>
-                <div class="how-arrow"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" width="24" height="24"><path d="M5 12h14M12 5l7 7-7 7" stroke="#7c3aed" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                <div class="how-arrow"><i class="fas fa-arrow-right" style="color: #7c3aed; font-size: 24px;"></i></div>
                 <div class="how-card">
-                    <div class="how-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" fill="#7c3aed"/></svg></div>
+                    <div class="how-icon"><i class="fas fa-bolt" style="color: #7c3aed; font-size: 28px;"></i></div>
                     <h3 class="how-title">Automate</h3>
                     <p class="how-desc">Start managing your servers with AI.</p>
                 </div>
@@ -342,7 +342,7 @@
     <!-- CTA Section -->
     <section class="cta-section">
         <div class="cta-container">
-            <div class="cta-icon"><span>⚡</span></div>
+            <div class="cta-icon"><span><i class="fas fa-bolt" style="color: #fbbf24;"></i></span></div>
             <div class="cta-content">
                 <h2 class="cta-title">Ready to get started?</h2>
                 <p class="cta-desc">Connect your AI tools and automate your server management workflows.</p>

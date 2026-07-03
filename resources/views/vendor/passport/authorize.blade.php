@@ -305,7 +305,7 @@
             <div class="auth-card">
                 <div class="auth-brand">
                     <div class="auth-logo-wrap">
-                        <span class="auth-logo-icon">⚡</span>
+                        <span class="auth-logo-icon"><i class="fas fa-bolt" style="color: #fbbf24;"></i></span>
                     </div>
                     <div class="auth-mcp-badge">ServerAvatar MCP Server</div>
                     <h1 class="auth-title">Authorize Application</h1>
@@ -336,8 +336,8 @@
                     <input type="hidden" name="auth_token" value="{{ $authToken }}">
                     <input type="hidden" name="approve" value="1">
                     <div class="buttons">
-                        <button type="submit" class="btn btn-approve">✓ Authorize</button>
-                        <button type="button" class="btn btn-deny" onclick="document.getElementById('deny-form').submit();">✕ Deny</button>
+                        <button type="submit" class="btn btn-approve"><i class="fas fa-check" style="margin-right: 6px;"></i>Authorize</button>
+                        <button type="button" class="btn btn-deny" onclick="document.getElementById('deny-form').submit();"><i class="fas fa-times" style="margin-right: 6px;"></i>Deny</button>
                     </div>
                 </form>
 

@@ -11,7 +11,7 @@ To reset your password, please click the button below:
 Reset Password
 @endcomponent
 
-**⚠️ Security Notice:** This password reset link will expire in **60 minutes**. If you didn't request a password reset, please ignore this email. Your password will remain unchanged.
+**&#9888; Security Notice:** This password reset link will expire in **60 minutes**. If you didn't request a password reset, please ignore this email. Your password will remain unchanged.
 
 Thanks,
 **ServerAvatar MCP**

@@ -112,7 +112,7 @@
                 </div>
                 <h3 style="margin: 0; font-size: 1rem; font-weight: 600; color: var(--text-primary);">Delete Account</h3>
             </div>
-            <button onclick="closeDeleteModal()" style="background: rgba(255,255,255,0.05); border: none; width: 28px; height: 28px; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 0.8rem;">✕</button>
+            <button onclick="closeDeleteModal()" style="background: rgba(255,255,255,0.05); border: none; width: 28px; height: 28px; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 0.8rem;"><i class="fas fa-times"></i></button>
         </div>
         <div style="padding: 1rem 1.25rem;">
             <div style="padding: 0.75rem 1rem;">
@@ -170,7 +170,7 @@ document.getElementById('saveBtn').addEventListener('click', function() {
             t.style.cssText = 'position:fixed;top:5rem;right:2rem;background:linear-gradient(135deg, #22c55e 0%, #16a34a 100%);color:white;padding:14px 20px;border-radius:12px;display:flex;align-items:center;gap:12px;box-shadow:0 8px 30px rgba(34,197,94,0.4);z-index:10000;max-width:350px;';
             document.body.appendChild(t);
         }
-        t.innerHTML = '<span style="width:28px;height:28px;background:rgba(255,255,255,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.9rem;font-weight:bold;">✓</span><span style="font-size:0.9rem;font-weight:600;">Profile updated successfully!</span>';
+        t.innerHTML = '<span style="width:28px;height:28px;background:rgba(255,255,255,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.9rem;font-weight:bold;"><i class="fas fa-check"></i></span><span style="font-size:0.9rem;font-weight:600;">Profile updated successfully!</span>';
         t.style.display = 'flex';
         btn.disabled = false;
         btn.textContent = 'Save Changes';
@@ -233,7 +233,7 @@ document.getElementById('confirmDeleteBtn').addEventListener('click', function()
             t.style.cssText = 'position:fixed;top:5rem;right:2rem;background:linear-gradient(135deg, #16a34a 0%, #15803d 100%);color:white;padding:14px 20px;border-radius:12px;display:flex;align-items:center;gap:12px;box-shadow:0 8px 30px rgba(22,163,74,0.4);z-index:10000;max-width:350px;';
             document.body.appendChild(t);
         }
-        t.innerHTML = '<span style="width:28px;height:28px;background:rgba(255,255,255,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.9rem;font-weight:bold;">✓</span><span style="font-size:0.9rem;font-weight:600;">Account deleted successfully!</span>';
+        t.innerHTML = '<span style="width:28px;height:28px;background:rgba(255,255,255,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.9rem;font-weight:bold;"><i class="fas fa-check"></i></span><span style="font-size:0.9rem;font-weight:600;">Account deleted successfully!</span>';
         t.style.display = 'flex';
         setTimeout(function() { window.location.href = '/login'; }, 1500);
     })

@@ -176,7 +176,7 @@
     <nav class="navbar">
         <div class="nav-container">
             <a href="/dashboard" class="nav-brand">
-                <div class="nav-logo">⚡</div>
+                <div class="nav-logo"><i class="fas fa-bolt" style="color: #fbbf24;"></i></div>
                 <span class="nav-title">Server<span>Avatar</span> MCP</span>
             </a>
             <div class="nav-right">
@@ -252,7 +252,7 @@
         function showToast(msg) {
             var t = document.getElementById('toast');
             if (!t) { t = document.createElement('div'); t.id = 'toast'; t.className = 'toast'; document.body.appendChild(t); }
-            t.innerHTML = '<span class="toast-icon">✓</span><span class="toast-message">' + msg + '</span>';
+            t.innerHTML = '<span class="toast-icon"><i class="fas fa-check"></i></span><span class="toast-message">' + msg + '</span>';
             t.classList.add('show');
             setTimeout(() => t.classList.remove('show'), 3000);
         }
