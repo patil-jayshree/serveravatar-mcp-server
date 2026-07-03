@@ -25,14 +25,21 @@ class ToolsController extends Controller
             $perPage = 10;
             $page = $request->get('page', 1);
             $search = $request->get('q', '');
+            $category = $request->get('category', '');
 
             $allTools = collect(config('mcp_tools.tools'))->map(function ($tool) {
+                // Extract category from class path
+                $classPath = $tool['class'];
+                $segments = explode('\\', $classPath);
+                $category = $segments[count($segments) - 2] ?? 'Other';
+                
                 return [
                     'name' => $tool['name'],
                     'description' => $tool['description'],
                     'usage' => $tool['usage'],
                     'status' => 'Enabled',
                     'icon' => $tool['icon'],
+                    'category' => $category,
                 ];
             });
 
@@ -42,6 +49,13 @@ class ToolsController extends Controller
                 $allTools = $allTools->filter(function ($tool) use ($searchLower) {
                     return str_contains(strtolower($tool['name']), $searchLower)
                         || str_contains(strtolower($tool['description']), $searchLower);
+                });
+            }
+
+            // Filter by category
+            if (!empty($category)) {
+                $allTools = $allTools->filter(function ($tool) use ($category) {
+                    return $tool['category'] === $category;
                 });
             }
 
@@ -59,6 +73,13 @@ class ToolsController extends Controller
                 $tools = array_slice($allTools, $offset, $perPage);
             }
 
+            // Get unique categories for filter
+            $categories = collect(config('mcp_tools.tools'))->map(function ($tool) {
+                $classPath = $tool['class'];
+                $segments = explode('\\', $classPath);
+                return $segments[count($segments) - 2] ?? 'Other';
+            })->unique()->sort()->values()->toArray();
+
             return view('tools', [
                 'user' => $user,
                 'tools' => $tools,
@@ -67,6 +88,8 @@ class ToolsController extends Controller
                 'currentPage' => $page,
                 'perPage' => $perPage,
                 'searchQuery' => $search,
+                'selectedCategory' => $category,
+                'categories' => $categories,
             ]);
         } catch (Exception $e) {
             return view('tools', [
@@ -77,6 +100,8 @@ class ToolsController extends Controller
                 'currentPage' => 1,
                 'perPage' => 10,
                 'searchQuery' => '',
+                'selectedCategory' => '',
+                'categories' => [],
             ])->with('error', 'Unable to load tools. Please try again.');
         }
     }

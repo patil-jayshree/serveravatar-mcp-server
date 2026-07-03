@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>Tools Library - ServerAvatar MCP</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -106,7 +109,7 @@
         
         .tools-table-wrap { overflow-x: auto; border-radius: 0; -webkit-overflow-scrolling: touch; }
         .tools-table { background: var(--bg-card); border: 1px solid var(--border-color); width: 100%; min-width: 600px; }
-        .table-header { display: grid; grid-template-columns: minmax(140px, 180px) 1fr minmax(70px, 90px); padding: 0 1rem; background: var(--bg-secondary); border-bottom: 1px solid var(--border-color); font-size: 11px; font-weight: 600; line-height: 16px; letter-spacing: 0.05em; text-transform: uppercase; gap: 1rem; box-sizing: border-box; }
+        .table-header { display: grid; grid-template-columns: minmax(200px, 240px) minmax(100px, 120px) 1fr minmax(70px, 90px); padding: 6px 1rem; background: var(--bg-secondary); border-bottom: 1px solid var(--border-color); font-size: 11px; font-weight: 600; line-height: 16px; letter-spacing: 0.05em; text-transform: uppercase; gap: 1rem; box-sizing: border-box; }
         [data-theme="light"] .table-header { color: #64748B; }
         [data-theme="dark"] .table-header { color: #94A3B8; }
         .table-header > div { display: flex; align-items: center; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 12px 8px; justify-content: flex-start; }
@@ -115,7 +118,7 @@
         .th-text-center { display: block; text-align: center; line-height: 1.4; }
         .header-status-cell { display: flex; justify-content: center; align-items: center; width: 100%; height: 100%; }
         .table-body { display: flex; flex-direction: column; }
-        .table-row { display: grid; grid-template-columns: minmax(140px, 180px) 1fr minmax(70px, 90px); padding: 0 1rem; border-bottom: 1px solid var(--border-color); align-items: center; transition: background 0.2s; gap: 1rem; box-sizing: border-box; }
+        .table-row { display: grid; grid-template-columns: minmax(140px, 180px) minmax(100px, 120px) 1fr minmax(70px, 90px); padding: 0 1rem; border-bottom: 1px solid var(--border-color); align-items: center; transition: background 0.2s; gap: 1rem; box-sizing: border-box; }
         .table-row > div { display: flex; align-items: center; overflow: hidden; padding: 12px 8px; }
         .table-row > div:last-child { justify-content: center; }
         .table-row:last-child { border-bottom: none; }
@@ -141,17 +144,17 @@
         
         /* Responsive Table */
         @media (max-width: 1024px) {
-            .table-header { grid-template-columns: minmax(130px, 160px) 1fr 70px; gap: 1rem; font-size: 0.7rem; }
-            .table-row { grid-template-columns: minmax(130px, 160px) 1fr 70px; gap: 1rem; }
+            .table-header { grid-template-columns: minmax(160px, 200px) minmax(90px, 110px) 1fr 70px; gap: 1rem; font-size: 0.7rem; }
+            .table-row { grid-template-columns: minmax(160px, 200px) minmax(90px, 110px) 1fr 70px; gap: 1rem; }
             .tool-name { font-size: 0.75rem; }
             .tool-desc-cell span { font-size: 0.75rem; }
             .status-badge { font-size: 0.65rem; padding: 3px 8px; }
         }
         
         @media (max-width: 768px) {
-            .tools-table { min-width: 500px; }
-            .table-header { grid-template-columns: minmax(110px, 140px) 1fr 60px; gap: 0.75rem; font-size: 0.65rem; padding: 0 0.75rem; }
-            .table-row { grid-template-columns: minmax(110px, 140px) 1fr 60px; gap: 0.75rem; padding: 0 0.75rem; }
+            .tools-table { min-width: 550px; }
+            .table-header { grid-template-columns: minmax(140px, 180px) minmax(80px, 100px) 1fr 60px; gap: 0.75rem; font-size: 0.65rem; padding: 0 0.75rem; }
+            .table-row { grid-template-columns: minmax(140px, 180px) minmax(80px, 100px) 1fr 60px; gap: 0.75rem; padding: 0 0.75rem; }
             .table-header > div, .table-row > div { padding: 10px 6px; }
             .tool-name { font-size: 0.7rem; }
             .tool-name-icon { font-size: 0.85rem; }
@@ -162,9 +165,9 @@
         }
         
         @media (max-width: 480px) {
-            .tools-table { min-width: 400px; }
-            .table-header { grid-template-columns: minmax(90px, 120px) 1fr 50px; gap: 0.5rem; font-size: 0.6rem; padding: 0 0.5rem; }
-            .table-row { grid-template-columns: minmax(90px, 120px) 1fr 50px; gap: 0.5rem; padding: 0 0.5rem; }
+            .tools-table { min-width: 450px; }
+            .table-header { grid-template-columns: minmax(90px, 120px) minmax(70px, 90px) 1fr 50px; gap: 0.5rem; font-size: 0.6rem; padding: 0 0.5rem; }
+            .table-row { grid-template-columns: minmax(90px, 120px) minmax(70px, 90px) 1fr 50px; gap: 0.5rem; padding: 0 0.5rem; }
             .table-header > div, .table-row > div { padding: 8px 4px; }
             .tool-name { font-size: 0.65rem; }
             .tool-name-icon { font-size: 0.75rem; }
@@ -226,34 +229,59 @@
             
             <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem;">
                 <form method="GET" action="{{ route('tools') }}" id="searchForm" style="display: flex; align-items: center; gap: 0.5rem; flex: 1;">
+                    <input type="hidden" name="category" value="{{ $selectedCategory ?? '' }}">
                     <input type="hidden" name="page" id="searchPage" value="1">
-                    <div class="search-box" style="max-width: 400px; position: relative; flex: 1;">
+                    <div class="search-box" style="max-width: 320px; position: relative; flex: 1;">
                         <span class="search-icon">🔍</span>
-                        <input type="text" name="q" class="search-input" placeholder="Search tools..." id="searchInput" value="{{ $searchQuery ?? '' }}" style="padding-right: 35px;">
+                        <input type="text" name="q" class="search-input" placeholder="Search tools..." id="searchInput" value="{{ $searchQuery ?? '' }}" autocomplete="off" style="padding-right: 35px;">
                         @if(!empty($searchQuery))
                         <a href="{{ route('tools') }}" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 18px; text-decoration: none;">&times;</a>
                         @endif
                     </div>
-                    <button type="submit" class="btn-card-action" style="display: inline-block; width: auto; padding: 10px 16px; background: var(--accent-primary); color: white; border-radius: var(--radius-md); font-size: 14px; font-weight: 600; text-decoration: none; text-align: center; transition: all var(--transition-fast); border: none; cursor: pointer; white-space: nowrap;">Search</button>
+                    <button type="submit" class="btn-card-action" style="display: inline-block; width: auto; padding: 11px 16px; background: var(--accent-primary); color: white; border-radius: var(--radius-md); font-size: 14px; font-weight: 600; text-decoration: none; text-align: center; transition: all var(--transition-fast); border: none; cursor: pointer; white-space: nowrap; height: 40px;">Search</button>
                 </form>
-                <button onclick="location.reload()" style="background: var(--bg-card); border: 1px solid var(--border-color); padding: 10px 12px; border-radius: var(--radius-md); cursor: pointer; display: flex; align-items: center; justify-content: center;" title="Refresh">
+                <form method="GET" action="{{ route('tools') }}" id="filterForm" style="display: flex; align-items: center; gap: 0.5rem;">
+                    <div style="position: relative; display: flex; align-items: center;">
+                        <i class="fas fa-filter" style="position: absolute; left: 12px; color: var(--accent-primary); font-size: 12px; z-index: 1;"></i>
+                        <select name="category" onchange="document.getElementById('filterForm').submit();" autocomplete="off" style="padding: 11px 36px 11px 32px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); color: var(--text-primary); font-size: 13px; font-weight: 500; cursor: pointer; appearance: none; -webkit-appearance: none; min-width: 140px; height: 44px;">
+                            <option value="" {{ empty($selectedCategory) ? 'selected' : '' }}>All Categories</option>
+                            @foreach($categories as $cat)
+                            <option value="{{ $cat }}" {{ $selectedCategory === $cat ? 'selected' : '' }}>{{ ucwords(preg_replace('/(?<=[a-z])([A-Z])/', ' $1', $cat)) }}</option>
+                            @endforeach
+                        </select>
+                        <i class="fas fa-chevron-down" style="position: absolute; right: 10px; color: var(--text-muted); font-size: 10px; pointer-events: none;"></i>
+                    </div>
+                </form>
+                <a href="{{ route('tools') }}" style="background: var(--bg-card); border: 1px solid var(--border-color); padding: 10px 14px; border-radius: var(--radius-md); cursor: pointer; display: flex; align-items: center; justify-content: center; text-decoration: none; height: 44px;" title="Refresh">
                     <i class="fas fa-sync-alt" style="color: var(--accent-primary);"></i>
-                </button>
+                </a>
             </div>
             
             <div class="tools-table-wrap">
             <div class="tools-table">
-                <div class="table-header">
+                <div class="table-header" style="grid-template-columns: minmax(200px, 240px) minmax(100px, 120px) 1fr minmax(70px, 90px);">
                     <div><span class="th-text">Tool Name</span></div>
+                    <div><span class="th-text">Category</span></div>
                     <div><span class="th-text">Description</span></div>
                     <div class="header-status-cell"><span class="th-text-center">Status</span></div>
                 </div>
                 <div class="table-body" id="toolsTableBody">
                     @foreach($tools as $tool)
-                    <div class="table-row" data-name="{{ $tool['name'] }}" data-status="{{ $tool['status'] }}">
+                    <div class="table-row" data-name="{{ $tool['name'] }}" data-status="{{ $tool['status'] }}" style="grid-template-columns: minmax(200px, 240px) minmax(100px, 120px) 1fr minmax(70px, 90px);">
                         <div class="tool-name-cell">
-                            <span class="tool-name-icon">{{ $tool['icon'] }}</span>
+                            @php
+                            $colors = ['#3b82f6', '#a855f7', '#22c55e', '#f59e0b', '#ef4444', '#0ea5e9', '#6366f1', '#8b5cf6', '#ec4899', '#14b8a6', '#f97316', '#06b6d4'];
+                            $colorIndex = abs(crc32($tool['name'])) % count($colors);
+                            $color = $colors[$colorIndex];
+                            $r = hexdec(substr($color, 1, 2));
+                            $g = hexdec(substr($color, 3, 2));
+                            $b = hexdec(substr($color, 5, 2));
+                            @endphp
+                            <span style="width: 36px; height: 36px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; background: rgba({{ $r }}, {{ $g }}, {{ $b }}, 0.15); color: {{ $color }};">{{ $tool['icon'] }}</span>
                             <span class="tool-name-text" data-tooltip="{{ Str::title(str_replace('_', ' ', $tool['name'])) }}">{{ Str::title(str_replace('_', ' ', $tool['name'])) }}</span>
+                        </div>
+                        <div>
+                            <span class="category-badge" style="display: inline-flex; align-items: center; gap: 4px; background: var(--accent-primary-muted); color: var(--accent-primary); padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600;">{{ ucwords(preg_replace('/(?<=[a-z])([A-Z])/', ' $1', $tool['category'])) }}</span>
                         </div>
                         <div class="tool-desc-cell"><span data-tooltip="{{ $tool['description'] }}">{{ $tool['description'] }}</span></div>
                         <div class="tool-status-cell">
@@ -268,16 +296,20 @@
             </div>
             </div>
             
-            @if(empty($searchQuery))
-            <div class="pagination">
-                <div class="pagination-info">
+            @if(empty($searchQuery) && $totalPages > 1)
+            <div class="pagination" style="display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.5rem; background: var(--bg-secondary); border-top: 1px solid var(--border-color); border-radius: 0 0 var(--radius-lg) var(--radius-lg);">
+                <div class="pagination-info" style="font-size: 14px; font-weight: 500; color: var(--text-secondary);">
                     Showing {{ ($currentPage - 1) * $perPage + 1 }} to {{ min($currentPage * $perPage, $totalTools) }} of {{ $totalTools }} tools
                 </div>
-                <div class="pagination-buttons">
+                <div class="pagination-buttons" style="display: flex; align-items: center; gap: 6px;">
                     @if($currentPage > 1)
-                    <a href="{{ route('tools') }}?page={{ $currentPage - 1 }}&q={{ urlencode($searchQuery ?? '') }}" class="page-btn" onclick="return submitWithSearch({{ $currentPage - 1 }})">← Previous</a>
+                    <a href="{{ route('tools') }}?page={{ $currentPage - 1 }}&q={{ urlencode($searchQuery ?? '') }}&category={{ urlencode($selectedCategory ?? '') }}" class="page-btn" style="padding: 8px 14px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); color: var(--text-secondary); font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.2s; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
+                        <i class="fas fa-chevron-left" style="font-size: 12px;"></i> Previous
+                    </a>
                     @else
-                    <span class="page-btn disabled">← Previous</span>
+                    <span class="page-btn disabled" style="padding: 8px 14px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); color: var(--text-muted); font-size: 14px; font-weight: 500; opacity: 0.5; cursor: not-allowed; display: inline-flex; align-items: center; gap: 6px;">
+                        <i class="fas fa-chevron-left" style="font-size: 12px;"></i> Previous
+                    </span>
                     @endif
                     
                     @php
@@ -286,20 +318,41 @@
                         if ($end - $start < 2) {
                             $start = max(1, $end - 2);
                         }
+                        // Add ellipsis at start
+                        $showStartEllipsis = $start > 2;
+                        $showEndEllipsis = $end < $totalPages - 1;
                     @endphp
+                    
+                    @if($start > 1)
+                        <a href="{{ route('tools') }}?page=1&q={{ urlencode($searchQuery ?? '') }}&category={{ urlencode($selectedCategory ?? '') }}" class="page-btn" style="min-width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center; padding: 8px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); color: var(--text-secondary); font-size: 14px; font-weight: 500; text-decoration: none;">1</a>
+                        @if($start > 2)
+                        <span style="padding: 0 4px; color: var(--text-muted);">...</span>
+                        @endif
+                    @endif
                     
                     @for($i = $start; $i <= $end; $i++)
                         @if($i == $currentPage)
-                        <span class="page-btn active">{{ $i }}</span>
+                        <span class="page-btn active" style="min-width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center; padding: 8px; background: var(--accent-primary); border: 1px solid var(--accent-primary); border-radius: var(--radius-md); color: white; font-size: 14px; font-weight: 600;">{{ $i }}</span>
                         @else
-                        <a href="{{ route('tools') }}?page={{ $i }}&q={{ urlencode($searchQuery ?? '') }}" class="page-btn" onclick="return submitWithSearch({{ $i }})">{{ $i }}</a>
+                        <a href="{{ route('tools') }}?page={{ $i }}&q={{ urlencode($searchQuery ?? '') }}&category={{ urlencode($selectedCategory ?? '') }}" class="page-btn" style="min-width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center; padding: 8px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); color: var(--text-secondary); font-size: 14px; font-weight: 500; text-decoration: none;">{{ $i }}</a>
                         @endif
                     @endfor
                     
+                    @if($end < $totalPages)
+                        @if($end < $totalPages - 1)
+                        <span style="padding: 0 4px; color: var(--text-muted);">...</span>
+                        @endif
+                        <a href="{{ route('tools') }}?page={{ $totalPages }}&q={{ urlencode($searchQuery ?? '') }}&category={{ urlencode($selectedCategory ?? '') }}" class="page-btn" style="min-width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center; padding: 8px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); color: var(--text-secondary); font-size: 14px; font-weight: 500; text-decoration: none;">{{ $totalPages }}</a>
+                    @endif
+                    
                     @if($currentPage < $totalPages)
-                    <a href="{{ route('tools') }}?page={{ $currentPage + 1 }}&q={{ urlencode($searchQuery ?? '') }}" class="page-btn" onclick="return submitWithSearch({{ $currentPage + 1 }})">Next →</a>
+                    <a href="{{ route('tools') }}?page={{ $currentPage + 1 }}&q={{ urlencode($searchQuery ?? '') }}&category={{ urlencode($selectedCategory ?? '') }}" class="page-btn" style="padding: 8px 14px; background: var(--accent-primary); border: 1px solid var(--accent-primary); border-radius: var(--radius-md); color: white; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
+                        Next <i class="fas fa-chevron-right" style="font-size: 12px;"></i>
+                    </a>
                     @else
-                    <span class="page-btn disabled">Next →</span>
+                    <span class="page-btn disabled" style="padding: 8px 14px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); color: var(--text-muted); font-size: 14px; font-weight: 500; opacity: 0.5; cursor: not-allowed; display: inline-flex; align-items: center; gap: 6px;">
+                        Next <i class="fas fa-chevron-right" style="font-size: 12px;"></i>
+                    </span>
                     @endif
                 </div>
             </div>
@@ -367,6 +420,46 @@
                     tooltipEl.style.opacity = '0';
                     tooltipEl.style.visibility = 'hidden';
                 });
+            });
+        });
+        
+        // Reset filter form on page load to default "All Categories" only on hard refresh
+        (function() {
+            var url = new URL(window.location);
+            var hasCategory = url.searchParams.has('category') && url.searchParams.get('category') !== '';
+            
+            if (hasCategory) {
+                // Page has category param - check if it's a form submission or hard refresh
+                var formSubmitted = sessionStorage.getItem('filter_submitted');
+                
+                if (!formSubmitted) {
+                    // Hard refresh - clear category and reload
+                    url.searchParams.delete('category');
+                    url.searchParams.delete('page');
+                    history.replaceState({}, '', url);
+                    location.reload();
+                    return;
+                } else {
+                    // Form was submitted - clear the flag but keep category
+                    sessionStorage.removeItem('filter_submitted');
+                }
+            }
+            
+            // Normal load or form submission - reset dropdown UI to match URL
+            var categorySelect = document.querySelector('select[name="category"]');
+            var categoryInput = document.querySelector('input[name="category"]');
+            if (categorySelect) categorySelect.value = url.searchParams.get('category') || '';
+            if (categoryInput) categoryInput.value = url.searchParams.get('category') || '';
+        })();
+        
+        // Mark filter as submitted when dropdown changes (before form submit)
+        document.querySelectorAll('select[name="category"]').forEach(function(select) {
+            select.addEventListener('change', function() {
+                sessionStorage.setItem('filter_submitted', 'true');
+                // Small delay to ensure sessionStorage is set before form submits
+                var form = this.closest('form');
+                var originalAction = form.action;
+                // Let the form submit naturally
             });
         });
     </script>
