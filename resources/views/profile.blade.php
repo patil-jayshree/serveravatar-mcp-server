@@ -91,16 +91,12 @@
             </div>
             <div class="settings-card-body" style="padding: 1rem 1.5rem;">
                 <div style="background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.2); border-radius: var(--radius-md); padding: 0.75rem 1rem; display: flex; align-items: flex-start; gap: 0.625rem;">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2" style="flex-shrink: 0; margin-top: 2px;">
-                        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
-                        <line x1="12" y1="9" x2="12" y2="13"></line>
-                        <line x1="12" y1="17" x2="12.01" y2="17"></line>
-                    </svg>
+                    <i class="fas fa-exclamation-triangle" style="color: #ef4444; font-size: 18px; flex-shrink: 0; margin-top: 2px;"></i>
                     <p style="color: var(--text-secondary); font-size: 0.875rem; margin: 0; line-height: 1.5;">Once you delete your account, there is no going back. All your data will be permanently removed.</p>
                 </div>
             </div>
             <div class="settings-card-footer">
-                <button type="button" class="btn-danger" id="deleteAccountBtn">Delete My Account</button>
+                <button type="button" class="btn-danger" id="deleteAccountBtn"><i class="fas fa-trash-alt" style="margin-right: 6px;"></i>Delete My Account</button>
             </div>
         </div>
     </div>
@@ -112,11 +108,7 @@
         <div class="modal-header" style="padding: 0.875rem 1rem; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between;">
             <div style="display: flex; align-items: center; gap: 0.625rem;">
                 <div style="width: 36px; height: 36px; border-radius: 50%; background: rgba(239, 68, 68, 0.1); display: flex; align-items: center; justify-content: center;">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2">
-                        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
-                        <line x1="12" y1="9" x2="12" y2="13"></line>
-                        <line x1="12" y1="17" x2="12.01" y2="17"></line>
-                    </svg>
+                    <i class="fas fa-exclamation-triangle" style="color: #ef4444; font-size: 18px;"></i>
                 </div>
                 <h3 style="margin: 0; font-size: 1rem; font-weight: 600; color: var(--text-primary);">Delete Account</h3>
             </div>

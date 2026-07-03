@@ -76,7 +76,7 @@
             <div class="settings-card-body">
                 <div class="info-box">
                     <div class="info-box-title">
-                        <span>ℹ️</span> Password Requirements
+                        <i class="fas fa-info-circle" style="color: var(--accent-primary);"></i> Password Requirements
                     </div>
                     <ul>
                         <li>At least 8 characters long</li>
