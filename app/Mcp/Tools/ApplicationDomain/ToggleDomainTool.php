@@ -10,12 +10,12 @@ use Laravel\Mcp\Server\Attributes\Description;
 use App\Mcp\Tools\Tool;
 
 /**
- * List all domain names for an application.
+ * Enable or disable an application domain.
  * 
- * @example listApplicationDomains(organizationId: "227", serverId: "5432", applicationId: "123")
+ * @example toggleDomain(organizationId: "227", serverId: "5432", applicationId: "123", domainId: "456")
  */
-#[Description('List all domain names (including temp domains) for an application. Use this to view all domains associated with a specific application. Requires organization_id, server_id, and application_id.')]
-class ListApplicationDomainsTool extends Tool
+#[Description('Enable or disable an application domain. Use this to temporarily enable or disable a domain. Note: Primary domain cannot be disabled unless another domain exists. Requires organization_id, server_id, application_id, and domain_id.')]
+class ToggleDomainTool extends Tool
 {
     use InteractsWithServerAvatarApi;
 
@@ -38,7 +38,17 @@ class ListApplicationDomainsTool extends Tool
             return $applicationId;
         }
 
-        $data = $this->apiCall("/organizations/{$organizationId}/servers/{$serverId}/applications/{$applicationId}/application-domains", $user);
+        $domainId = $request->get('domain_id');
+        if (!$domainId) {
+            return Response::error('domain_id is required. Please provide the domain ID to toggle.');
+        }
+
+        $data = $this->apiCall(
+            "/organizations/{$organizationId}/servers/{$serverId}/applications/{$applicationId}/application-domains/{$domainId}/edit",
+            $user,
+            null,
+            'GET'
+        );
 
         return Response::text(json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
     }
@@ -49,6 +59,7 @@ class ListApplicationDomainsTool extends Tool
             'organization_id' => $schema->string()->description('The organization ID')->required(),
             'server_id' => $schema->string()->description('The server ID')->required(),
             'application_id' => $schema->string()->description('The application ID')->required(),
+            'domain_id' => $schema->string()->description('The domain ID to toggle')->required(),
         ];
     }
 }
