@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Mcp\Tools\Application;
+namespace App\Mcp\Tools\Application\Node;
 
 use App\Mcp\Traits\InteractsWithServerAvatarApi;
 use Illuminate\Contracts\JsonSchema\JsonSchema;

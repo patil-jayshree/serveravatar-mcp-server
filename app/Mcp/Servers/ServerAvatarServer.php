@@ -8,7 +8,8 @@ use App\Mcp\Tools\Server\{CreateServerTool, ListCloudServerProvidersTool, ListCl
 use App\Mcp\Tools\Firewall\{ToggleServerFirewallTool, ListFirewallRulesTool, CreateFirewallRuleTool, DeleteFirewallRuleTool};
 use App\Mcp\Tools\Cronjob\{CreateCronjobTool, ListCronjobsTool, GetCronjobTool, UpdateCronjobTool, ToggleCronjobTool, DeleteCronjobTool};
 use App\Mcp\Tools\ApplicationUser\{ListUsersTool, CreateUserTool, GetUserTool, UpdateUserTool, DeleteUserTool, ToggleUserSshAccessTool, ToggleUserRootAccessTool, RemoveUserSshKeyTool};
-use App\Mcp\Tools\Application\{ListApplicationsTool, ListOrganizationApplicationsTool, CreateApplicationTool, CreateNodeApplicationTool, GetApplicationTool, DeleteApplicationTool, ToggleApplicationTool, UpdatePhpSettingsTool, ManageBasicAuthTool, Toggle8gFirewallTool};
+use App\Mcp\Tools\Application\{ListApplicationsTool, ListOrganizationApplicationsTool, CreateApplicationTool, GetApplicationTool, DeleteApplicationTool, ToggleApplicationTool, UpdatePhpSettingsTool, ManageBasicAuthTool, Toggle8gFirewallTool};
+use App\Mcp\Tools\Application\Node\{CreateNodeApplicationTool, GetNodeDeploymentTool, UpdateSsrPortTool, GetPm2DetailTool, GetPm2LogTool};
 use App\Mcp\Tools\ApplicationDomain\{ListDomainsTool, CreateDomainTool, DeleteDomainTool, ChangePrimaryDomainTool, ToggleDomainTool};
 
 use App\Mcp\Tools\Backup\ListBackupsTool;
@@ -58,6 +59,10 @@ class ServerAvatarServer extends Server
         CreateApplicationTool::class,
         CreateNodeApplicationTool::class,
         GetApplicationTool::class,
+        GetNodeDeploymentTool::class,
+        UpdateSsrPortTool::class,
+        GetPm2DetailTool::class,
+        GetPm2LogTool::class,
         DeleteApplicationTool::class,
         Toggle8gFirewallTool::class,
         ListDomainsTool::class,
