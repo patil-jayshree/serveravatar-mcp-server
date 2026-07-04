@@ -6,7 +6,7 @@ use App\Mcp\Traits\InteractsWithServerAvatarApi;
 use Illuminate\Contracts\JsonSchema\JsonSchema;
 use Laravel\Mcp\Request;
 use Laravel\Mcp\Response;
-use Laravel\Laravel\Mcp\Server\Attributes\Description;
+use Laravel\Mcp\Server\Attributes\Description;
 use App\Mcp\Tools\Tool;
 
 #[Description('Retrieve PM2 details for a specific SSR Node application on a Node Stack server. Returns process info including PID, name, status, memory usage, CPU usage, and uptime.')]
