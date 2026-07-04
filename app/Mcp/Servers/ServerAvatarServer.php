@@ -28,6 +28,7 @@ class ServerAvatarServer extends Server
     /**
      * Default pagination length - show all tools on one page.
      */
+    public int $maxPaginationLength = 200;
     public int $defaultPaginationLength = 200;
 
     /**
