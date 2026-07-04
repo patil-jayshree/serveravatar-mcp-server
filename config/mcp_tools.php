@@ -513,5 +513,19 @@ return [
             'usage' => 'uninstallSslCertificate(organizationId, serverId, applicationId)',
             'icon' => '❌',
         ],
+        [
+            'name' => 'force_https',
+            'class' => \App\Mcp\Tools\SSL\ForceHttpsTool::class,
+            'description' => 'Enable HTTP to HTTPS redirection',
+            'usage' => 'forceHttps(organizationId, serverId, applicationId)',
+            'icon' => '🔃',
+        ],
+        [
+            'name' => 'stop_force_https',
+            'class' => \App\Mcp\Tools\SSL\StopForceHttpsTool::class,
+            'description' => 'Disable HTTP to HTTPS redirection',
+            'usage' => 'stopForceHttps(organizationId, serverId, applicationId)',
+            'icon' => '⏹️',
+        ],
     ],
 ];
