@@ -374,6 +374,13 @@ return [
             'icon' => '➕',
         ],
         [
+            'name' => 'create_node_application',
+            'class' => \App\Mcp\Tools\Application\CreateNodeApplicationTool::class,
+            'description' => 'Create a new Node.js one-click application (UptimeKuma, Node-RED, N8N, NodeBB)',
+            'usage' => 'createNodeApplication(organizationId, serverId, name, framework, packageManager, processMode, ...)',
+            'icon' => '🟢',
+        ],
+        [
             'name' => 'delete_application',
             'class' => \App\Mcp\Tools\Application\DeleteApplicationTool::class,
             'description' => 'Delete a specific application (website) from a server',
