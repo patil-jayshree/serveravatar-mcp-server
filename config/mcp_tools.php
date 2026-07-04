@@ -485,5 +485,33 @@ return [
             'usage' => 'listBackups(organizationId)',
             'icon' => '☁️',
         ],
+        [
+            'name' => 'get_ssl_certificate',
+            'class' => \App\Mcp\Tools\SSL\GetSslCertificateTool::class,
+            'description' => 'Get SSL certificate details for an application (issuer, domains, expiry, validity)',
+            'usage' => 'getSslCertificate(organizationId, serverId, applicationId)',
+            'icon' => '🔒',
+        ],
+        [
+            'name' => 'install_ssl_certificate',
+            'class' => \App\Mcp\Tools\SSL\InstallSslCertificateTool::class,
+            'description' => "Install SSL certificate (automatic for Let's Encrypt, or custom with certificate files)",
+            'usage' => 'installSslCertificate(organizationId, serverId, applicationId, sslType, forceHttps, ...)',
+            'icon' => '🔐',
+        ],
+        [
+            'name' => 'update_ssl_certificate',
+            'class' => \App\Mcp\Tools\SSL\UpdateSslCertificateTool::class,
+            'description' => 'Update a custom SSL certificate (requires ssl_certificate and private_key)',
+            'usage' => 'updateSslCertificate(organizationId, serverId, applicationId, sslCertificate, privateKey, chainFile?)',
+            'icon' => '🔄',
+        ],
+        [
+            'name' => 'uninstall_ssl_certificate',
+            'class' => \App\Mcp\Tools\SSL\UninstallSslCertificateTool::class,
+            'description' => 'Uninstall/remove SSL certificate from an application',
+            'usage' => 'uninstallSslCertificate(organizationId, serverId, applicationId)',
+            'icon' => '❌',
+        ],
     ],
 ];

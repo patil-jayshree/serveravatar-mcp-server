@@ -11,6 +11,7 @@ use App\Mcp\Tools\ApplicationUser\{ListUsersTool, CreateUserTool, GetUserTool, U
 use App\Mcp\Tools\Application\{ListApplicationsTool, ListOrganizationApplicationsTool, CreateApplicationTool, GetApplicationTool, DeleteApplicationTool, ToggleApplicationTool, UpdatePhpSettingsTool, ManageBasicAuthTool, Toggle8gFirewallTool};
 use App\Mcp\Tools\Application\Node\{CreateNodeApplicationTool, GetNodeDeploymentTool, UpdateSsrPortTool, GetPm2DetailTool, GetPm2LogTool};
 use App\Mcp\Tools\ApplicationDomain\{ListDomainsTool, CreateDomainTool, DeleteDomainTool, ChangePrimaryDomainTool, ToggleDomainTool};
+use App\Mcp\Tools\SSL\{GetSslCertificateTool, InstallSslCertificateTool, UpdateSslCertificateTool, UninstallSslCertificateTool};
 
 use App\Mcp\Tools\Backup\ListBackupsTool;
 use App\Mcp\Tools\Organization\{ListOrganizationsTool, CreateOrganizationTool, GetOrganizationTool};
@@ -27,7 +28,7 @@ class ServerAvatarServer extends Server
     /**
      * Default pagination length - show all tools on one page.
      */
-    public int $defaultPaginationLength = 50;
+    public int $defaultPaginationLength = 200;
 
     /**
      * The tools registered with this MCP server.
@@ -105,6 +106,10 @@ class ServerAvatarServer extends Server
         UpdatePhpSettingsTool::class,
         ToggleApplicationTool::class,
         ManageBasicAuthTool::class,
+        GetSslCertificateTool::class,
+        InstallSslCertificateTool::class,
+        UpdateSslCertificateTool::class,
+        UninstallSslCertificateTool::class,
     ];
 
     /**
