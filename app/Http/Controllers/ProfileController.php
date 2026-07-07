@@ -4,21 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\Services\ActivityLogger;
 use Exception;
 
-/**
- * Profile Controller
- *
- * Manages user profile operations including viewing, updating profile information,
- * changing passwords, and account deletion.
- */
 class ProfileController extends Controller
 {
-    /**
-     * Display the user's profile page.
-     *
-     * @return \Illuminate\View\View The profile view
-     */
     public function show()
     {
         try {
@@ -28,11 +18,6 @@ class ProfileController extends Controller
         }
     }
 
-    /**
-     * Get the current user's profile data.
-     *
-     * @return \Illuminate\Http\JsonResponse User profile data (id, name, email)
-     */
     public function getProfile()
     {
         try {
@@ -50,12 +35,6 @@ class ProfileController extends Controller
         }
     }
 
-    /**
-     * Update the user's profile name only.
-     *
-     * @param Request $request The incoming HTTP request
-     * @return \Illuminate\Http\JsonResponse Success message
-     */
     public function updateProfile(Request $request)
     {
         try {
@@ -63,7 +42,10 @@ class ProfileController extends Controller
                 'name' => 'required|string|max:255',
             ]);
 
-            auth()->user()->update($validated);
+            $user = auth()->user();
+            $user->update($validated);
+
+            ActivityLogger::settingsUpdated($user, 'profile_updated');
 
             return response()->json(['success' => true, 'message' => 'Profile updated successfully!']);
         } catch (Exception $e) {
@@ -75,15 +57,8 @@ class ProfileController extends Controller
         }
     }
 
-    /**
-     * Update the user's password.
-     *
-     * @param Request $request The incoming HTTP request
-     * @return \Illuminate\Http\JsonResponse Success message or error
-     */
     public function updatePassword(Request $request)
     {
-        // Validate first — let ValidationException propagate naturally (errors returned properly)
         $request->validate([
             'current_password' => 'required|string',
         ]);
@@ -97,7 +72,6 @@ class ProfileController extends Controller
             ], 422);
         }
 
-        // Validate password format — let ValidationException propagate for specific messages
         $request->validate([
             'password' => [
                 'required',
@@ -119,6 +93,7 @@ class ProfileController extends Controller
 
         try {
             $user->update(['password' => Hash::make($request->password)]);
+            ActivityLogger::settingsUpdated($user, 'password_changed');
             return response()->json(['success' => true, 'message' => 'Password updated successfully!']);
         } catch (Exception $e) {
             return response()->json([
@@ -128,16 +103,11 @@ class ProfileController extends Controller
         }
     }
 
-    /**
-     * Delete the user's account.
-     *
-     * @param Request $request The incoming HTTP request
-     * @return \Illuminate\Http\JsonResponse Success message
-     */
     public function deleteAccount(Request $request)
     {
         try {
             $user = auth()->user();
+            ActivityLogger::settingsUpdated($user, 'account_deleted');
             $user->delete();
 
             return response()->json(['success' => true, 'message' => 'Account deleted successfully!']);
@@ -149,11 +119,6 @@ class ProfileController extends Controller
         }
     }
 
-    /**
-     * Display the password change page.
-     *
-     * @return \Illuminate\View\View The password change view
-     */
     public function password()
     {
         try {
@@ -163,11 +128,6 @@ class ProfileController extends Controller
         }
     }
 
-    /**
-     * Display the API settings page.
-     *
-     * @return \Illuminate\View\View The API settings view with user data
-     */
     public function api()
     {
         try {
