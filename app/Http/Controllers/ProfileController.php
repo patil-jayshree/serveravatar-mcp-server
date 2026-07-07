@@ -45,7 +45,7 @@ class ProfileController extends Controller
             $user = auth()->user();
             $user->update($validated);
 
-            ActivityLogger::settingsUpdated($user, 'profile_updated');
+            ActivityLogger::profileUpdated($user);
 
             return response()->json(['success' => true, 'message' => 'Profile updated successfully!']);
         } catch (Exception $e) {
@@ -93,7 +93,7 @@ class ProfileController extends Controller
 
         try {
             $user->update(['password' => Hash::make($request->password)]);
-            ActivityLogger::settingsUpdated($user, 'password_changed');
+            ActivityLogger::passwordChanged($user);
             return response()->json(['success' => true, 'message' => 'Password updated successfully!']);
         } catch (Exception $e) {
             return response()->json([
@@ -107,7 +107,7 @@ class ProfileController extends Controller
     {
         try {
             $user = auth()->user();
-            ActivityLogger::settingsUpdated($user, 'account_deleted');
+            ActivityLogger::accountDeleted($user);
             $user->delete();
 
             return response()->json(['success' => true, 'message' => 'Account deleted successfully!']);

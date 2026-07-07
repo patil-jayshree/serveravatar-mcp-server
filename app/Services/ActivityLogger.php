@@ -30,34 +30,52 @@ class ActivityLogger
 
     public static function clientConnected($user, ?string $clientName = null): Activity
     {
+        $client = $clientName ?? McpConnectionTracker::detectClient(Request::userAgent());
         return self::log(
             $user,
             Activity::TYPE_CLIENT_CONNECTED,
-            "{$clientName} connected",
+            "Connected successfully via {$client}",
             null,
-            $clientName
+            $client
         );
     }
 
     public static function toolExecuted($user, string $toolName, ?string $clientName = null, bool $success = true): Activity
     {
+        $client = $clientName ?? McpConnectionTracker::detectClient(Request::userAgent());
+        $status = $success ? 'executed successfully' : 'failed';
         return self::log(
             $user,
             Activity::TYPE_TOOL_EXECUTED,
-            "Tool executed: {$toolName}",
+            "Tool '{$toolName}' {$status} via {$client}",
             ['tool' => $toolName, 'success' => $success],
-            $clientName
+            $client
         );
     }
 
     public static function apiKeySaved($user): Activity
     {
-        return self::log($user, Activity::TYPE_API_KEY_SAVED, 'API key saved');
+        return self::log($user, Activity::TYPE_API_KEY_SAVED, 'ServerAvatar API key saved successfully');
     }
 
     public static function apiKeyDeleted($user): Activity
     {
-        return self::log($user, Activity::TYPE_API_KEY_DELETED, 'API key deleted');
+        return self::log($user, Activity::TYPE_API_KEY_DELETED, 'ServerAvatar API key removed');
+    }
+
+    public static function profileUpdated($user): Activity
+    {
+        return self::log($user, Activity::TYPE_SETTINGS_UPDATED, 'Profile updated successfully');
+    }
+
+    public static function passwordChanged($user): Activity
+    {
+        return self::log($user, Activity::TYPE_SETTINGS_UPDATED, 'Password changed successfully');
+    }
+
+    public static function accountDeleted($user): Activity
+    {
+        return self::log($user, Activity::TYPE_SETTINGS_UPDATED, 'Account deleted');
     }
 
     public static function settingsUpdated($user, string $setting): Activity
