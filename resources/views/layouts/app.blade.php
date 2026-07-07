@@ -141,7 +141,7 @@
         .profile-menu-divider { height: 1px; background: var(--border-color); margin: 4px 0; }
 
         /* Page Content */
-        .page-content { padding: 1.5rem; padding-top: calc(60px + 1.5rem); flex: 1; }
+        .page-content { padding: 1.5rem; padding-top: 60px; flex: 1; }
         .page-header { margin-bottom: 1.5rem; }
         .page-title { font-size: 1.75rem; font-weight: 700; margin-bottom: 0.25rem; }
         .page-subtitle { font-size: 0.875rem; font-weight: 400; color: var(--text-secondary); }
