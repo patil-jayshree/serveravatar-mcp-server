@@ -10,7 +10,26 @@
         <h1 class="page-title">Activity Log</h1>
         <p class="page-subtitle">Track all MCP events and account changes</p>
     </div>
+    <div style="display: flex; gap: 0.5rem;">
+        <button onclick="window.location.reload()" class="refresh-btn" title="Refresh">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M23 4v6h-6"></path>
+                <path d="M1 20v-6h6"></path>
+                <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10"></path>
+                <path d="M20.49 15a9 9 0 0 1-14.85 3.36L1 14"></path>
+            </svg>
+        </button>
+    </div>
 </div>
+
+<style>
+.refresh-btn {
+    display: flex; align-items: center; justify-content: center; width: 36px; height: 36px;
+    background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-sm);
+    color: var(--accent-primary); cursor: pointer; transition: all 0.15s;
+}
+.refresh-btn:hover { background: var(--accent-primary); color: white; border-color: var(--accent-primary); }
+</style>
 
 <!-- Activity Table -->
 <div class="card" style="padding: 0; margin-bottom: 1rem;">
