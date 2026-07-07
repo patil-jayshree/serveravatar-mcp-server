@@ -28,6 +28,16 @@ class ActivityLogger
         ]);
     }
 
+    public static function formatToolName(string $toolName): string
+    {
+        $readable = trim(preg_replace('/[_-]/', ' ', $toolName));
+        $readable = preg_replace('/([a-z])([A-Z])/', '$1 $2', $readable);
+        $readable = ucfirst(strtolower($readable));
+        $readable = str_replace('tool', '', $readable);
+        $readable = trim($readable);
+        return $readable ?: $toolName;
+    }
+
     public static function clientConnected($user, ?string $clientName = null): Activity
     {
         $client = $clientName ?? McpConnectionTracker::detectClient(Request::userAgent());
@@ -44,10 +54,11 @@ class ActivityLogger
     {
         $client = $clientName ?? McpConnectionTracker::detectClient(Request::userAgent());
         $status = $success ? 'executed successfully' : 'failed';
+        $readableTool = self::formatToolName($toolName);
         return self::log(
             $user,
             Activity::TYPE_TOOL_EXECUTED,
-            "Tool '{$toolName}' {$status} via {$client}",
+            "{$readableTool} {$status} via {$client}",
             ['tool' => $toolName, 'success' => $success],
             $client
         );
