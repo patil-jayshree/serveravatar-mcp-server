@@ -449,13 +449,9 @@
                             <i class="fas fa-chevron-down" style="font-size: 0.7rem;"></i>
                         </button>
                         <div class="profile-menu" id="profileMenu">
-                            <a href="{{ route('account') }}" class="profile-menu-item">
-                                <i class="fas fa-user"></i>
-                                <span>Profile</span>
-                            </a>
-                            <a href="{{ route('account') }}" class="profile-menu-item">
-                                <i class="fas fa-cog"></i>
-                                <span>Settings</span>
+                            <a href="/account" class="profile-menu-item">
+                                <i class="fas fa-user-circle" style="color: var(--accent-primary);"></i>
+                                <span>Account</span>
                             </a>
                             <div class="profile-menu-divider"></div>
                             <form method="POST" action="{{ route('logout') }}">
