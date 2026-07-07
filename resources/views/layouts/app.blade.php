@@ -286,6 +286,32 @@
         .btn-secondary { padding: 0.625rem 1.25rem; background: transparent; color: var(--text-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-md); font-size: 0.875rem; font-weight: 600; cursor: pointer; transition: all 0.2s ease; }
         .btn-secondary:hover { background: var(--bg-card-hover); color: var(--text-primary); }
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6); align-items: center; justify-content: center; z-index: 9999; }
+        .modal-content { }
+        .api-modal { background: var(--bg-card); border: 1px solid rgba(124, 92, 252, 0.3); border-radius: 20px; width: 100%; max-width: 480px; overflow: hidden; box-shadow: 0 25px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(124, 92, 252, 0.1); }
+        .modal-header { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border-color); background: var(--bg-primary); border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
+        .modal-title-row { display: flex; align-items: center; gap: 0.625rem; }
+        .modal-icon { width: 36px; height: 36px; border-radius: 50%; background: rgba(124, 92, 237, 0.1); display: flex; align-items: center; justify-content: center; }
+        .modal-header h3 { margin: 0; font-size: 1.15rem; font-weight: 700; color: var(--text-primary); }
+        .modal-close { background: rgba(255,255,255,0.05); border: none; width: 28px; height: 28px; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 0.8rem; }
+        .modal-close:hover { background: rgba(255,255,255,0.1); color: var(--text-primary); }
+        .modal-body { padding: 1.25rem 1.5rem; }
+        .modal-intro { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.5; }
+        .modal-label { display: block; font-size: 0.8rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        .input-password-wrap { position: relative; }
+        .input-password-wrap input { width: 100%; padding: 0.75rem 3rem 0.75rem 1rem; background: var(--bg-input); border: 1px solid var(--border-color); border-radius: var(--radius-md); font-size: 0.9rem; color: var(--text-primary); box-sizing: border-box; }
+        .input-password-wrap input:focus { outline: none; border-color: var(--accent-primary); }
+        .toggle-password { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: var(--text-muted); padding: 4px; display: flex; align-items: center; }
+        .toggle-password:hover { color: var(--text-primary); }
+        .required-star { color: var(--accent-danger); }
+        .security-tips { background: rgba(124, 92, 237, 0.05); border: 1px solid rgba(124, 92, 237, 0.15); border-radius: var(--radius-md); padding: 0.875rem 1rem; margin-top: 1rem; }
+        .tips-title { font-size: 0.75rem; font-weight: 700; color: var(--accent-primary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem; }
+        .tips-list { margin: 0; padding-left: 1.25rem; }
+        .tips-list li { font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0.25rem; }
+        .modal-footer { padding: 1rem 1.25rem; border-top: 1px solid var(--border-color); display: flex; justify-content: flex-end; gap: 0.75rem; }
+        .btn-modal-cancel { padding: 0.625rem 1.25rem; background: transparent; border: 1px solid var(--border-color); border-radius: 10px; color: var(--text-secondary); font-size: 0.875rem; font-weight: 600; cursor: pointer; }
+        .btn-modal-cancel:hover { background: var(--bg-tertiary); color: var(--text-primary); }
+        .btn-modal-save { padding: 0.625rem 1.5rem; background: var(--accent-primary); border: none; border-radius: 10px; color: white; font-size: 0.875rem; font-weight: 700; cursor: pointer; }
+        .btn-modal-save:hover { background: var(--accent-primary-hover); }
 
         /* API Access */
         .api-access-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); overflow: hidden; }
