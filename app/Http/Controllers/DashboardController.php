@@ -31,11 +31,21 @@ class DashboardController extends Controller
                 : ($user->updated_at ? $user->updated_at->diffForHumans() : 'Unknown');
             $toolsCount = ServerAvatarServer::getToolsCount();
 
+            // Fetch real-time analytics (last 7 days)
+            $analytics = McpConnectionTracker::getAnalytics($user, '7days');
+            $sparklineRequests = McpConnectionTracker::getSparklineData($user, 'requests', 7);
+            $sparklineTools = McpConnectionTracker::getSparklineData($user, 'tools', 7);
+            $sparklineClients = McpConnectionTracker::getSparklineData($user, 'clients', 7);
+
             return view('dashboard', [
                 'user' => $user,
                 'connectedClients' => $connectedClients,
                 'lastLogin' => $lastLogin,
                 'toolsCount' => $toolsCount,
+                'analytics' => $analytics,
+                'sparklineRequests' => $sparklineRequests,
+                'sparklineTools' => $sparklineTools,
+                'sparklineClients' => $sparklineClients,
             ]);
         } catch (Exception $e) {
             return view('dashboard', [
@@ -43,6 +53,16 @@ class DashboardController extends Controller
                 'connectedClients' => collect(),
                 'lastLogin' => 'Unknown',
                 'toolsCount' => 0,
+                'analytics' => [
+                    'total_requests' => 0,
+                    'tools_executed' => 0,
+                    'active_clients' => 0,
+                    'success_rate' => 100,
+                    'avg_response_time_ms' => 0,
+                ],
+                'sparklineRequests' => array_fill(0, 7, 0),
+                'sparklineTools' => array_fill(0, 7, 0),
+                'sparklineClients' => array_fill(0, 7, 0),
             ])->with('error', 'Unable to load dashboard. Please try again.');
         }
     }

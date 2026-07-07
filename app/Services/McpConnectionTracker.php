@@ -53,4 +53,138 @@ class McpConnectionTracker
             ->get();
     }
 
+    /**
+     * Record an MCP request for a user's client connection.
+     */
+    public static function recordRequest($user, string $clientName = null, bool $success = true, int $responseTimeMs = 0): void
+    {
+        if (!$clientName) {
+            $clientName = self::detectClient(Request::userAgent());
+        }
+
+        $connection = McpConnection::where('user_id', $user->id)
+            ->where('client_name', $clientName)
+            ->first();
+
+        if (!$connection) {
+            $connection = McpConnection::create([
+                'user_id' => $user->id,
+                'client_name' => $clientName,
+                'ip_address' => Request::ip(),
+                'user_agent' => Request::userAgent(),
+                'last_activity_at' => now(),
+            ]);
+        }
+
+        $connection->increment('request_count');
+
+        if ($success) {
+            $connection->increment('success_count');
+        } else {
+            $connection->increment('error_count');
+        }
+
+        if ($responseTimeMs > 0) {
+            $connection->increment('total_response_time_ms', $responseTimeMs);
+        }
+
+        if (!$connection->first_request_at) {
+            $connection->first_request_at = now();
+        }
+        $connection->last_request_at = now();
+        $connection->save();
+    }
+
+    /**
+     * Record a tool call for a user's client connection.
+     */
+    public static function recordToolCall($user, string $clientName = null): void
+    {
+        if (!$clientName) {
+            $clientName = self::detectClient(Request::userAgent());
+        }
+
+        $connection = McpConnection::where('user_id', $user->id)
+            ->where('client_name', $clientName)
+            ->first();
+
+        if ($connection) {
+            $connection->increment('tool_call_count');
+        }
+    }
+
+    /**
+     * Get aggregated analytics for a user.
+     */
+    public static function getAnalytics($user, string $period = 'all')
+    {
+        $query = McpConnection::where('user_id', $user->id);
+
+        if ($period === 'today') {
+            $query->whereDate('last_request_at', today());
+        } elseif ($period === '7days') {
+            $query->where('last_request_at', '>=', now()->subDays(7));
+        }
+
+        $connections = $query->get();
+
+        $totalRequests = $connections->sum('request_count');
+        $totalToolCalls = $connections->sum('tool_call_count');
+        $successCount = $connections->sum('success_count');
+        $errorCount = $connections->sum('error_count');
+        $totalResponseTime = $connections->sum('total_response_time_ms');
+
+        $successRate = ($totalRequests > 0)
+            ? round(($successCount / $totalRequests) * 100, 1)
+            : 100.0;
+
+        $avgResponseTime = ($totalRequests > 0)
+            ? round($totalResponseTime / $totalRequests)
+            : 0;
+
+        return [
+            'total_requests' => $totalRequests,
+            'tools_executed' => $totalToolCalls,
+            'active_clients' => $connections->where('last_activity_at', '>', now()->subMinutes(15))->count(),
+            'success_rate' => $successRate,
+            'avg_response_time_ms' => $avgResponseTime,
+            'total_errors' => $errorCount,
+            'period' => $period,
+        ];
+    }
+
+    /**
+     * Get sparkline data for a metric over the last 7 days.
+     */
+    public static function getSparklineData($user, string $metric = 'requests', int $days = 7): array
+    {
+        $data = [];
+        for ($i = $days - 1; $i >= 0; $i--) {
+            $date = now()->subDays($i)->toDateString();
+            $count = 0;
+
+            $connections = McpConnection::where('user_id', $user->id)
+                ->whereDate('last_request_at', $date)
+                ->get();
+
+            switch ($metric) {
+                case 'requests':
+                    $count = $connections->sum('request_count');
+                    break;
+                case 'tools':
+                    $count = $connections->sum('tool_call_count');
+                    break;
+                case 'clients':
+                    $count = $connections->where('last_activity_at', '>', now()->subMinutes(15))->count();
+                    break;
+                case 'errors':
+                    $count = $connections->sum('error_count');
+                    break;
+            }
+
+            $data[] = $count;
+        }
+
+        return $data;
+    }
 }

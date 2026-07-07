@@ -608,21 +608,26 @@
 
             <!-- Analytics Cards -->
             <div class="analytics-grid">
+                @php
+                    $maxRequests = max($sparklineRequests);
+                    $maxRequests = $maxRequests > 0 ? $maxRequests : 1;
+                    $maxTools = max($sparklineTools);
+                    $maxTools = $maxTools > 0 ? $maxTools : 1;
+                    $maxClients = max($sparklineClients);
+                    $maxClients = $maxClients > 0 ? $maxClients : 1;
+                @endphp
+
                 <!-- Total Requests -->
                 <div class="analytics-card">
                     <div class="analytics-card-label">Total Requests</div>
                     <div class="analytics-card-value-row">
-                        <div class="analytics-card-value">2,489</div>
-                        <span class="analytics-card-trend trend-up"><i class="fas fa-arrow-up" style="font-size:0.6rem;"></i> 18.2%</span>
+                        <div class="analytics-card-value">{{ number_format($analytics['total_requests']) }}</div>
+                        <span class="analytics-card-trend trend-up"><i class="fas fa-arrow-up" style="font-size:0.6rem;"></i> {{ $analytics['period'] === '7days' ? '7d' : 'all' }}</span>
                     </div>
                     <div class="analytics-sparkline">
-                        <div class="sparkline-bar" style="height:30%;background:rgba(139,92,246,0.4);"></div>
-                        <div class="sparkline-bar" style="height:45%;background:rgba(139,92,246,0.5);"></div>
-                        <div class="sparkline-bar" style="height:35%;background:rgba(139,92,246,0.4);"></div>
-                        <div class="sparkline-bar" style="height:60%;background:rgba(139,92,246,0.6);"></div>
-                        <div class="sparkline-bar" style="height:50%;background:rgba(139,92,246,0.5);"></div>
-                        <div class="sparkline-bar" style="height:70%;background:rgba(139,92,246,0.7);"></div>
-                        <div class="sparkline-bar" style="height:100%;background:var(--accent-primary);"></div>
+                        @foreach($sparklineRequests as $val)
+                            <div class="sparkline-bar" style="height:{{ max(10, round(($val / $maxRequests) * 100)) }}%;background:rgba(139,92,246,0.5);"></div>
+                        @endforeach
                     </div>
                 </div>
 
@@ -630,17 +635,13 @@
                 <div class="analytics-card">
                     <div class="analytics-card-label">Tools Executed</div>
                     <div class="analytics-card-value-row">
-                        <div class="analytics-card-value">842</div>
-                        <span class="analytics-card-trend trend-up"><i class="fas fa-arrow-up" style="font-size:0.6rem;"></i> 12.4%</span>
+                        <div class="analytics-card-value">{{ number_format($analytics['tools_executed']) }}</div>
+                        <span class="analytics-card-trend trend-up"><i class="fas fa-wrench" style="font-size:0.6rem;"></i> tools</span>
                     </div>
                     <div class="analytics-sparkline">
-                        <div class="sparkline-bar" style="height:40%;background:rgba(59,130,246,0.4);"></div>
-                        <div class="sparkline-bar" style="height:55%;background:rgba(59,130,246,0.5);"></div>
-                        <div class="sparkline-bar" style="height:45%;background:rgba(59,130,246,0.4);"></div>
-                        <div class="sparkline-bar" style="height:65%;background:rgba(59,130,246,0.6);"></div>
-                        <div class="sparkline-bar" style="height:60%;background:rgba(59,130,246,0.6);"></div>
-                        <div class="sparkline-bar" style="height:80%;background:rgba(59,130,246,0.8);"></div>
-                        <div class="sparkline-bar" style="height:100%;background:var(--accent-info);"></div>
+                        @foreach($sparklineTools as $val)
+                            <div class="sparkline-bar" style="height:{{ max(10, round(($val / $maxTools) * 100)) }}%;background:rgba(59,130,246,0.5);"></div>
+                        @endforeach
                     </div>
                 </div>
 
@@ -648,17 +649,13 @@
                 <div class="analytics-card">
                     <div class="analytics-card-label">Active Clients</div>
                     <div class="analytics-card-value-row">
-                        <div class="analytics-card-value">{{ $connectedClients->count() }}</div>
-                        <span class="analytics-card-trend trend-up"><i class="fas fa-arrow-up" style="font-size:0.6rem;"></i> {{ $connectedClients->count() > 0 ? '20' : '0' }}%</span>
+                        <div class="analytics-card-value">{{ $analytics['active_clients'] }}</div>
+                        <span class="analytics-card-trend trend-up"><i class="fas fa-users" style="font-size:0.6rem;"></i> online</span>
                     </div>
                     <div class="analytics-sparkline">
-                        <div class="sparkline-bar" style="height:25%;background:rgba(6,182,212,0.4);"></div>
-                        <div class="sparkline-bar" style="height:40%;background:rgba(6,182,212,0.5);"></div>
-                        <div class="sparkline-bar" style="height:35%;background:rgba(6,182,212,0.4);"></div>
-                        <div class="sparkline-bar" style="height:55%;background:rgba(6,182,212,0.6);"></div>
-                        <div class="sparkline-bar" style="height:65%;background:rgba(6,182,212,0.7);"></div>
-                        <div class="sparkline-bar" style="height:85%;background:rgba(6,182,212,0.8);"></div>
-                        <div class="sparkline-bar" style="height:100%;background:#06b6d4;"></div>
+                        @foreach($sparklineClients as $val)
+                            <div class="sparkline-bar" style="height:{{ max(10, round(($val / $maxClients) * 100)) }}%;background:rgba(6,182,212,0.5);"></div>
+                        @endforeach
                     </div>
                 </div>
 
@@ -666,17 +663,15 @@
                 <div class="analytics-card">
                     <div class="analytics-card-label">Success Rate</div>
                     <div class="analytics-card-value-row">
-                        <div class="analytics-card-value">99.8%</div>
-                        <span class="analytics-card-trend trend-up"><i class="fas fa-arrow-up" style="font-size:0.6rem;"></i> 0.6%</span>
+                        <div class="analytics-card-value">{{ $analytics['success_rate'] }}%</div>
+                        <span class="analytics-card-trend {{ $analytics['success_rate'] >= 99 ? 'trend-up' : 'trend-down' }}">
+                            <i class="fas fa-{{ $analytics['success_rate'] >= 99 ? 'check' : 'exclamation' }}" style="font-size:0.6rem;"></i>
+                        </span>
                     </div>
                     <div class="analytics-sparkline">
-                        <div class="sparkline-bar" style="height:85%;background:rgba(22,163,74,0.4);"></div>
-                        <div class="sparkline-bar" style="height:88%;background:rgba(22,163,74,0.5);"></div>
-                        <div class="sparkline-bar" style="height:90%;background:rgba(22,163,74,0.6);"></div>
-                        <div class="sparkline-bar" style="height:92%;background:rgba(22,163,74,0.7);"></div>
-                        <div class="sparkline-bar" style="height:95%;background:rgba(22,163,74,0.8);"></div>
-                        <div class="sparkline-bar" style="height:97%;background:rgba(22,163,74,0.9);"></div>
-                        <div class="sparkline-bar" style="height:100%;background:var(--accent-success);"></div>
+                        @for($i = 0; $i < 7; $i++)
+                            <div class="sparkline-bar" style="height:{{ max(10, $analytics['success_rate']) }}%;background:rgba(22,163,74,0.5);"></div>
+                        @endfor
                     </div>
                 </div>
 
@@ -684,17 +679,15 @@
                 <div class="analytics-card">
                     <div class="analytics-card-label">Avg. Response Time</div>
                     <div class="analytics-card-value-row">
-                        <div class="analytics-card-value" style="font-size:1.5rem;">182 <span style="font-size:0.8rem;font-weight:500;color:var(--text-secondary);">ms</span></div>
-                        <span class="analytics-card-trend trend-up"><i class="fas fa-arrow-up" style="font-size:0.6rem;"></i> 8.1%</span>
+                        <div class="analytics-card-value" style="font-size:1.5rem;">{{ $analytics['avg_response_time_ms'] }} <span style="font-size:0.8rem;font-weight:500;color:var(--text-secondary);">ms</span></div>
+                        <span class="analytics-card-trend {{ $analytics['avg_response_time_ms'] < 500 ? 'trend-up' : 'trend-down' }}">
+                            <i class="fas fa-bolt" style="font-size:0.6rem;"></i>
+                        </span>
                     </div>
                     <div class="analytics-sparkline">
-                        <div class="sparkline-bar" style="height:90%;background:rgba(249,115,22,0.4);"></div>
-                        <div class="sparkline-bar" style="height:75%;background:rgba(249,115,22,0.5);"></div>
-                        <div class="sparkline-bar" style="height:80%;background:rgba(249,115,22,0.5);"></div>
-                        <div class="sparkline-bar" style="height:65%;background:rgba(249,115,22,0.6);"></div>
-                        <div class="sparkline-bar" style="height:55%;background:rgba(249,115,22,0.6);"></div>
-                        <div class="sparkline-bar" style="height:45%;background:rgba(249,115,22,0.7);"></div>
-                        <div class="sparkline-bar" style="height:40%;background:#f97316;"></div>
+                        @for($i = 0; $i < 7; $i++)
+                            <div class="sparkline-bar" style="height:{{ max(10, 100 - min(90, $analytics['avg_response_time_ms'] / 10)) }}%;background:rgba(249,115,22,0.5);"></div>
+                        @endfor
                     </div>
                 </div>
             </div>
