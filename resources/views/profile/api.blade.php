@@ -9,7 +9,7 @@ $userApiKey = auth()->user()->api_key ?? '';
 
 @section('styles')
 <style>
-    .settings-tabs { display: flex; gap: 0; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 1.5rem; }
+    .settings-tabs { display: flex; width: 100%; gap: 0; justify-content: space-between; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 1.5rem; }
     .settings-tab { display: flex; align-items: center; gap: 8px; padding: 0.875rem 1.25rem; color: var(--text-secondary); font-size: 0.875rem; font-weight: 500; text-decoration: none; transition: all 0.2s ease; border-bottom: 3px solid transparent; flex: 1; justify-content: center; }
     .settings-tab:hover { background: var(--bg-card-hover); color: var(--text-primary); }
     .settings-tab.active { background: var(--accent-primary-muted); color: var(--accent-primary); border-bottom-color: var(--accent-primary); }
