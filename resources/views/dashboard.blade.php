@@ -1072,12 +1072,10 @@
             </div>
 
         <!-- Footer -->
-        <div style="position: absolute; left: 0; right: 0; bottom: 0; border-top: 1px solid var(--border-color);">
-            <footer class="footer" style="width: 100%; padding: 1.25rem 2rem; box-sizing: border-box;">
-                <p>&copy; {{ date('Y') }} ServerAvatar MCP. Built with Laravel & MCP Protocol</p>
-                <p style="margin-top: 4px;">Powered by <a href="https://serveravatar.com" target="_blank">ServerAvatar</a></p>
-            </footer>
-        </div>
+        <footer class="footer" style="padding: 1.25rem 0; border-top: 1px solid var(--border-color); margin-top: 1rem;">
+            <p>&copy; {{ date('Y') }} ServerAvatar MCP. Built with Laravel & MCP Protocol</p>
+            <p style="margin-top: 4px;">Powered by <a href="https://serveravatar.com" target="_blank">ServerAvatar</a></p>
+        </footer>
     </main>
 
     <!-- API Key Modal -->
