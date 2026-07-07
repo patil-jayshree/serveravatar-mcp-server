@@ -25,6 +25,7 @@ class DashboardController extends Controller
             $sparklineTools = McpConnectionTracker::getSparklineData($user, 'tools', 7);
             $sparklineClients = McpConnectionTracker::getSparklineData($user, 'clients', 7);
 
+            $recentActivities = ActivityLogger::getRecent($user, 5);
 
             return view('dashboard', [
                 'user' => $user,
@@ -35,6 +36,7 @@ class DashboardController extends Controller
                 'sparklineRequests' => $sparklineRequests,
                 'sparklineTools' => $sparklineTools,
                 'sparklineClients' => $sparklineClients,
+                'recentActivities' => $recentActivities,
             ]);
         } catch (Exception $e) {
             return view('dashboard', [
@@ -52,6 +54,7 @@ class DashboardController extends Controller
                 'sparklineRequests' => array_fill(0, 7, 0),
                 'sparklineTools' => array_fill(0, 7, 0),
                 'sparklineClients' => array_fill(0, 7, 0),
+                'recentActivities' => collect(),
             ])->with('error', 'Unable to load dashboard. Please try again.');
         }
     }
