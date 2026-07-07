@@ -43,7 +43,8 @@
     <p class="page-subtitle">Manage your account and preferences.</p>
 </div>
 
-<div class="settings-tabs">
+<div style="display: flex; justify-content: center;">
+    <div class="settings-tabs">
     <a href="/account" class="settings-tab active">
         <i class="fas fa-user tab-icon"></i> Account
     </a>
@@ -54,6 +55,7 @@
         <i class="fas fa-key tab-icon"></i> API Access
     </a>
 </div>
+    </div>
 
 <div class="settings-content">
     <div class="settings-card">
