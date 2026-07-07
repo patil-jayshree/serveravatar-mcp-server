@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'API Access - ServerAvatar MCP')
+@section('breadcrumb', 'API Access')
 
 @php
 $userApiKey = auth()->user()->api_key ?? '';
@@ -51,7 +52,11 @@ $userApiKey = auth()->user()->api_key ?? '';
 @endsection
 
 @section('content')
-@include('components.page-header')
+
+<div class="page-header">
+    <h1 class="page-title">API Access</h1>
+    <p class="page-subtitle">Manage your ServerAvatar API key for MCP integration.</p>
+</div>
 
 <div class="settings-page">
     <div class="settings-sidebar">

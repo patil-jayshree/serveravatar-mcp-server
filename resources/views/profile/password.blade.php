@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Change Password - ServerAvatar MCP')
+@section('breadcrumb', 'Change Password')
 
 @section('styles')
 <style>
@@ -48,7 +49,11 @@
 @endsection
 
 @section('content')
-@include('components.page-header')
+
+<div class="page-header">
+    <h1 class="page-title">Change Password</h1>
+    <p class="page-subtitle">Update your account password.</p>
+</div>
 
 <div class="settings-page">
     <div class="settings-sidebar">

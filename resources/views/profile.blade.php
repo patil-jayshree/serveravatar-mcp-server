@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'Profile - ServerAvatar MCP')
+@section('title', 'Account Settings - ServerAvatar MCP')
+@section('breadcrumb', 'Account Settings')
 
 @section('styles')
 <style>
@@ -41,7 +42,11 @@
 @endsection
 
 @section('content')
-@include('components.page-header')
+
+<div class="page-header">
+    <h1 class="page-title">Account Settings</h1>
+    <p class="page-subtitle">Manage your account and preferences.</p>
+</div>
 
 <div class="settings-page">
     <div class="settings-sidebar">
