@@ -13,9 +13,6 @@
     .settings-nav-item.active { background: var(--accent-primary-muted); color: var(--accent-primary); border-left-color: var(--accent-primary); }
     .settings-nav-item .icon { font-size: 1rem; }
     .settings-content { flex: 1; min-width: 0; }
-    .page-header { margin-bottom: 0.75rem; }
-    .page-title { font-size: 1.5rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem; }
-    .page-subtitle { font-size: 0.9rem; color: var(--text-secondary); }
     .settings-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); overflow: hidden; }
     .settings-card-header { padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border-color); }
     .settings-card-title { font-size: 1rem; font-weight: 600; color: var(--text-primary); }
