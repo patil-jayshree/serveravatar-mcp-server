@@ -11,8 +11,8 @@
         <p class="page-subtitle">Track all MCP events and account changes</p>
     </div>
     <div style="display: flex; gap: 0.5rem;">
-        <button onclick="window.location.reload()" class="refresh-btn" title="Refresh">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <button onclick="window.location.reload()" class="refresh-btn" title="Refresh" style="color: #7c3aed;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2">
                 <path d="M23 4v6h-6"></path>
                 <path d="M1 20v-6h6"></path>
                 <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10"></path>
