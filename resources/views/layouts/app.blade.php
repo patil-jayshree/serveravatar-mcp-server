@@ -415,7 +415,7 @@
                     <div class="user-avatar">{{ substr(Auth::user()->name ?? 'U', 0, 1) }}</div>
                     <div class="user-info">
                         <div class="user-name">{{ Auth::user()->name ?? 'User' }}</div>
-                        <div class="user-email">{{ Auth::user()->email ?? '' }}</div>
+                        <div class="user-email" title="{{ Auth::user()->email ?? '' }}">{{ Auth::user()->email ?? '' }}</div>
                     </div>
                 </div>
                 <form method="POST" action="{{ route('logout') }}">
