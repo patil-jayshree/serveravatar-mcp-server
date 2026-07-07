@@ -110,6 +110,7 @@
 
         /* Main Content */
         .main-content { padding-top: 60px; min-height: 100vh; width: 100%; box-sizing: border-box; position: relative; padding-bottom: 80px; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
 
         /* Page Header */
         .page-header { margin-bottom: 1.5rem; }
@@ -571,7 +572,6 @@
 @endsection
 
 @section('content')
-        <div class="container">
             <!-- Page Header -->
             <div class="page-header">
                 <h1 class="page-title">Dashboard 👋</h1>
