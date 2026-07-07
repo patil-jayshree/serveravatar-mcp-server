@@ -91,7 +91,6 @@
         .theme-toggle::before { content: '🌙'; position: absolute; left: 4px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; border-radius: 50%; background: var(--bg-card); display: flex; align-items: center; justify-content: center; font-size: 12px; transition: all var(--transition-normal); }
         [data-theme="light"] .theme-toggle::before { content: '☀️'; left: calc(100% - 24px); }
 
-        /* Profile Dropdown */
         /* Sidebar */
         .sidebar { width: 260px; background: var(--bg-secondary); border-right: 1px solid var(--border-color); position: fixed; top: 0; left: 0; height: 100vh; display: flex; flex-direction: column; z-index: 100; transition: transform 0.3s ease; }
         .sidebar-header { padding: 1rem 1.25rem; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; gap: 0.75rem; }
@@ -114,14 +113,11 @@
         .logout-btn { display: flex; align-items: center; justify-content: center; gap: 0.5rem; width: 100%; padding: 0.625rem; background: transparent; border: 1px solid var(--border-color); border-radius: var(--radius-sm); color: var(--text-secondary); font-size: 0.8rem; font-weight: 500; cursor: pointer; transition: all var(--transition-fast); }
         .logout-btn:hover { background: var(--accent-danger-muted); border-color: var(--accent-danger); color: var(--accent-danger); }
 
-        /* Sidebar responsive */
         @media (max-width: 768px) {
             .sidebar { transform: translateX(-100%); }
             .sidebar.open { transform: translateX(0); }
             .main-content.with-sidebar { margin-left: 0; }
         }
-
-        .profile-dropdown { position: relative; }
         .profile-btn { display: flex; align-items: center; gap: 8px; padding: 6px 12px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); cursor: pointer; transition: all var(--transition-fast); font-size: 0.85rem; color: var(--text-primary); font-weight: 500; }
         .profile-btn:hover { border-color: var(--border-color-hover); }
         .profile-btn .avatar { width: 26px; height: 26px; border-radius: 50%; background: var(--gradient-primary); display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; color: white; }
@@ -136,8 +132,7 @@
         .profile-menu-item.danger:hover { background: var(--accent-danger-muted); }
         .profile-menu-divider { height: 1px; background: var(--border-color); margin: 4px 0; }
 
-        /* Main Content */
-        .main-content.with-sidebar { margin-left: 260px; padding-top: 60px; min-height: 100vh; width: 100%; box-sizing: border-box; position: relative; padding-bottom: 80px; }
+        .main-content.with-sidebar { margin-left: 260px; }
         .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
 
         /* Page Header */
