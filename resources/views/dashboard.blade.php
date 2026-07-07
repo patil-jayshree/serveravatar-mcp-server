@@ -124,18 +124,17 @@
 
         /* Analytics Cards */
         .analytics-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
-        .analytics-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 1.25rem; display: flex; flex-direction: column; gap: 0.75rem; transition: all var(--transition-fast); }
+        .analytics-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 1.25rem; display: flex; flex-direction: column; gap: 0.5rem; transition: all var(--transition-fast); }
         .analytics-card:hover { border-color: var(--border-color-hover); transform: translateY(-2px); }
-        .analytics-card-header { display: flex; align-items: center; justify-content: space-between; }
-        .analytics-card-icon { width: 40px; height: 40px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
-        .analytics-card-trend { font-size: 0.75rem; font-weight: 600; padding: 2px 8px; border-radius: 20px; }
+        .analytics-card-label { font-size: 0.8rem; color: var(--text-secondary); font-weight: 500; }
+        .analytics-card-value-row { display: flex; align-items: flex-end; justify-content: space-between; gap: 0.5rem; }
+        .analytics-card-value { font-size: 1.75rem; font-weight: 700; color: var(--text-primary); line-height: 1; }
+        .analytics-card-trend { display: inline-flex; align-items: center; gap: 2px; font-size: 0.75rem; font-weight: 600; padding: 2px 6px; border-radius: 20px; white-space: nowrap; margin-bottom: 2px; }
         .trend-up { background: rgba(22, 163, 74, 0.15); color: var(--accent-success); }
         .trend-down { background: rgba(220, 38, 38, 0.15); color: var(--accent-danger); }
         .trend-neutral { background: rgba(139, 92, 246, 0.15); color: var(--accent-primary); }
-        .analytics-card-value { font-size: 1.75rem; font-weight: 700; color: var(--text-primary); line-height: 1; }
-        .analytics-card-label { font-size: 0.8rem; color: var(--text-secondary); font-weight: 500; }
-        .analytics-card-bar { height: 4px; background: var(--bg-secondary); border-radius: 2px; overflow: hidden; }
-        .analytics-card-bar-fill { height: 100%; border-radius: 2px; }
+        .analytics-sparkline { height: 36px; display: flex; align-items: flex-end; gap: 2px; margin-top: 0.25rem; }
+        .sparkline-bar { flex: 1; border-radius: 2px 2px 0 0; min-height: 4px; }
         
         .step-number { width: 36px; height: 36px; border-radius: 50%; background: #7C3AED; color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; margin-bottom: 0.75rem; }
         .step-content { width: 100%; flex: 1; display: flex; flex-direction: column; justify-content: center; }
@@ -609,63 +608,94 @@
 
             <!-- Analytics Cards -->
             <div class="analytics-grid">
-                <!-- Total Tools -->
+                <!-- Total Requests -->
                 <div class="analytics-card">
-                    <div class="analytics-card-header">
-                        <div class="analytics-card-icon" style="background: rgba(139, 92, 246, 0.15);"><i class="fas fa-wrench" style="color: var(--accent-primary);"></i></div>
-                        <span class="analytics-card-trend trend-up">+{{ rand(1,5) }}</span>
+                    <div class="analytics-card-label">Total Requests</div>
+                    <div class="analytics-card-value-row">
+                        <div class="analytics-card-value">2,489</div>
+                        <span class="analytics-card-trend trend-up"><i class="fas fa-arrow-up" style="font-size:0.6rem;"></i> 18.2%</span>
                     </div>
-                    <div class="analytics-card-value">{{ $toolsCount }}</div>
-                    <div class="analytics-card-label">Total Tools</div>
-                    <div class="analytics-card-bar"><div class="analytics-card-bar-fill" style="width: {{ min(100, $toolsCount * 2) }}%; background: var(--accent-primary);"></div></div>
+                    <div class="analytics-sparkline">
+                        <div class="sparkline-bar" style="height:30%;background:rgba(139,92,246,0.4);"></div>
+                        <div class="sparkline-bar" style="height:45%;background:rgba(139,92,246,0.5);"></div>
+                        <div class="sparkline-bar" style="height:35%;background:rgba(139,92,246,0.4);"></div>
+                        <div class="sparkline-bar" style="height:60%;background:rgba(139,92,246,0.6);"></div>
+                        <div class="sparkline-bar" style="height:50%;background:rgba(139,92,246,0.5);"></div>
+                        <div class="sparkline-bar" style="height:70%;background:rgba(139,92,246,0.7);"></div>
+                        <div class="sparkline-bar" style="height:100%;background:var(--accent-primary);"></div>
+                    </div>
+                </div>
+
+                <!-- Tools Executed -->
+                <div class="analytics-card">
+                    <div class="analytics-card-label">Tools Executed</div>
+                    <div class="analytics-card-value-row">
+                        <div class="analytics-card-value">842</div>
+                        <span class="analytics-card-trend trend-up"><i class="fas fa-arrow-up" style="font-size:0.6rem;"></i> 12.4%</span>
+                    </div>
+                    <div class="analytics-sparkline">
+                        <div class="sparkline-bar" style="height:40%;background:rgba(59,130,246,0.4);"></div>
+                        <div class="sparkline-bar" style="height:55%;background:rgba(59,130,246,0.5);"></div>
+                        <div class="sparkline-bar" style="height:45%;background:rgba(59,130,246,0.4);"></div>
+                        <div class="sparkline-bar" style="height:65%;background:rgba(59,130,246,0.6);"></div>
+                        <div class="sparkline-bar" style="height:60%;background:rgba(59,130,246,0.6);"></div>
+                        <div class="sparkline-bar" style="height:80%;background:rgba(59,130,246,0.8);"></div>
+                        <div class="sparkline-bar" style="height:100%;background:var(--accent-info);"></div>
+                    </div>
                 </div>
 
                 <!-- Active Clients -->
                 <div class="analytics-card">
-                    <div class="analytics-card-header">
-                        <div class="analytics-card-icon" style="background: rgba(59, 130, 246, 0.15);"><i class="fas fa-users" style="color: var(--accent-info);"></i></div>
-                        <span class="analytics-card-trend {{ $connectedClients->count() > 0 ? 'trend-up' : 'trend-neutral' }}">
-                            {{ $connectedClients->count() > 0 ? '+' . $connectedClients->count() : '0' }}
-                        </span>
-                    </div>
-                    <div class="analytics-card-value">{{ $connectedClients->count() }}</div>
                     <div class="analytics-card-label">Active Clients</div>
-                    <div class="analytics-card-bar"><div class="analytics-card-bar-fill" style="width: {{ min(100, $connectedClients->count() * 20) }}%; background: var(--accent-info);"></div></div>
+                    <div class="analytics-card-value-row">
+                        <div class="analytics-card-value">{{ $connectedClients->count() }}</div>
+                        <span class="analytics-card-trend trend-up"><i class="fas fa-arrow-up" style="font-size:0.6rem;"></i> {{ $connectedClients->count() > 0 ? '20' : '0' }}%</span>
+                    </div>
+                    <div class="analytics-sparkline">
+                        <div class="sparkline-bar" style="height:25%;background:rgba(6,182,212,0.4);"></div>
+                        <div class="sparkline-bar" style="height:40%;background:rgba(6,182,212,0.5);"></div>
+                        <div class="sparkline-bar" style="height:35%;background:rgba(6,182,212,0.4);"></div>
+                        <div class="sparkline-bar" style="height:55%;background:rgba(6,182,212,0.6);"></div>
+                        <div class="sparkline-bar" style="height:65%;background:rgba(6,182,212,0.7);"></div>
+                        <div class="sparkline-bar" style="height:85%;background:rgba(6,182,212,0.8);"></div>
+                        <div class="sparkline-bar" style="height:100%;background:#06b6d4;"></div>
+                    </div>
                 </div>
 
-                <!-- API Status -->
+                <!-- Success Rate -->
                 <div class="analytics-card">
-                    <div class="analytics-card-header">
-                        <div class="analytics-card-icon" style="background: rgba(22, 163, 74, 0.15);"><i class="fas fa-key" style="color: var(--accent-success);"></i></div>
-                        <span class="analytics-card-trend {{ $user->hasApiKey() ? 'trend-up' : 'trend-down' }}">
-                            {{ $user->hasApiKey() ? 'Active' : 'Missing' }}
-                        </span>
+                    <div class="analytics-card-label">Success Rate</div>
+                    <div class="analytics-card-value-row">
+                        <div class="analytics-card-value">99.8%</div>
+                        <span class="analytics-card-trend trend-up"><i class="fas fa-arrow-up" style="font-size:0.6rem;"></i> 0.6%</span>
                     </div>
-                    <div class="analytics-card-value" style="font-size: 1.25rem;">{{ $user->hasApiKey() ? 'Configured' : 'Not Set' }}</div>
-                    <div class="analytics-card-label">API Status</div>
-                    <div class="analytics-card-bar"><div class="analytics-card-bar-fill" style="width: {{ $user->hasApiKey() ? '100' : '0' }}%; background: var(--accent-success);"></div></div>
+                    <div class="analytics-sparkline">
+                        <div class="sparkline-bar" style="height:85%;background:rgba(22,163,74,0.4);"></div>
+                        <div class="sparkline-bar" style="height:88%;background:rgba(22,163,74,0.5);"></div>
+                        <div class="sparkline-bar" style="height:90%;background:rgba(22,163,74,0.6);"></div>
+                        <div class="sparkline-bar" style="height:92%;background:rgba(22,163,74,0.7);"></div>
+                        <div class="sparkline-bar" style="height:95%;background:rgba(22,163,74,0.8);"></div>
+                        <div class="sparkline-bar" style="height:97%;background:rgba(22,163,74,0.9);"></div>
+                        <div class="sparkline-bar" style="height:100%;background:var(--accent-success);"></div>
+                    </div>
                 </div>
 
-                <!-- Server Uptime -->
+                <!-- Avg. Response Time -->
                 <div class="analytics-card">
-                    <div class="analytics-card-header">
-                        <div class="analytics-card-icon" style="background: rgba(245, 158, 11, 0.15);"><i class="fas fa-server" style="color: var(--accent-warning);"></i></div>
-                        <span class="analytics-card-trend trend-up">99.9%</span>
+                    <div class="analytics-card-label">Avg. Response Time</div>
+                    <div class="analytics-card-value-row">
+                        <div class="analytics-card-value" style="font-size:1.5rem;">182 <span style="font-size:0.8rem;font-weight:500;color:var(--text-secondary);">ms</span></div>
+                        <span class="analytics-card-trend trend-up"><i class="fas fa-arrow-up" style="font-size:0.6rem;"></i> 8.1%</span>
                     </div>
-                    <div class="analytics-card-value">99.9%</div>
-                    <div class="analytics-card-label">Uptime</div>
-                    <div class="analytics-card-bar"><div class="analytics-card-bar-fill" style="width: 99.9%; background: var(--accent-warning);"></div></div>
-                </div>
-
-                <!-- Requests Today -->
-                <div class="analytics-card">
-                    <div class="analytics-card-header">
-                        <div class="analytics-card-icon" style="background: rgba(236, 72, 153, 0.15);"><i class="fas fa-bolt" style="color: #ec4899;"></i></div>
-                        <span class="analytics-card-trend trend-up">+{{ rand(10,50) }}%</span>
+                    <div class="analytics-sparkline">
+                        <div class="sparkline-bar" style="height:90%;background:rgba(249,115,22,0.4);"></div>
+                        <div class="sparkline-bar" style="height:75%;background:rgba(249,115,22,0.5);"></div>
+                        <div class="sparkline-bar" style="height:80%;background:rgba(249,115,22,0.5);"></div>
+                        <div class="sparkline-bar" style="height:65%;background:rgba(249,115,22,0.6);"></div>
+                        <div class="sparkline-bar" style="height:55%;background:rgba(249,115,22,0.6);"></div>
+                        <div class="sparkline-bar" style="height:45%;background:rgba(249,115,22,0.7);"></div>
+                        <div class="sparkline-bar" style="height:40%;background:#f97316;"></div>
                     </div>
-                    <div class="analytics-card-value">{{ rand(100,500) }}</div>
-                    <div class="analytics-card-label">Requests Today</div>
-                    <div class="analytics-card-bar"><div class="analytics-card-bar-fill" style="width: {{ rand(40,90) }}%; background: #ec4899;"></div></div>
                 </div>
             </div>
 
