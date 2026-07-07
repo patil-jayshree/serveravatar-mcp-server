@@ -136,7 +136,7 @@
         .profile-menu.show { display: block; }
         .profile-menu-item { display: flex; align-items: center; gap: 10px; padding: 0.625rem 1rem; color: var(--text-secondary); font-size: 0.85rem; text-decoration: none; transition: all var(--transition-fast); }
         .profile-menu-item:hover { background: var(--bg-card-hover); color: var(--text-primary); }
-        .profile-menu-item.danger { color: var(--accent-danger); }
+        .profile-menu-item.danger { color: var(--accent-danger); border: 1px solid var(--border-color); }
         .profile-menu-item.danger:hover { background: var(--accent-danger-muted); }
         .profile-menu-divider { height: 1px; background: var(--border-color); margin: 4px 0; }
 
