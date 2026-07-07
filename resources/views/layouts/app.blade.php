@@ -87,7 +87,7 @@
         
         /* Sidebar */
         .sidebar { width: 260px; background: var(--bg-secondary); border-right: 1px solid var(--border-color); position: fixed; top: 0; left: 0; height: 100vh; display: flex; flex-direction: column; z-index: 100; transition: transform 0.3s ease; }
-        .sidebar-header { padding: 1rem 1.25rem; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; gap: 0.75rem; }
+        .sidebar-header { padding: 11px 1.25rem; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; gap: 0.75rem; height: 60px; box-sizing: border-box; }
         .sidebar-logo { width: 38px; height: 38px; background: var(--gradient-primary); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
         .sidebar-brand { font-weight: 700; font-size: 1rem; color: var(--text-primary); }
         .sidebar-brand span { color: var(--accent-primary); }
@@ -115,7 +115,7 @@
         .main-wrapper { flex: 1; margin-left: 260px; display: flex; flex-direction: column; min-height: 100vh; }
         
         /* Top Header */
-        .top-header { position: fixed; top: 0; left: 260px; right: 0; height: 60px; background: var(--bg-nav); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; padding: 0 1.5rem; z-index: 50; }
+        .top-header { position: fixed; top: 0; left: 260px; right: 0; height: 60px; background: var(--bg-nav); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; padding: 16px 1.5rem; z-index: 50; }
         .header-left { display: flex; align-items: center; gap: 1rem; }
         .hamburger { display: none; background: none; border: none; color: var(--text-primary); font-size: 1.25rem; cursor: pointer; padding: 0.5rem; }
         .page-breadcrumb { font-size: 0.875rem; color: var(--text-secondary); }
