@@ -746,11 +746,14 @@
 
 <!-- Recent Activity -->
 <div class="activity-section">
-    <div class="section-header-row">
-        <div class="section-title">Recent Activity</div>
-        @if($recentActivities->count() > 0)
-        <span class="activity-count-badge">{{ $recentActivities->count() }} events</span>
-        @endif
+    <div class="section-header-row" style="justify-content: space-between;">
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <div class="section-title">Recent Activity</div>
+            @if($recentActivities->count() > 0)
+            <span class="activity-count-badge">{{ $recentActivities->count() }} events</span>
+            @endif
+        </div>
+        <a href="{{ route("activity") }}" class="btn" style="font-size: 0.75rem; padding: 0.3rem 0.75rem;">View All</a>
     </div>
     <div class="activity-card">
         @if($recentActivities->count() > 0)

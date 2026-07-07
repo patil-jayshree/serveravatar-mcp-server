@@ -355,6 +355,11 @@
                         <i class="fas fa-plug"></i>
                         <span>Integration</span>
                     </a>
+                    <a href="{{ route('activity') }}" class="nav-link {{ request()->is('activity') ? 'active' : '' }}">
+                        <i class="fas fa-clock-rotate-left"></i>
+                        <span>Activity</span>
+                    </a>
+
                     <a href="{{ route('mcp-server') }}" class="nav-link {{ request()->is('mcp-server') ? 'active' : '' }}">
                         <i class="fas fa-server"></i>
                         <span>MCP Server</span>

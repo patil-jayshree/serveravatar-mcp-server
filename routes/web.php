@@ -1,10 +1,9 @@
 <?php
 
 use App\Http\Controllers\Auth\{LoginController, RegisterController, ForgotPasswordController, ResetPasswordController};
-use App\Http\Controllers\{DashboardController, ToolsController, ClientsController,ProfileController};
+use App\Http\Controllers\{DashboardController, ActivityController, ToolsController, ClientsController, ProfileController};
 use Illuminate\Support\Facades\Route;
 
-// Landing page - show welcome for guests, dashboard for authenticated
 Route::get('/', function () {
     if (auth()->check()) {
         return redirect('/dashboard');
@@ -12,7 +11,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Guest Routes
 Route::middleware('guest')->group(function () {
     Route::controller(LoginController::class)->group(function () {
         Route::get('login', 'showLoginForm')->name('login');
@@ -35,12 +33,11 @@ Route::middleware('guest')->group(function () {
     });
 });
 
-// Authenticated routes
 Route::middleware('auth')->group(function () {
 
-    // Dashboard / Main pages
     Route::controller(DashboardController::class)->group(function () {
         Route::get('dashboard', 'index')->name('dashboard');
+        Route::get('activity', [ActivityController::class, 'index'])->name('activity');
         Route::get('integrations', 'integrations')->name('integrations');
         Route::get('mcp-server', 'mcpServer')->name('mcp-server');
         Route::post('dashboard/api-key', 'saveApiKey')->name('dashboard.api-key');
@@ -57,7 +54,6 @@ Route::middleware('auth')->group(function () {
 
     Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 
-    // Account Pages
     Route::prefix('account')
         ->controller(ProfileController::class)
         ->group(function () {
@@ -66,7 +62,6 @@ Route::middleware('auth')->group(function () {
             Route::get('/api', 'api')->name('account.api');
         });
 
-    // Profile / Account API
     Route::prefix('api')
         ->name('api.')
         ->controller(ProfileController::class)
@@ -77,4 +72,3 @@ Route::middleware('auth')->group(function () {
             Route::delete('/account', 'deleteAccount')->name('account.delete');
         });
 });
-

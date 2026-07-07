@@ -25,7 +25,7 @@ class DashboardController extends Controller
             $sparklineTools = McpConnectionTracker::getSparklineData($user, 'tools', 7);
             $sparklineClients = McpConnectionTracker::getSparklineData($user, 'clients', 7);
 
-            $recentActivities = ActivityLogger::getRecent($user, 10);
+            $recentActivities = ActivityLogger::getRecent($user, 5);
 
             return view('dashboard', [
                 'user' => $user,
