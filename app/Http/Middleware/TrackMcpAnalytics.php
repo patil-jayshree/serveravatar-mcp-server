@@ -10,6 +10,8 @@ class TrackMcpAnalytics
 {
     public function handle(Request $request, Closure $next): Response
     {
+        // Store start time for response time calculation in terminate()
+        $request->attributes->set('_mcp_request_start', microtime(true));
         return $next($request);
     }
 
@@ -23,28 +25,30 @@ class TrackMcpAnalytics
 
             $body = $request->all();
 
-            // tools/call is the actual tool execution - only count this
-            // initialize, tools/list, ping etc. are protocol overhead, not user tool calls
+            // Only count tools/call requests
             if (!isset($body['method']) || $body['method'] !== 'tools/call') {
                 return;
             }
 
             $statusCode = $response->getStatusCode();
             $success = in_array($statusCode, [200, 201, 204]);
+
+            // Calculate actual response time in milliseconds
+            $startTime = $request->attributes->get('_mcp_request_start', microtime(true));
+            $responseTimeMs = (int) round((microtime(true) - $startTime) * 1000);
+
             $clientName = \App\Services\McpConnectionTracker::detectClient($request->userAgent());
 
-            // Handle batch requests: multiple tools/call in one HTTP request
+            // Handle batch requests
             if (isset($body[0]) && is_array($body[0])) {
-                // Batch of JSON-RPC requests
                 foreach ($body as $rpcRequest) {
                     if (isset($rpcRequest['method']) && $rpcRequest['method'] === 'tools/call') {
-                        \App\Services\McpConnectionTracker::recordRequest($user, $clientName, $success, 0);
+                        \App\Services\McpConnectionTracker::recordRequest($user, $clientName, $success, $responseTimeMs);
                         \App\Services\McpConnectionTracker::recordToolCall($user, $clientName);
                     }
                 }
             } else {
-                // Single tool call
-                \App\Services\McpConnectionTracker::recordRequest($user, $clientName, $success, 0);
+                \App\Services\McpConnectionTracker::recordRequest($user, $clientName, $success, $responseTimeMs);
                 \App\Services\McpConnectionTracker::recordToolCall($user, $clientName);
             }
         } catch (\Throwable $e) {
