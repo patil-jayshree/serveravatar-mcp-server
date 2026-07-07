@@ -6,7 +6,7 @@
 @section('styles')
 <style>
     .settings-tabs { margin-bottom: 1.5rem; }
-    .settings-tab { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.5rem; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 50px; color: var(--text-secondary); font-size: 0.875rem; font-weight: 500; text-decoration: none; transition: all 0.2s ease; margin-right: 0.5rem; margin-bottom: 0.5rem; }
+    .settings-tab { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.5rem; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-secondary); font-size: 0.875rem; font-weight: 500; text-decoration: none; transition: all 0.2s ease; margin-right: 0.5rem; margin-bottom: 0.5rem; }
     .settings-tab:hover { background: var(--bg-card-hover); color: var(--text-primary); border-color: var(--accent-primary); }
     .settings-tab.active { background: var(--accent-primary); color: white; border-color: var(--accent-primary); }
     .settings-tab .tab-icon { font-size: 0.9rem; }
