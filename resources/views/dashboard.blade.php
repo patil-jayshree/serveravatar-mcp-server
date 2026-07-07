@@ -744,11 +744,6 @@
             </div>
 
 
-<!-- Recent Activity -->
-<div class="activity-section">
-    <div class="section-header-row" style="justify-content: space-between;">
-        <div style="display: flex; align-items: center; gap: 0.75rem;">
-            <div class="section-title">Recent Activity</div>
             @if($recentActivities->count() > 0)
             <span class="activity-count-badge">{{ $recentActivities->count() }} events</span>
             @endif
@@ -993,7 +988,13 @@
                 </div>
             </div>
 
-    </main>
+    <!-- Recent Activity -->
+<div class="activity-section">
+    <div class="section-header-row" style="justify-content: space-between;">
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <div class="section-title">Recent Activity</div>
+
+</main>
 
     <!-- API Key Modal -->
     @include('components.api-key-modal', ['apiKey' => $user->api_key, 'hasApiKey' => $user->hasApiKey()])
