@@ -16,7 +16,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
             'validate_mcp_token' => ValidateMcpToken::class,
-            
+            'track_mcp_analytics' => TrackMcpAnalytics::class,
         ]);
         
         $middleware->statefulApi();

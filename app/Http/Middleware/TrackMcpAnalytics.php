@@ -8,21 +8,16 @@ use Symfony\Component\HttpFoundation\Response;
 
 class TrackMcpAnalytics
 {
-    /**
-     * Handle an incoming request.
-     */
     public function handle(Request $request, Closure $next): Response
     {
         return $next($request);
     }
 
-    /**
-     * Called after the response is sent — won't affect MCP response flow.
-     */
     public function terminate(Request $request, Response $response): void
     {
         try {
-            $user = auth()->guard('web')->user();
+            // Use auth() helper which respects the default guard set by ValidateMcpToken
+            $user = auth()->user();
             if (!$user) {
                 return;
             }
@@ -36,8 +31,8 @@ class TrackMcpAnalytics
                 $success,
                 0
             );
-        } catch (\Exception $e) {
-            // Silently ignore - analytics should never affect MCP flow
+        } catch (\Throwable $e) {
+            // Silently ignore - analytics must never affect MCP flow
         }
     }
 }
