@@ -1,13 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - ServerAvatar MCP</title>
-    <link rel="icon" type="image/png" href="/favicon.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/fontawesome.css">
+@extends('layouts.app')
+
+@section('title', 'Dashboard - ServerAvatar MCP')
+
+@section('body_attrs')
+    data-has-api-key="{{ $user->hasApiKey() ? '1' : '0' }}"
+    data-user-api-key="{{ $user->api_key ?? '' }}"
+@endsection
+
+@section('styles')
+@parent
     <style>
         :root, [data-theme="dark"] {
             --bg-primary: #0b1220;
@@ -91,33 +92,8 @@
         .theme-toggle::before { content: '🌙'; position: absolute; left: 4px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; border-radius: 50%; background: var(--bg-card); display: flex; align-items: center; justify-content: center; font-size: 12px; transition: all var(--transition-normal); }
         [data-theme="light"] .theme-toggle::before { content: '☀️'; left: calc(100% - 24px); }
 
-        /* Sidebar */
-        .sidebar { width: 260px; background: var(--bg-secondary); border-right: 1px solid var(--border-color); position: fixed; top: 0; left: 0; height: 100vh; display: flex; flex-direction: column; z-index: 100; transition: transform 0.3s ease; }
-        .sidebar-header { padding: 1rem 1.25rem; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; gap: 0.75rem; }
-        .sidebar-logo { width: 38px; height: 38px; background: var(--gradient-primary); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
-        .sidebar-brand { font-weight: 700; font-size: 1rem; color: var(--text-primary); }
-        .sidebar-brand span { color: var(--accent-primary); }
-        .sidebar-nav { flex: 1; padding: 1rem 0.75rem; overflow-y: auto; }
-        .nav-section { margin-bottom: 1.5rem; }
-        .nav-section-title { font-size: 0.7rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; padding: 0 0.75rem; margin-bottom: 0.5rem; }
-        .nav-link { display: flex; align-items: center; gap: 0.75rem; padding: 0.625rem 0.75rem; border-radius: var(--radius-sm); color: var(--text-secondary); font-size: 0.875rem; font-weight: 500; transition: all var(--transition-fast); cursor: pointer; text-decoration: none; }
-        .nav-link:hover { background: var(--bg-card-hover); color: var(--text-primary); }
-        .nav-link.active { background: var(--accent-primary-muted); color: var(--accent-primary); }
-        .nav-link i { width: 18px; text-align: center; font-size: 1rem; }
-        .sidebar-footer { padding: 1rem 1.25rem; border-top: 1px solid var(--border-color); }
-        .user-card { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem; background: var(--bg-card); border-radius: var(--radius-md); margin-bottom: 0.75rem; }
-        .user-avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--gradient-primary); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700; color: white; flex-shrink: 0; }
-        .user-info { flex: 1; min-width: 0; }
-        .user-name { font-weight: 600; font-size: 0.875rem; color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .user-email { font-size: 0.75rem; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .logout-btn { display: flex; align-items: center; justify-content: center; gap: 0.5rem; width: 100%; padding: 0.625rem; background: transparent; border: 1px solid var(--border-color); border-radius: var(--radius-sm); color: var(--text-secondary); font-size: 0.8rem; font-weight: 500; cursor: pointer; transition: all var(--transition-fast); }
-        .logout-btn:hover { background: var(--accent-danger-muted); border-color: var(--accent-danger); color: var(--accent-danger); }
-
-        @media (max-width: 768px) {
-            .sidebar { transform: translateX(-100%); }
-            .sidebar.open { transform: translateX(0); }
-            .main-content.with-sidebar { margin-left: 0; }
-        }
+        /* Profile Dropdown */
+        .profile-dropdown { position: relative; }
         .profile-btn { display: flex; align-items: center; gap: 8px; padding: 6px 12px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); cursor: pointer; transition: all var(--transition-fast); font-size: 0.85rem; color: var(--text-primary); font-weight: 500; }
         .profile-btn:hover { border-color: var(--border-color-hover); }
         .profile-btn .avatar { width: 26px; height: 26px; border-radius: 50%; background: var(--gradient-primary); display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; color: white; }
@@ -132,7 +108,8 @@
         .profile-menu-item.danger:hover { background: var(--accent-danger-muted); }
         .profile-menu-divider { height: 1px; background: var(--border-color); margin: 4px 0; }
 
-        .main-content.with-sidebar { margin-left: 260px; }
+        /* Main Content */
+        .main-content { padding-top: 60px; min-height: 100vh; width: 100%; box-sizing: border-box; position: relative; padding-bottom: 80px; }
         .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
 
         /* Page Header */
@@ -554,70 +531,10 @@
             .integration-more-right { padding-left: 0; border-left: none; padding-top: 1rem; border-top: 1px solid var(--border-color); width: 100%; }
         }
     </style>
-</head>
-<body data-has-api-key="{{ $user->hasApiKey() ? '1' : '0' }}" data-user-api-key="{{ $user->api_key ?? '' }}">
 
-    <!-- Sidebar -->
-    <aside class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <div class="sidebar-logo">⚡</div>
-            <div class="sidebar-brand">Server<span>Avatar</span></div>
-        </div>
-        <nav class="sidebar-nav">
-            <div class="nav-section">
-                <div class="nav-section-title">Main</div>
-                <a href="{{ route('dashboard') }}" class="nav-link {{ request()->is('dashboard') ? 'active' : '' }}">
-                    <i class="fas fa-th-large"></i>
-                    <span>Dashboard</span>
-                </a>
-                <a href="{{ route('integrations') }}" class="nav-link {{ request()->is('integrations') ? 'active' : '' }}">
-                    <i class="fas fa-plug"></i>
-                    <span>Integration</span>
-                </a>
-                <a href="{{ route('mcp-server') }}" class="nav-link {{ request()->is('mcp-server') ? 'active' : '' }}">
-                    <i class="fas fa-server"></i>
-                    <span>MCP Server</span>
-                </a>
-                <a href="{{ route('tools') }}" class="nav-link {{ request()->is('tools*') ? 'active' : '' }}">
-                    <i class="fas fa-wrench"></i>
-                    <span>Tools Library</span>
-                </a>
-                <a href="{{ route('clients') }}" class="nav-link {{ request()->is('clients') ? 'active' : '' }}">
-                    <i class="fas fa-users"></i>
-                    <span>Clients</span>
-                </a>
-            </div>
-            <div class="nav-section">
-                <div class="nav-section-title">Account</div>
-                <a href="{{ route('account') }}" class="nav-link {{ request()->is('account*') ? 'active' : '' }}">
-                    <i class="fas fa-cog"></i>
-                    <span>Account Settings</span>
-                </a>
-            </div>
-        </nav>
-        <div class="sidebar-footer">
-            <div class="user-card">
-                <div class="user-avatar">{{ substr(Auth::user()->name ?? 'U', 0, 1) }}</div>
-                <div class="user-info">
-                    <div class="user-name">{{ Auth::user()->name ?? 'User' }}</div>
-                    <div class="user-email">{{ Auth::user()->email ?? '' }}</div>
-                </div>
-            </div>
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
-                <button type="submit" class="logout-btn">
-                    <i class="fas fa-sign-out-alt"></i>
-                    <span>Logout</span>
-                </button>
-            </form>
-        </div>
-    </aside>
+@endsection
 
-    <!-- Navbar -->
-    @include('components.navbar')
-
-    <!-- Main Content -->
-    <main class="main-content with-sidebar">
+@section('content')
         <div class="container">
             <!-- Page Header -->
             <div class="page-header">
@@ -1171,6 +1088,10 @@
     <!-- Toast -->
     <div class="toast" id="toast"></div>
 
+
+@endsection
+
+@section('scripts')
     <script>
         // Theme Toggle
         function toggleTheme() {
@@ -1245,5 +1166,5 @@
         // Close modal on overlay click
         
     </script>
-</body>
-</html>
+
+@endsection
