@@ -11,8 +11,6 @@ class ValidateMcpToken
 {
     public function handle(Request $request, Closure $next): Response
     {
-        $startTime = microtime(true);
-
         $authHeader = $request->header('Authorization');
         
         if (!$authHeader || !str_starts_with($authHeader, 'Bearer ')) {
@@ -61,17 +59,17 @@ class ValidateMcpToken
             $user = $accessToken->user;
             if ($user) {
                 auth()->guard('web')->setUser($user);
-
-                // Check if user has API key configured
+                
+                // Check if user has API key configured (moved to middleware for DRY)
                 if (!$user->hasApiKey()) {
                     return response()->json(['error' => 'ServerAvatar API key not configured. Please add it in your dashboard.'], 403);
                 }
-
-                // Track MCP connection activity
+                
+                // Track MCP connection activity (doesn't affect auth flow)
                 try {
                     \App\Services\McpConnectionTracker::trackActivity($user);
                 } catch (\Exception $e) {
-                    // Silently ignore tracking errors
+                    // Silently ignore tracking errors - don't affect MCP flow
                 }
             }
             
@@ -79,22 +77,7 @@ class ValidateMcpToken
             return response()->json(['error' => 'Unauthorized', 'message' => $e->getMessage()], 401);
         }
 
-        $response = $next($request);
-
-        // Record analytics after request completes
-        $responseTimeMs = (int) round((microtime(true) - $startTime) * 1000);
-        $success = in_array($response->getStatusCode(), [200, 201]);
-
-        if ($user ?? null) {
-            try {
-                $clientName = \App\Services\McpConnectionTracker::detectClient(Request::userAgent());
-                \App\Services\McpConnectionTracker::recordRequest($user, $clientName, $success, $responseTimeMs);
-            } catch (\Exception $e) {
-                // Silently ignore
-            }
-        }
-
-        return $response;
+        return $next($request);
     }
     
     private function base64url_decode(string $data): string
