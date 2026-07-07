@@ -5,13 +5,21 @@
 
 @section('styles')
 <style>
-    .settings-tabs { margin-bottom: 1.5rem; text-align: center; }
+    .settings-page { display: flex; gap: 2rem; padding-top: 1rem; }
+    .settings-sidebar { width: 240px; flex-shrink: 0; }
+    .settings-tabs { margin-bottom: 1.5rem; }
     .settings-tab { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.5rem; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-secondary); font-size: 0.875rem; font-weight: 500; text-decoration: none; transition: all 0.2s ease; margin-right: 0.5rem; margin-bottom: 0.5rem; }
     .settings-tab:hover { background: var(--bg-card-hover); color: var(--text-primary); border-color: var(--accent-primary); }
     .settings-tab.active { background: var(--accent-primary); color: white; border-color: var(--accent-primary); }
-    .settings-tab .tab-icon { font-size: 0.9rem; }
-    .settings-tab .icon { font-size: 1rem; }
+    .settings-nav { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); overflow: hidden; }
+    .settings-nav-item { display: flex; align-items: center; gap: 10px; padding: 0.875rem 1rem; color: var(--text-secondary); font-size: 0.875rem; font-weight: 500; text-decoration: none; transition: all 0.2s ease; border-left: 3px solid transparent; }
+    .settings-nav-item:hover { background: var(--bg-card-hover); color: var(--text-primary); }
+    .settings-nav-item.active { background: var(--accent-primary-muted); color: var(--accent-primary); border-left-color: var(--accent-primary); }
+    .settings-nav-item .icon { font-size: 1rem; }
     .settings-content { flex: 1; min-width: 0; }
+    .page-header { margin-bottom: 0.75rem; }
+    .page-title { font-size: 1.5rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem; }
+    .page-subtitle { font-size: 0.9rem; color: var(--text-secondary); }
     .settings-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); overflow: hidden; }
     .settings-card-header { padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border-color); }
     .settings-card-title { font-size: 1rem; font-weight: 600; color: var(--text-primary); }
@@ -31,7 +39,8 @@
     .btn-secondary:hover { background: var(--bg-card-hover); color: var(--text-primary); }
     .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6); align-items: center; justify-content: center; z-index: 9999; }
     @media (max-width: 768px) {
-        .settings-tabs { flex-wrap: wrap; }
+        .settings-page { flex-direction: column; }
+        .settings-sidebar { width: 100%; }
     }
 </style>
 @endsection
@@ -58,102 +67,186 @@
     </div>
 
 <div class="settings-content">
-    <div class="settings-card">
-        <div class="settings-card-header">
-            <h2 class="settings-card-title">Personal Information</h2>
+        <div class="settings-card">
+            <div class="settings-card-header">
+                <h2 class="settings-card-title">Personal Information</h2>
+            </div>
+            <div class="settings-card-body">
+                <form id="profileForm">
+                    @csrf
+                    <div class="form-group">
+                        <label class="form-label">Full Name <span style="color: var(--accent-danger);">*</span></label>
+                        <input type="text" name="name" id="nameInput" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" id="emailInput" class="form-input" disabled>
+                    </div>
+                </form>
+            </div>
+            <div class="settings-card-footer">
+                <button type="button" class="btn-primary" id="saveBtn">Save Changes</button>
+            </div>
         </div>
-        <div class="settings-card-body">
-            <form id="profileForm">
-                @csrf
-                <div class="form-group">
-                    <label class="form-label">Full Name <span style="color: var(--accent-danger);">*</span></label>
-                    <input type="text" name="name" id="nameInput" class="form-input" required>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Email Address</label>
-                    <input type="email" id="emailInput" class="form-input" disabled>
-                </div>
-            </form>
-        </div>
-        <div class="settings-card-footer">
-            <button type="button" class="btn-primary" onclick="submitProfile()">Save Changes</button>
-        </div>
-    </div>
 
-    <div class="settings-card" style="margin-top: 1rem;">
-        <div class="settings-card-header">
-            <h2 class="settings-card-title" style="color: var(--accent-danger);">Danger Zone</h2>
-        </div>
-        <div class="settings-card-body">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-                <div>
-                    <div style="font-weight: 600; color: var(--text-primary); margin-bottom: 0.25rem;">Delete Account</div>
-                    <div style="font-size: 0.85rem; color: var(--text-secondary);">Permanently delete your account and all associated data. This action cannot be undone.</div>
+        <!-- Delete Account Section -->
+        <div class="settings-card" style="margin-top: 1.5rem;">
+            <div class="settings-card-header">
+                <h2 class="settings-card-title">Delete Account</h2>
+            </div>
+            <div class="settings-card-body" style="padding: 1rem 1.5rem;">
+                <div style="background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.2); border-radius: var(--radius-md); padding: 0.75rem 1rem; display: flex; align-items: flex-start; gap: 0.625rem;">
+                    <i class="fas fa-exclamation-triangle" style="color: #ef4444; font-size: 18px; flex-shrink: 0; margin-top: 2px;"></i>
+                    <p style="color: var(--text-secondary); font-size: 0.875rem; margin: 0; line-height: 1.5;">Once you delete your account, there is no going back. All your data will be permanently removed.</p>
                 </div>
-                <button type="button" class="btn-danger" onclick="openDeleteModal()">Delete Account</button>
+            </div>
+            <div class="settings-card-footer">
+                <button type="button" class="btn-danger" id="deleteAccountBtn"><i class="fas fa-trash-alt" style="margin-right: 6px;"></i>Delete My Account</button>
             </div>
         </div>
     </div>
 </div>
 
 <!-- Delete Account Modal -->
-<div class="modal-overlay" id="deleteModal">
-    <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 2rem; max-width: 400px; width: 90%;">
-        <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--accent-danger);">Delete Account</h3>
-        <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 1.5rem;">Are you sure you want to delete your account? This action is permanent and cannot be undone. All your data will be lost.</p>
-        <div style="display: flex; gap: 0.75rem; justify-content: flex-end;">
-            <button type="button" class="btn-secondary" onclick="closeDeleteModal()">Cancel</button>
-            <button type="button" class="btn-danger" onclick="confirmDelete()">Delete Account</button>
+<div class="modal-overlay" id="deleteModal" style="display: none;">
+    <div class="modal-content" style="background: var(--bg-card); border-radius: var(--radius-lg); max-width: 460px; width: 100%; margin: 1rem; overflow: hidden;">
+        <div class="modal-header" style="padding: 0.875rem 1rem; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between;">
+            <div style="display: flex; align-items: center; gap: 0.625rem;">
+                <div style="width: 36px; height: 36px; border-radius: 50%; background: rgba(239, 68, 68, 0.1); display: flex; align-items: center; justify-content: center;">
+                    <i class="fas fa-exclamation-triangle" style="color: #ef4444; font-size: 18px;"></i>
+                </div>
+                <h3 style="margin: 0; font-size: 1rem; font-weight: 600; color: var(--text-primary);">Delete Account</h3>
+            </div>
+            <button onclick="closeDeleteModal()" style="background: rgba(255,255,255,0.05); border: none; width: 28px; height: 28px; border-radius: 6px; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 0.8rem;"><i class="fas fa-times"></i></button>
+        </div>
+        <div style="padding: 1rem 1.25rem;">
+            <div style="padding: 0.75rem 1rem;">
+            <div style="background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.2); border-radius: var(--radius-md); padding: 0.75rem 1rem; margin-bottom: 1rem;">
+                <p style="color: var(--text-secondary); font-size: 0.875rem; margin: 0; line-height: 1.5;">This action cannot be undone. This will permanently delete your account, data, and remove all your integrations.</p>
+            </div>
+            <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0 0 0.75rem 0;">To confirm, type <strong style="color: var(--accent-danger);">DELETE</strong> in the input box below:</p>
+            <input type="text" id="deleteConfirmInput" placeholder="Type DELETE" style="width: 100%; padding: 8px 12px; background: var(--bg-input); border: 1px solid var(--border-color); border-radius: var(--radius-md); color: var(--text-primary); font-size: 0.9rem; box-sizing: border-box; outline: none;" oninput="toggleDeleteBtn()">
+        </div>
+        <div style="padding: 0.875rem 1.25rem; border-top: 1px solid var(--border-color); display: flex; justify-content: flex-end; gap: 0.75rem;">
+            <button onclick="closeDeleteModal()" class="btn-secondary">Cancel</button>
+            <button id="confirmDeleteBtn" disabled style="padding: 0.625rem 1.25rem; background: #ef4444; color: white; border: none; border-radius: var(--radius-md); font-size: 0.875rem; font-weight: 600; cursor: pointer; opacity: 0.5;">Delete Account</button>
         </div>
     </div>
 </div>
 
-<div id="toast" class="toast" style="display: none;">
-    <span class="toast-icon">✓</span>
-    <span class="toast-message"></span>
-</div>
-
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        fetch('/api/profile', { headers: { 'Accept': 'application/json' } })
-            .then(r => r.json())
-            .then(data => {
-                document.getElementById('nameInput').value = data.name || '';
-                document.getElementById('emailInput').value = data.email || '';
-            });
+// Fetch user profile on load
+fetch('/api/profile', {
+    headers: {
+        'Accept': 'application/json',
+        'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
+    }
+})
+.then(function(response) { return response.json(); })
+.then(function(data) {
+    document.getElementById('nameInput').value = data.name;
+    document.getElementById('emailInput').value = data.email;
+});
+
+// Save profile on click
+document.getElementById('saveBtn').addEventListener('click', function() {
+    var btn = this;
+    var name = document.getElementById('nameInput').value;
+    var token = document.querySelector('input[name="_token"]').value;
+    
+    btn.disabled = true;
+    btn.textContent = 'Saving...';
+    
+    fetch('/api/profile', {
+        method: 'PATCH',
+        body: JSON.stringify({ name: name }),
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': token,
+            'Accept': 'application/json'
+        }
+    })
+    .then(function(response) { return response.json(); })
+    .then(function(data) {
+        var t = document.getElementById('toast');
+        if (!t) {
+            t = document.createElement('div');
+            t.id = 'toast';
+            t.style.cssText = 'position:fixed;top:5rem;right:2rem;background:linear-gradient(135deg, #22c55e 0%, #16a34a 100%);color:white;padding:14px 20px;border-radius:12px;display:flex;align-items:center;gap:12px;box-shadow:0 8px 30px rgba(34,197,94,0.4);z-index:10000;max-width:350px;';
+            document.body.appendChild(t);
+        }
+        t.innerHTML = '<span style="width:28px;height:28px;background:rgba(255,255,255,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.9rem;font-weight:bold;"><i class="fas fa-check"></i></span><span style="font-size:0.9rem;font-weight:600;">Profile updated successfully!</span>';
+        t.style.display = 'flex';
+        btn.disabled = false;
+        btn.textContent = 'Save Changes';
+        setTimeout(function() { t.style.display = 'none'; }, 3000);
+    })
+    .catch(function(error) {
+        btn.disabled = false;
+        btn.textContent = 'Save Changes';
     });
+});
 
-    function submitProfile() {
-        const formData = new FormData();
-        formData.append('name', document.getElementById('nameInput').value);
-        formData.append('_token', document.querySelector('input[name="_token"]').value);
+// Delete Account Modal
+function openDeleteModal() {
+    document.getElementById('deleteModal').style.display = 'flex';
+    document.getElementById('deleteConfirmInput').value = '';
+    document.getElementById('confirmDeleteBtn').disabled = true;
+    document.getElementById('confirmDeleteBtn').style.opacity = '0.5';
+}
 
-        fetch('/api/profile', { method: 'PATCH', body: formData, headers: { 'Accept': 'application/json' } })
-            .then(r => r.json())
-            .then(data => {
-                if (data.success) { showToast('Profile updated successfully!'); }
-                else { showToast(data.error || 'Update failed', true); }
-            });
+function closeDeleteModal() {
+    document.getElementById('deleteModal').style.display = 'none';
+}
+
+function toggleDeleteBtn() {
+    var input = document.getElementById('deleteConfirmInput').value;
+    var btn = document.getElementById('confirmDeleteBtn');
+    if (input === 'DELETE') {
+        btn.disabled = false;
+        btn.style.opacity = '1';
+    } else {
+        btn.disabled = true;
+        btn.style.opacity = '0.5';
     }
+}
 
-    function openDeleteModal() { document.getElementById('deleteModal').style.display = 'flex'; }
-    function closeDeleteModal() { document.getElementById('deleteModal').style.display = 'none'; }
+document.getElementById('deleteAccountBtn').addEventListener('click', function() {
+    openDeleteModal();
+});
 
-    function confirmDelete() {
-        fetch('/api/account', { method: 'DELETE', headers: { 'Accept': 'application/json', 'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value } })
-            .then(r => r.json())
-            .then(data => {
-                if (data.success) { window.location.href = '/'; }
-                else { showToast(data.error || 'Delete failed', true); }
-            });
-    }
+document.getElementById('confirmDeleteBtn').addEventListener('click', function() {
+    var btn = this;
+    var token = document.querySelector('input[name="_token"]').value;
+    btn.disabled = true;
+    btn.textContent = 'Deleting...';
 
-    function showToast(msg, err = false) {
-        const toast = document.getElementById('toast');
-        toast.querySelector('.toast-message').textContent = msg;
-        toast.className = 'toast ' + (err ? 'error' : '');
-        toast.style.display = 'flex';
-        setTimeout(() => { toast.style.display = 'none'; }, 3000);
-    }
+    fetch('{{ route('api.account.delete') }}', {
+        method: 'DELETE',
+        headers: {
+            'X-CSRF-TOKEN': token,
+            'Accept': 'application/json'
+        }
+    })
+    .then(function(response) { return response.json(); })
+    .then(function(data) {
+        closeDeleteModal();
+        var t = document.getElementById('toast');
+        if (!t) {
+            t = document.createElement('div');
+            t.id = 'toast';
+            t.style.cssText = 'position:fixed;top:5rem;right:2rem;background:linear-gradient(135deg, #16a34a 0%, #15803d 100%);color:white;padding:14px 20px;border-radius:12px;display:flex;align-items:center;gap:12px;box-shadow:0 8px 30px rgba(22,163,74,0.4);z-index:10000;max-width:350px;';
+            document.body.appendChild(t);
+        }
+        t.innerHTML = '<span style="width:28px;height:28px;background:rgba(255,255,255,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.9rem;font-weight:bold;"><i class="fas fa-check"></i></span><span style="font-size:0.9rem;font-weight:600;">Account deleted successfully!</span>';
+        t.style.display = 'flex';
+        setTimeout(function() { window.location.href = '/login'; }, 1500);
+    })
+    .catch(function(error) {
+        alert('Error deleting account');
+        btn.disabled = false;
+        btn.textContent = 'Delete Account';
+    });
+});
 </script>
 @endsection
