@@ -108,7 +108,7 @@
         .user-info { flex: 1; min-width: 0; }
         .user-name { font-weight: 600; font-size: 0.875rem; color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .user-email { font-size: 0.75rem; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .logout-btn { display: flex; align-items: center; justify-content: center; gap: 0.5rem; width: 100%; padding: 0.625rem; background: transparent; border: 1px solid var(--border-color); border-radius: var(--radius-sm); color: var(--text-secondary); font-size: 0.8rem; font-weight: 500; cursor: pointer; transition: all var(--transition-fast); }
+        .logout-btn { display: flex; align-items: center; justify-content: center; gap: 0.5rem; width: 100%; padding: 0.625rem; background: var(--accent-danger-muted); border: 1px solid var(--accent-danger); border-radius: var(--radius-sm); color: var(--accent-danger); font-size: 0.8rem; font-weight: 500; cursor: pointer; transition: all var(--transition-fast); }
         .logout-btn:hover { background: var(--accent-danger-muted); border-color: var(--accent-danger); color: var(--accent-danger); }
 
         /* Main Content */
