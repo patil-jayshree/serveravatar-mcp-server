@@ -29,9 +29,9 @@ class McpConnectionTracker
     public static function detectClient(?string $userAgent): string
     {
         if (!$userAgent) return 'Unknown';
-        
+
         $userAgent = strtolower($userAgent);
-        
+
         if (str_contains($userAgent, 'chatgpt')) return 'ChatGPT';
         if (str_contains($userAgent, 'claude')) return 'Claude';
         if (str_contains($userAgent, 'cursor')) return 'Cursor';
@@ -41,7 +41,7 @@ class McpConnectionTracker
         if (str_contains($userAgent, 'continue')) return 'Continue';
         if (str_contains($userAgent, 'cline')) return 'Cline';
         if (str_contains($userAgent, 'openai')) return 'ChatGPT';
-        
+
         return 'MCP Client';
     }
 
@@ -53,9 +53,6 @@ class McpConnectionTracker
             ->get();
     }
 
-    /**
-     * Record an MCP request for a user's client connection.
-     */
     public static function recordRequest($user, string $clientName = null, bool $success = true, int $responseTimeMs = 0): void
     {
         if (!$clientName) {
@@ -95,10 +92,7 @@ class McpConnectionTracker
         $connection->save();
     }
 
-    /**
-     * Record a tool call for a user's client connection.
-     */
-    public static function recordToolCall($user, string $clientName = null): void
+    public static function recordToolCall($user, string $clientName = null, ?string $toolName = null): void
     {
         if (!$clientName) {
             $clientName = self::detectClient(Request::userAgent());
@@ -108,14 +102,19 @@ class McpConnectionTracker
             ->where('client_name', $clientName)
             ->first();
 
-        if ($connection) {
-            $connection->increment('tool_call_count');
+        if (!$connection) {
+            $connection = McpConnection::create([
+                'user_id' => $user->id,
+                'client_name' => $clientName,
+                'ip_address' => Request::ip(),
+                'user_agent' => Request::userAgent(),
+                'last_activity_at' => now(),
+            ]);
         }
+
+        $connection->increment('tool_call_count');
     }
 
-    /**
-     * Get aggregated analytics for a user.
-     */
     public static function getAnalytics($user, string $period = 'all')
     {
         $query = McpConnection::where('user_id', $user->id);
@@ -153,9 +152,6 @@ class McpConnectionTracker
         ];
     }
 
-    /**
-     * Get sparkline data for a metric over the last 7 days.
-     */
     public static function getSparklineData($user, string $metric = 'requests', int $days = 7): array
     {
         $data = [];

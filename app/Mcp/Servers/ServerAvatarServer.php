@@ -122,4 +122,11 @@ class ServerAvatarServer extends Server
     {
         return count(config('mcp_tools.tools', []));
     }
+
+    protected function boot(): void
+    {
+        parent::boot();
+        // Override tools/call to track tool executions in analytics
+        $this->addMethod('tools/call', \App\Mcp\TrackedCallTool::class);
+    }
 }
