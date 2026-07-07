@@ -744,46 +744,6 @@
             </div>
 
 
-<!-- Recent Activity -->
-<div class="activity-section">
-    <div class="section-header-row" style="justify-content: space-between;">
-        <div style="display: flex; align-items: center; gap: 0.75rem;">
-            <div class="section-title">Recent Activity</div>
-            @if($recentActivities->count() > 0)
-            <span class="activity-count-badge">{{ $recentActivities->count() }} events</span>
-            @endif
-        </div>
-        <a href="{{ route("activity") }}" class="btn" style="font-size: 0.75rem; padding: 0.3rem 0.75rem;">View All</a>
-    </div>
-    <div class="activity-card">
-        @if($recentActivities->count() > 0)
-        <div class="activity-list">
-            @foreach($recentActivities as $activity)
-            <div class="activity-item">
-                <div class="activity-icon">{{ $activity->icon }}</div>
-                <div class="activity-content">
-                    <div class="activity-description">{{ $activity->description }}</div>
-                    <div class="activity-meta">
-                        @if($activity->client_name)
-                        <span class="activity-client">{{ $activity->client_name }}</span>
-                        <span class="activity-sep">·</span>
-                        @endif
-                        <span class="activity-time">{{ $activity->time_ago }}</span>
-                    </div>
-                </div>
-                <span class="activity-badge badge-{{ $activity->badge }}">{{ $activity->badge }}</span>
-            </div>
-            @endforeach
-        </div>
-        @else
-        <div class="activity-empty">
-            <i class="fas fa-clock" style="font-size: 2rem; color: var(--text-secondary); margin-bottom: 0.5rem;"></i>
-            <p>No activity yet. Connect an AI client to get started.</p>
-        </div>
-        @endif
-    </div>
-</div>
-
 <!-- System Status Overview -->
             <div class="mcp-status-card">
                 
@@ -829,6 +789,47 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Recent Activity -->
+<div class="activity-section">
+    <div class="section-header-row" style="justify-content: space-between;">
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <div class="section-title">Recent Activity</div>
+            @if($recentActivities->count() > 0)
+            <span class="activity-count-badge">{{ $recentActivities->count() }} events</span>
+            @endif
+        </div>
+        <a href="{{ route("activity") }}" class="btn" style="font-size: 0.75rem; padding: 0.3rem 0.75rem;">View All</a>
+    </div>
+    <div class="activity-card">
+        @if($recentActivities->count() > 0)
+        <div class="activity-list">
+            @foreach($recentActivities as $activity)
+            <div class="activity-item">
+                <div class="activity-icon">{{ $activity->icon }}</div>
+                <div class="activity-content">
+                    <div class="activity-description">{{ $activity->description }}</div>
+                    <div class="activity-meta">
+                        @if($activity->client_name)
+                        <span class="activity-client">{{ $activity->client_name }}</span>
+                        <span class="activity-sep">·</span>
+                        @endif
+                        <span class="activity-time">{{ $activity->time_ago }}</span>
+                    </div>
+                </div>
+                <span class="activity-badge badge-{{ $activity->badge }}">{{ $activity->badge }}</span>
+            </div>
+            @endforeach
+        </div>
+        @else
+        <div class="activity-empty">
+            <i class="fas fa-clock" style="font-size: 2rem; color: var(--text-secondary); margin-bottom: 0.5rem;"></i>
+            <p>No activity yet. Connect an AI client to get started.</p>
+        </div>
+        @endif
+    </div>
+</div>
+
 
             <!-- Account Info Cards -->
             <div class="info-cards-row">
