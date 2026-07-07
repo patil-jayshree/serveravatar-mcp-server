@@ -133,8 +133,8 @@
         .trend-up { background: rgba(22, 163, 74, 0.15); color: var(--accent-success); }
         .trend-down { background: rgba(220, 38, 38, 0.15); color: var(--accent-danger); }
         .trend-neutral { background: rgba(139, 92, 246, 0.15); color: var(--accent-primary); }
-        .analytics-sparkline { height: 36px; display: flex; align-items: flex-end; gap: 2px; margin-top: 0.25rem; }
-        .sparkline-bar { flex: 1; border-radius: 2px 2px 0 0; min-height: 4px; }
+        .analytics-chart { height: 40px; margin-top: 0.25rem; }
+        .analytics-chart svg { width: 100%; height: 100%; overflow: visible; }
         
         .step-number { width: 36px; height: 36px; border-radius: 50%; background: #7C3AED; color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; margin-bottom: 0.75rem; }
         .step-content { width: 100%; flex: 1; display: flex; flex-direction: column; justify-content: center; }
@@ -606,15 +606,27 @@
                 </div>
             </div>
 
-            <!-- Analytics Cards -->
+                        <!-- Analytics Cards -->
             <div class="analytics-grid">
                 @php
-                    $maxRequests = max($sparklineRequests);
-                    $maxRequests = $maxRequests > 0 ? $maxRequests : 1;
-                    $maxTools = max($sparklineTools);
-                    $maxTools = $maxTools > 0 ? $maxTools : 1;
-                    $maxClients = max($sparklineClients);
-                    $maxClients = $maxClients > 0 ? $maxClients : 1;
+                    $chartW = 120; $chartH = 40;
+                    function buildLinePath($data, $w, $h) {
+                        if (empty($data)) return '';
+                        $max = max($data); $min = min($data);
+                        $range = $max - $min; if ($range == 0) $range = 1;
+                        $pts = [];
+                        foreach ($data as $i => $v) {
+                            $x = $i * ($w / (count($data) - 1 ?: 1));
+                            $y = $h - (($v - $min) / $range) * $h;
+                            $pts[] = "$x,$y";
+                        }
+                        return 'M ' . implode(' L ', $pts);
+                    }
+                    $reqPath = buildLinePath($sparklineRequests, $chartW, $chartH);
+                    $toolPath = buildLinePath($sparklineTools, $chartW, $chartH);
+                    $clientPath = buildLinePath($sparklineClients, $chartW, $chartH);
+                    $successLineY = 40 - ($analytics['success_rate'] / 100 * 40);
+                    $responseLineY = max(5, 40 - ($analytics['avg_response_time_ms'] / 20));
                 @endphp
 
                 <!-- Total Requests -->
@@ -622,12 +634,16 @@
                     <div class="analytics-card-label">Total Requests</div>
                     <div class="analytics-card-value-row">
                         <div class="analytics-card-value">{{ number_format($analytics['total_requests']) }}</div>
-                        <span class="analytics-card-trend trend-up"><i class="fas fa-arrow-up" style="font-size:0.6rem;"></i> {{ $analytics['period'] === '7days' ? '7d' : 'all' }}</span>
+                        <span class="analytics-card-trend trend-up"><i class="fas fa-arrow-up" style="font-size:0.6rem;"></i> 7d</span>
                     </div>
-                    <div class="analytics-sparkline">
-                        @foreach($sparklineRequests as $val)
-                            <div class="sparkline-bar" style="height:{{ max(10, round(($val / $maxRequests) * 100)) }}%;background:rgba(139,92,246,0.5);"></div>
-                        @endforeach
+                    <div class="analytics-chart">
+                        <svg viewBox="0 0 {{ $chartW }} {{ $chartH }}" preserveAspectRatio="none">
+                            @if($reqPath)
+                                <path d="{{ $reqPath }}" fill="none" stroke="#8b5cf6" stroke-width="1.5" stroke-linecap="round"/>
+                            @else
+                                <line x1="0" y1="{{ $chartH }}" x2="{{ $chartW }}" y2="{{ $chartH }}" stroke="rgba(139,92,246,0.3)" stroke-width="1.5" stroke-dasharray="4,2"/>
+                            @endif
+                        </svg>
                     </div>
                 </div>
 
@@ -638,10 +654,14 @@
                         <div class="analytics-card-value">{{ number_format($analytics['tools_executed']) }}</div>
                         <span class="analytics-card-trend trend-up"><i class="fas fa-wrench" style="font-size:0.6rem;"></i> tools</span>
                     </div>
-                    <div class="analytics-sparkline">
-                        @foreach($sparklineTools as $val)
-                            <div class="sparkline-bar" style="height:{{ max(10, round(($val / $maxTools) * 100)) }}%;background:rgba(59,130,246,0.5);"></div>
-                        @endforeach
+                    <div class="analytics-chart">
+                        <svg viewBox="0 0 {{ $chartW }} {{ $chartH }}" preserveAspectRatio="none">
+                            @if($toolPath)
+                                <path d="{{ $toolPath }}" fill="none" stroke="#3b82f6" stroke-width="1.5" stroke-linecap="round"/>
+                            @else
+                                <line x1="0" y1="{{ $chartH }}" x2="{{ $chartW }}" y2="{{ $chartH }}" stroke="rgba(59,130,246,0.3)" stroke-width="1.5" stroke-dasharray="4,2"/>
+                            @endif
+                        </svg>
                     </div>
                 </div>
 
@@ -652,10 +672,14 @@
                         <div class="analytics-card-value">{{ $analytics['active_clients'] }}</div>
                         <span class="analytics-card-trend trend-up"><i class="fas fa-users" style="font-size:0.6rem;"></i> online</span>
                     </div>
-                    <div class="analytics-sparkline">
-                        @foreach($sparklineClients as $val)
-                            <div class="sparkline-bar" style="height:{{ max(10, round(($val / $maxClients) * 100)) }}%;background:rgba(6,182,212,0.5);"></div>
-                        @endforeach
+                    <div class="analytics-chart">
+                        <svg viewBox="0 0 {{ $chartW }} {{ $chartH }}" preserveAspectRatio="none">
+                            @if($clientPath)
+                                <path d="{{ $clientPath }}" fill="none" stroke="#06b6d4" stroke-width="1.5" stroke-linecap="round"/>
+                            @else
+                                <line x1="0" y1="{{ $chartH }}" x2="{{ $chartW }}" y2="{{ $chartH }}" stroke="rgba(6,182,212,0.3)" stroke-width="1.5" stroke-dasharray="4,2"/>
+                            @endif
+                        </svg>
                     </div>
                 </div>
 
@@ -668,10 +692,11 @@
                             <i class="fas fa-{{ $analytics['success_rate'] >= 99 ? 'check' : 'exclamation' }}" style="font-size:0.6rem;"></i>
                         </span>
                     </div>
-                    <div class="analytics-sparkline">
-                        @for($i = 0; $i < 7; $i++)
-                            <div class="sparkline-bar" style="height:{{ max(10, $analytics['success_rate']) }}%;background:rgba(22,163,74,0.5);"></div>
-                        @endfor
+                    <div class="analytics-chart">
+                        <svg viewBox="0 0 {{ $chartW }} {{ $chartH }}" preserveAspectRatio="none">
+                            <line x1="0" y1="{{ $successLineY }}" x2="{{ $chartW }}" y2="{{ $successLineY }}" stroke="#16a34a" stroke-width="1.5" stroke-dasharray="4,2"/>
+                            <circle cx="{{ $chartW }}" cy="{{ $successLineY }}" r="2.5" fill="#16a34a"/>
+                        </svg>
                     </div>
                 </div>
 
@@ -684,15 +709,16 @@
                             <i class="fas fa-bolt" style="font-size:0.6rem;"></i>
                         </span>
                     </div>
-                    <div class="analytics-sparkline">
-                        @for($i = 0; $i < 7; $i++)
-                            <div class="sparkline-bar" style="height:{{ max(10, 100 - min(90, $analytics['avg_response_time_ms'] / 10)) }}%;background:rgba(249,115,22,0.5);"></div>
-                        @endfor
+                    <div class="analytics-chart">
+                        <svg viewBox="0 0 {{ $chartW }} {{ $chartH }}" preserveAspectRatio="none">
+                            <line x1="0" y1="{{ $responseLineY }}" x2="{{ $chartW }}" y2="{{ $responseLineY }}" stroke="#f97316" stroke-width="1.5" stroke-dasharray="4,2"/>
+                            <circle cx="{{ $chartW }}" cy="{{ $responseLineY }}" r="2.5" fill="#f97316"/>
+                        </svg>
                     </div>
                 </div>
             </div>
 
-            <!-- System Status Overview -->
+<!-- System Status Overview -->
             <div class="mcp-status-card">
                 
                 <div class="status-main-row">
