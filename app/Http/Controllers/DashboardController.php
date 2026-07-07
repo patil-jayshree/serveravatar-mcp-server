@@ -4,23 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\McpConnectionTracker;
+use App\Services\ActivityLogger;
 use App\Mcp\Servers\ServerAvatarServer;
 use Exception;
 
-/**
- * Dashboard Controller
- *
- * Handles the main dashboard page and API key management for the MCP server.
- * This is the primary controller for the ServerAvatar MCP web interface.
- */
 class DashboardController extends Controller
 {
-    /**
-     * Display the main dashboard.
-     *
-     * @param Request $request The incoming HTTP request
-     * @return \Illuminate\View\View The dashboard view with aggregated data
-     */
     public function index(Request $request)
     {
         try {
@@ -31,11 +20,12 @@ class DashboardController extends Controller
                 : ($user->updated_at ? $user->updated_at->diffForHumans() : 'Unknown');
             $toolsCount = ServerAvatarServer::getToolsCount();
 
-            // Fetch real-time analytics (last 7 days)
             $analytics = McpConnectionTracker::getAnalytics($user, '7days');
             $sparklineRequests = McpConnectionTracker::getSparklineData($user, 'requests', 7);
             $sparklineTools = McpConnectionTracker::getSparklineData($user, 'tools', 7);
             $sparklineClients = McpConnectionTracker::getSparklineData($user, 'clients', 7);
+
+            $recentActivities = ActivityLogger::getRecent($user, 10);
 
             return view('dashboard', [
                 'user' => $user,
@@ -46,6 +36,7 @@ class DashboardController extends Controller
                 'sparklineRequests' => $sparklineRequests,
                 'sparklineTools' => $sparklineTools,
                 'sparklineClients' => $sparklineClients,
+                'recentActivities' => $recentActivities,
             ]);
         } catch (Exception $e) {
             return view('dashboard', [
@@ -63,16 +54,11 @@ class DashboardController extends Controller
                 'sparklineRequests' => array_fill(0, 7, 0),
                 'sparklineTools' => array_fill(0, 7, 0),
                 'sparklineClients' => array_fill(0, 7, 0),
+                'recentActivities' => collect(),
             ])->with('error', 'Unable to load dashboard. Please try again.');
         }
     }
 
-    /**
-     * Save the user's ServerAvatar API key.
-     *
-     * @param Request $request The incoming HTTP request
-     * @return \Illuminate\Http\JsonResponse Success message with 200 status
-     */
     public function saveApiKey(Request $request)
     {
         try {
@@ -85,6 +71,8 @@ class DashboardController extends Controller
             $user->api_key_updated_at = now();
             $user->save();
 
+            ActivityLogger::apiKeySaved($user);
+
             return response()->json(['status' => 'API key saved successfully.']);
         } catch (Exception $e) {
             $statusCode = method_exists($e, 'status') ? $e->status() : 500;
@@ -95,12 +83,6 @@ class DashboardController extends Controller
         }
     }
 
-    /**
-     * Display the Integrations page.
-     *
-     * @param Request $request
-     * @return \Illuminate\View\View
-     */
     public function integrations(Request $request)
     {
         $user = $request->user();
@@ -112,12 +94,6 @@ class DashboardController extends Controller
         ]);
     }
 
-    /**
-     * Display the MCP Server page.
-     *
-     * @param Request $request
-     * @return \Illuminate\View\View
-     */
     public function mcpServer(Request $request)
     {
         $user = $request->user();

@@ -117,6 +117,31 @@
         .page-title { font-size: 2rem; font-weight: 700; margin-bottom: 0.25rem; }
         .page-subtitle { font-size: 0.875rem; font-weight: 400; color: var(--text-secondary); }
 
+
+        /* Recent Activity Section */
+        .activity-section { margin-bottom: 1.5rem; }
+        .section-header-row { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
+        .activity-count-badge { font-size: 0.75rem; font-weight: 600; padding: 2px 8px; border-radius: 20px; background: rgba(139, 92, 246, 0.15); color: var(--accent-primary); }
+        .activity-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 1rem; }
+        .activity-list { display: flex; flex-direction: column; gap: 0; }
+        .activity-item { display: flex; align-items: center; gap: 0.75rem; padding: 0.6rem 0; border-bottom: 1px solid var(--border-color); }
+        .activity-item:last-child { border-bottom: none; }
+        .activity-icon { font-size: 1.1rem; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; background: var(--bg-secondary); border-radius: 8px; flex-shrink: 0; }
+        .activity-content { flex: 1; min-width: 0; }
+        .activity-description { font-size: 0.875rem; font-weight: 500; color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .activity-meta { font-size: 0.75rem; color: var(--text-secondary); margin-top: 2px; display: flex; align-items: center; gap: 0.25rem; }
+        .activity-client { font-weight: 500; }
+        .activity-sep { color: var(--text-secondary); }
+        .activity-time { color: var(--text-secondary); }
+        .activity-badge { font-size: 0.65rem; font-weight: 600; padding: 2px 8px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.03em; flex-shrink: 0; }
+        .badge-success { background: rgba(22, 163, 74, 0.15); color: #16a34a; }
+        .badge-info { background: rgba(59, 130, 246, 0.15); color: #3b82f6; }
+        .badge-warning { background: rgba(245, 158, 11, 0.15); color: #d97706; }
+        .badge-danger { background: rgba(220, 38, 38, 0.15); color: #dc2626; }
+        .badge-secondary { background: rgba(148, 163, 184, 0.15); color: #64748b; }
+        .activity-empty { text-align: center; padding: 2rem; color: var(--text-secondary); }
+        .activity-empty p { font-size: 0.875rem; margin-top: 0.5rem; }
+
         /* Quick Setup Section */
         .quick-setup-section { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 1.5rem; margin-bottom: 1.5rem; }
         .quick-setup-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
@@ -717,6 +742,44 @@
                     </div>
                 </div>
             </div>
+
+
+<!-- Recent Activity -->
+<div class="activity-section">
+    <div class="section-header-row">
+        <div class="section-title">Recent Activity</div>
+        @if($recentActivities->count() > 0)
+        <span class="activity-count-badge">{{ $recentActivities->count() }} events</span>
+        @endif
+    </div>
+    <div class="activity-card">
+        @if($recentActivities->count() > 0)
+        <div class="activity-list">
+            @foreach($recentActivities as $activity)
+            <div class="activity-item">
+                <div class="activity-icon">{{ $activity->icon }}</div>
+                <div class="activity-content">
+                    <div class="activity-description">{{ $activity->description }}</div>
+                    <div class="activity-meta">
+                        @if($activity->client_name)
+                        <span class="activity-client">{{ $activity->client_name }}</span>
+                        <span class="activity-sep">·</span>
+                        @endif
+                        <span class="activity-time">{{ $activity->time_ago }}</span>
+                    </div>
+                </div>
+                <span class="activity-badge badge-{{ $activity->badge }}">{{ $activity->badge }}</span>
+            </div>
+            @endforeach
+        </div>
+        @else
+        <div class="activity-empty">
+            <i class="fas fa-clock" style="font-size: 2rem; color: var(--text-secondary); margin-bottom: 0.5rem;"></i>
+            <p>No activity yet. Connect an AI client to get started.</p>
+        </div>
+        @endif
+    </div>
+</div>
 
 <!-- System Status Overview -->
             <div class="mcp-status-card">
