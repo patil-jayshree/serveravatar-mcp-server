@@ -5,10 +5,13 @@
 
 @section('styles')
 <style>
-    .settings-tabs { display: flex; width: 100%; gap: 0; justify-content: space-between; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 1.5rem; }
-    .settings-tab { display: flex; align-items: center; gap: 8px; padding: 0.875rem 1.25rem; color: var(--text-secondary); font-size: 0.875rem; font-weight: 500; text-decoration: none; transition: all 0.2s ease; border-bottom: 3px solid transparent; flex: 1; justify-content: center; }
-    .settings-tab:hover { background: var(--bg-card-hover); color: var(--text-primary); }
-    .settings-tab.active { background: var(--accent-primary-muted); color: var(--accent-primary); border-bottom-color: var(--accent-primary); }
+    .settings-tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
+    .settings-tab { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; padding: 1.25rem 1rem; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); color: var(--text-secondary); font-size: 0.875rem; font-weight: 600; text-decoration: none; transition: all 0.2s ease; cursor: pointer; text-align: center; }
+    .settings-tab:hover { background: var(--bg-card-hover); color: var(--text-primary); border-color: var(--accent-primary); }
+    .settings-tab.active { background: var(--accent-primary-muted); color: var(--accent-primary); border-color: var(--accent-primary); }
+    .settings-tab .tab-icon { font-size: 1.5rem; margin-bottom: 0.25rem; }
+    .settings-tab .tab-label { font-size: 0.875rem; font-weight: 600; }
+    .settings-tab .tab-desc { font-size: 0.75rem; font-weight: 400; color: var(--text-secondary); margin-top: 0.25rem; }
     .settings-tab .icon { font-size: 1rem; }
     .settings-content { flex: 1; min-width: 0; }
     .settings-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); overflow: hidden; }
@@ -30,7 +33,7 @@
     .btn-secondary:hover { background: var(--bg-card-hover); color: var(--text-primary); }
     .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6); align-items: center; justify-content: center; z-index: 9999; }
     @media (max-width: 768px) {
-        .settings-tabs { flex-direction: column; }
+        .settings-tabs { grid-template-columns: 1fr; }
     }
 </style>
 @endsection
@@ -44,16 +47,19 @@
 
 <div class="settings-tabs">
     <a href="/account" class="settings-tab active">
-        <span class="icon"><i class="fas fa-user-circle"></i></span>
-        Account
+        <span class="tab-icon"><i class="fas fa-user-circle"></i></span>
+        <span class="tab-label">Account</span>
+        <span class="tab-desc">Personal info</span>
     </a>
-    <a href="/account/password" class="settings-tab">
-        <span class="icon"><i class="fas fa-lock"></i></span>
-        Change Password
+    <a href="/account/password" class="settings-tab ">
+        <span class="tab-icon"><i class="fas fa-lock"></i></span>
+        <span class="tab-label">Change Password</span>
+        <span class="tab-desc">Update your password</span>
     </a>
-    <a href="/account/api" class="settings-tab">
-        <span class="icon"><i class="fas fa-key"></i></span>
-        API Access
+    <a href="/account/api" class="settings-tab ">
+        <span class="tab-icon"><i class="fas fa-key"></i></span>
+        <span class="tab-label">API Access</span>
+        <span class="tab-desc">Manage API key</span>
     </a>
 </div>
 
