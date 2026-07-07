@@ -516,13 +516,6 @@
         .tool-name { font-weight: 600; font-size: 14px; font-family: 'JetBrains Mono', monospace; color: #a78bfa; margin-bottom: 2px; }
         .tool-desc { color: var(--text-secondary); font-size: 0.75rem; line-height: 1.4; }
 
-        /* Footer */
-        .footer { text-align: center; padding: 1.25rem 2rem; font-size: 12px; font-weight: 400; color: #64748b; width: 100%; box-sizing: border-box; }
-        .footer a { color: #7c3aed; }
-        [data-theme="light"] .footer { color: #9ca3af; }
-        .footer a { color: var(--accent-primary); text-decoration: none; font-weight: 600; }
-        .footer a:hover { text-decoration: underline; }
-
         @media (max-width: 768px) {
             .container { padding: 1rem; }
             .status-grid, .mcp-meta { grid-template-columns: 1fr; }
@@ -1071,11 +1064,6 @@
                 </div>
             </div>
 
-        <!-- Footer -->
-        <footer class="footer" style="padding: 1.25rem 0; border-top: 1px solid var(--border-color); margin-top: 1rem;">
-            <p>&copy; {{ date('Y') }} ServerAvatar MCP. Built with Laravel & MCP Protocol</p>
-            <p style="margin-top: 4px;">Powered by <a href="https://serveravatar.com" target="_blank">ServerAvatar</a></p>
-        </footer>
     </main>
 
     <!-- API Key Modal -->
