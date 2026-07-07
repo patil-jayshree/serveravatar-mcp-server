@@ -5,18 +5,18 @@
 
 @section('content')
 <!-- Page Header -->
-<div class="page-header">
-    <h1 class="page-title">Connected Clients <span class="active-clients-badge">{{ $connectedClients->count() }} Active Clients</span></h1>
-    <p class="page-subtitle">AI clients currently connected to your MCP server</p>
+<div class="page-header" style="display: flex; align-items: flex-start; justify-content: space-between;">
+    <div>
+        <h1 class="page-title">Connected Clients <span class="active-clients-badge">{{ $connectedClients->count() }} Active Clients</span></h1>
+        <p class="page-subtitle">AI clients currently connected to your MCP server</p>
+    </div>
+    <a href="{{ route('clients') }}" class="refresh-btn" title="Refresh" style="margin-top: 0.25rem;">
+        <i class="fas fa-sync-alt"></i>
+    </a>
 </div>
 
 <!-- Clients Table -->
 <div class="card" style="padding: 0; margin-bottom: 1rem;">
-    <div style="display: flex; justify-content: flex-end; padding: 1rem 1.5rem 0;">
-        <a href="{{ route('clients') }}" class="refresh-btn" title="Refresh">
-            <i class="fas fa-sync-alt"></i>
-        </a>
-    </div>
     <div class="clients-table-header">
         <div class="clients-th" style="flex: 2;">CLIENT</div>
         <div class="clients-th" style="flex: 1;">STATUS</div>
