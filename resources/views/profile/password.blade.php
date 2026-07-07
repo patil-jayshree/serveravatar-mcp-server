@@ -5,13 +5,11 @@
 
 @section('styles')
 <style>
-    .settings-tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
-    .settings-tab { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; padding: 1.25rem 1rem; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); color: var(--text-secondary); font-size: 0.875rem; font-weight: 600; text-decoration: none; transition: all 0.2s ease; cursor: pointer; text-align: center; }
+    .settings-tabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; }
+    .settings-tab { display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.25rem; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 50px; color: var(--text-secondary); font-size: 0.875rem; font-weight: 500; text-decoration: none; transition: all 0.2s ease; }
     .settings-tab:hover { background: var(--bg-card-hover); color: var(--text-primary); border-color: var(--accent-primary); }
-    .settings-tab.active { background: var(--accent-primary-muted); color: var(--accent-primary); border-color: var(--accent-primary); }
-    .settings-tab .tab-icon { font-size: 1.5rem; margin-bottom: 0.25rem; }
-    .settings-tab .tab-label { font-size: 0.875rem; font-weight: 600; }
-    .settings-tab .tab-desc { font-size: 0.75rem; font-weight: 400; color: var(--text-secondary); margin-top: 0.25rem; }
+    .settings-tab.active { background: var(--accent-primary); color: white; border-color: var(--accent-primary); }
+    .settings-tab .tab-icon { font-size: 0.9rem; }
     .settings-tab .icon { font-size: 1rem; }
     .settings-content { flex: 1; min-width: 0; }
     .settings-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); overflow: hidden; }
@@ -37,7 +35,7 @@
     .info-box li { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.25rem; }
     .info-box li:last-child { margin-bottom: 0; }
     @media (max-width: 768px) {
-        .settings-tabs { grid-template-columns: 1fr; }
+        .settings-tabs { flex-wrap: wrap; }
     }
 </style>
 @endsection
