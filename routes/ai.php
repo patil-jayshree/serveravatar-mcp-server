@@ -7,7 +7,7 @@ use Laravel\Mcp\Server\Http\Controllers\OAuthRegisterController;
 use Laravel\Passport\Passport;
 
 // Register the ServerAvatar MCP web server with OAuth token validation
-Mcp::web('/mcp/serveravatar', ServerAvatarServer::class)->middleware('validate_mcp_token');
+Mcp::web('/mcp/serveravatar', ServerAvatarServer::class)->middleware(['validate_mcp_token', 'track_mcp_analytics']);
 
 // MCP OAuth connect endpoint — redirects to Passport authorization.
 // AI clients redirect users here with OAuth parameters (client_id, redirect_uri, etc.)
