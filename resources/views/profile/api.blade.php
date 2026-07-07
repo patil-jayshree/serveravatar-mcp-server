@@ -9,22 +9,21 @@ $userApiKey = auth()->user()->api_key ?? '';
 
 @section('styles')
 <style>
+    .settings-tabs { display: flex; gap: 0; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 1.5rem; }
+    .settings-tab { display: flex; align-items: center; gap: 8px; padding: 0.875rem 1.25rem; color: var(--text-secondary); font-size: 0.875rem; font-weight: 500; text-decoration: none; transition: all 0.2s ease; border-bottom: 3px solid transparent; flex: 1; justify-content: center; }
+    .settings-tab:hover { background: var(--bg-card-hover); color: var(--text-primary); }
+    .settings-tab.active { background: var(--accent-primary-muted); color: var(--accent-primary); border-bottom-color: var(--accent-primary); }
+    .settings-tab .icon { font-size: 1rem; }
+    .settings-content { flex: 1; min-width: 0; }
     .api-key-row { display: flex; align-items: center; gap: 8px; width: 100%; }
     .api-key-box { position: relative; flex: 1; }
     .api-key-box input { width: 100%; padding: 10px 100px 10px 16px; background: var(--bg-input); border: 1px solid var(--border-color); border-radius: var(--radius-md); color: var(--text-primary); font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.85rem; letter-spacing: 1px; box-sizing: border-box; }
     .api-key-box input:focus { outline: none; border-color: var(--accent-primary); }
     .icon-btn { position: absolute; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 6px; display: flex; align-items: center; justify-content: center; transition: all 0.2s ease; }
-    .settings-content { flex: 1; min-width: 0; }
-    .page-header { margin-bottom: 0.75rem; }
-    .page-title { font-size: 1.5rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem; }
-    .page-subtitle { font-size: 0.9rem; color: var(--text-secondary); }
     .icon-btn:hover { color: var(--text-primary); }
     .eye-btn { right: 60px; }
     .copy-btn { right: 12px; }
     .copy-btn.copied { color: var(--accent-success); }
-    .settings-card-title { font-size: 1rem; font-weight: 600; color: var(--text-primary); }
-
-    /* API Access Card */
     .api-access-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); overflow: hidden; }
     .api-access-header { padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
     .api-access-header-left { display: flex; flex-direction: column; gap: 0.25rem; }
@@ -35,104 +34,99 @@ $userApiKey = auth()->user()->api_key ?? '';
     .api-empty-icon { font-size: 3rem; margin-bottom: 0.75rem; }
     .api-empty-title { font-size: 0.9rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.25rem; }
     .api-empty-desc { font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1.5rem; }
-    .api-benefits { display: flex; justify-content: center; gap: 2rem; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border-color); }
-    .api-benefit { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
-    .api-benefit-icon { width: 40px; height: 40px; border-radius: 50%; background: rgba(124, 58, 237, 0.1); display: flex; align-items: center; justify-content: center; font-size: 1.25rem; }
-    .api-benefit-label { font-size: 0.75rem; font-weight: 600; color: var(--text-secondary); }
-    .api-access-footer { padding: 1rem 1.5rem; border-top: 1px solid var(--border-color); display: flex; justify-content: center; }
     .btn-outline { padding: 0.625rem 1.5rem; background: transparent; color: var(--accent-primary); border: 1px solid var(--accent-primary); border-radius: var(--radius-md); font-size: 0.875rem; font-weight: 600; cursor: pointer; transition: all 0.2s ease; }
     .btn-outline:hover { background: var(--accent-primary); color: white; }
+    .btn-primary { padding: 0.625rem 1.5rem; background: var(--accent-primary); color: white; border: none; border-radius: var(--radius-md); font-size: 0.875rem; font-weight: 600; cursor: pointer; transition: all 0.2s ease; }
+    .btn-primary:hover { background: var(--accent-primary-hover); }
     .api-features { display: flex; gap: 1rem; padding: 1.5rem; }
     .api-feature { display: flex; align-items: flex-start; gap: 1rem; flex: 1; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1rem 1.5rem; }
     .api-feature-icon { width: 36px; height: 36px; border-radius: var(--radius-md); background: rgba(124, 58, 237, 0.15); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 1rem; }
     .api-feature-content { display: flex; flex-direction: column; gap: 0.25rem; }
     .api-feature-title { font-size: 0.875rem; font-weight: 600; color: var(--text-primary); }
     .api-feature-desc { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.4; }
+    @media (max-width: 768px) {
+        .settings-tabs { flex-direction: column; }
+        .api-features { flex-direction: column; }
+    }
 </style>
 @endsection
 
 @section('content')
 
 <div class="page-header">
-    <h1 class="page-title">API Access</h1>
-    <p class="page-subtitle">Manage your ServerAvatar API key for MCP integration.</p>
+    <h1 class="page-title">Account Settings</h1>
+    <p class="page-subtitle">Manage your account and preferences.</p>
 </div>
 
-<div class="settings-page">
-    <div class="settings-sidebar">
-        <nav class="settings-nav">
-            <a href="/account" class="settings-nav-item">
-                <span class="icon"><i class="fas fa-user-circle" style="color: var(--accent-primary);"></i></span>
-                Account
-            </a>
-            <a href="/account/password" class="settings-nav-item">
-                <span class="icon"><i class="fas fa-lock" style="color: var(--accent-primary);"></i></span>
-                Change Password
-            </a>
-            <a href="/account/api" class="settings-nav-item active">
-                <span class="icon"><i class="fas fa-key" style="color: var(--accent-primary);"></i></span>
-                API Access
-            </a>
-        </nav>
-    </div>
-    
-    <div class="settings-content">
-        <div class="api-access-card">
-            <div class="api-access-header">
-                <div class="api-access-header-left">
-                    <h2 class="api-access-title">ServerAvatar API Access</h2>
-                    <p class="api-access-desc">Manage your ServerAvatar API key for MCP integration</p>
-                </div>
-                @if($userApiKey)
-                <button class="btn-primary" onclick="openApiKeyModal()">Update API Key</button>
-                @else
-                <button class="btn-primary" onclick="openApiKeyModal()">Add API Key</button>
-                @endif
+<div class="settings-tabs">
+    <a href="/account" class="settings-tab">
+        <span class="icon"><i class="fas fa-user-circle"></i></span>
+        Account
+    </a>
+    <a href="/account/password" class="settings-tab">
+        <span class="icon"><i class="fas fa-lock"></i></span>
+        Change Password
+    </a>
+    <a href="/account/api" class="settings-tab active">
+        <span class="icon"><i class="fas fa-key"></i></span>
+        API Access
+    </a>
+</div>
+
+<div class="settings-content">
+    <div class="api-access-card">
+        <div class="api-access-header">
+            <div class="api-access-header-left">
+                <h2 class="api-access-title">ServerAvatar API Access</h2>
+                <p class="api-access-desc">Manage your ServerAvatar API key for MCP integration</p>
             </div>
-            <div class="api-access-body">
-                @if($userApiKey)
-                <div class="api-key-row">
-                    <div class="api-key-box">
-                        <input type="password" id="apiKeyField" value="{{ $userApiKey }}" readonly>
-                        <button type="button" class="icon-btn eye-btn" id="eyeBtn">
-                            <i id="eyeShowIcon" class="fas fa-eye" style="font-size: 15px;"></i>
-                            <i id="eyeHideIcon" class="fas fa-eye-slash" style="font-size: 15px; display: none;"></i>
-                        </button>
-                        <button type="button" class="icon-btn copy-btn" id="copyBtn">
-                            <i class="fas fa-copy" style="font-size: 15px;"></i>
-                        </button>
-                    </div>
+            <button class="btn-primary" onclick="openApiKeyModal()">
+                {{ $userApiKey ? 'Update API Key' : 'Add API Key' }}
+            </button>
+        </div>
+        <div class="api-access-body">
+            @if($userApiKey)
+            <div class="api-key-row">
+                <div class="api-key-box">
+                    <input type="password" id="apiKeyField" value="{{ $userApiKey }}" readonly>
+                    <button type="button" class="icon-btn eye-btn" id="eyeBtn">
+                        <i id="eyeShowIcon" class="fas fa-eye" style="font-size: 15px;"></i>
+                        <i id="eyeHideIcon" class="fas fa-eye-slash" style="font-size: 15px; display: none;"></i>
+                    </button>
+                    <button type="button" class="icon-btn copy-btn" id="copyBtn">
+                        <i class="fas fa-copy" style="font-size: 15px;"></i>
+                    </button>
                 </div>
-                @else
-                <div class="api-empty-box">
-                    <div class="api-empty-icon"><i class="fas fa-key" style="color: var(--accent-primary);"></i></div>
-                    <div class="api-empty-title">No API key added yet</div>
-                    <div class="api-empty-desc">Add an API key to connect your ServerAvatar account with MCP clients</div>
-                    <button class="btn-outline" onclick="openApiKeyModal()">Add API Key</button>
-                </div>
-                @endif
             </div>
-            <div class="api-features">
-                <div class="api-feature">
-                    <div class="api-feature-icon"><i class="fas fa-lock" style="color: var(--accent-primary);"></i></div>
-                    <div class="api-feature-content">
-                        <div class="api-feature-title">Secure Access</div>
-                        <div class="api-feature-desc">Your API key is encrypted and stored securely.</div>
-                    </div>
+            @else
+            <div class="api-empty-box">
+                <div class="api-empty-icon"><i class="fas fa-key" style="color: var(--accent-primary);"></i></div>
+                <div class="api-empty-title">No API key added yet</div>
+                <div class="api-empty-desc">Add an API key to connect your ServerAvatar account with MCP clients</div>
+                <button class="btn-outline" onclick="openApiKeyModal()">Add API Key</button>
+            </div>
+            @endif
+        </div>
+        <div class="api-features">
+            <div class="api-feature">
+                <div class="api-feature-icon"><i class="fas fa-lock" style="color: var(--accent-primary);"></i></div>
+                <div class="api-feature-content">
+                    <div class="api-feature-title">Secure Access</div>
+                    <div class="api-feature-desc">Your API key is encrypted and stored securely.</div>
                 </div>
-                <div class="api-feature">
-                    <div class="api-feature-icon"><i class="fas fa-bolt" style="color: var(--accent-primary);"></i></div>
-                    <div class="api-feature-content">
-                        <div class="api-feature-title">Full Control</div>
-                        <div class="api-feature-desc">Manage servers, sites, and databases via MCP.</div>
-                    </div>
+            </div>
+            <div class="api-feature">
+                <div class="api-feature-icon"><i class="fas fa-bolt" style="color: var(--accent-primary);"></i></div>
+                <div class="api-feature-content">
+                    <div class="api-feature-title">Full Control</div>
+                    <div class="api-feature-desc">Manage servers, sites, and databases via MCP.</div>
                 </div>
-                <div class="api-feature">
-                    <div class="api-feature-icon"><i class="fas fa-clipboard-list" style="color: var(--accent-primary);"></i></div>
-                    <div class="api-feature-content">
-                        <div class="api-feature-title">MCP Protocol</div>
-                        <div class="api-feature-desc">Connect with any MCP-compatible AI client.</div>
-                    </div>
+            </div>
+            <div class="api-feature">
+                <div class="api-feature-icon"><i class="fas fa-clipboard-list" style="color: var(--accent-primary);"></i></div>
+                <div class="api-feature-content">
+                    <div class="api-feature-title">MCP Protocol</div>
+                    <div class="api-feature-desc">Connect with any MCP-compatible AI client.</div>
                 </div>
             </div>
         </div>
