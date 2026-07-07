@@ -74,4 +74,40 @@ class DashboardController extends Controller
             ], $statusCode);
         }
     }
+
+    /**
+     * Display the Integrations page.
+     *
+     * @param Request $request
+     * @return \Illuminate\View\View
+     */
+    public function integrations(Request $request)
+    {
+        $user = $request->user();
+        $connectedClients = McpConnectionTracker::getConnectedClients($user);
+        
+        return view('integrations', [
+            'user' => $user,
+            'connectedClients' => $connectedClients,
+        ]);
+    }
+
+    /**
+     * Display the MCP Server page.
+     *
+     * @param Request $request
+     * @return \Illuminate\View\View
+     */
+    public function mcpServer(Request $request)
+    {
+        $user = $request->user();
+        $connectedClients = McpConnectionTracker::getConnectedClients($user);
+        $toolsCount = ServerAvatarServer::getToolsCount();
+        
+        return view('mcp-server', [
+            'user' => $user,
+            'connectedClients' => $connectedClients,
+            'toolsCount' => $toolsCount,
+        ]);
+    }
 }

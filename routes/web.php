@@ -41,6 +41,8 @@ Route::middleware('auth')->group(function () {
     // Dashboard / Main pages
     Route::controller(DashboardController::class)->group(function () {
         Route::get('dashboard', 'index')->name('dashboard');
+        Route::get('integrations', 'integrations')->name('integrations');
+        Route::get('mcp-server', 'mcpServer')->name('mcp-server');
         Route::post('dashboard/api-key', 'saveApiKey')->name('dashboard.api-key');
     });
 
