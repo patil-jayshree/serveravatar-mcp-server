@@ -24,23 +24,19 @@ class ValidateMcpToken
             $parts = explode('.', $bearerToken);
             
             if (count($parts) === 3) {
-                // It's a JWT — decode payload to get jti (token ID)
                 $payload = json_decode($this->base64url_decode($parts[1]), true);
                 if (!$payload || !isset($payload['jti'])) {
                     return response()->json(['error' => 'Invalid token payload'], 401);
                 }
                 $tokenId = $payload['jti'];
                 
-                // Check JWT expiry
                 if (isset($payload['exp']) && $payload['exp'] < time()) {
                     return response()->json(['error' => 'Token has expired'], 401);
                 }
             } else {
-                // Raw token ID (hex string used as bearer token)
                 $tokenId = $bearerToken;
             }
             
-            // Look up token by ID
             $accessToken = Token::find($tokenId);
             
             if (!$accessToken) {
@@ -55,19 +51,26 @@ class ValidateMcpToken
                 return response()->json(['error' => 'Token has expired'], 401);
             }
             
-            // Set authenticated user
             $user = $accessToken->user;
             if ($user) {
                 auth()->guard('web')->setUser($user);
                 
-                // Check if user has API key configured (moved to middleware for DRY)
                 if (!$user->hasApiKey()) {
                     return response()->json(['error' => 'ServerAvatar API key not configured. Please add it in your dashboard.'], 403);
                 }
                 
-                // Track MCP connection activity (doesn't affect auth flow)
+                // Track MCP connection and log activity for new connections only
                 try {
-                    \App\Services\McpConnectionTracker::trackActivity($user);
+                    $clientName = \App\Services\McpConnectionTracker::detectClient($request->userAgent());
+                    $isNewConnection = !\App\Models\McpConnection::where('user_id', $user->id)
+                        ->where('client_name', $clientName)
+                        ->exists();
+
+                    \App\Services\McpConnectionTracker::trackActivity($user, $clientName);
+
+                    if ($isNewConnection) {
+                        \App\Services\ActivityLogger::clientConnected($user, $clientName);
+                    }
                 } catch (\Exception $e) {
                     // Silently ignore tracking errors - don't affect MCP flow
                 }

@@ -83,6 +83,25 @@ class DashboardController extends Controller
         }
     }
 
+    public function deleteApiKey(Request $request)
+    {
+        try {
+            $user = $request->user();
+            $user->api_key = null;
+            $user->api_key_updated_at = null;
+            $user->save();
+
+            ActivityLogger::apiKeyDeleted($user);
+
+            return response()->json(['status' => 'API key deleted successfully.']);
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Failed to delete API key. Please try again.',
+            ], 500);
+        }
+    }
+
     public function integrations(Request $request)
     {
         $user = $request->user();

@@ -44,6 +44,7 @@ Route::middleware('auth')->group(function () {
         Route::get('integrations', 'integrations')->name('integrations');
         Route::get('mcp-server', 'mcpServer')->name('mcp-server');
         Route::post('dashboard/api-key', 'saveApiKey')->name('dashboard.api-key');
+        Route::delete('dashboard/api-key', 'deleteApiKey')->name('dashboard.api-key.delete');
     });
 
     Route::controller(ToolsController::class)->group(function () {
