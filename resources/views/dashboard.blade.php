@@ -852,8 +852,11 @@
             <!-- Recent Activity -->
 <div class="activity-section">
     <div class="section-header-row" style="justify-content: space-between;">
-        <div style="display: flex; align-items: center; gap: 0.75rem;">
-            <div class="section-title">Recent Activity</div>
+        <div class="section-header-left">
+            <div class="section-icon" style="background: rgba(139, 92, 246, 0.12);"><i class="fas fa-bars-staggered" style="color: var(--accent-primary);"></i></div>
+            <div>
+                <div class="section-title">Recent Activity</div>
+            </div>
             @if($recentActivities->count() > 0)
             <span class="activity-count-badge">{{ $recentActivities->count() }} events</span>
             @endif
