@@ -595,7 +595,7 @@
 @section('content')
             <!-- Page Header -->
             <div class="page-header">
-                <h1 class="page-title">Dashboard 👋</h1>
+                <h1 class="page-title">Dashboard</h1>
                 <p class="page-subtitle">Manage your ServerAvatar MCP connection and integration</p>
             </div>
 
@@ -656,7 +656,6 @@
             <div class="welcome-back-card">
                 <div class="wb-top">
                     <div class="wb-left">
-                        <div class="wb-icon">👋</div>
                         <div class="wb-text">
                             <div class="wb-greeting">Welcome back, {{ $user->name }}</div>
                             <div class="wb-subtitle">
