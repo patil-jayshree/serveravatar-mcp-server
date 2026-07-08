@@ -35,7 +35,7 @@
                 <i class="fas fa-link" style="color: var(--accent-info);"></i>
                 <span style="font-family: monospace; font-size: 14px; color: var(--text-primary);">https://mcp.178.105.137.4.nip.io/mcp/serveravatar</span>
             </div>
-            <button onclick="copyMcpUrl(this)" id="copyUrlBtn" class="btn-card-action primary" style="display: inline-flex; align-items: center; gap: 6px; padding: 10px 18px; background: var(--accent-info); border: none; border-radius: var(--radius-md); color: white; font-weight: 600; cursor: pointer; white-space: nowrap; transition: background 0.2s;">
+            <button onclick="copyMcpUrl(this)" id="copyUrlBtn" class="btn-card-action primary" style="display: inline-flex; align-items: center; gap: 6px; padding: 10px 18px; background: var(--accent-primary); border: none; border-radius: var(--radius-md); color: white; font-weight: 600; cursor: pointer; white-space: nowrap; transition: background 0.2s;">
                 <i class="fas fa-copy"></i> Copy URL
             </button>
         </div>
@@ -102,7 +102,7 @@ function copyMcpUrl(btn) {
         btn.style.cursor = 'default';
         setTimeout(function() {
             btn.innerHTML = '<i class="fas fa-copy"></i> Copy URL';
-            btn.style.background = '';
+            btn.style.background = 'var(--accent-primary)';
             btn.style.border = '';
             btn.style.color = '';
             btn.style.cursor = '';
