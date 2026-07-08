@@ -5,8 +5,8 @@
 
 @section('styles')
 <style>
-.page-header a.loading { pointer-events: none; opacity: 0.7; }
-.page-header a.loading .fa-sync-alt { animation: spin 0.6s linear infinite; }
+.tools-controls a.loading { pointer-events: none; opacity: 0.7; }
+.tools-controls a.loading .fa-sync-alt { animation: spin 0.6s linear infinite; }
 @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 </style>
 @endsection
