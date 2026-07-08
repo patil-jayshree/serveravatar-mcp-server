@@ -99,6 +99,12 @@ function copyMcpUrl(btn) {
         btn.style.background = '#16a34a';
         btn.style.cursor = 'default';
         btn.style.opacity = '0.7';
+        setTimeout(function() {
+            btn.innerHTML = '<i class="fas fa-copy"></i> Copy URL';
+            btn.style.background = '';
+            btn.style.cursor = '';
+            btn.style.opacity = '';
+        }, 2000);
     });
 }
 </script>
