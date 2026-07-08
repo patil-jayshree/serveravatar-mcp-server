@@ -794,7 +794,7 @@
 <div class="activity-section">
     <div class="section-header-row" style="justify-content: space-between;">
         <div class="section-header-left">
-            <div class="section-icon" style="background: rgba(139, 92, 246, 0.12);"><i class="fas fa-bars-staggered" style="color: var(--accent-primary);"></i></div>
+            <div class="section-icon" style="background: rgba(139, 92, 246, 0.12);"><i class="fas fa-clock" style="color: var(--accent-primary);"></i></div>
             <div>
                 <div class="section-title">Recent Activity</div>
             </div>
