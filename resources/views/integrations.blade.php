@@ -3,22 +3,22 @@
 @section('title', 'Integrations - ServerAvatar MCP')
 @section('breadcrumb', 'Integrations')
 
+@section('styles')
+.section-label { font-size: 0.8rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 1rem; }
+.integration-grid { gap: 0.75rem; }
+.integration-card.simple { padding: 1.25rem; }
+@endsection
+
 @section('content')
 <!-- Page Header -->
 <div class="page-header">
     <h1 class="page-title">Integrations</h1>
-    <p class="page-subtitle">Connect ServerAvatar MCP to any MCP-compatible AI client</p>
+    <p class="page-subtitle">Connect ServerAvatar MCP with any MCP-compatible AI client.</p>
 </div>
 
-<!-- Integrate Anywhere Card -->
-<div class="card">
-    <div class="section-header">
-        <div class="section-icon" style="background: rgba(139, 92, 246, 0.12);"><i class="fas fa-gear" style="color: var(--accent-primary);"></i></div>
-        <div>
-            <div class="section-title">Integrate Anywhere</div>
-            <div class="section-desc">Connect ServerAvatar MCP to any MCP-compatible AI client. A few popular ones are shown below.</div>
-        </div>
-    </div>
+<!-- Integrations Card -->
+<div class="card" style="padding: 1.5rem;">
+    <div class="section-label">Popular Clients</div>
     <div class="integration-grid">
         <!-- ChatGPT -->
         <div class="integration-card simple">
