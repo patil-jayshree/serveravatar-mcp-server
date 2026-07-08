@@ -5,7 +5,7 @@
 
 @section('styles')
 .section-label { font-size: 0.8rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 1rem; }
-.integration-grid { gap: 0.75rem; }
+.integration-grid { grid-template-columns: repeat(3, 1fr) !important; gap: 0.75rem; }
 .integration-card.simple { padding: 1.25rem; }
 @endsection
 

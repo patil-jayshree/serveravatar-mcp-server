@@ -168,7 +168,7 @@
         .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
 
         /* Integration Grid */
-        .integration-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 1rem; }
+        .integration-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1rem; }
         .integration-card.simple { position: relative; display: flex; align-items: center; gap: 0.75rem; background: var(--bg-primary); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1rem; transition: all var(--transition-fast); }
         .integration-card.simple:hover { border-color: var(--border-color-hover); transform: translateY(-2px); }
         .badge-top-right { position: absolute; top: 8px; right: 8px; padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 600; }
@@ -351,7 +351,7 @@
 
         /* Responsive */
         @media (max-width: 1200px) {
-            .integration-grid { grid-template-columns: repeat(3, 1fr); }
+            .integration-grid { grid-template-columns: repeat(2, 1fr); }
         }
         @media (max-width: 900px) {
             .integration-grid { grid-template-columns: repeat(2, 1fr); }
