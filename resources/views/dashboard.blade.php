@@ -157,8 +157,8 @@
         .wb-subtitle { font-size: 0.85rem; color: var(--text-secondary); display: flex; align-items: center; gap: 0.4rem; }
         .wb-online-badge { display: inline-flex; align-items: center; gap: 4px; background: rgba(22, 163, 74, 0.12); color: #16a34a; padding: 2px 8px; border-radius: 20px; font-size: 0.7rem; font-weight: 600; white-space: nowrap; }
         .wb-actions { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
-        .wb-action-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; background: var(--bg-primary); border: 1px solid var(--border-color); border-radius: var(--radius-md); color: var(--text-secondary); font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: all 0.2s ease; text-decoration: none; white-space: nowrap; }
-        .wb-action-btn:hover { border-color: var(--accent-primary); color: var(--accent-primary); background: var(--accent-primary-muted); transform: translateY(-1px); }
+        .wb-action-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; background: var(--bg-primary); border: 1px solid var(--border-color); border-radius: var(--radius-md); color: var(--accent-primary); font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: all 0.2s ease; text-decoration: none; white-space: nowrap; }
+        .wb-action-btn:hover { border-color: var(--accent-primary); background: var(--accent-primary-muted); transform: translateY(-1px); }
         .wb-action-btn.primary { background: var(--accent-primary); border-color: var(--accent-primary); color: white; }
         .wb-action-btn.primary:hover { background: var(--accent-primary-hover); border-color: var(--accent-primary-hover); color: white; }
         .wb-action-btn svg { flex-shrink: 0; }
