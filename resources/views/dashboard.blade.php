@@ -657,7 +657,7 @@
                 <div class="wb-top">
                     <div class="wb-left">
                         <div class="wb-text">
-                            <div class="wb-greeting">Welcome back, {{ $user->name }}</div>
+                            <div class="wb-greeting">👋 Welcome back, {{ $user->name }}</div>
                             <div class="wb-subtitle">
                                 Your ServerAvatar MCP is online and ready to accept AI client connections.
                                 <span class="wb-online-badge"><span style="width:6px;height:6px;border-radius:50%;background:#16a34a;box-shadow:0 0 4px rgba(22,163,74,0.6);flex-shrink:0;"></span> Online</span>
