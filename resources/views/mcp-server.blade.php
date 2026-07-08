@@ -97,10 +97,8 @@ function copyMcpUrl(btn) {
     navigator.clipboard.writeText('https://mcp.178.105.137.4.nip.io/mcp/serveravatar').then(function() {
         btn.innerHTML = '<i class="fas fa-check"></i> Copied';
         btn.style.background = '#16a34a';
-        setTimeout(function() {
-            btn.innerHTML = '<i class="fas fa-copy"></i> Copy URL';
-            btn.style.background = '';
-        }, 2000);
+        btn.style.cursor = 'default';
+        btn.style.opacity = '0.7';
     });
 }
 </script>
