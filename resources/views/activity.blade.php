@@ -11,23 +11,11 @@
         <p class="page-subtitle">Track all MCP events and account changes</p>
     </div>
     <div style="display: flex; gap: 0.5rem;">
-        <button onclick="this.classList.add('loading'); window.location.reload()" class="refresh-btn" title="Refresh" style="color: #7c3aed;">
+        <a href="{{ route('activity') }}" onclick="this.classList.add('loading'); setTimeout(function(){ window.location.href = '{{ route('activity') }}'; }, 50); return false;" class="refresh-btn" title="Refresh" style="margin-top: 0.25rem;">
             <i class="fas fa-sync-alt"></i>
-        </button>
+        </a>
     </div>
 </div>
-
-<style>
-.refresh-btn {
-    display: flex; align-items: center; justify-content: center; width: 36px; height: 36px;
-    background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-sm);
-    color: var(--accent-primary); cursor: pointer; transition: all 0.15s;
-}
-.refresh-btn:hover { background: var(--accent-primary); color: white; border-color: var(--accent-primary); }
-.refresh-btn.loading { pointer-events: none; opacity: 0.7; }
-.refresh-btn.loading .fa-sync-alt { animation: spin 0.6s linear infinite; }
-@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-</style>
 
 <!-- Activity Table -->
 <div class="card" style="padding: 0; margin-bottom: 1rem;">
