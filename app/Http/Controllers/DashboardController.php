@@ -27,7 +27,7 @@ class DashboardController extends Controller
 
             $recentActivities = ActivityLogger::getRecent($user, 5);
             $lastActivity = $recentActivities->first();
-            $onboardingComplete = $user->hasApiKey() && $connectedClients->count() > 0;
+            $onboardingComplete = $user->hasApiKey();
 
             return view('dashboard', [
                 'user' => $user,
