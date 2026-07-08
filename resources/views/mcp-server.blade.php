@@ -7,32 +7,87 @@
 <!-- Page Header -->
 <div class="page-header">
     <h1 class="page-title">MCP Server</h1>
-    <p class="page-subtitle">Connect ServerAvatar MCP to any MCP-compatible AI client</p>
+    <p class="page-subtitle">Manage your MCP endpoint and connection details.</p>
 </div>
 
-<!-- MCP Server URL Card -->
-<div class="card">
-    <div class="section-header">
-        <div class="section-icon" style="background: rgba(59, 130, 246, 0.12);"><i class="fas fa-globe" style="color: var(--accent-info);"></i></div>
-        <div>
-            <div class="section-title">MCP Server URL</div>
-            <div class="section-desc">Use this URL to connect ServerAvatar MCP to MCP-compatible clients</div>
+<div style="display: flex; flex-direction: column; gap: 1.5rem;">
+
+    <!-- Server Status Card -->
+    <div class="card" style="padding: 1.5rem;">
+        <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem;">
+            <span style="width: 10px; height: 10px; border-radius: 50%; background: #16a34a; box-shadow: 0 0 8px rgba(22, 163, 74, 0.5); flex-shrink: 0;"></span>
+            <span style="font-size: 1rem; font-weight: 600; color: var(--text-primary);">Server Status: Online</span>
+        </div>
+        <p style="font-size: 0.875rem; color: var(--text-secondary); margin: 0; padding-left: 1.25rem;">Everything is running normally and ready to accept MCP client connections.</p>
+    </div>
+
+    <!-- MCP Server URL Card -->
+    <div class="card" style="padding: 1.5rem;">
+        <div class="section-header" style="margin-bottom: 1rem;">
+            <div class="section-icon" style="background: rgba(59, 130, 246, 0.12);"><i class="fas fa-globe" style="color: var(--accent-info);"></i></div>
+            <div>
+                <div class="section-title">MCP Server URL</div>
+                <div class="section-desc">Use this endpoint to connect any MCP-compatible AI client</div>
+            </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px;">
+            <div style="flex: 1; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 12px 16px; display: flex; align-items: center; gap: 12px;">
+                <i class="fas fa-link" style="color: var(--accent-info);"></i>
+                <span style="font-family: monospace; font-size: 14px; color: var(--text-primary);">https://mcp.178.105.137.4.nip.io/mcp/serveravatar</span>
+            </div>
+            <button onclick="copyMcpUrl(this)" class="btn-card-action primary" style="display: inline-flex; align-items: center; gap: 6px; padding: 10px 18px; background: var(--accent-info); border: none; border-radius: var(--radius-md); color: white; font-weight: 600; cursor: pointer; white-space: nowrap;">
+                <i class="fas fa-copy"></i> Copy URL
+            </button>
+        </div>
+        <div style="margin-top: 0.75rem;">
+            <a href="#" style="display: inline-flex; align-items: center; gap: 6px; font-size: 0.8rem; color: var(--accent-primary); text-decoration: none; font-weight: 500;">
+                <i class="fas fa-book"></i> View Documentation
+            </a>
         </div>
     </div>
-    <div style="display: flex; align-items: center; gap: 12px; margin-top: 1.25rem;">
-        <div style="flex: 1; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 12px 16px; display: flex; align-items: center; gap: 12px;">
-            <i class="fas fa-link" style="color: var(--accent-info);"></i>
-            <span style="font-family: monospace; font-size: 14px; color: var(--text-primary);">https://mcp.178.105.137.4.nip.io/mcp/serveravatar</span>
+
+    <!-- Endpoint Information -->
+    <div class="card" style="padding: 1.5rem;">
+        <div class="section-header" style="margin-bottom: 1rem;">
+            <div class="section-icon" style="background: rgba(139, 92, 246, 0.12);"><i class="fas fa-info-circle" style="color: var(--accent-primary);"></i></div>
+            <div>
+                <div class="section-title">Endpoint Information</div>
+            </div>
         </div>
-        <button onclick="copyMcpUrl(this)" style="padding: 12px 20px; background: var(--accent-info); color: white; border: none; border-radius: var(--radius-md); font-weight: 600; cursor: pointer; white-space: nowrap;">
-            <i class="fas fa-copy"></i> Copy URL
-        </button>
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+            <div style="display: flex; flex-direction: column; gap: 0.25rem;">
+                <span style="font-size: 0.75rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em;">Transport</span>
+                <span style="font-size: 0.9rem; color: var(--text-primary); font-weight: 500;">HTTP</span>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 0.25rem;">
+                <span style="font-size: 0.75rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em;">Authentication</span>
+                <span style="font-size: 0.9rem; color: var(--text-primary); font-weight: 500;">API Key</span>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 0.25rem;">
+                <span style="font-size: 0.75rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em;">Available Tools</span>
+                <span style="font-size: 0.9rem; color: var(--text-primary); font-weight: 500;">{{ $toolsCount }}</span>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 0.25rem;">
+                <span style="font-size: 0.75rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em;">Status</span>
+                <span style="font-size: 0.9rem; color: #16a34a; font-weight: 500;">Online</span>
+            </div>
+        </div>
     </div>
-    <div style="display: flex; align-items: center; gap: 1.5rem; margin-top: 1rem; padding: 12px 16px; background: rgba(59, 130, 246, 0.08); border-radius: var(--radius-md);">
-        <span style="display: flex; align-items: center; gap: 6px;"><span style="width: 8px; height: 8px; border-radius: 50%; background: var(--accent-success);"></span> Server Online</span>
-        <span style="display: flex; align-items: center; gap: 6px;"><i class="fas fa-wrench" style="color: var(--accent-primary);"></i> {{ $toolsCount }} Tools Available</span>
-        <span style="display: flex; align-items: center; gap: 6px;"><i class="fas fa-users" style="color: var(--accent-primary);"></i> Compatible with MCP Clients</span>
+
+    <!-- Help Section -->
+    <div class="card" style="padding: 1.25rem 1.5rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem;">
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <div class="section-icon" style="background: rgba(139, 92, 246, 0.12); width: 36px; height: 36px;"><i class="fas fa-circle-question" style="color: var(--accent-primary); font-size: 1rem;"></i></div>
+            <div>
+                <div style="font-size: 0.9rem; font-weight: 600; color: var(--text-primary);">Need Help?</div>
+                <div style="font-size: 0.8rem; color: var(--text-secondary);">Check our documentation for setup guides and troubleshooting.</div>
+            </div>
+        </div>
+        <a href="#" style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: var(--bg-primary); border: 1px solid var(--border-color); border-radius: var(--radius-md); color: var(--accent-primary); text-decoration: none; font-size: 0.8rem; font-weight: 600; white-space: nowrap;">
+            <i class="fas fa-book"></i> Documentation
+        </a>
     </div>
+
 </div>
 @endsection
 
@@ -41,8 +96,7 @@
 function copyMcpUrl(btn) {
     navigator.clipboard.writeText('https://mcp.178.105.137.4.nip.io/mcp/serveravatar').then(function() {
         btn.innerHTML = '<i class="fas fa-check"></i> Copied';
-        btn.style.background = 'var(--accent-success)';
-        setTimeout(function() { btn.innerHTML = '<i class="fas fa-copy"></i> Copy URL'; btn.style.background = ''; }, 2000);
+        setTimeout(function() { btn.innerHTML = '<i class="fas fa-copy"></i> Copy URL'; }, 2000);
     });
 }
 </script>
