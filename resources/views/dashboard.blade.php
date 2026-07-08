@@ -825,7 +825,7 @@
     </div>
     @else
     <div class="activity-empty">
-        <i class="fas fa-clock" style="font-size: 2rem; color: var(--text-secondary); margin-bottom: 0.5rem;"></i>
+        <i class="fas fa-clock" style="font-size: 2rem; color: var(--accent-primary); margin-bottom: 0.5rem;"></i>
         <p>No activity yet. Connect an AI client to get started.</p>
     </div>
     @endif
