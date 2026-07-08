@@ -12,12 +12,7 @@
     </div>
     <div style="display: flex; gap: 0.5rem;">
         <button onclick="this.classList.add('loading'); window.location.reload()" class="refresh-btn" title="Refresh" style="color: #7c3aed;">
-            <svg class="refresh-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2">
-                <path d="M23 4v6h-6"></path>
-                <path d="M1 20v-6h6"></path>
-                <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10"></path>
-                <path d="M20.49 15a9 9 0 0 1-14.85 3.36L1 14"></path>
-            </svg>
+            <i class="fas fa-sync-alt"></i>
         </button>
     </div>
 </div>
@@ -30,7 +25,7 @@
 }
 .refresh-btn:hover { background: var(--accent-primary); color: white; border-color: var(--accent-primary); }
 .refresh-btn.loading { pointer-events: none; opacity: 0.7; }
-.refresh-btn.loading .refresh-icon { animation: spin 0.6s linear infinite; }
+.refresh-btn.loading .fa-sync-alt { animation: spin 0.6s linear infinite; }
 @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 </style>
 

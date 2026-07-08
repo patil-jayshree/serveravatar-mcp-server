@@ -3,6 +3,14 @@
 @section('title', 'Tools Library - ServerAvatar MCP')
 @section('breadcrumb', 'Tools Library')
 
+@section('styles')
+<style>
+.page-header a.loading { pointer-events: none; opacity: 0.7; }
+.page-header a.loading .fa-sync-alt { animation: spin 0.6s linear infinite; }
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+</style>
+@endsection
+
 @php
 $tools = $tools ?? [];
 $categories = $categories ?? [];
@@ -51,7 +59,7 @@ $perPage = $perPage ?? 10;
         </div>
     </form>
     
-    <a href="{{ route('tools') }}" style="background: var(--bg-card); border: 1px solid var(--border-color); padding: 10px 14px; border-radius: var(--radius-md); cursor: pointer; display: flex; align-items: center; justify-content: center; text-decoration: none; height: 44px;" title="Refresh">
+    <a href="{{ route('tools') }}" onclick="this.classList.add('loading')" style="background: var(--bg-card); border: 1px solid var(--border-color); padding: 10px 14px; border-radius: var(--radius-md); cursor: pointer; display: flex; align-items: center; justify-content: center; text-decoration: none; height: 44px;" title="Refresh">
         <i class="fas fa-sync-alt" style="color: var(--accent-primary);"></i>
     </a>
 </div>

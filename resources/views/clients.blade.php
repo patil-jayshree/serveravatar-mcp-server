@@ -3,6 +3,14 @@
 @section('title', 'Clients - ServerAvatar MCP')
 @section('breadcrumb', 'Clients')
 
+@section('styles')
+<style>
+.refresh-btn.loading { pointer-events: none; opacity: 0.7; }
+.refresh-btn.loading .fa-sync-alt { animation: spin 0.6s linear infinite; }
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+</style>
+@endsection
+
 @section('content')
 <!-- Page Header -->
 <div class="page-header" style="display: flex; align-items: flex-start; justify-content: space-between;">
@@ -10,7 +18,7 @@
         <h1 class="page-title">Connected Clients <span class="active-clients-badge">{{ $connectedClients->count() }} Active Clients</span></h1>
         <p class="page-subtitle">AI clients currently connected to your MCP server</p>
     </div>
-    <a href="{{ route('clients') }}" class="refresh-btn" title="Refresh" style="margin-top: 0.25rem;">
+    <a href="{{ route('clients') }}" onclick="this.classList.add('loading')" class="refresh-btn" title="Refresh" style="margin-top: 0.25rem;">
         <i class="fas fa-sync-alt"></i>
     </a>
 </div>
