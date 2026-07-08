@@ -662,7 +662,7 @@
                                 @if($connectedClients->count() > 0)
                                     You currently have {{ $connectedClients->count() }} connected AI client(s).
                                 @else
-                                    No AI client is currently connected. Connect ChatGPT, Claude, Cursor, or another MCP-compatible client to start using your tools.
+                                    No AI client is currently connected.
                                 @endif
                             </div>
                         </div>
