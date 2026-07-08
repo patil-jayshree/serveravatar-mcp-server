@@ -96,15 +96,15 @@
 function copyMcpUrl(btn) {
     navigator.clipboard.writeText('https://mcp.178.105.137.4.nip.io/mcp/serveravatar').then(function() {
         btn.innerHTML = '<i class="fas fa-check"></i> Copied';
-        btn.style.background = 'rgba(148, 163, 184, 0.3)';
-        btn.style.color = 'var(--text-secondary)';
-        btn.style.border = '1px solid var(--border-color)';
+        btn.style.background = '#16a34a';
+        btn.style.border = '1px solid #16a34a';
+        btn.style.color = 'white';
         btn.style.cursor = 'default';
         setTimeout(function() {
             btn.innerHTML = '<i class="fas fa-copy"></i> Copy URL';
             btn.style.background = '';
-            btn.style.color = '';
             btn.style.border = '';
+            btn.style.color = '';
             btn.style.cursor = '';
         }, 2000);
     });
