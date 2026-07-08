@@ -3,6 +3,13 @@
 @section('title', 'Activity - ServerAvatar MCP')
 @section('breadcrumb', 'Activity')
 
+@section('styles')
+<style>
+.refresh-btn.loading .fa-sync-alt { animation: spin 0.6s linear infinite; }
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+</style>
+@endsection
+
 @section('content')
 <!-- Page Header -->
 <div class="page-header" style="display: flex; align-items: flex-start; justify-content: space-between;">
