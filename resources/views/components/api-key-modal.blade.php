@@ -110,12 +110,12 @@
                         if (data.success || data.message || data.status) {
                             closeApiKeyModal();
                             var toast = document.getElementById('toast') || createToast();
-                            toast.innerHTML = '<span class="toast-icon">✅</span><span class="toast-message">API Key updated successfully!</span>';
+                            toast.innerHTML = '<span class="toast-icon"><i class="fas fa-check"></i></span><span class="toast-message">API Key updated successfully!</span>';
                             toast.classList.add('show');
                             setTimeout(function() { toast.classList.remove('show'); location.reload(); }, 1500);
                         } else {
                             var toast = document.getElementById('toast') || createToastError();
-                            toast.innerHTML = '<span class="toast-icon">❌</span><span class="toast-message">' + (data.error || 'Error updating API key') + '</span>';
+                            toast.innerHTML = '<span class="toast-icon"><i class="fas fa-times"></i></span><span class="toast-message">' + (data.error || 'Error updating API key') + '</span>';
                             toast.style.background = 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)';
                             toast.style.boxShadow = '0 8px 30px rgba(239,68,68,0.4)';
                             toast.classList.add('show');
@@ -126,7 +126,7 @@
                     })
                     .catch(function(error) {
                         var toast = document.getElementById('toast') || createToastError();
-                        toast.innerHTML = '<span class="toast-icon">❌</span><span class="toast-message">Error updating API key</span>';
+                        toast.innerHTML = '<span class="toast-icon"><i class="fas fa-times"></i></span><span class="toast-message">Error updating API key</span>';
                         toast.style.background = 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)';
                         toast.style.boxShadow = '0 8px 30px rgba(239,68,68,0.4)';
                         toast.classList.add('show');

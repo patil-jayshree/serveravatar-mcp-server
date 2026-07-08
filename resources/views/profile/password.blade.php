@@ -28,6 +28,8 @@
     .settings-card-footer { padding: 1rem 1.5rem; border-top: 1px solid var(--border-color); display: flex; gap: 12px; justify-content: flex-end; }
     .btn-primary { padding: 0.625rem 1.5rem; background: var(--accent-primary); color: white; border: none; border-radius: var(--radius-md); font-size: 0.875rem; font-weight: 600; cursor: pointer; transition: all 0.2s ease; }
     .btn-primary:hover { background: var(--accent-primary-hover); }
+    .toast-icon { width: 28px; height: 28px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: bold; flex-shrink: 0; }
+    .toast-message { font-size: 0.9rem; font-weight: 600; }
     .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
     .info-box { background: var(--accent-primary-muted); border: 1px solid rgba(99, 102, 241, 0.2); border-radius: var(--radius-md); padding: 1rem 1.25rem; margin-bottom: 1.5rem; }
     .info-box-title { font-size: 0.8rem; font-weight: 700; color: var(--accent-primary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 6px; }
@@ -200,9 +202,9 @@ document.getElementById('password_confirmation').addEventListener('input', check
 function showToast(msg, isError) {
     var t = document.getElementById('toast');
     if (!t) { t = document.createElement('div'); t.id = 'toast'; document.body.appendChild(t); }
-    var emoji = isError ? '❌' : '✅';
+    var icon = isError ? '<i class="fas fa-times"></i>' : '<i class="fas fa-check"></i>';
     t.style.cssText = 'position:fixed;top:5rem;right:2rem;background:' + (isError ? 'linear-gradient(135deg,#ef4444,#dc2626)' : 'linear-gradient(135deg,#22c55e,#16a34a)') + ';color:white;padding:14px 20px;border-radius:12px;display:flex;align-items:center;gap:12px;box-shadow:0 8px 30px ' + (isError ? 'rgba(239,68,68,0.4)' : 'rgba(34,197,94,0.4)') + ';z-index:10000;max-width:350px;';
-    t.innerHTML = '<span>' + emoji + ' ' + msg + '</span>';
+    t.innerHTML = '<span class="toast-icon">' + icon + '</span><span class="toast-message">' + msg + '</span>';
     setTimeout(function() { t.style.display = 'none'; }, 3000);
 }
 </script>
