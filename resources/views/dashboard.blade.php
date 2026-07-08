@@ -153,8 +153,9 @@
         .wb-left { display: flex; align-items: center; gap: 0.75rem; }
         .wb-icon { width: 44px; height: 44px; border-radius: 12px; background: var(--accent-primary-muted); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; flex-shrink: 0; }
         .wb-text { display: flex; flex-direction: column; gap: 0.2rem; }
+        .wb-greeting-line { display: flex; align-items: baseline; gap: 0.5rem; }
         .wb-greeting { font-size: 1.15rem; color: var(--text-primary); line-height: 1; }
-        .wb-greeting-text { font-size: 1.15rem; font-weight: 700; color: var(--text-primary); margin-top: 0.25rem; }
+        .wb-greeting-text { font-size: 1.15rem; font-weight: 700; color: var(--text-primary); }
         .wb-subtitle { font-size: 0.85rem; color: var(--text-secondary); display: flex; align-items: center; flex-wrap: wrap; gap: 0.5rem; line-height: 1.5; }
         .wb-online-badge { display: inline-flex; align-items: center; gap: 4px; background: rgba(22, 163, 74, 0.12); color: #16a34a; padding: 2px 8px; border-radius: 20px; font-size: 0.7rem; font-weight: 600; white-space: nowrap; }
         .wb-actions { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
@@ -655,9 +656,8 @@
                 <div class="wb-top">
                     <div class="wb-left">
                         <div class="wb-text">
-                            <div class="wb-greeting">👋</div>
-                            <div class="wb-greeting-text">Welcome back, {{ $user->name }}</div>
-                            <div class="wb-subtitle">
+                            <div class="wb-greeting-line"><span class="wb-greeting">👋</span> <span class="wb-greeting-text">Welcome back, {{ $user->name }}</span></div>
+                            <div class="wb-subtitle" style="padding-left: 1.75rem;">
                                 Your ServerAvatar MCP is online and ready.
                                 @if($connectedClients->count() > 0)
                                     You currently have {{ $connectedClients->count() }} connected AI client(s).
@@ -665,7 +665,7 @@
                                     No AI client is currently connected. Connect ChatGPT, Claude, Cursor, or another MCP-compatible client to start using your tools.
                                 @endif
                             </div>
-                            <div style="margin-top: 0.35rem;">
+                            <div style="padding-left: 1.75rem; margin-top: 0.35rem;">
                                 <span class="wb-online-badge"><span style="width:6px;height:6px;border-radius:50%;background:#16a34a;box-shadow:0 0 4px rgba(22,163,74,0.6);flex-shrink:0;"></span> Online</span>
                             </div>
                         </div>
