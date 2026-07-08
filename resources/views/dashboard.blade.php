@@ -162,9 +162,6 @@
         .wb-action-btn.primary { background: var(--accent-primary); border-color: var(--accent-primary); color: white; }
         .wb-action-btn.primary:hover { background: var(--accent-primary-hover); border-color: var(--accent-primary-hover); color: white; }
         .wb-action-btn svg { flex-shrink: 0; }
-        .wb-no-client-notice { display: flex; align-items: center; gap: 10px; background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.2); border-radius: var(--radius-md); padding: 0.75rem 1rem; }
-        .wb-no-client-icon { width: 28px; height: 28px; border-radius: 50%; background: rgba(245, 158, 11, 0.15); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; flex-shrink: 0; }
-        .wb-no-client-text { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.4; }
         @media (max-width: 768px) { .wb-top { flex-direction: column; align-items: flex-start; gap: 0.75rem; } .wb-actions { width: 100%; } }
         @media (max-width: 480px) { .wb-actions { flex-direction: column; } .wb-action-btn { justify-content: center; width: 100%; } }
 
@@ -688,12 +685,6 @@
                         Update API Key
                     </button>
                 </div>
-                @if($connectedClients->count() === 0)
-                <div class="wb-no-client-notice">
-                    <div class="wb-no-client-icon">⚠</div>
-                    <div class="wb-no-client-text">No AI client connected yet. Connect ChatGPT, Claude, Cursor or another MCP-compatible client to start using your tools.</div>
-                </div>
-                @endif
             </div>
             @endif
 
