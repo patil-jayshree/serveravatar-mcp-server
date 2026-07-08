@@ -119,7 +119,8 @@
 
 
         /* Recent Activity Section */
-        .activity-section { margin-bottom: 1.5rem; }
+        .activity-section { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 1.5rem; margin-bottom: 1.5rem; }
+        [data-theme="light"] .activity-section { box-shadow: 0 2px 12px rgba(99, 102, 241, 0.06); }
         .section-header-row { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
         .activity-count-badge { font-size: 0.75rem; font-weight: 600; padding: 2px 8px; border-radius: 20px; background: rgba(139, 92, 246, 0.15); color: var(--accent-primary); }
         .activity-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 1rem; }
@@ -859,33 +860,31 @@
         </div>
         <a href="{{ route("activity") }}" class="btn" style="font-size: 0.75rem; padding: 0.3rem 0.75rem;">View All</a>
     </div>
-    <div class="activity-card">
-        @if($recentActivities->count() > 0)
-        <div class="activity-list">
-            @foreach($recentActivities as $activity)
-            <div class="activity-item">
-                <div class="activity-icon">{{ $activity->icon }}</div>
-                <div class="activity-content">
-                    <div class="activity-description">{{ $activity->description }}</div>
-                    <div class="activity-meta">
-                        @if($activity->client_name)
-                        <span class="activity-client">{{ $activity->client_name }}</span>
-                        <span class="activity-sep">·</span>
-                        @endif
-                        <span class="activity-time">{{ $activity->time_ago }}</span>
-                    </div>
+    @if($recentActivities->count() > 0)
+    <div class="activity-list">
+        @foreach($recentActivities as $activity)
+        <div class="activity-item">
+            <div class="activity-icon">{{ $activity->icon }}</div>
+            <div class="activity-content">
+                <div class="activity-description">{{ $activity->description }}</div>
+                <div class="activity-meta">
+                    @if($activity->client_name)
+                    <span class="activity-client">{{ $activity->client_name }}</span>
+                    <span class="activity-sep">·</span>
+                    @endif
+                    <span class="activity-time">{{ $activity->time_ago }}</span>
                 </div>
-                <span class="activity-badge badge-{{ $activity->badge }}">{{ $activity->badge }}</span>
             </div>
-            @endforeach
+            <span class="activity-badge badge-{{ $activity->badge }}">{{ $activity->badge }}</span>
         </div>
-        @else
-        <div class="activity-empty">
-            <i class="fas fa-clock" style="font-size: 2rem; color: var(--text-secondary); margin-bottom: 0.5rem;"></i>
-            <p>No activity yet. Connect an AI client to get started.</p>
-        </div>
-        @endif
+        @endforeach
     </div>
+    @else
+    <div class="activity-empty">
+        <i class="fas fa-clock" style="font-size: 2rem; color: var(--text-secondary); margin-bottom: 0.5rem;"></i>
+        <p>No activity yet. Connect an AI client to get started.</p>
+    </div>
+    @endif
 </div>
 
 
