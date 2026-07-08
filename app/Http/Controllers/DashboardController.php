@@ -26,6 +26,8 @@ class DashboardController extends Controller
             $sparklineClients = McpConnectionTracker::getSparklineData($user, 'clients', 7);
 
             $recentActivities = ActivityLogger::getRecent($user, 5);
+            $lastActivity = $recentActivities->first();
+            $onboardingComplete = $user->hasApiKey() && $connectedClients->count() > 0;
 
             return view('dashboard', [
                 'user' => $user,
@@ -37,6 +39,8 @@ class DashboardController extends Controller
                 'sparklineTools' => $sparklineTools,
                 'sparklineClients' => $sparklineClients,
                 'recentActivities' => $recentActivities,
+                'lastActivity' => $lastActivity,
+                'onboardingComplete' => $onboardingComplete,
             ]);
         } catch (Exception $e) {
             return view('dashboard', [

@@ -147,6 +147,38 @@
         .quick-setup-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
         .quick-setup-steps { display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
 
+        /* Welcome Back Card */
+        .welcome-back-card { background: linear-gradient(135deg, #1a1033 0%, #2d1f5c 100%); border: 1px solid #3d2d6b; border-radius: var(--radius-lg); padding: 1.5rem 2rem; margin-bottom: 1.5rem; position: relative; overflow: hidden; }
+        [data-theme="light"] .welcome-back-card { background: #ffffff; border: 1px solid #e0e7ff; box-shadow: 0 4px 20px rgba(99, 102, 241, 0.08); }
+        .welcome-back-card::before { content: ''; position: absolute; top: -30%; right: 8%; width: 250px; height: 250px; background: radial-gradient(circle, rgba(139, 92, 246, 0.12) 0%, transparent 70%); pointer-events: none; }
+        [data-theme="light"] .welcome-back-card::before { display: none; }
+        .wb-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; }
+        .wb-greeting { font-size: 1.25rem; font-weight: 700; color: #f8fafc; }
+        [data-theme="light"] .wb-greeting { color: #111827; }
+        .wb-actions { display: flex; align-items: center; gap: 0.5rem; }
+        .wb-action-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; color: #e2e8f0; font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: all 0.2s ease; text-decoration: none; white-space: nowrap; }
+        [data-theme="light"] .wb-action-btn { background: rgba(124, 92, 252, 0.08); border-color: rgba(124, 92, 252, 0.2); color: var(--accent-primary); }
+        .wb-action-btn:hover { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.25); transform: translateY(-1px); }
+        [data-theme="light"] .wb-action-btn:hover { background: rgba(124, 92, 252, 0.15); }
+        .wb-action-btn svg { flex-shrink: 0; }
+        .wb-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+        [data-theme="light"] .wb-stats { gap: 0.75rem; }
+        .wb-stat { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 0.875rem 1rem; display: flex; flex-direction: column; gap: 0.25rem; }
+        [data-theme="light"] .wb-stat { background: rgba(124, 92, 252, 0.06); border-color: rgba(124, 92, 252, 0.12); }
+        .wb-stat-label { font-size: 0.7rem; font-weight: 600; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.05em; }
+        [data-theme="light"] .wb-stat-label { color: #6b7280; }
+        .wb-stat-value { font-size: 1.25rem; font-weight: 700; color: #f8fafc; display: flex; align-items: center; gap: 0.4rem; }
+        [data-theme="light"] .wb-stat-value { color: #111827; }
+        .wb-stat-value.online { color: #16a34a; }
+        [data-theme="light"] .wb-stat-value.online { color: #16a34a; }
+        .wb-no-client-notice { display: flex; align-items: center; gap: 10px; background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.25); border-radius: 8px; padding: 0.75rem 1rem; margin-top: 1rem; }
+        .wb-no-client-icon { width: 28px; height: 28px; border-radius: 50%; background: rgba(245, 158, 11, 0.2); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; flex-shrink: 0; }
+        .wb-no-client-text { font-size: 0.8rem; color: #f59e0b; line-height: 1.4; }
+        [data-theme="light"] .wb-no-client-text { color: #92400e; }
+        [data-theme="light"] .wb-no-client-notice { background: rgba(245, 158, 11, 0.06); border-color: rgba(245, 158, 11, 0.2); }
+        @media (max-width: 768px) { .wb-stats { grid-template-columns: repeat(2, 1fr); } .wb-header { flex-direction: column; align-items: flex-start; gap: 1rem; } }
+        @media (max-width: 480px) { .wb-stats { grid-template-columns: 1fr 1fr; } }
+
         /* Analytics Cards */
         .analytics-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
         .analytics-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 1.25rem; display: flex; flex-direction: column; gap: 0.5rem; transition: all var(--transition-fast); }
@@ -578,6 +610,7 @@
                 <p class="page-subtitle">Manage your ServerAvatar MCP connection and integration</p>
             </div>
 
+            @if(!$onboardingComplete)
             <!-- Quick Setup Guide -->
             <div class="quick-setup-section">
                 <div class="quick-setup-header">
@@ -629,6 +662,64 @@
                     </div>
                 </div>
             </div>
+            @else
+            <!-- Welcome Back Card -->
+            <div class="welcome-back-card">
+                <div class="wb-header">
+                    <div class="wb-greeting">Welcome back, {{ $user->name }} 👋</div>
+                    <div class="wb-actions">
+                        <a href="{{ route('clients') }}" class="wb-action-btn">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                            Connect Client
+                        </a>
+                        <a href="{{ route('tools') }}" class="wb-action-btn">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                            View Tools
+                        </a>
+                        <button class="wb-action-btn" onclick="copyMcpUrlFromWelcome(this)">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                            Copy MCP URL
+                        </button>
+                        <button class="wb-action-btn" onclick="openApiKeyModal()">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>
+                            Update API Key
+                        </button>
+                    </div>
+                </div>
+                <div class="wb-stats">
+                    <div class="wb-stat">
+                        <div class="wb-stat-label">MCP Status</div>
+                        <div class="wb-stat-value online">
+                            <span class="green-dot-sm"></span>Online
+                        </div>
+                    </div>
+                    <div class="wb-stat">
+                        <div class="wb-stat-label">Available Tools</div>
+                        <div class="wb-stat-value">{{ $toolsCount }}</div>
+                    </div>
+                    <div class="wb-stat">
+                        <div class="wb-stat-label">Connected Clients</div>
+                        <div class="wb-stat-value">{{ $connectedClients->count() }}</div>
+                    </div>
+                    <div class="wb-stat">
+                        <div class="wb-stat-label">Last Activity</div>
+                        <div class="wb-stat-value" style="font-size:0.95rem;">
+                            @if($lastActivity)
+                                {{ $lastActivity->time_ago }}
+                            @else
+                                <span style="color:#94a3b8;font-size:0.85rem;">No activity yet</span>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+                @if($connectedClients->count() === 0)
+                <div class="wb-no-client-notice">
+                    <div class="wb-no-client-icon">⚠</div>
+                    <div class="wb-no-client-text">No AI client connected yet. Connect ChatGPT, Claude, Cursor or another MCP-compatible client to start using your tools.</div>
+                </div>
+                @endif
+            </div>
+            @endif
 
                         <!-- Analytics Cards -->
             <div class="analytics-grid">
@@ -1069,7 +1160,16 @@
             });
         }
 
-        
+        function copyMcpUrlFromWelcome(btn) {
+            const url = 'https://mcp.178.105.137.4.nip.io/mcp/serveravatar';
+            navigator.clipboard.writeText(url).then(function() {
+                const original = btn.innerHTML;
+                btn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"></path></svg> Copied!';
+                setTimeout(function() {
+                    btn.innerHTML = original;
+                }, 2000);
+            });
+        }
 
         // Preload server illustration
         var serverImg = new Image();
