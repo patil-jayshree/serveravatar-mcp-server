@@ -170,17 +170,12 @@
 
         /* Analytics Cards */
         .analytics-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
-        .analytics-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 1.25rem; display: flex; flex-direction: column; gap: 0.5rem; transition: all var(--transition-fast); }
+        .analytics-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 1.25rem; display: flex; flex-direction: column; gap: 0.25rem; transition: all var(--transition-fast); }
         .analytics-card:hover { border-color: var(--border-color-hover); transform: translateY(-2px); }
         .analytics-card-label { font-size: 0.8rem; color: var(--text-secondary); font-weight: 500; }
-        .analytics-card-value-row { display: flex; align-items: flex-end; justify-content: space-between; gap: 0.5rem; }
-        .analytics-card-value { font-size: 1.75rem; font-weight: 700; color: var(--text-primary); line-height: 1; }
-        .analytics-card-trend { display: inline-flex; align-items: center; gap: 2px; font-size: 0.75rem; font-weight: 600; padding: 2px 6px; border-radius: 20px; white-space: nowrap; margin-bottom: 2px; }
-        .trend-up { background: rgba(22, 163, 74, 0.15); color: var(--accent-success); }
-        .trend-down { background: rgba(220, 38, 38, 0.15); color: var(--accent-danger); }
-        .trend-neutral { background: rgba(139, 92, 246, 0.15); color: var(--accent-primary); }
-        .analytics-chart { height: 40px; margin-top: 0.25rem; }
-        .analytics-chart svg { width: 100%; height: 100%; overflow: visible; }
+        .analytics-card-value { font-size: 1.75rem; font-weight: 700; color: var(--text-primary); line-height: 1.1; }
+        .analytics-card-status { display: flex; align-items: center; gap: 0.3rem; font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.25rem; }
+        .analytics-card-status svg { flex-shrink: 0; }
         
         .step-number { width: 36px; height: 36px; border-radius: 50%; background: #7C3AED; color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; margin-bottom: 0.75rem; }
         .step-content { width: 100%; flex: 1; display: flex; flex-direction: column; justify-content: center; }
@@ -692,112 +687,58 @@
 
                         <!-- Analytics Cards -->
             <div class="analytics-grid">
-                @php
-                    $chartW = 120; $chartH = 40;
-                    function buildLinePath($data, $w, $h) {
-                        if (empty($data)) return '';
-                        $max = max($data); $min = min($data);
-                        $range = $max - $min; if ($range == 0) $range = 1;
-                        $pts = [];
-                        foreach ($data as $i => $v) {
-                            $x = $i * ($w / (count($data) - 1 ?: 1));
-                            $y = $h - (($v - $min) / $range) * $h;
-                            $pts[] = "$x,$y";
-                        }
-                        return 'M ' . implode(' L ', $pts);
-                    }
-                    $reqPath = buildLinePath($sparklineRequests, $chartW, $chartH);
-                    $toolPath = buildLinePath($sparklineTools, $chartW, $chartH);
-                    $clientPath = buildLinePath($sparklineClients, $chartW, $chartH);
-                    $successLineY = 40 - ($analytics['success_rate'] / 100 * 40);
-                    $responseLineY = max(5, 40 - ($analytics['avg_response_time_ms'] / 20));
-                @endphp
-
                 <!-- Total Requests -->
                 <div class="analytics-card">
                     <div class="analytics-card-label">Total Requests</div>
-                    <div class="analytics-card-value-row">
-                        <div class="analytics-card-value">{{ number_format($analytics['total_requests']) }}</div>
-                        <span class="analytics-card-trend trend-up"><i class="fas fa-arrow-up" style="font-size:0.6rem;"></i> 7d</span>
-                    </div>
-                    <div class="analytics-chart">
-                        <svg viewBox="0 0 {{ $chartW }} {{ $chartH }}" preserveAspectRatio="none">
-                            @if($reqPath)
-                                <path d="{{ $reqPath }}" fill="none" stroke="#8b5cf6" stroke-width="1.5" stroke-linecap="round"/>
-                            @else
-                                <line x1="0" y1="{{ $chartH }}" x2="{{ $chartW }}" y2="{{ $chartH }}" stroke="rgba(139,92,246,0.3)" stroke-width="1.5" stroke-dasharray="4,2"/>
-                            @endif
-                        </svg>
+                    <div class="analytics-card-value">{{ number_format($analytics['total_requests']) }}</div>
+                    <div class="analytics-card-status">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2.5"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+                        <span style="color:#8b5cf6;">+{{ $analytics['total_requests'] }} Total</span>
                     </div>
                 </div>
 
                 <!-- Tools Executed -->
                 <div class="analytics-card">
                     <div class="analytics-card-label">Tools Executed</div>
-                    <div class="analytics-card-value-row">
-                        <div class="analytics-card-value">{{ number_format($analytics['tools_executed']) }}</div>
-                        <span class="analytics-card-trend trend-up"><i class="fas fa-wrench" style="font-size:0.6rem;"></i> tools</span>
-                    </div>
-                    <div class="analytics-chart">
-                        <svg viewBox="0 0 {{ $chartW }} {{ $chartH }}" preserveAspectRatio="none">
-                            @if($toolPath)
-                                <path d="{{ $toolPath }}" fill="none" stroke="#3b82f6" stroke-width="1.5" stroke-linecap="round"/>
-                            @else
-                                <line x1="0" y1="{{ $chartH }}" x2="{{ $chartW }}" y2="{{ $chartH }}" stroke="rgba(59,130,246,0.3)" stroke-width="1.5" stroke-dasharray="4,2"/>
-                            @endif
-                        </svg>
+                    <div class="analytics-card-value">{{ number_format($analytics['tools_executed']) }}</div>
+                    <div class="analytics-card-status">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="2.5"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                        <span>{{ $analytics['tools_executed'] }} Tools Used</span>
                     </div>
                 </div>
 
                 <!-- Active Clients -->
                 <div class="analytics-card">
                     <div class="analytics-card-label">Active Clients</div>
-                    <div class="analytics-card-value-row">
-                        <div class="analytics-card-value">{{ $analytics['active_clients'] }}</div>
-                        <span class="analytics-card-trend trend-up"><i class="fas fa-users" style="font-size:0.6rem;"></i> online</span>
-                    </div>
-                    <div class="analytics-chart">
-                        <svg viewBox="0 0 {{ $chartW }} {{ $chartH }}" preserveAspectRatio="none">
-                            @if($clientPath)
-                                <path d="{{ $clientPath }}" fill="none" stroke="#06b6d4" stroke-width="1.5" stroke-linecap="round"/>
-                            @else
-                                <line x1="0" y1="{{ $chartH }}" x2="{{ $chartW }}" y2="{{ $chartH }}" stroke="rgba(6,182,212,0.3)" stroke-width="1.5" stroke-dasharray="4,2"/>
-                            @endif
-                        </svg>
+                    <div class="analytics-card-value">{{ $analytics['active_clients'] }}</div>
+                    <div class="analytics-card-status">
+                        @if($analytics['active_clients'] > 0)
+                        <span style="width:7px;height:7px;border-radius:50%;background:#16a34a;flex-shrink:0;box-shadow:0 0 4px rgba(22,163,74,0.5);"></span>
+                        <span style="color:#16a34a;">{{ $analytics['active_clients'] }} Active Client{{ $analytics['active_clients'] > 1 ? 's' : '' }}</span>
+                        @else
+                        <span style="width:7px;height:7px;border-radius:50%;background:#6b7280;flex-shrink:0;"></span>
+                        <span>No Active Clients</span>
+                        @endif
                     </div>
                 </div>
 
                 <!-- Success Rate -->
                 <div class="analytics-card">
                     <div class="analytics-card-label">Success Rate</div>
-                    <div class="analytics-card-value-row">
-                        <div class="analytics-card-value">{{ $analytics['success_rate'] }}%</div>
-                        <span class="analytics-card-trend {{ $analytics['success_rate'] >= 99 ? 'trend-up' : 'trend-down' }}">
-                            <i class="fas fa-{{ $analytics['success_rate'] >= 99 ? 'check' : 'exclamation' }}" style="font-size:0.6rem;"></i>
-                        </span>
-                    </div>
-                    <div class="analytics-chart">
-                        <svg viewBox="0 0 {{ $chartW }} {{ $chartH }}" preserveAspectRatio="none">
-                            <line x1="0" y1="{{ $successLineY }}" x2="{{ $chartW }}" y2="{{ $successLineY }}" stroke="#16a34a" stroke-width="1.5" stroke-dasharray="4,2"/>
-                            <circle cx="{{ $chartW }}" cy="{{ $successLineY }}" r="2.5" fill="#16a34a"/>
-                        </svg>
+                    <div class="analytics-card-value">{{ $analytics['success_rate'] }}%</div>
+                    <div class="analytics-card-status">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="{{ $analytics['success_rate'] >= 99 ? '#16a34a' : '#f59e0b' }}" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                        <span style="color:{{ $analytics['success_rate'] >= 99 ? '#16a34a' : '#f59e0b' }};">{{ $analytics['success_rate'] >= 99 ? 'Healthy' : 'Degraded' }}</span>
                     </div>
                 </div>
 
                 <!-- Avg. Response Time -->
                 <div class="analytics-card">
                     <div class="analytics-card-label">Avg. Response Time</div>
-                    <div class="analytics-card-value-row">
-                        <div class="analytics-card-value" style="font-size:1.5rem;">{{ $analytics['avg_response_time_ms'] }} <span style="font-size:0.8rem;font-weight:500;color:var(--text-secondary);">ms</span></div>
-                        <span class="analytics-card-trend {{ $analytics['avg_response_time_ms'] < 500 ? 'trend-up' : 'trend-down' }}">
-                            <i class="fas fa-bolt" style="font-size:0.6rem;"></i>
-                        </span>
-                    </div>
-                    <div class="analytics-chart">
-                        <svg viewBox="0 0 {{ $chartW }} {{ $chartH }}" preserveAspectRatio="none">
-                            <line x1="0" y1="{{ $responseLineY }}" x2="{{ $chartW }}" y2="{{ $responseLineY }}" stroke="#f97316" stroke-width="1.5" stroke-dasharray="4,2"/>
-                            <circle cx="{{ $chartW }}" cy="{{ $responseLineY }}" r="2.5" fill="#f97316"/>
-                        </svg>
+                    <div class="analytics-card-value">{{ $analytics['avg_response_time_ms'] }} <span style="font-size:0.8rem;font-weight:500;color:var(--text-secondary);">ms</span></div>
+                    <div class="analytics-card-status">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="{{ $analytics['avg_response_time_ms'] < 500 ? '#f59e0b' : '#dc2626' }}" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                        <span style="color:{{ $analytics['avg_response_time_ms'] < 500 ? '#f59e0b' : '#dc2626' }};">{{ $analytics['avg_response_time_ms'] < 500 ? 'Excellent' : 'Slow' }}</span>
                     </div>
                 </div>
             </div>
