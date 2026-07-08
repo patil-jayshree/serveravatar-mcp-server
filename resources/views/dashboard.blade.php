@@ -973,7 +973,7 @@
 
             <!-- Toast Notification -->
             <div id="toast" class="toast">
-                <span class="toast-icon">✓</span>
+                <span class="toast-icon">✅</span>
                 <span class="toast-message">API Key updated successfully!</span>
             </div>
 
