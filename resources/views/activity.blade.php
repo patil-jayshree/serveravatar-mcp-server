@@ -81,7 +81,7 @@
     
     @else
     <div style="text-align: center; padding: 3rem; color: var(--text-secondary);">
-        <i class="fas fa-clock-rotate-left" style="font-size: 2.5rem; margin-bottom: 0.75rem; opacity: 0.5;"></i>
+        <i class="fas fa-clock" style="font-size: 2rem; color: var(--accent-primary); margin-bottom: 0.5rem;"></i>
         <p style="font-size: 0.9rem;">No activity recorded yet.</p>
     </div>
     @endif
