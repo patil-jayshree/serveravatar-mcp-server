@@ -665,9 +665,6 @@
                                     No AI client is currently connected. Connect ChatGPT, Claude, Cursor, or another MCP-compatible client to start using your tools.
                                 @endif
                             </div>
-                            <div style="padding-left: 1.75rem; margin-top: 0.35rem;">
-                                <span class="wb-online-badge"><span style="width:6px;height:6px;border-radius:50%;background:#16a34a;box-shadow:0 0 4px rgba(22,163,74,0.6);flex-shrink:0;"></span> Online</span>
-                            </div>
                         </div>
                     </div>
                 </div>
