@@ -18,7 +18,7 @@
         <h1 class="page-title">Connected Clients <span class="active-clients-badge">{{ $connectedClients->count() }} Active Clients</span></h1>
         <p class="page-subtitle">AI clients currently connected to your MCP server</p>
     </div>
-    <a href="{{ route('clients') }}" onclick="this.classList.add('loading')" class="refresh-btn" title="Refresh" style="margin-top: 0.25rem;">
+    <a href="{{ route('clients') }}" onclick="this.classList.add('loading'); setTimeout(function(){ window.location.href = '{{ route('clients') }}'; }, 50); return false;" class="refresh-btn" title="Refresh" style="margin-top: 0.25rem;">
         <i class="fas fa-sync-alt"></i>
     </a>
 </div>

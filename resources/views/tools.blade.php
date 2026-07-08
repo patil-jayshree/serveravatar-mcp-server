@@ -59,7 +59,7 @@ $perPage = $perPage ?? 10;
         </div>
     </form>
     
-    <a href="{{ route('tools') }}" onclick="this.classList.add('loading')" style="background: var(--bg-card); border: 1px solid var(--border-color); padding: 10px 14px; border-radius: var(--radius-md); cursor: pointer; display: flex; align-items: center; justify-content: center; text-decoration: none; height: 44px;" title="Refresh">
+    <a href="{{ route('tools') }}" onclick="this.classList.add('loading'); setTimeout(function(){ window.location.href = '{{ route('tools') }}'; }, 50); return false;" style="background: var(--bg-card); border: 1px solid var(--border-color); padding: 10px 14px; border-radius: var(--radius-md); cursor: pointer; display: flex; align-items: center; justify-content: center; text-decoration: none; height: 44px;" title="Refresh">
         <i class="fas fa-sync-alt" style="color: var(--accent-primary);"></i>
     </a>
 </div>
