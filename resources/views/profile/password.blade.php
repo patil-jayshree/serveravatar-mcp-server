@@ -200,8 +200,9 @@ document.getElementById('password_confirmation').addEventListener('input', check
 function showToast(msg, isError) {
     var t = document.getElementById('toast');
     if (!t) { t = document.createElement('div'); t.id = 'toast'; document.body.appendChild(t); }
+    var emoji = isError ? '❌' : '✅';
     t.style.cssText = 'position:fixed;top:5rem;right:2rem;background:' + (isError ? 'linear-gradient(135deg,#ef4444,#dc2626)' : 'linear-gradient(135deg,#22c55e,#16a34a)') + ';color:white;padding:14px 20px;border-radius:12px;display:flex;align-items:center;gap:12px;box-shadow:0 8px 30px ' + (isError ? 'rgba(239,68,68,0.4)' : 'rgba(34,197,94,0.4)') + ';z-index:10000;max-width:350px;';
-    t.innerHTML = '<span>' + msg + '</span>';
+    t.innerHTML = '<span>' + emoji + ' ' + msg + '</span>';
     setTimeout(function() { t.style.display = 'none'; }, 3000);
 }
 </script>
