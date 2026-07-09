@@ -24,7 +24,7 @@
     <!-- MCP Server URL Card -->
     <div class="card" style="padding: 1.5rem;">
         <div class="section-header" style="margin-bottom: 1rem;">
-            <div class="section-icon" style="background: rgba(59, 130, 246, 0.12);"><i class="fas fa-globe" style="color: var(--accent-info);"></i></div>
+            <div class="section-icon" style="background: rgba(59, 130, 246, 0.12);"><i class="fas fa-globe" style="color: var(--accent-primary);"></i></div>
             <div>
                 <div class="section-title">MCP Server URL</div>
                 <div class="section-desc">Use this endpoint to connect any MCP-compatible AI client</div>
@@ -32,7 +32,7 @@
         </div>
         <div style="display: flex; align-items: center; gap: 12px;">
             <div style="flex: 1; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 12px 16px; display: flex; align-items: center; gap: 12px;">
-                <i class="fas fa-link" style="color: var(--accent-info);"></i>
+                <i class="fas fa-link" style="color: var(--accent-primary);"></i>
                 <span style="font-family: monospace; font-size: 14px; color: var(--text-primary);">https://mcp.178.105.137.4.nip.io/mcp/serveravatar</span>
             </div>
             <button onclick="copyMcpUrl(this)" id="copyUrlBtn" class="btn-card-action primary" style="display: inline-flex; align-items: center; gap: 6px; padding: 10px 18px; background: var(--accent-primary); border: none; border-radius: var(--radius-md); color: white; font-weight: 600; cursor: pointer; white-space: nowrap; transition: background 0.2s, border 0.2s, color 0.2s;">

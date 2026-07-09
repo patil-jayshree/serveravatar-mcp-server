@@ -90,7 +90,7 @@ $perPage = $perPage ?? 10;
                     <div>
                         <span class="category-badge" style="display: inline-flex; align-items: center; gap: 4px; background: var(--accent-primary-muted); color: var(--accent-primary); padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600;">{{ $tool['category_badge'] }}</span>
                     </div>
-                    <div class="tool-desc-cell"><span>{{ $tool['description'] }}</span></div>
+                    <div class="tool-desc-cell"><span title="{{ $tool['description'] }}">{{ $tool['description'] }}</span></div>
                     <div class="tool-status-cell">
                         <span class="status-badge">
                             <span class="status-dot"></span>

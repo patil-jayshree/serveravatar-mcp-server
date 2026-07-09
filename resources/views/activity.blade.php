@@ -58,24 +58,52 @@
         @endforeach
     </div>
     
-    <!-- Pagination -->
-    @if($activities->hasPages())
-    <div style="padding: 1rem; display: flex; justify-content: center; gap: 0.5rem; border-top: 1px solid var(--border-color);">
-        @if($activities->onFirstPage())
-            <span class="page-btn disabled" style="opacity: 0.5; cursor: not-allowed;">← Previous</span>
-        @else
-            <a href="{{ $activities->previousPageUrl() }}" class="page-btn">← Previous</a>
-        @endif
-        
-        <span class="page-info" style="padding: 0.375rem 0.75rem; font-size: 0.8rem; color: var(--text-secondary);">
-            Page {{ $activities->currentPage() }} of {{ $activities->lastPage() }}
-        </span>
-        
-        @if($activities->hasMorePages())
-            <a href="{{ $activities->nextPageUrl() }}" class="page-btn">Next →</a>
-        @else
-            <span class="page-btn disabled" style="opacity: 0.5; cursor: not-allowed;">Next →</span>
-        @endif
+    @if($totalPages > 1)
+    <div class="pagination">
+        <div class="pagination-info">
+            Showing {{ ($currentPage - 1) * $perPage + 1 }} to {{ min($currentPage * $perPage, $totalActivities) }} of {{ $totalActivities }} activities
+        </div>
+        <div class="pagination-buttons">
+            @if($currentPage > 1)
+            <a href="{{ route('activity') }}?page={{ $currentPage - 1 }}" class="page-btn">
+                <i class="fas fa-chevron-left"></i> Previous
+            </a>
+            @else
+            <span class="page-btn disabled"><i class="fas fa-chevron-left"></i> Previous</span>
+            @endif
+            
+            @php
+            $start = max(1, $currentPage - 1);
+            $end = min($totalPages, $start + 2);
+            if ($end - $start < 2) { $start = max(1, $end - 2); }
+            @endphp
+            
+            @if($start > 1)
+                <a href="{{ route('activity') }}?page=1" class="page-btn">1</a>
+                @if($start > 2)<span style="padding: 0 4px; color: var(--text-muted);">...</span>@endif
+            @endif
+            
+            @for($i = $start; $i <= $end; $i++)
+                @if($i == $currentPage)
+                <span class="page-btn active">{{ $i }}</span>
+                @else
+                <a href="{{ route('activity') }}?page={{ $i }}" class="page-btn">{{ $i }}</a>
+                @endif
+            @endfor
+            
+            @if($end < $totalPages)
+                @if($end < $totalPages - 1)<span style="padding: 0 4px; color: var(--text-muted);">...</span>@endif
+                <a href="{{ route('activity') }}?page={{ $totalPages }}" class="page-btn">{{ $totalPages }}</a>
+            @endif
+            
+            @if($currentPage < $totalPages)
+            <a href="{{ route('activity') }}?page={{ $currentPage + 1 }}" class="page-btn">
+                Next <i class="fas fa-chevron-right"></i>
+            </a>
+            @else
+            <span class="page-btn disabled">Next <i class="fas fa-chevron-right"></i></span>
+            @endif
+        </div>
     </div>
     @endif
     
@@ -88,10 +116,10 @@
 </div>
 
 <style>
-.activity-table-header { display: flex; padding: 0.75rem 1rem; background: var(--bg-secondary); border-bottom: 1px solid var(--border-color); }
+.activity-table-header { display: flex; padding: 0.75rem 1rem; background: var(--bg-secondary); border-bottom: 1px solid var(--border-color); gap: 2rem;}
 .activity-th { font-size: 0.75rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; padding: 0 0.5rem; }
-.activity-table-body { }
-.activity-tr { display: flex; align-items: center; padding: 0.875rem 1rem; border-bottom: 1px solid var(--border-color); transition: background 0.15s; }
+.activity-table-body { display: flex; flex-direction: column; }
+.activity-tr { display: flex; align-items: center; padding: 0.5rem 1rem; border-bottom: 1px solid var(--border-color); transition: background 0.15s; gap: 2rem; }
 .activity-tr:last-child { border-bottom: none; }
 .activity-tr:hover { background: var(--bg-secondary); }
 .activity-td { font-size: 0.875rem; color: var(--text-primary); padding: 0 0.5rem; display: flex; align-items: center; }
@@ -100,8 +128,6 @@
 .activity-client { color: var(--text-secondary); }
 .activity-ip { color: var(--text-secondary); font-size: 0.8rem; }
 .activity-time { font-size: 0.8rem; line-height: 1.4; }
-.page-btn { padding: 0.375rem 0.75rem; font-size: 0.8rem; font-weight: 500; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-sm); color: var(--accent-primary); text-decoration: none; transition: all 0.15s; }
-.page-btn:hover { background: var(--accent-primary); color: white; border-color: var(--accent-primary); }
 .badge-success { background: rgba(22, 163, 74, 0.15); color: #16a34a; }
 .badge-info { background: rgba(59, 130, 246, 0.15); color: #3b82f6; }
 .badge-warning { background: rgba(245, 158, 11, 0.15); color: #d97706; }

@@ -142,7 +142,7 @@
         .profile-menu.show { display: block; }
         .profile-menu-item { display: flex; align-items: center; gap: 10px; padding: 0.625rem 1rem; color: var(--text-secondary); font-size: 0.85rem; text-decoration: none; transition: all var(--transition-fast); }
         .profile-menu-item:hover { background: var(--bg-card-hover); color: var(--text-primary); }
-        .profile-menu-item.danger { color: var(--accent-danger); border: 1px solid var(--border-color); }
+        .profile-menu-item.danger { color: var(--accent-danger); }
         .profile-menu-item.danger:hover { background: var(--accent-danger-muted); }
         .profile-menu-divider { height: 1px; background: var(--border-color); margin: 4px 0; }
 
@@ -374,7 +374,7 @@
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-header">
                 <div class="sidebar-logo">⚡</div>
-                <div class="sidebar-brand">Server<span>Avatar</span></div>
+                <div class="sidebar-brand">Server<span>Avatar</span> MCP</div>
             </div>
             
             <nav class="sidebar-nav">
@@ -459,7 +459,6 @@
                                 <i class="fas fa-user-circle" style="color: var(--accent-primary);"></i>
                                 <span>Account</span>
                             </a>
-                            <div class="profile-menu-divider"></div>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 <button type="submit" class="profile-menu-item danger" style="width: 100%;">
