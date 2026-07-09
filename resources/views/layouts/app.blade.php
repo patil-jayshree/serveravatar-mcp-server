@@ -147,8 +147,8 @@
         .profile-menu-divider { height: 1px; background: var(--border-color); margin: 4px 0; }
 
         /* Page Content */
-        .page-content { padding: 1.5rem; padding-top: 60px; flex: 1; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+        .page-content { padding: 1rem; padding-top: 60px; flex: 1; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 1.5rem 1rem; }
         .page-header { margin-bottom: 1.5rem; }
         .page-title { font-size: 2rem; font-weight: 700; margin-bottom: 0.25rem; }
         .page-subtitle { font-size: 0.875rem; font-weight: 400; color: var(--text-secondary); }
