@@ -110,7 +110,7 @@
 
         /* Main Content */
         .main-content { padding-top: 60px; min-height: 100vh; width: 100%; box-sizing: border-box; position: relative; padding-bottom: 80px; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 1rem 0.75rem; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 1.5rem; }
 
         /* Page Header */
         .page-header { margin-bottom: 1rem; }

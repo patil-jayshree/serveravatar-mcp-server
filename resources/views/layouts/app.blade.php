@@ -148,7 +148,7 @@
 
         /* Page Content */
         .page-content { padding: 1.5rem; padding-top: 60px; flex: 1; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 1.5rem 1rem; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 1.5rem; }
         .page-header { margin-bottom: 1rem; }
         .page-title { font-size: 2rem; font-weight: 700; margin-bottom: 0.25rem; }
         .page-subtitle { font-size: 0.875rem; font-weight: 400; color: var(--text-secondary); }
