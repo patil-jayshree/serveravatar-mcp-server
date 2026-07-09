@@ -149,16 +149,16 @@
         /* Page Content */
         .page-content { padding: 1.5rem; padding-top: 60px; flex: 1; }
         .container { max-width: 1200px; margin: 0 auto; padding: 2rem 1.5rem; }
-        .page-header { margin-bottom: 1.5rem; }
+        .page-header { margin-bottom: 1rem; }
         .page-title { font-size: 2rem; font-weight: 700; margin-bottom: 0.25rem; }
         .page-subtitle { font-size: 0.875rem; font-weight: 400; color: var(--text-secondary); }
 
         /* Cards */
-        .card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 1.25rem; margin-bottom: 1rem; }
+        .card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 1.25rem; margin-bottom: 0.5rem; }
         .card:hover { border-color: var(--border-color-hover); }
 
         /* Section Header */
-        .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 1rem; }
+        .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 0.5rem; }
         .section-icon { width: 40px; height: 40px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
         .section-title { font-size: 1.1rem; font-weight: 600; color: var(--section-title-color); }
         .section-desc { color: var(--text-secondary); font-size: 0.875rem; margin-top: 0.25rem; }
