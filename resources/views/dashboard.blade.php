@@ -110,16 +110,16 @@
 
         /* Main Content */
         .main-content { padding-top: 60px; min-height: 100vh; width: 100%; box-sizing: border-box; position: relative; padding-bottom: 80px; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 1rem; }
 
         /* Page Header */
-        .page-header { margin-bottom: 1.5rem; }
+        .page-header { margin-bottom: 1rem; }
         .page-title { font-size: 2rem; font-weight: 700; margin-bottom: 0.25rem; }
         .page-subtitle { font-size: 0.875rem; font-weight: 400; color: var(--text-secondary); }
 
 
         /* Recent Activity Section */
-        .activity-section { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 1.5rem; margin-bottom: 1.5rem; }
+        .activity-section { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 1.5rem; margin-bottom: 1rem; }
         [data-theme="light"] .activity-section { box-shadow: 0 2px 12px rgba(99, 102, 241, 0.06); }
         .section-header-row { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
         .activity-count-badge { font-size: 0.75rem; font-weight: 600; padding: 2px 8px; border-radius: 20px; background: rgba(139, 92, 246, 0.15); color: var(--accent-primary); }
@@ -144,12 +144,12 @@
         .activity-empty p { font-size: 0.875rem; margin-top: 0.5rem; }
 
         /* Quick Setup Section */
-        .quick-setup-section { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 1.5rem; margin-bottom: 1.5rem; }
+        .quick-setup-section { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 1.5rem; margin-bottom: 1rem; }
         .quick-setup-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
         .quick-setup-steps { display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
 
         /* Welcome Back Card */
-        .welcome-back-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 1.5rem 2rem; margin-bottom: 1.5rem; }
+        .welcome-back-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 1.5rem 2rem; margin-bottom: 1rem; }
         .wb-top { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1.25rem; }
         .wb-left { display: flex; align-items: center; gap: 0.75rem; }
         .wb-icon { width: 44px; height: 44px; border-radius: 12px; background: var(--accent-primary-muted); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; flex-shrink: 0; }
@@ -169,7 +169,7 @@
         @media (max-width: 480px) { .wb-actions { flex-direction: column; } .wb-action-btn { justify-content: center; width: 100%; } }
 
         /* Analytics Cards */
-        .analytics-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
+        .analytics-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.75rem; margin-bottom: 1rem; }
         .analytics-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 1.25rem; display: flex; flex-direction: column; gap: 0.25rem; transition: all var(--transition-fast); }
         .analytics-card:hover { border-color: var(--border-color-hover); transform: translateY(-2px); }
         .analytics-card-label { font-size: 0.8rem; color: var(--text-secondary); font-weight: 500; }
@@ -184,7 +184,7 @@
         .step-arrow { color: #7C3AED; font-size: 1.5rem; flex-shrink: 0; }
 
         /* MCP Status Card */
-        .mcp-status-card { background: linear-gradient(135deg, #1a1033 0%, #2d1f5c 100%); border: 1px solid #3d2d6b; border-radius: var(--radius-lg); padding: 1.5rem 2rem; margin-bottom: 1.5rem; position: relative; overflow: hidden; }
+        .mcp-status-card { background: linear-gradient(135deg, #1a1033 0%, #2d1f5c 100%); border: 1px solid #3d2d6b; border-radius: var(--radius-lg); padding: 1.5rem 2rem; margin-bottom: 1rem; position: relative; overflow: hidden; }
         [data-theme="light"] .mcp-status-card { background: #ffffff; border: 1px solid #e0e7ff; box-shadow: 0 4px 20px rgba(99, 102, 241, 0.1); }
         .mcp-status-card::before { content: ''; position: absolute; top: -30%; right: 8%; width: 250px; height: 250px; background: radial-gradient(circle, rgba(139, 92, 246, 0.12) 0%, transparent 70%); pointer-events: none; }
         [data-theme="light"] .mcp-status-card::before { display: none; }
