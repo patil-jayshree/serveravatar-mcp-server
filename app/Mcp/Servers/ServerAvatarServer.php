@@ -10,6 +10,7 @@ use App\Mcp\Tools\Cronjob\{CreateCronjobTool, ListCronjobsTool, GetCronjobTool, 
 use App\Mcp\Tools\ApplicationUser\{ListUsersTool, CreateUserTool, GetUserTool, UpdateUserTool, DeleteUserTool, ToggleUserSshAccessTool, ToggleUserRootAccessTool, RemoveUserSshKeyTool};
 use App\Mcp\Tools\Application\{ListApplicationsTool, ListOrganizationApplicationsTool, CreateApplicationTool, GetApplicationTool, DeleteApplicationTool, ToggleApplicationTool, UpdatePhpSettingsTool, ManageBasicAuthTool, Toggle8gFirewallTool};
 use App\Mcp\Tools\Application\Node\{CreateNodeApplicationTool, GetNodeDeploymentTool, UpdateSsrPortTool, GetPm2DetailTool, GetPm2LogTool};
+use App\Mcp\Tools\Supervisor\{ListSupervisorsTool, GetSupervisorTool, CreateSupervisorTool, UpdateSupervisorTool, DeleteSupervisorTool};
 use App\Mcp\Tools\ApplicationDomain\{ListDomainsTool, CreateDomainTool, DeleteDomainTool, ChangePrimaryDomainTool, ToggleDomainTool};
 use App\Mcp\Tools\SSL\{GetSslCertificateTool, InstallSslCertificateTool, UpdateSslCertificateTool, UninstallSslCertificateTool, ForceHttpsTool, StopForceHttpsTool};
 
@@ -107,6 +108,11 @@ class ServerAvatarServer extends Server
         UpdatePhpSettingsTool::class,
         ToggleApplicationTool::class,
         ManageBasicAuthTool::class,
+        ListSupervisorsTool::class,
+        GetSupervisorTool::class,
+        CreateSupervisorTool::class,
+        UpdateSupervisorTool::class,
+        DeleteSupervisorTool::class,
         GetSslCertificateTool::class,
         InstallSslCertificateTool::class,
         UpdateSslCertificateTool::class,
