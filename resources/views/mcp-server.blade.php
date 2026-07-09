@@ -3,11 +3,6 @@
 @section('title', 'MCP Server - ServerAvatar MCP')
 @section('breadcrumb', 'MCP Server')
 
-@section('styles')
-.endpoint-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
-@media (max-width: 480px) { .endpoint-grid { grid-template-columns: 1fr; } }
-@endsection
-
 @section('content')
 <!-- Page Header -->
 <div class="page-header">
@@ -29,7 +24,7 @@
     <!-- MCP Server URL Card -->
     <div class="card" style="padding: 1.5rem;">
         <div class="section-header" style="margin-bottom: 1rem;">
-            <div class="section-icon" style="background: rgba(59, 130, 246, 0.12);"><i class="fas fa-globe" style="color: var(--accent-primary);"></i></div>
+            <div class="section-icon" style="background: rgba(59, 130, 246, 0.12);"><i class="fas fa-globe" style="color: var(--accent-info);"></i></div>
             <div>
                 <div class="section-title">MCP Server URL</div>
                 <div class="section-desc">Use this endpoint to connect any MCP-compatible AI client</div>
@@ -59,7 +54,7 @@
                 <div class="section-title">Endpoint Information</div>
             </div>
         </div>
-        <div class="endpoint-grid">
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
             <div style="display: flex; flex-direction: column; gap: 0.25rem;">
                 <span style="font-size: 0.75rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em;">Transport</span>
                 <span style="font-size: 0.9rem; color: var(--text-primary); font-weight: 500;">HTTP</span>

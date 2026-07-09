@@ -23,8 +23,7 @@
 </div>
 
 <!-- Activity Table -->
-<div class="card" style="padding: 0; margin-bottom: 1rem; overflow: hidden;">
-    <div class="activity-table-scroll">
+<div class="card" style="padding: 0; margin-bottom: 1rem;">
     <div class="activity-table-header">
         <div class="activity-th" style="flex: 1;">EVENT</div>
         <div class="activity-th" style="flex: 1;">DESCRIPTION</div>
@@ -86,15 +85,13 @@
         <p style="font-size: 0.9rem;">No activity recorded yet.</p>
     </div>
     @endif
-    </div>
-    </div>
 </div>
 
 <style>
-.activity-table-header { display: flex; padding: 0.75rem 1rem; background: var(--bg-secondary); border-bottom: 1px solid var(--border-color); min-width: 700px; }
-.activity-th { font-size: 0.75rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; padding: 0 0.5rem; min-width: 100px; }
-.activity-table-body { min-width: 700px; }
-.activity-tr { display: flex; align-items: center; padding: 0.875rem 1rem; border-bottom: 1px solid var(--border-color); transition: background 0.15s; min-width: 700px; }
+.activity-table-header { display: flex; padding: 0.75rem 1rem; background: var(--bg-secondary); border-bottom: 1px solid var(--border-color); }
+.activity-th { font-size: 0.75rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; padding: 0 0.5rem; }
+.activity-table-body { }
+.activity-tr { display: flex; align-items: center; padding: 0.875rem 1rem; border-bottom: 1px solid var(--border-color); transition: background 0.15s; }
 .activity-tr:last-child { border-bottom: none; }
 .activity-tr:hover { background: var(--bg-secondary); }
 .activity-td { font-size: 0.875rem; color: var(--text-primary); padding: 0 0.5rem; display: flex; align-items: center; }

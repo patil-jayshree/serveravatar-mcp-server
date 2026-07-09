@@ -22,8 +22,7 @@
 </div>
 
 <!-- Clients Table -->
-<div class="card" style="padding: 0; margin-bottom: 1rem; overflow: hidden;">
-    <div class="clients-table-scroll">
+<div class="card" style="padding: 0; margin-bottom: 1rem;">
     <div class="clients-table-header">
         <div class="clients-th" style="flex: 2;">CLIENT</div>
         <div class="clients-th" style="flex: 1;">STATUS</div>
@@ -102,7 +101,5 @@
         <div class="clients-empty-desc">Connect an AI client to start using ServerAvatar MCP and manage your servers with AI.</div>
     </div>
     @endif
-    </div>
-    </div>
 </div>
 @endsection

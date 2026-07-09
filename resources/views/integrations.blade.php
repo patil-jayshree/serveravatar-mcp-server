@@ -5,10 +5,8 @@
 
 @section('styles')
 .section-label { font-size: 0.8rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 1rem; }
-.integration-grid { grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
+.integration-grid { grid-template-columns: repeat(3, 1fr) !important; gap: 0.75rem; }
 .integration-card.simple { padding: 1.25rem; }
-@media (max-width: 900px) { .integration-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 600px) { .integration-grid { grid-template-columns: 1fr; } }
 @endsection
 
 @section('content')

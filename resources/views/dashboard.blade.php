@@ -489,7 +489,7 @@
         .client-icon-fallback { font-size: 1rem; }
         .badge-active { display: inline-flex; align-items: center; justify-content: center; background: rgba(34, 197, 94, 0.15); color: #16a34a; padding: 3px 8px; border-radius: 999px; font-size: 11px; font-weight: 600; white-space: nowrap; height: 22px; }
         
-        .integration-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1rem; }
+        .integration-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; margin-top: 1rem; }
         .integration-card.simple { position: relative; display: flex; align-items: center; gap: 0.75rem; background: var(--bg-primary); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1rem; transition: all var(--transition-fast); }
         .integration-card.simple:hover { border-color: var(--border-color-hover); transform: translateY(-2px); }
         .badge-top-right { position: absolute; top: 8px; right: 8px; padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 600; }
@@ -571,42 +571,17 @@
         .tool-name { font-weight: 600; font-size: 14px; font-family: 'JetBrains Mono', monospace; color: #a78bfa; margin-bottom: 2px; }
         .tool-desc { color: var(--text-secondary); font-size: 0.75rem; line-height: 1.4; }
 
-        .quick-setup-steps { display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin-top: 1rem; }
-        .quick-setup-step { background: #F3EEFF; border: 2px solid #D8B4FE; border-radius: 10px; padding: 1rem; text-align: center; display: flex; flex-direction: column; align-items: center; min-width: 120px; flex: 1; height: 140px; }
-        .quick-setup-arrow { color: #7C3AED; font-size: 1.5rem; flex-shrink: 0; }
-
-        @media (min-width: 1400px) {
-            .analytics-grid { grid-template-columns: repeat(5, 1fr); }
-            .integration-grid { grid-template-columns: repeat(3, 1fr); }
-        }
-        @media (max-width: 1200px) {
-            .analytics-grid { grid-template-columns: repeat(3, 1fr); }
-        }
         @media (max-width: 768px) {
             .container { padding: 1rem; }
-            .analytics-grid { grid-template-columns: repeat(2, 1fr); }
             .status-grid, .mcp-meta { grid-template-columns: 1fr; }
-            .quick-setup-steps { gap: 0.25rem; }
-            .quick-setup-step { min-width: 80px; padding: 0.5rem; }
-            .quick-setup-step > div:first-child { width: 28px; height: 28px; font-size: 12px; margin-bottom: 0.5rem; }
-            .quick-setup-step h3 { font-size: 12px; }
-            .quick-setup-step p { font-size: 10px; display: none; }
-            .quick-setup-arrow { font-size: 1rem; }
-            .mcp-status-card { padding: 1.25rem; }
-            .status-main-row { flex-direction: column; gap: 1rem; }
-            .status-metrics { width: 100%; }
-            .mcp-url-row { flex-direction: column; gap: 0.75rem; }
-            .mcp-url-input { font-size: 0.75rem; word-break: break-all; }
-            .integration-grid { grid-template-columns: repeat(2, 1fr); }
-            .integration-more { flex-direction: column; align-items: flex-start; }
-            .integration-more-right { padding-left: 0; border-left: none; padding-top: 1rem; border-top: 1px solid var(--border-color); width: 100%; }
-            .section-header-row .btn { position: static; transform: none; margin-top: 0.5rem; }
+            .analytics-grid { grid-template-columns: repeat(2, 1fr); }
         }
         @media (max-width: 480px) {
+            .analytics-grid { grid-template-columns: 1fr; }
+        }
             .integration-grid { grid-template-columns: 1fr; }
-            .wb-top { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
-            .wb-actions { width: 100%; flex-direction: column; }
-            .wb-action-btn { justify-content: center; width: 100%; }
+            .integration-more { flex-direction: column; align-items: flex-start; }
+            .integration-more-right { padding-left: 0; border-left: none; padding-top: 1rem; border-top: 1px solid var(--border-color); width: 100%; }
         }
     </style>
 
@@ -630,39 +605,39 @@
                     </div>
                 </div>
                 <div class="quick-setup-steps">
-                    <div class="quick-setup-step">
+                    <div style="background:#F3EEFF;border:2px solid #D8B4FE;border-radius:10px;padding:1rem;text-align:center;display:flex;flex-direction:column;align-items:center;min-width:120px;flex:1;height:140px;" data-dt-bg="#2A1F45" data-dt-border="#7E22CE" data-dt-color="#F3E8FF">
                         <div style="width:36px;height:36px;border-radius:50%;background:#7C3AED;color:white;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;margin-bottom:0.75rem;">1</div>
                         <div style="width:100%;flex:1;display:flex;flex-direction:column;justify-content:center;">
                             <h3 style="font-size:15px;font-weight:600;margin-bottom:0.25rem;color:#7C3AED;">Add API Key</h3>
                             <p style="font-size:12px;font-weight:400;color:#7C3AED;line-height:1.4;opacity:0.8;">Connect your ServerAvatar account</p>
                         </div>
                     </div>
-                    <div class="quick-setup-arrow">→</div>
-                    <div class="quick-setup-step">
+                    <div style="color:#7C3AED;font-size:1.5rem;flex-shrink:0;">→</div>
+                    <div style="background:#F3EEFF;border:2px solid #D8B4FE;border-radius:10px;padding:1rem;text-align:center;display:flex;flex-direction:column;align-items:center;min-width:120px;flex:1;height:140px;" data-dt-bg="#2A1F45" data-dt-border="#7E22CE" data-dt-color="#F3E8FF">
                         <div style="width:36px;height:36px;border-radius:50%;background:#7C3AED;color:white;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;margin-bottom:0.75rem;">2</div>
                         <div style="width:100%;flex:1;display:flex;flex-direction:column;justify-content:center;">
                             <h3 style="font-size:15px;font-weight:600;margin-bottom:0.25rem;color:#7C3AED;">Copy MCP URL</h3>
                             <p style="font-size:12px;font-weight:400;color:#7C3AED;line-height:1.4;opacity:0.8;">Get your MCP endpoint</p>
                         </div>
                     </div>
-                    <div class="quick-setup-arrow">→</div>
-                    <div class="quick-setup-step">
+                    <div style="color:#7C3AED;font-size:1.5rem;flex-shrink:0;">→</div>
+                    <div style="background:#F3EEFF;border:2px solid #D8B4FE;border-radius:10px;padding:1rem;text-align:center;display:flex;flex-direction:column;align-items:center;min-width:120px;flex:1;height:140px;" data-dt-bg="#2A1F45" data-dt-border="#7E22CE" data-dt-color="#F3E8FF">
                         <div style="width:36px;height:36px;border-radius:50%;background:#7C3AED;color:white;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;margin-bottom:0.75rem;">3</div>
                         <div style="width:100%;flex:1;display:flex;flex-direction:column;justify-content:center;">
                             <h3 style="font-size:15px;font-weight:600;margin-bottom:0.25rem;color:#7C3AED;">Add to Client</h3>
                             <p style="font-size:12px;font-weight:400;color:#7C3AED;line-height:1.4;opacity:0.8;">Connect ChatGPT, Claude, Cursor & more</p>
                         </div>
                     </div>
-                    <div class="quick-setup-arrow">→</div>
-                    <div class="quick-setup-step">
+                    <div style="color:#7C3AED;font-size:1.5rem;flex-shrink:0;">→</div>
+                    <div style="background:#F3EEFF;border:2px solid #D8B4FE;border-radius:10px;padding:1rem;text-align:center;display:flex;flex-direction:column;align-items:center;min-width:120px;flex:1;height:140px;" data-dt-bg="#2A1F45" data-dt-border="#7E22CE" data-dt-color="#F3E8FF">
                         <div style="width:36px;height:36px;border-radius:50%;background:#7C3AED;color:white;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;margin-bottom:0.75rem;">4</div>
                         <div style="width:100%;flex:1;display:flex;flex-direction:column;justify-content:center;">
                             <h3 style="font-size:15px;font-weight:600;margin-bottom:0.25rem;color:#7C3AED;">Authenticate</h3>
                             <p style="font-size:12px;font-weight:400;color:#7C3AED;line-height:1.4;opacity:0.8;">Verify your connection</p>
                         </div>
                     </div>
-                    <div class="quick-setup-arrow">→</div>
-                    <div class="quick-setup-step">
+                    <div style="color:#7C3AED;font-size:1.5rem;flex-shrink:0;">→</div>
+                    <div style="background:#F3EEFF;border:2px solid #D8B4FE;border-radius:10px;padding:1rem;text-align:center;display:flex;flex-direction:column;align-items:center;min-width:120px;flex:1;height:140px;" data-dt-bg="#2A1F45" data-dt-border="#7E22CE" data-dt-color="#F3E8FF">
                         <div style="width:36px;height:36px;border-radius:50%;background:#7C3AED;color:white;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;margin-bottom:0.75rem;">5</div>
                         <div style="width:100%;flex:1;display:flex;flex-direction:column;justify-content:center;">
                             <h3 style="font-size:15px;font-weight:600;margin-bottom:0.25rem;color:#7C3AED;">Start Using</h3>
