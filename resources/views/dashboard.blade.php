@@ -138,7 +138,7 @@
         .badge-success { background: rgba(22, 163, 74, 0.15); color: #16a34a; }
         .badge-info { background: rgba(59, 130, 246, 0.15); color: #3b82f6; }
         .badge-warning { background: rgba(245, 158, 11, 0.15); color: #d97706; }
-        .badge-danger { background: rgba(220, 38, 38, 0.15); color: #dc2626; }
+        .badge-danger { background: rgba(249, 115, 22, 0.15); color: #f97316; }
         .badge-secondary { background: rgba(148, 163, 184, 0.15); color: #64748b; }
         .activity-empty { text-align: center; padding: 2rem; color: var(--text-secondary); }
         .activity-empty p { font-size: 0.875rem; margin-top: 0.5rem; }
