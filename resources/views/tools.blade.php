@@ -3,13 +3,8 @@
 @section('title', 'Tools Library - ServerAvatar MCP')
 @section('breadcrumb', 'Tools Library')
 
-@section('styles')
-.tools-controls a.loading { pointer-events: none; opacity: 0.7; }
-.tools-controls a.loading .fa-sync-alt { animation: spin 0.6s linear infinite; }
-@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-@endsection
-
 @php
+$csrf = csrf_token();
 $tools = $tools ?? [];
 $categories = $categories ?? [];
 $selectedCategory = $selectedCategory ?? '';
@@ -20,31 +15,35 @@ $totalTools = $totalTools ?? count($tools);
 $perPage = $perPage ?? 10;
 @endphp
 
+@section('styles')
+.table-body { min-height: 150px; }
+.tools-loading { display: flex; align-items: center; justify-content: center; min-height: 150px; color: var(--text-secondary); }
+.tools-loading i { font-size: 1.5rem; animation: spin 0.8s linear infinite; }
+@endsection
+
 @section('content')
 <!-- Page Header -->
 <div class="page-header">
-    <h1 class="page-title">Tools Library <span class="tools-count-badge">{{ $totalTools }} Tools</span></h1>
+    <h1 class="page-title">Tools Library <span class="tools-count-badge" id="toolsCount">{{ $totalTools }} Tools</span></h1>
     <p class="page-subtitle">Browse all MCP tools available in your ServerAvatar account</p>
 </div>
 
 <!-- Tools Controls -->
 <div class="tools-controls">
-    <form method="GET" action="{{ route('tools') }}" id="searchForm" style="display: flex; align-items: center; gap: 0.5rem; flex: 1;">
-        <input type="hidden" name="category" value="{{ $selectedCategory }}">
+    <form onsubmit="return false;" id="searchForm" style="display: flex; align-items: center; gap: 0.5rem; flex: 1;">
+        <input type="hidden" name="category" id="searchCategory" value="{{ $selectedCategory }}">
         <div class="search-box" style="max-width: 320px; position: relative;">
             <span class="search-icon">🔍</span>
             <input type="text" name="q" class="search-input" placeholder="Search tools..." id="searchInput" value="{{ $searchQuery }}" autocomplete="off">
-            @if(!empty($searchQuery))
-            <a href="{{ route('tools', ['category' => $selectedCategory]) }}" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 18px; text-decoration: none;">×</a>
-            @endif
+            <a href="javascript:void(0)" id="clearSearchBtn" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 16px; text-decoration: none; display: {{ empty($searchQuery) ? 'none' : 'flex' }}; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 50%; background: var(--border-color); transition: all 0.2s;" title="Clear search" onmouseover="this.style.background='var(--text-muted)'; this.style.color='var(--bg-primary)'" onmouseout="this.style.background='var(--border-color)'; this.style.color='var(--text-muted)'">×</a>
         </div>
-        <button type="submit" class="btn-card-action" style="display: inline-block; padding: 11px 16px; background: var(--accent-primary); color: white; border-radius: var(--radius-md); font-size: 14px; font-weight: 600; border: none; cursor: pointer; white-space: nowrap; height: 44px;">Search</button>
+        <button type="button" onclick="performSearch()" class="btn-card-action" style="display: inline-block; padding: 11px 16px; background: var(--accent-primary); color: white; border-radius: var(--radius-md); font-size: 14px; font-weight: 600; border: none; cursor: pointer; white-space: nowrap; height: 44px;">Search</button>
     </form>
     
-    <form method="GET" action="{{ route('tools') }}" id="filterForm" style="display: flex; align-items: center; gap: 0.5rem;">
+    <form onsubmit="return false;" id="filterForm" style="display: flex; align-items: center; gap: 0.5rem;">
         <div style="position: relative; display: flex; align-items: center;">
             <i class="fas fa-filter" style="position: absolute; left: 12px; color: var(--accent-primary); font-size: 12px; z-index: 1;"></i>
-            <select name="category" onchange="document.getElementById('filterForm').submit();" autocomplete="off" style="padding: 11px 36px 11px 32px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); color: var(--text-primary); font-size: 13px; font-weight: 500; cursor: pointer; appearance: none; -webkit-appearance: none; min-width: 160px; height: 44px;">
+            <select name="category" id="categorySelect" autocomplete="off" onchange="performFilter()" style="padding: 11px 36px 11px 32px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); color: var(--text-primary); font-size: 13px; font-weight: 500; cursor: pointer; appearance: none; -webkit-appearance: none; min-width: 160px; height: 44px;">
                 <option value="" {{ empty($selectedCategory) ? 'selected' : '' }}>All Categories</option>
                 @foreach($categories as $cat)
                 @php
@@ -57,9 +56,9 @@ $perPage = $perPage ?? 10;
         </div>
     </form>
     
-    <a href="{{ route('tools') }}" onclick="this.classList.add('loading'); setTimeout(function(){ window.location.href = '{{ route('tools') }}'; }, 50); return false;" style="background: var(--bg-card); border: 1px solid var(--border-color); padding: 10px 14px; border-radius: var(--radius-md); cursor: pointer; display: flex; align-items: center; justify-content: center; text-decoration: none; height: 44px;" title="Refresh">
-        <i class="fas fa-sync-alt" style="color: var(--accent-primary);"></i>
-    </a>
+    <button onclick="loadTools(1)" class="refresh-btn" title="Refresh" id="refreshBtn">
+        <i class="fas fa-sync-alt"></i>
+    </button>
 </div>
 
 <!-- Tools Table -->
@@ -99,7 +98,7 @@ $perPage = $perPage ?? 10;
                     </div>
                 </div>
                 @empty
-                <div style="padding: 3rem 1rem; text-align: center; color: var(--text-muted);">
+                <div style="text-align: center; padding: 3rem 1rem; color: var(--text-muted);">
                     <i class="fas fa-search" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.3;"></i>
                     <p style="font-size: 16px; font-weight: 500; margin-bottom: 0.5rem;">No tools found</p>
                     <p style="font-size: 14px;">Try selecting a different category or clear the filter</p>
@@ -109,14 +108,14 @@ $perPage = $perPage ?? 10;
         </div>
     </div>
     
-    @if($totalPages > 1)
-    <div class="pagination">
+    <div id="toolsPagination" class="pagination" style="{{ $totalPages <= 1 ? 'display: none;' : '' }}">
+        @if($totalPages > 1)
         <div class="pagination-info">
             Showing {{ ($currentPage - 1) * $perPage + 1 }} to {{ min($currentPage * $perPage, $totalTools) }} of {{ $totalTools }} tools
         </div>
         <div class="pagination-buttons">
             @if($currentPage > 1)
-            <a href="{{ route('tools') }}?page={{ $currentPage - 1 }}&q={{ urlencode($searchQuery) }}&category={{ urlencode($selectedCategory) }}" class="page-btn">
+            <a href="javascript:void(0)" onclick="loadTools({{ $currentPage - 1 }})" class="page-btn">
                 <i class="fas fa-chevron-left"></i> Previous
             </a>
             @else
@@ -130,7 +129,7 @@ $perPage = $perPage ?? 10;
             @endphp
             
             @if($start > 1)
-                <a href="{{ route('tools') }}?page=1&q={{ urlencode($searchQuery) }}&category={{ urlencode($selectedCategory) }}" class="page-btn">1</a>
+                <a href="javascript:void(0)" onclick="loadTools(1)" class="page-btn">1</a>
                 @if($start > 2)<span style="padding: 0 4px; color: var(--text-muted);">...</span>@endif
             @endif
             
@@ -138,39 +137,162 @@ $perPage = $perPage ?? 10;
                 @if($i == $currentPage)
                 <span class="page-btn active">{{ $i }}</span>
                 @else
-                <a href="{{ route('tools') }}?page={{ $i }}&q={{ urlencode($searchQuery) }}&category={{ urlencode($selectedCategory) }}" class="page-btn">{{ $i }}</a>
+                <a href="javascript:void(0)" onclick="loadTools({{ $i }})" class="page-btn">{{ $i }}</a>
                 @endif
             @endfor
             
             @if($end < $totalPages)
                 @if($end < $totalPages - 1)<span style="padding: 0 4px; color: var(--text-muted);">...</span>@endif
-                <a href="{{ route('tools') }}?page={{ $totalPages }}&q={{ urlencode($searchQuery) }}&category={{ urlencode($selectedCategory) }}" class="page-btn">{{ $totalPages }}</a>
+                <a href="javascript:void(0)" onclick="loadTools({{ $totalPages }})" class="page-btn">{{ $totalPages }}</a>
             @endif
             
             @if($currentPage < $totalPages)
-            <a href="{{ route('tools') }}?page={{ $currentPage + 1 }}&q={{ urlencode($searchQuery) }}&category={{ urlencode($selectedCategory) }}" class="page-btn">
+            <a href="javascript:void(0)" onclick="loadTools({{ $currentPage + 1 }})" class="page-btn">
                 Next <i class="fas fa-chevron-right"></i>
             </a>
             @else
             <span class="page-btn disabled">Next <i class="fas fa-chevron-right"></i></span>
             @endif
         </div>
+        @endif
     </div>
-    @endif
 </div>
 @endsection
 
 @section('scripts')
 <script>
+var csrfToken = '{{ $csrf }}';
+var currentSearch = '{{ $searchQuery }}';
+var currentCategory = '{{ $selectedCategory }}';
+
+function loadTools(page) {
+    var tbody = document.getElementById('toolsTableBody');
+    var pagination = document.getElementById('toolsPagination');
+    var countBadge = document.getElementById('toolsCount');
+    var refreshBtn = document.getElementById('refreshBtn');
+    
+    // Show loading
+    tbody.innerHTML = '<div class="tools-loading"><i class="fas fa-spinner"></i></div>';
+    
+    // Add loading state to refresh button
+    if (refreshBtn) {
+        refreshBtn.classList.add('loading');
+    }
+    
+    // Build URL with params
+    var url = '/tools/fetch?page=' + page;
+    if (currentSearch) {
+        url += '&q=' + encodeURIComponent(currentSearch);
+    }
+    if (currentCategory) {
+        url += '&category=' + encodeURIComponent(currentCategory);
+    }
+    
+    // Fetch data
+    fetch(url, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'X-CSRF-TOKEN': csrfToken
+        }
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+        if (data.success) {
+            tbody.innerHTML = data.html;
+            countBadge.textContent = data.totalTools + ' Tools';
+            currentSearch = data.searchQuery;
+            currentCategory = data.selectedCategory;
+            
+            // Update search input and clear button visibility
+            var searchInput = document.getElementById('searchInput');
+            var clearBtn = document.getElementById('clearSearchBtn');
+            var hasSearch = currentSearch && currentSearch.length > 0;
+            if (searchInput) {
+                searchInput.value = data.searchQuery;
+            }
+            if (clearBtn) {
+                clearBtn.style.display = hasSearch ? 'flex' : 'none';
+            }
+            
+            // Update category select
+            var categorySelect = document.getElementById('categorySelect');
+            if (categorySelect) {
+                categorySelect.value = data.selectedCategory;
+            }
+            
+            // Update pagination
+            if (data.totalPages > 1) {
+                pagination.style.display = 'flex';
+                pagination.innerHTML = data.pagination;
+            } else {
+                pagination.style.display = 'none';
+            }
+        } else {
+            tbody.innerHTML = '<div style="text-align: center; padding: 3rem; color: var(--text-secondary);"><i class="fas fa-exclamation-triangle" style="font-size: 2rem; margin-bottom: 0.5rem;"></i><p>Error loading tools</p></div>';
+        }
+        
+        // Remove loading state
+        if (refreshBtn) {
+            refreshBtn.classList.remove('loading');
+        }
+    })
+    .catch(function(err) {
+        console.error('Error:', err);
+        tbody.innerHTML = '<div style="text-align: center; padding: 3rem; color: var(--text-secondary);"><i class="fas fa-exclamation-triangle" style="font-size: 2rem; margin-bottom: 0.5rem;"></i><p>Network error. Please try again.</p></div>';
+        if (refreshBtn) {
+            refreshBtn.classList.remove('loading');
+        }
+    });
+}
+
+function performSearch() {
+    var searchInput = document.getElementById('searchInput');
+    currentSearch = searchInput.value;
+    loadTools(1);
+}
+
+function performFilter() {
+    var categorySelect = document.getElementById('categorySelect');
+    currentCategory = categorySelect.value;
+    loadTools(1);
+}
+
+function clearSearch() {
+    currentSearch = '';
+    var searchInput = document.getElementById('searchInput');
+    if (searchInput) {
+        searchInput.value = '';
+    }
+    loadTools(1);
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     // Auto-submit search on Enter
     var searchInput = document.getElementById('searchInput');
+    var clearBtn = document.getElementById('clearSearchBtn');
+    
     if (searchInput) {
         searchInput.addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 e.preventDefault();
-                document.getElementById('searchForm').submit();
+                performSearch();
             }
+        });
+        
+        // Show/hide clear button as user types
+        searchInput.addEventListener('input', function() {
+            if (clearBtn) {
+                clearBtn.style.display = searchInput.value.length > 0 ? 'flex' : 'none';
+            }
+        });
+    }
+    
+    // Clear button click handler
+    if (clearBtn) {
+        clearBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            clearSearch();
         });
     }
 });

@@ -73,11 +73,14 @@ class DashboardController extends Controller
             $user = $request->user();
             $user->api_key = $validated['api_key'];
             $user->api_key_updated_at = now();
+            if (!$user->api_key_created_at) {
+                $user->api_key_created_at = now();
+            }
             $user->save();
 
             ActivityLogger::apiKeySaved($user);
 
-            return response()->json(['status' => 'API key saved successfully.']);
+            return response()->json(['success' => true, 'message' => 'API key saved successfully.']);
         } catch (Exception $e) {
             $statusCode = method_exists($e, 'status') ? $e->status() : 500;
             return response()->json([
@@ -97,7 +100,7 @@ class DashboardController extends Controller
 
             ActivityLogger::apiKeyDeleted($user);
 
-            return response()->json(['status' => 'API key deleted successfully.']);
+            return response()->json(['success' => true, 'message' => 'API key deleted successfully.']);
         } catch (Exception $e) {
             return response()->json([
                 'status' => 'error',

@@ -3,9 +3,13 @@
 @section('title', 'Activity - ServerAvatar MCP')
 @section('breadcrumb', 'Activity')
 
+@php
+$csrf = csrf_token();
+@endphp
+
 @section('styles')
-.refresh-btn.loading .fa-sync-alt { animation: spin 0.6s linear infinite; }
-@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+.activity-loading { display: flex; align-items: center; justify-content: center; min-height: 150px; color: var(--text-secondary); }
+.activity-loading i { font-size: 1.5rem; animation: spin 0.8s linear infinite; }
 @endsection
 
 @section('content')
@@ -16,9 +20,9 @@
         <p class="page-subtitle">Track all MCP events and account changes</p>
     </div>
     <div style="display: flex; gap: 0.5rem;">
-        <a href="{{ route('activity') }}" onclick="this.classList.add('loading'); setTimeout(function(){ window.location.href = '{{ route('activity') }}'; }, 50); return false;" class="refresh-btn" title="Refresh" style="margin-top: 0.25rem;">
+        <button onclick="loadActivities(1)" class="refresh-btn" title="Refresh" id="refreshBtn">
             <i class="fas fa-sync-alt"></i>
-        </a>
+        </button>
     </div>
 </div>
 
@@ -32,8 +36,8 @@
         <div class="activity-th" style="flex: 1;">TIME</div>
     </div>
     
-    @if($activities->count() > 0)
-    <div class="activity-table-body">
+    <div class="activity-table-body" id="activityTableBody">
+        @if($activities->count() > 0)
         @foreach($activities as $activity)
         <div class="activity-tr">
             <div class="activity-td" style="flex: 1;">
@@ -56,16 +60,22 @@
             </div>
         </div>
         @endforeach
+        @else
+        <div style="text-align: center; padding: 3rem; color: var(--text-secondary);">
+            <i class="fas fa-clock" style="font-size: 2rem; color: var(--accent-primary); margin-bottom: 0.5rem;"></i>
+            <p style="font-size: 0.9rem;">No activity recorded yet.</p>
+        </div>
+        @endif
     </div>
     
-    @if($totalPages > 1)
-    <div class="pagination">
+    <div id="activityPagination" class="pagination" style="{{ $totalPages <= 1 ? 'display: none;' : '' }}">
+        @if($totalPages > 1)
         <div class="pagination-info">
             Showing {{ ($currentPage - 1) * $perPage + 1 }} to {{ min($currentPage * $perPage, $totalActivities) }} of {{ $totalActivities }} activities
         </div>
         <div class="pagination-buttons">
             @if($currentPage > 1)
-            <a href="{{ route('activity') }}?page={{ $currentPage - 1 }}" class="page-btn">
+            <a href="javascript:void(0)" onclick="loadActivities({{ $currentPage - 1 }})" class="page-btn">
                 <i class="fas fa-chevron-left"></i> Previous
             </a>
             @else
@@ -79,7 +89,7 @@
             @endphp
             
             @if($start > 1)
-                <a href="{{ route('activity') }}?page=1" class="page-btn">1</a>
+                <a href="javascript:void(0)" onclick="loadActivities(1)" class="page-btn">1</a>
                 @if($start > 2)<span style="padding: 0 4px; color: var(--text-muted);">...</span>@endif
             @endif
             
@@ -87,32 +97,25 @@
                 @if($i == $currentPage)
                 <span class="page-btn active">{{ $i }}</span>
                 @else
-                <a href="{{ route('activity') }}?page={{ $i }}" class="page-btn">{{ $i }}</a>
+                <a href="javascript:void(0)" onclick="loadActivities({{ $i }})" class="page-btn">{{ $i }}</a>
                 @endif
             @endfor
             
             @if($end < $totalPages)
                 @if($end < $totalPages - 1)<span style="padding: 0 4px; color: var(--text-muted);">...</span>@endif
-                <a href="{{ route('activity') }}?page={{ $totalPages }}" class="page-btn">{{ $totalPages }}</a>
+                <a href="javascript:void(0)" onclick="loadActivities({{ $totalPages }})" class="page-btn">{{ $totalPages }}</a>
             @endif
             
             @if($currentPage < $totalPages)
-            <a href="{{ route('activity') }}?page={{ $currentPage + 1 }}" class="page-btn">
+            <a href="javascript:void(0)" onclick="loadActivities({{ $currentPage + 1 }})" class="page-btn">
                 Next <i class="fas fa-chevron-right"></i>
             </a>
             @else
             <span class="page-btn disabled">Next <i class="fas fa-chevron-right"></i></span>
             @endif
         </div>
+        @endif
     </div>
-    @endif
-    
-    @else
-    <div style="text-align: center; padding: 3rem; color: var(--text-secondary);">
-        <i class="fas fa-clock" style="font-size: 2rem; color: var(--accent-primary); margin-bottom: 0.5rem;"></i>
-        <p style="font-size: 0.9rem;">No activity recorded yet.</p>
-    </div>
-    @endif
 </div>
 
 <style>
@@ -134,4 +137,66 @@
 .badge-danger { background: rgba(249, 115, 22, 0.15); color: #f97316; }
 .badge-secondary { background: rgba(148, 163, 184, 0.15); color: #64748b; }
 </style>
+@endsection
+
+@section('scripts')
+<script>
+var csrfToken = '{{ $csrf }}';
+var currentPage = {{ $currentPage }};
+
+function loadActivities(page) {
+    var tbody = document.getElementById('activityTableBody');
+    var pagination = document.getElementById('activityPagination');
+    var refreshBtn = document.getElementById('refreshBtn');
+    
+    // Show loading
+    tbody.innerHTML = '<div class="activity-loading"><i class="fas fa-spinner"></i></div>';
+    
+    // Add loading state to refresh button
+    if (refreshBtn) {
+        refreshBtn.classList.add('loading');
+    }
+    
+    // Fetch data
+    fetch('/activity/fetch?page=' + page, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'X-CSRF-TOKEN': csrfToken
+        }
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+        if (data.success) {
+            tbody.innerHTML = data.html || '<div style="text-align: center; padding: 3rem; color: var(--text-secondary);"><i class="fas fa-clock" style="font-size: 2rem; color: var(--accent-primary); margin-bottom: 0.5rem;"></i><p style="font-size: 0.9rem;">No activity recorded yet.</p></div>';
+            
+            // Update pagination
+            if (data.totalPages > 1) {
+                pagination.style.display = 'flex';
+                pagination.innerHTML = '<div class="pagination-info">' +
+                    'Showing ' + ((data.currentPage - 1) * 10 + 1) + ' to ' + Math.min(data.currentPage * 10, data.totalActivities) + ' of ' + data.totalActivities + ' activities' +
+                    '</div><div class="pagination-buttons">' + data.pagination + '</div>';
+            } else {
+                pagination.style.display = 'none';
+            }
+            
+            currentPage = data.currentPage;
+        } else {
+            tbody.innerHTML = '<div style="text-align: center; padding: 3rem; color: var(--text-secondary);"><i class="fas fa-exclamation-triangle" style="font-size: 2rem; margin-bottom: 0.5rem;"></i><p>Error loading activities</p></div>';
+        }
+        
+        // Remove loading state
+        if (refreshBtn) {
+            refreshBtn.classList.remove('loading');
+        }
+    })
+    .catch(function(err) {
+        console.error('Error:', err);
+        tbody.innerHTML = '<div style="text-align: center; padding: 3rem; color: var(--text-secondary);"><i class="fas fa-exclamation-triangle" style="font-size: 2rem; margin-bottom: 0.5rem;"></i><p>Network error. Please try again.</p></div>';
+        if (refreshBtn) {
+            refreshBtn.classList.remove('loading');
+        }
+    });
+}
+</script>
 @endsection

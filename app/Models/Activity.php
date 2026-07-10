@@ -27,6 +27,8 @@ class Activity extends Model
     const TYPE_TOOL_EXECUTED = 'tool_executed';
     const TYPE_API_KEY_SAVED = 'api_key_saved';
     const TYPE_API_KEY_DELETED = 'api_key_deleted';
+    const TYPE_PROFILE_UPDATED = 'profile_updated';
+    const TYPE_PASSWORD_CHANGED = 'password_changed';
     const TYPE_SETTINGS_UPDATED = 'settings_updated';
 
     public function user(): BelongsTo
@@ -52,6 +54,8 @@ class Activity extends Model
             self::TYPE_TOOL_EXECUTED => '🔧',
             self::TYPE_API_KEY_SAVED => '🔑',
             self::TYPE_API_KEY_DELETED => '🗑️',
+            self::TYPE_PROFILE_UPDATED => '👤',
+            self::TYPE_PASSWORD_CHANGED => '🔐',
             self::TYPE_SETTINGS_UPDATED => '⚙️',
             default => '📌',
         };
@@ -64,7 +68,10 @@ class Activity extends Model
             self::TYPE_TOOL_EXECUTED => 'info',
             self::TYPE_API_KEY_SAVED => 'success',
             self::TYPE_CLIENT_DISCONNECTED => 'warning',
-            self::TYPE_API_KEY_DELETED, self::TYPE_SETTINGS_UPDATED => 'danger',
+            self::TYPE_API_KEY_DELETED => 'danger',
+            self::TYPE_PROFILE_UPDATED => 'success',
+            self::TYPE_PASSWORD_CHANGED => 'warning',
+            self::TYPE_SETTINGS_UPDATED => 'danger',
             default => 'secondary',
         };
     }

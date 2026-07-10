@@ -234,11 +234,13 @@ $updatedAt = $user->updated_at ? date('F d, Y', strtotime($user->updated_at)) : 
                 <div class="card-desc">Update your password to keep your account secure</div>
             </div>
         </div>
-        <div class="pword-grid">
+        
+        <!-- Password Fields Row -->
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 1.5rem;">
             <div>
                 <label class="form-label">Current Password <span style="color: #ef4444;">*</span></label>
                 <div class="field-wrap">
-                    <input type="password" id="current_password" class="field-input" placeholder="Current password" style="padding-left: 0.875rem;">
+                    <input type="password" id="current_password" class="field-input" placeholder="Enter current password" style="padding-left: 0.875rem;">
                     <button type="button" class="eye-btn" onclick="togglePwd('current_password')">
                         <i class="fas fa-eye" id="current_password_eye"></i>
                     </button>
@@ -247,29 +249,68 @@ $updatedAt = $user->updated_at ? date('F d, Y', strtotime($user->updated_at)) : 
             <div>
                 <label class="form-label">New Password <span style="color: #ef4444;">*</span></label>
                 <div class="field-wrap">
-                    <input type="password" id="new_password" class="field-input" placeholder="New password" oninput="checkStrength()" style="padding-left: 0.875rem;">
+                    <input type="password" id="new_password" class="field-input" placeholder="Enter new password" oninput="checkStrength(); checkRequirements();" style="padding-left: 0.875rem;">
                     <button type="button" class="eye-btn" onclick="togglePwd('new_password')">
                         <i class="fas fa-eye" id="new_password_eye"></i>
                     </button>
                 </div>
-                <div class="strength-bar-wrap">
-                    <div class="strength-segment" id="seg1"></div>
-                    <div class="strength-segment" id="seg2"></div>
-                    <div class="strength-segment" id="seg3"></div>
-                    <span class="strength-text" id="strengthText"></span>
+                <!-- Strength Indicator -->
+                <div style="display: flex; align-items: center; gap: 6px; margin-top: 8px;">
+                    <div style="display: flex; gap: 3px;">
+                        <div id="seg1" style="width: 40px; height: 4px; background: var(--border-color); border-radius: 2px; transition: all 0.3s;"></div>
+                        <div id="seg2" style="width: 40px; height: 4px; background: var(--border-color); border-radius: 2px; transition: all 0.3s;"></div>
+                        <div id="seg3" style="width: 40px; height: 4px; background: var(--border-color); border-radius: 2px; transition: all 0.3s;"></div>
+                        <div id="seg4" style="width: 40px; height: 4px; background: var(--border-color); border-radius: 2px; transition: all 0.3s;"></div>
+                    </div>
+                    <span id="strengthText" style="font-size: 0.7rem; font-weight: 600; color: var(--text-muted);"></span>
                 </div>
             </div>
             <div>
                 <label class="form-label">Confirm Password <span style="color: #ef4444;">*</span></label>
                 <div class="field-wrap">
-                    <input type="password" id="confirm_password" class="field-input" placeholder="Confirm password" style="padding-left: 0.875rem;">
+                    <input type="password" id="confirm_password" class="field-input" placeholder="Confirm new password" oninput="checkPwordFields(); checkPasswordMatch();" style="padding-left: 0.875rem;">
                     <button type="button" class="eye-btn" onclick="togglePwd('confirm_password')">
                         <i class="fas fa-eye" id="confirm_password_eye"></i>
                     </button>
                 </div>
+                <div id="matchError" style="display: none; align-items: center; gap: 6px; margin-top: 6px; color: #ef4444; font-size: 0.75rem;">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <span>Passwords do not match</span>
+                </div>
             </div>
         </div>
-        <div style="display: flex; justify-content: flex-end; margin-top: 1.25rem;">
+        
+        <!-- Password Requirements -->
+        <div id="passwordRequirements" style="background: rgba(124,92,252,0.1); border: 1px solid rgba(124,92,252,0.2); border-radius: 8px; padding: 12px 16px; margin-bottom: 1rem;">
+            <div style="font-size: 0.75rem; font-weight: 600; color: #7c3aed; margin-bottom: 8px;">Password requirements:</div>
+            <div style="display: flex; flex-wrap: wrap; gap: 6px 16px;">
+                <div id="req_length" style="display: flex; align-items: center; gap: 6px;">
+                    <i class="fas fa-circle" style="font-size: 6px; color: var(--text-muted);"></i>
+                    <span style="font-size: 0.75rem; color: var(--text-secondary);">At least 8 characters</span>
+                </div>
+                <div id="req_uppercase" style="display: flex; align-items: center; gap: 6px;">
+                    <i class="fas fa-circle" style="font-size: 6px; color: var(--text-muted);"></i>
+                    <span style="font-size: 0.75rem; color: var(--text-secondary);">One uppercase letter</span>
+                </div>
+                <div id="req_lowercase" style="display: flex; align-items: center; gap: 6px;">
+                    <i class="fas fa-circle" style="font-size: 6px; color: var(--text-muted);"></i>
+                    <span style="font-size: 0.75rem; color: var(--text-secondary);">One lowercase letter</span>
+                </div>
+                <div id="req_number" style="display: flex; align-items: center; gap: 6px;">
+                    <i class="fas fa-circle" style="font-size: 6px; color: var(--text-muted);"></i>
+                    <span style="font-size: 0.75rem; color: var(--text-secondary);">One number</span>
+                </div>
+                <div id="req_special" style="display: flex; align-items: center; gap: 6px;">
+                    <i class="fas fa-circle" style="font-size: 6px; color: var(--text-muted);"></i>
+                    <span style="font-size: 0.75rem; color: var(--text-secondary);">One special character</span>
+                </div>
+            </div>
+        </div>
+        
+        <div style="display: flex; justify-content: flex-end; gap: 0.75rem;">
+            <button type="button" class="btn btn-outline" onclick="resetPasswordFields()">
+                Cancel
+            </button>
             <button type="button" class="btn btn-primary" id="updatePasswordBtn" onclick="updatePassword()" disabled>
                 Update Password
             </button>
@@ -312,19 +353,23 @@ $updatedAt = $user->updated_at ? date('F d, Y', strtotime($user->updated_at)) : 
                     <!-- Created -->
                     <div>
                         <div style="font-size: 0.7rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.25rem;">Created</div>
-                        <div style="font-size: 0.875rem; color: var(--text-primary);">{{ $createdAt }}</div>
+                        <div style="font-size: 0.875rem; color: var(--text-primary);">{{ $userApiKey ? ($user->api_key_created_at ? date('F d, Y', strtotime($user->api_key_created_at)) : '-') : '-' }}</div>
                     </div>
                     <!-- Divider -->
                     <div style="width: 1px; height: 36px; background: var(--border-color);"></div>
                     <!-- Last Updated -->
                     <div>
                         <div style="font-size: 0.7rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.25rem;">Last Updated</div>
-                        <div style="font-size: 0.875rem; color: var(--text-primary);">{{ $updatedAt }}</div>
+                        <div style="font-size: 0.875rem; color: var(--text-primary);">{{ $userApiKey ? ($user->api_key_updated_at ? date('F d, Y', strtotime($user->api_key_updated_at)) : '-') : '-' }}</div>
                     </div>
                 </div>
-                <!-- Right: Update API Key Button -->
-                <button type="button" class="btn-sm" onclick="openApiKeyModal()" style="border: 1px solid #7c3aed; color: #7c3aed; white-space: nowrap;">
-                    <i class="fas fa-edit"></i> Update API Key
+                <!-- Right: API Key Button -->
+                <button type="button" class="btn-sm" onclick="openApiKeyModal()" style="border: 1px solid #7c3aed; color: white; background: #7c3aed; white-space: nowrap;">
+                    @if($userApiKey)
+                        <i class="fas fa-edit"></i> Update API Key
+                    @else
+                        <i class="fas fa-plus"></i> Add API Key
+                    @endif
                 </button>
             </div>
         </div>
@@ -449,7 +494,7 @@ function saveProfile() {
     var token = document.querySelector('input[name="_token"]').value;
     if (!name) { showToast('Please enter your name', true); return; }
     btn.disabled = true;
-    btn.textContent = 'Saving...';
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin" style="font-size: 0.875rem;"></i> Saving...';
     fetch('/api/profile', {
         method: 'PATCH',
         body: JSON.stringify({ name: name }),
@@ -460,7 +505,8 @@ function saveProfile() {
         if (d.success) { showToast('Profile updated successfully!'); }
         else { showToast(d.error || 'Failed to update profile', true); }
         btn.disabled = false;
-        btn.textContent = 'Save Changes';
+        btn.innerHTML = '<i class="fas fa-check" style="font-size: 0.875rem;"></i> Saved';
+        setTimeout(function() { btn.innerHTML = 'Save Changes'; }, 1500);
     })
     .catch(function() { showToast('Network error', true); btn.disabled = false; btn.textContent = 'Save Changes'; });
 }
@@ -479,6 +525,7 @@ function checkStrength() {
     var seg1 = document.getElementById('seg1');
     var seg2 = document.getElementById('seg2');
     var seg3 = document.getElementById('seg3');
+    var seg4 = document.getElementById('seg4');
     var text = document.getElementById('strengthText');
     var strength = 0;
     if (pw.length >= 8) strength++;
@@ -486,36 +533,138 @@ function checkStrength() {
     if (/[a-z]/.test(pw)) strength++;
     if (/[0-9]/.test(pw)) strength++;
     if (/[@$!%*?&]/.test(pw)) strength++;
+    
     // Reset
-    seg1.className = 'strength-segment';
-    seg2.className = 'strength-segment';
-    seg3.className = 'strength-segment';
-    text.className = 'strength-text';
+    seg1.style.background = 'var(--border-color)';
+    seg2.style.background = 'var(--border-color)';
+    seg3.style.background = 'var(--border-color)';
+    seg4.style.background = 'var(--border-color)';
+    text.style.color = 'var(--text-muted)';
+    
     if (pw.length === 0) { text.textContent = ''; return; }
+    
     if (strength <= 2) {
-        seg1.classList.add('active', 'weak');
-        text.textContent = 'Weak password';
-        text.classList.add('weak');
+        seg1.style.background = '#ef4444';
+        text.textContent = 'Weak';
+        text.style.color = '#ef4444';
     } else if (strength <= 3) {
-        seg1.classList.add('active', 'moderate');
-        seg2.classList.add('active', 'moderate');
-        text.textContent = 'Moderate password';
-        text.classList.add('moderate');
+        seg1.style.background = '#f59e0b';
+        seg2.style.background = '#f59e0b';
+        text.textContent = 'Medium';
+        text.style.color = '#f59e0b';
+    } else if (strength === 4) {
+        seg1.style.background = '#22c55e';
+        seg2.style.background = '#22c55e';
+        seg3.style.background = '#22c55e';
+        text.textContent = 'Strong';
+        text.style.color = '#22c55e';
     } else {
-        seg1.classList.add('active', 'strong');
-        seg2.classList.add('active', 'strong');
-        seg3.classList.add('active', 'strong');
-        text.textContent = 'Strong password';
-        text.classList.add('strong');
+        seg1.style.background = '#22c55e';
+        seg2.style.background = '#22c55e';
+        seg3.style.background = '#22c55e';
+        seg4.style.background = '#22c55e';
+        text.textContent = 'Very Strong';
+        text.style.color = '#22c55e';
     }
+}
+
+// Password requirements check
+function checkRequirements() {
+    var pw = document.getElementById('new_password').value;
+    
+    var checks = {
+        'req_length': pw.length >= 8,
+        'req_uppercase': /[A-Z]/.test(pw),
+        'req_lowercase': /[a-z]/.test(pw),
+        'req_number': /[0-9]/.test(pw),
+        'req_special': /[@$!%*?&]/.test(pw)
+    };
+    
+    for (var id in checks) {
+        var item = document.getElementById(id);
+        var icon = item.querySelector('i');
+        var text = item.querySelector('span');
+        
+        if (checks[id]) {
+            icon.className = 'fas fa-check-circle';
+            icon.style.color = '#22c55e';
+            icon.style.fontSize = '10px';
+            text.style.color = '#22c55e';
+        } else {
+            icon.className = 'fas fa-circle';
+            icon.style.color = 'var(--text-muted)';
+            icon.style.fontSize = '6px';
+            text.style.color = 'var(--text-secondary)';
+        }
+    }
+    
+    // Update button state and check password match
+    checkPwordFields();
+    checkPasswordMatch();
+}
+
+// Check password match
+function checkPasswordMatch() {
+    var newPass = document.getElementById('new_password').value;
+    var confirmPass = document.getElementById('confirm_password').value;
+    var matchError = document.getElementById('matchError');
+    
+    if (confirmPass.length > 0 && newPass !== confirmPass) {
+        matchError.style.display = 'flex';
+        document.getElementById('confirm_password').style.borderColor = '#ef4444';
+    } else {
+        matchError.style.display = 'none';
+        document.getElementById('confirm_password').style.borderColor = '';
+    }
+}
+
+// Reset password fields
+function resetPasswordFields() {
+    document.getElementById('current_password').value = '';
+    document.getElementById('new_password').value = '';
+    document.getElementById('confirm_password').value = '';
+    
+    // Reset strength bar
+    var segs = ['seg1', 'seg2', 'seg3', 'seg4'];
+    for (var i = 0; i < segs.length; i++) {
+        document.getElementById(segs[i]).style.background = 'var(--border-color)';
+    }
+    document.getElementById('strengthText').textContent = '';
+    
+    // Reset requirements
+    var reqIds = ['req_length', 'req_uppercase', 'req_lowercase', 'req_number', 'req_special'];
+    for (var j = 0; j < reqIds.length; j++) {
+        var item = document.getElementById(reqIds[j]);
+        var icon = item.querySelector('i');
+        var text = item.querySelector('span');
+        icon.className = 'fas fa-circle';
+        icon.style.color = 'var(--text-muted)';
+        icon.style.fontSize = '6px';
+        text.style.color = 'var(--text-secondary)';
+    }
+    
+    // Reset button
+    document.getElementById('updatePasswordBtn').disabled = true;
 }
 
 // Password validation
 function checkPwordFields() {
     var curr = document.getElementById('current_password').value.trim();
-    var pass = document.getElementById('new_password').value.trim();
+    var pass = document.getElementById('new_password').value;
     var conf = document.getElementById('confirm_password').value.trim();
-    document.getElementById('updatePasswordBtn').disabled = !(curr && pass && conf);
+    
+    // Check all password requirements
+    var allReqsMet = pass.length >= 8 &&
+                     /[A-Z]/.test(pass) &&
+                     /[a-z]/.test(pass) &&
+                     /[0-9]/.test(pass) &&
+                     /[@$!%*?&]/.test(pass);
+    
+    // Enable button if requirements met and current password filled
+    // Password match error will be shown separately
+    var canUpdate = curr.length > 0 && allReqsMet;
+    
+    document.getElementById('updatePasswordBtn').disabled = !canUpdate;
 }
 document.getElementById('current_password').addEventListener('input', checkPwordFields);
 document.getElementById('new_password').addEventListener('input', checkPwordFields);
@@ -537,7 +686,7 @@ function updatePassword() {
     var pass = document.getElementById('new_password').value;
     var conf = document.getElementById('confirm_password').value;
     btn.disabled = true;
-    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Updating...';
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin" style="font-size: 0.875rem;"></i> Updating...';
     fetch('/api/profile/password', {
         method: 'PATCH',
         body: JSON.stringify({ current_password: curr, password: pass, password_confirmation: conf }),
@@ -552,16 +701,18 @@ function updatePassword() {
             document.getElementById('confirm_password').value = '';
             checkPwordFields();
             checkStrength();
+            btn.innerHTML = '<i class="fas fa-check" style="font-size: 0.875rem;"></i> Updated';
+            setTimeout(function() { btn.innerHTML = 'Update Password'; btn.disabled = true; }, 1500);
         } else {
             var err = 'Failed to update password';
             if (result.data && result.data.errors) { for (var k in result.data.errors) { err = result.data.errors[k][0]; break; } }
             else if (result.data && result.data.error) { err = result.data.error; }
             showToast(err, true);
+            btn.disabled = false;
+            btn.innerHTML = 'Update Password';
         }
-        btn.disabled = false;
-        btn.textContent = 'Update Password';
     })
-    .catch(function() { showToast('Network error', true); btn.disabled = false; btn.textContent = 'Update Password'; });
+    .catch(function() { showToast('Network error', true); btn.disabled = false; btn.innerHTML = 'Update Password'; });
 }
 
 // Copy API Key
@@ -612,8 +763,9 @@ document.getElementById('apiKeyForm').addEventListener('submit', function(e) {
     var form = this;
     var fd = new FormData(form);
     var btn = form.querySelector('.btn-save');
+    var originalText = btn.textContent;
     btn.disabled = true;
-    btn.textContent = 'Saving...';
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
     fetch('{{ route('dashboard.api-key') }}', {
         method: 'POST',
         body: fd,
@@ -621,10 +773,18 @@ document.getElementById('apiKeyForm').addEventListener('submit', function(e) {
     })
     .then(function(r) { return r.json(); })
     .then(function(d) {
-        if (d.success || d.status || d.message) { closeApiKeyModal(); showToast('API Key updated!'); setTimeout(function() { location.reload(); }, 1500); }
-        else { showToast(d.error || 'Error', true); btn.disabled = false; btn.textContent = '{{ $userApiKey ? 'Update API Key' : 'Add API Key' }}'; }
+        if (d.success || d.status === true || (d.status && d.status !== 'error' && d.status !== 'failed')) { 
+            closeApiKeyModal(); 
+            showToast(d.status && d.status !== true ? d.status : 'API Key updated!'); 
+            btn.innerHTML = '<i class="fas fa-check"></i> Saved';
+            setTimeout(function() { location.reload(); }, 1500); 
+        } else { 
+            showToast(d.message || d.error || 'Failed to save API key', true); 
+            btn.disabled = false; 
+            btn.innerHTML = originalText; 
+        }
     })
-    .catch(function() { showToast('Network error', true); btn.disabled = false; btn.textContent = '{{ $userApiKey ? 'Update API Key' : 'Add API Key' }}'; });
+    .catch(function() { showToast('Network error', true); btn.disabled = false; btn.innerHTML = originalText; });
 });
 
 // Delete Modal
@@ -635,17 +795,21 @@ function confirmDelete() {
     var btn = document.getElementById('confirmDeleteBtn');
     var token = document.querySelector('input[name="_token"]').value;
     btn.disabled = true;
-    btn.textContent = 'Deleting...';
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Deleting...';
     fetch('{{ route('api.account.delete') }}', {
         method: 'DELETE',
         headers: { 'X-CSRF-TOKEN': token, 'Accept': 'application/json' }
     })
     .then(function(r) { return r.json(); })
     .then(function(d) {
-        if (d.success) { showToast('Account deleted!'); setTimeout(function() { window.location.href = '/login'; }, 1500); }
-        else { showToast(d.error || 'Error', true); btn.disabled = false; btn.textContent = 'Delete Account'; }
+        if (d.success) { 
+            btn.innerHTML = '<i class="fas fa-check"></i> Deleted';
+            showToast('Account deleted!'); 
+            setTimeout(function() { window.location.href = '/login'; }, 1500); 
+        }
+        else { showToast(d.error || 'Error', true); btn.disabled = false; btn.innerHTML = 'Delete Account'; }
     })
-    .catch(function() { showToast('Network error', true); btn.disabled = false; btn.textContent = 'Delete Account'; });
+    .catch(function() { showToast('Network error', true); btn.disabled = false; btn.innerHTML = 'Delete Account'; });
 }
 
 // Toast

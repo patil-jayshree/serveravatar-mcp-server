@@ -76,12 +76,12 @@ class ActivityLogger
 
     public static function profileUpdated($user): Activity
     {
-        return self::log($user, Activity::TYPE_SETTINGS_UPDATED, 'Profile updated successfully');
+        return self::log($user, Activity::TYPE_PROFILE_UPDATED, 'Profile updated successfully');
     }
 
     public static function passwordChanged($user): Activity
     {
-        return self::log($user, Activity::TYPE_SETTINGS_UPDATED, 'Password changed successfully');
+        return self::log($user, Activity::TYPE_PASSWORD_CHANGED, 'Password changed successfully');
     }
 
     public static function accountDeleted($user): Activity

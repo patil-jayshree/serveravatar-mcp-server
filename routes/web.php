@@ -37,19 +37,25 @@ Route::middleware('auth')->group(function () {
 
     Route::controller(DashboardController::class)->group(function () {
         Route::get('dashboard', 'index')->name('dashboard');
-        Route::get('activity', [ActivityController::class, 'index'])->name('activity');
         Route::get('integrations', 'integrations')->name('integrations');
         Route::get('mcp-server', 'mcpServer')->name('mcp-server');
         Route::post('dashboard/api-key', 'saveApiKey')->name('dashboard.api-key');
         Route::delete('dashboard/api-key', 'deleteApiKey')->name('dashboard.api-key.delete');
     });
 
+    Route::controller(ActivityController::class)->group(function () {
+        Route::get('activity', 'index')->name('activity');
+        Route::get('activity/fetch', 'fetch')->name('activity.fetch');
+    });
+
     Route::controller(ToolsController::class)->group(function () {
         Route::get('tools', 'index')->name('tools');
+        Route::get('tools/fetch', 'fetch')->name('tools.fetch');
     });
 
     Route::controller(ClientsController::class)->group(function () {
         Route::get('clients', 'index')->name('clients');
+        Route::get('clients/fetch', 'fetch')->name('clients.fetch');
     });
 
     Route::post('logout', [LoginController::class, 'logout'])->name('logout');

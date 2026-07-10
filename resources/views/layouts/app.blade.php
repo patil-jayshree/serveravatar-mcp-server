@@ -37,7 +37,7 @@
             --accent-warning: #f59e0b;
             --accent-warning-muted: rgba(245, 158, 11, 0.15);
             --accent-danger: #ef4444;
-            --accent-danger-muted: rgba(239, 68, 68, 0.15);
+            --accent-danger-muted: rgba(239, 68, 68, 0.25);
             --accent-info: #3b82f6;
             --accent-info-muted: rgba(59, 130, 246, 0.15);
             --gradient-primary: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%);
@@ -142,8 +142,8 @@
         .profile-menu.show { display: block; }
         .profile-menu-item { display: flex; align-items: center; gap: 10px; padding: 0.625rem 1rem; color: var(--text-secondary); font-size: 0.85rem; text-decoration: none; transition: all var(--transition-fast); }
         .profile-menu-item:hover { background: var(--bg-card-hover); color: var(--text-primary); }
-        .profile-menu-item.danger { color: var(--accent-danger); }
-        .profile-menu-item.danger:hover { background: var(--accent-danger-muted); }
+        .profile-menu-item.danger { background: transparent; color: var(--accent-danger); border: none; }
+        .profile-menu-item.danger:hover { background: rgba(239, 68, 68, 0.1); }
         .profile-menu-divider { height: 1px; background: var(--border-color); margin: 4px 0; }
 
         /* Page Content */
@@ -346,6 +346,9 @@
         }
         .refresh-btn { width: 36px; height: 36px; border-radius: var(--radius-md); background: transparent; border: 1px solid var(--border-color); color: var(--accent-primary); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.15s; text-decoration: none; }
         .refresh-btn:hover { background: var(--accent-primary-muted); border-color: var(--accent-primary); }
+        .refresh-btn .fa-sync-alt { font-size: 14px; color: var(--accent-primary); }
+        .refresh-btn.loading .fa-sync-alt { animation: spin 0.6s linear infinite; }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         .clients-card { padding: 0; }
         .clients-header-row { display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.5rem; border-bottom: 1px solid var(--border-color); }
 
