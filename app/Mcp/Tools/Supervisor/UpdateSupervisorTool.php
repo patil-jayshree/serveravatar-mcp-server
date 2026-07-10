@@ -68,7 +68,7 @@ class UpdateSupervisorTool extends Tool
             $body['extra_config'] = $validated['extra_config'];
         }
 
-        $data = $this->apiCall("/organizations/$organizationId/servers/$serverId/applications/$applicationId/supervisors/$supervisorId", $user, $body, 'PUT');
+        $data = $this->apiCall("/organizations/$organizationId/servers/$serverId/applications/$applicationId/supervisors/$supervisorId", $user, $body, 'PATCH');
 
         return Response::text(json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
     }

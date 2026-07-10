@@ -54,7 +54,7 @@ class CreateNodeApplicationTool extends Tool
             // UPTIMEKUMA (no admin creds needed)
             // NODERED, N8N
             'username' => ['required_if:framework,nodered'],
-            'password' => ['required_if:framework,nodered', 'min:6'],
+            'user_password' => ['required_if:framework,nodered', 'min:6'],
             // N8N also uses username/password
             'n8n_username' => ['required_if:framework,n8n'],
             'n8n_password' => ['required_if:framework,n8n', 'min:6'],
@@ -134,7 +134,7 @@ class CreateNodeApplicationTool extends Tool
 
             case 'nodered':
                 $data['username'] = $validated['username'];
-                $data['password'] = $validated['password'];
+                $data['password'] = $validated['user_password'];
                 break;
 
             case 'n8n':
@@ -182,15 +182,15 @@ class CreateNodeApplicationTool extends Tool
 
             // NODERED
             'username' => $schema->string()->description('[Node-RED] Admin username (required)'),
-            'password' => $schema->string()->description('[Node-RED] Admin password min 6 chars (required)'),
+            'user_password' => $schema->string()->description('[Node-RED] Admin auth credential min 6 chars (required)'),
 
             // N8N
             'n8n_username' => $schema->string()->description('[N8N] Admin username (required)'),
-            'n8n_password' => $schema->string()->description('[N8N] Admin password min 6 chars (required)'),
+            'n8n_password' => $schema->string()->description('[N8N] Admin auth credential min 6 chars (required)'),
 
             // NODEBB
             'nodebb_username' => $schema->string()->description('[NodeBB] Admin username (required)'),
-            'nodebb_password' => $schema->string()->description('[NodeBB] Admin password min 6 chars (required)'),
+            'nodebb_password' => $schema->string()->description('[NodeBB] Admin auth credential min 6 chars (required)'),
             'nodebb_email' => $schema->string()->description('[NodeBB] Admin email (required)'),
         ];
     }
