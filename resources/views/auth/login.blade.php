@@ -96,7 +96,7 @@
             <div class="auth-card">
                 <div class="auth-brand">
                     <div class="auth-logo-wrap">
-                        <span class="auth-logo-icon">⚡</span>
+                        <span class="auth-logo-icon"><i class="fas fa-bolt" style="color: #fbbf24;"></i></span>
                     </div>
                     <div class="auth-mcp-badge">ServerAvatar MCP Server</div>
                     <h1 class="auth-title">Welcome Back</h1>
@@ -124,7 +124,7 @@
                             Remember me
                         </label>
                     </div>
-                    <button type="submit" class="btn-primary"><span>🔓</span> Login</button>
+                    <button type="submit" class="btn-primary"><i class="fas fa-right-to-bracket"></i> Login</button>
                     <div style="text-align: center; margin-top: 1rem;">
                         <a href="{{ route('password.request') }}" class="forgot-link">Forgot your password?</a>
                     </div>
@@ -136,7 +136,7 @@
     <div class="toast-container" id="toast-container">
         @if ($errors->any())
         <div class="toast toast-error" id="toast-error">
-            <span>⚠️</span>
+            <i class="fas fa-exclamation-triangle"></i>
             <span>{{ $errors->first() }}</span>
         </div>
         @endif

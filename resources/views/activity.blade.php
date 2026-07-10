@@ -42,8 +42,8 @@ $csrf = csrf_token();
         <div class="activity-tr">
             <div class="activity-td" style="flex: 1;">
                 <div style="display: flex; align-items: center; gap: 0.5rem;">
-                    <span style="font-size: 1.1rem;">{{ $activity->icon }}</span>
-                    <span class="activity-type-badge badge-{{ $activity->badge }}">{{ ucfirst(str_replace('_', ' ', $activity->type)) }}</span>
+                    <span style="font-size: 1.1rem;">{!! $activity->icon !!}</span>
+                    <span class="activity-type-badge badge-{{ $activity->color }}">{{ $activity->typeLabel }}</span>
                 </div>
             </div>
             <div class="activity-td" style="flex: 1;">
@@ -136,6 +136,8 @@ $csrf = csrf_token();
 .badge-warning { background: rgba(245, 158, 11, 0.15); color: #d97706; }
 .badge-danger { background: rgba(249, 115, 22, 0.15); color: #f97316; }
 .badge-secondary { background: rgba(148, 163, 184, 0.15); color: #64748b; }
+.badge-primary { background: rgba(139, 92, 246, 0.15); color: #8b5cf6; }
+.badge-cyan { background: rgba(6, 182, 212, 0.15); color: #06b6d4; }
 </style>
 @endsection
 

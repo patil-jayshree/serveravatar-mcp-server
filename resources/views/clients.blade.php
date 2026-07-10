@@ -43,7 +43,7 @@ $csrf = csrf_token();
                     <div class="client-icon-wrap">
                         @if($client->client_name == "Claude" || $client->client_name == "Claude Desktop")
                             <img src="/images/clients/claude.png" width="32" height="32" style="border-radius: 6px; object-fit: contain;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
-                            <span class="client-icon-fallback" style="display: none;">🟣</span>
+                            <span class="client-icon-fallback" style="display: none;"><i class="fas fa-robot"></i></span>
                         @elseif($client->client_name == "Cursor")
                             <img src="/images/clients/cursor-light.png" class="icon-light" width="32" height="32" style="border-radius: 6px; object-fit: contain;" onerror="this.style.display='none';" /><img src="/images/clients/cursor-dark.png" class="icon-dark" width="32" height="32" style="border-radius: 6px; object-fit: contain;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
                             <span class="client-icon-fallback" style="display: none;">💚</span>
@@ -58,19 +58,19 @@ $csrf = csrf_token();
                             <span class="client-icon-fallback" style="display: none;">🌊</span>
                         @elseif($client->client_name == "Zed")
                             <img src="/images/clients/zed.png" width="32" height="32" style="border-radius: 6px; object-fit: contain;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
-                            <span class="client-icon-fallback" style="display: none;">⚡</span>
+                            <span class="client-icon-fallback" style="display: none;"><i class="fas fa-server"></i></span>
                         @elseif($client->client_name == "Continue")
                             <img src="/images/clients/continue.png" width="32" height="32" style="border-radius: 6px; object-fit: contain;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
                             <span class="client-icon-fallback" style="display: none;">🔗</span>
                         @elseif($client->client_name == "Cline")
                             <img src="/images/clients/cline-light.png" class="icon-light" width="32" height="32" style="border-radius: 6px; object-fit: contain;" onerror="this.style.display='none';" /><img src="/images/clients/cline-dark.png" class="icon-dark" width="32" height="32" style="border-radius: 6px; object-fit: contain;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
-                            <span class="client-icon-fallback" style="display: none;">⚡</span>
+                            <span class="client-icon-fallback" style="display: none;"><i class="fas fa-server"></i></span>
                         @elseif($client->client_name == "Gemini")
                             <img src="/images/clients/gemini.png" width="32" height="32" style="border-radius: 6px; object-fit: contain;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
                             <span class="client-icon-fallback" style="display: none;">🌟</span>
                         @else
                             <img src="/images/clients/chatgpt-light.png" class="icon-light" width="32" height="32" style="border-radius: 6px; object-fit: contain;" /><img src="/images/clients/chatgpt-dark.png" class="icon-dark" width="32" height="32" style="border-radius: 6px; object-fit: contain;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
-                            <span class="client-icon-fallback" style="display: none;">💻</span>
+                            <span class="client-icon-fallback" style="display: none;"><i class="fas fa-laptop"></i></span>
                         @endif
                     </div>
                     <span class="client-name">{{ $client->client_name }}</span>

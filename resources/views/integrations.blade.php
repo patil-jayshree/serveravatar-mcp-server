@@ -43,7 +43,7 @@
             <span class="badge badge-popular badge-top-right"><i class="fas fa-magic-wand-sparkles" style="color: #fbbf24;"></i> Popular</span>
             @endif
             <div class="integration-logo" style="background: rgba(139, 92, 246, 0.12);">
-                <img src="/images/clients/claude.png" width="28" height="28" style="object-fit: contain; border-radius: 4px;" onerror="this.style.display='none';this.parentElement.innerHTML='🟣';" />
+                <img src="/images/clients/claude.png" width="28" height="28" style="object-fit: contain; border-radius: 4px;" onerror="this.style.display='none';this.parentElement.innerHTML='<i class="fas fa-robot"></i>';" />
             </div>
             <div class="integration-text">
                 <span class="integration-name">Claude</span>

@@ -6,6 +6,7 @@
     <title>Authorize Application - ServerAvatar MCP</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         :root {
             --bg-primary: #0a0a0f;
@@ -314,7 +315,7 @@
 
                 <div class="client-info">
                     <div class="client-name">
-                        <span class="app-icon">🔐</span>
+                        <span class="app-icon">{!! \App\Helpers\ClientLogoHelper::getLogoHtml($client->name) !!}</span>
                         {{ $client->name }}
                     </div>
                     <p class="client-description">This application is requesting access to your account.</p>

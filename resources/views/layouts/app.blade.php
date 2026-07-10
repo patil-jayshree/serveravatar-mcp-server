@@ -376,7 +376,7 @@
         <!-- Sidebar -->
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-header">
-                <div class="sidebar-logo">⚡</div>
+                <div class="sidebar-logo"><i class="fas fa-bolt" style="color: #fbbf24;"></i></div>
                 <div class="sidebar-brand">Server<span>Avatar</span> MCP</div>
             </div>
             

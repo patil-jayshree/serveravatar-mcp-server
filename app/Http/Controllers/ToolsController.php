@@ -224,7 +224,7 @@ class ToolsController extends Controller
                     
                     $html .= '<div class="table-row">';
                     $html .= '<div class="tool-name-cell">';
-                    $html .= '<span style="width: 36px; height: 36px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; background: rgba(' . $r . ', ' . $g . ', ' . $b . ', 0.15); color: ' . $color . ';">' . e($tool['icon']) . '</span>';
+                    $html .= '<span style="width: 36px; height: 36px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; background: rgba(' . $r . ', ' . $g . ', ' . $b . ', 0.15); color: ' . $color . ';"><i class="fas ' . e($tool['icon']) . '"></i></span>';
                     $html .= '<span class="tool-name-text">' . e(ucwords(str_replace('_', ' ', $tool['name']))) . '</span>';
                     $html .= '</div>';
                     $html .= '<div><span class="category-badge" style="display: inline-flex; align-items: center; gap: 4px; background: var(--accent-primary-muted); color: var(--accent-primary); padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600;">' . e($tool['category_badge']) . '</span></div>';

@@ -33,8 +33,8 @@ $perPage = $perPage ?? 10;
     <form onsubmit="return false;" id="searchForm" style="display: flex; align-items: center; gap: 0.5rem; flex: 1;">
         <input type="hidden" name="category" id="searchCategory" value="{{ $selectedCategory }}">
         <div class="search-box" style="max-width: 320px; position: relative;">
-            <span class="search-icon">🔍</span>
-            <input type="text" name="q" class="search-input" placeholder="Search tools..." id="searchInput" value="{{ $searchQuery }}" autocomplete="off">
+            <i class="fas fa-search" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--accent-primary); font-size: 12px; z-index: 1; pointer-events: none;"></i>
+            <input type="text" name="q" class="search-input" placeholder="Search tools..." id="searchInput" value="{{ $searchQuery }}" autocomplete="off" style="padding-left: 32px; padding-right: 34px;">
             <a href="javascript:void(0)" id="clearSearchBtn" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 16px; text-decoration: none; display: {{ empty($searchQuery) ? 'none' : 'flex' }}; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 50%; background: var(--border-color); transition: all 0.2s;" title="Clear search" onmouseover="this.style.background='var(--text-muted)'; this.style.color='var(--bg-primary)'" onmouseout="this.style.background='var(--border-color)'; this.style.color='var(--text-muted)'">×</a>
         </div>
         <button type="button" onclick="performSearch()" class="btn-card-action" style="display: inline-block; padding: 11px 16px; background: var(--accent-primary); color: white; border-radius: var(--radius-md); font-size: 14px; font-weight: 600; border: none; cursor: pointer; white-space: nowrap; height: 44px;">Search</button>
@@ -83,7 +83,7 @@ $perPage = $perPage ?? 10;
                         $g = hexdec(substr($color, 3, 2));
                         $b = hexdec(substr($color, 5, 2));
                         @endphp
-                        <span style="width: 36px; height: 36px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; background: rgba({{ $r }}, {{ $g }}, {{ $b }}, 0.15); color: {{ $color }};">{{ $tool['icon'] }}</span>
+                        <span style="width: 36px; height: 36px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; background: rgba({{ $r }}, {{ $g }}, {{ $b }}, 0.15); color: {{ $color }};"><i class="fas {{ $tool['icon'] }}"></i></span>
                         <span class="tool-name-text">{{ Str::title(str_replace('_', ' ', $tool['name'])) }}</span>
                     </div>
                     <div>

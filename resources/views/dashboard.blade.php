@@ -140,6 +140,8 @@
         .badge-warning { background: rgba(245, 158, 11, 0.15); color: #d97706; }
         .badge-danger { background: rgba(249, 115, 22, 0.15); color: #f97316; }
         .badge-secondary { background: rgba(148, 163, 184, 0.15); color: #64748b; }
+        .badge-primary { background: rgba(139, 92, 246, 0.15); color: #8b5cf6; }
+        .badge-cyan { background: rgba(6, 182, 212, 0.15); color: #06b6d4; }
         .activity-empty { text-align: center; padding: 2rem; color: var(--text-secondary); }
         .activity-empty p { font-size: 0.875rem; margin-top: 0.5rem; }
 
@@ -652,7 +654,7 @@
                 <div class="wb-top">
                     <div class="wb-left">
                         <div class="wb-text">
-                            <div class="wb-greeting-line"><span class="wb-greeting">👋</span> <span class="wb-greeting-text">Welcome back, {{ $user->name }}</span></div>
+                            <div class="wb-greeting-line"><span class="wb-greeting"><i class="fas fa-hand-paper" style="color: #fbbf24;"></i></span> <span class="wb-greeting-text">Welcome back, {{ $user->name }}</span></div>
                             <div class="wb-subtitle" style="padding-left: 1.75rem;">
                                 Your ServerAvatar MCP is online and ready.
                                 @if($connectedClients->count() > 0)
@@ -808,7 +810,7 @@
     <div class="activity-list">
         @foreach($recentActivities as $activity)
         <div class="activity-item">
-            <div class="activity-icon">{{ $activity->icon }}</div>
+            <div class="activity-icon">{!! $activity->icon !!}</div>
             <div class="activity-content">
                 <div class="activity-description">{{ $activity->description }}</div>
                 <div class="activity-meta">
@@ -819,7 +821,7 @@
                     <span class="activity-time">{{ $activity->time_ago }}</span>
                 </div>
             </div>
-            <span class="activity-badge badge-{{ $activity->badge }}">{{ $activity->badge }}</span>
+            <span class="activity-badge badge-{{ $activity->color }}">{{ $activity->badge }}</span>
         </div>
         @endforeach
     </div>

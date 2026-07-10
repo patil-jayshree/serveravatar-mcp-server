@@ -97,7 +97,7 @@
             <div class="auth-card">
                 <div class="auth-brand">
                     <div class="auth-logo-wrap">
-                        <span class="auth-logo-icon">⚡</span>
+                        <span class="auth-logo-icon"><i class="fas fa-bolt" style="color: #fbbf24;"></i></span>
                     </div>
                     <div class="auth-mcp-badge">ServerAvatar MCP Server</div>
                     <h1 class="auth-title">Create Account</h1>
@@ -134,7 +134,7 @@
                             </button>
                         </div>
                     </div>
-                    <button type="submit" class="btn-primary"><span>🚀</span> Register</button>
+                    <button type="submit" class="btn-primary"><i class="fas fa-rocket"></i> Register</button>
                 </form>
                 <div class="auth-footer">Already have an account? <a href="{{ route('login') }}">Login</a></div>
             </div>
@@ -143,7 +143,7 @@
     <div class="toast-container" id="toast-container">
         @if ($errors->any())
         <div class="toast toast-error" id="toast-error">
-            <span>⚠️</span>
+            <i class="fas fa-exclamation-triangle"></i>
             <span>{{ $errors->first() }}</span>
         </div>
         @endif
