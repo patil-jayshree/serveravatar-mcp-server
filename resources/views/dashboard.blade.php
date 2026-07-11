@@ -739,8 +739,8 @@
                     <div class="analytics-card-label">Avg. Response Time</div>
                     <div class="analytics-card-value">{{ $analytics['avg_response_time_ms'] }} <span style="font-size:0.8rem;font-weight:500;color:var(--text-secondary);">ms</span></div>
                     <div class="analytics-card-status">
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="{{ $analytics['avg_response_time_ms'] < 500 ? '#f59e0b' : '#dc2626' }}" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-                        <span style="color:{{ $analytics['avg_response_time_ms'] < 500 ? '#f59e0b' : '#dc2626' }};">{{ $analytics['avg_response_time_ms'] < 500 ? 'Excellent' : 'Slow' }}</span>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="{{ $analytics['avg_response_time_ms'] < 1000 ? '#22c55e' : '#f59e0b' }}" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                        <span style="color:{{ $analytics['avg_response_time_ms'] < 1000 ? '#22c55e' : '#f59e0b' }};">{{ $analytics['avg_response_time_ms'] < 1000 ? 'Excellent' : 'Normal' }}</span>
                     </div>
                 </div>
             </div>

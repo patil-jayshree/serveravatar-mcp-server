@@ -54,7 +54,7 @@ class ActivityController extends Controller
                 $html .= '<div class="activity-td" style="flex: 1;">';
                 $html .= '<div style="display: flex; align-items: center; gap: 0.5rem;">';
                 $html .= '<span style="font-size: 1.1rem;">' . $activity->icon . '</span>';
-                $html .= '<span class="activity-type-badge badge-' . $activity->badge . '">' . ucfirst(str_replace('_', ' ', $activity->type)) . '</span>';
+                $html .= '<span class="activity-type-badge badge-' . $activity->color . '">' . $activity->typeLabel . '</span>';
                 $html .= '</div></div>';
                 $html .= '<div class="activity-td" style="flex: 1;"><span class="activity-desc">' . $activity->description . '</span></div>';
                 $html .= '<div class="activity-td" style="flex: 1;"><span class="activity-client">' . ($activity->client_name ?? '—') . '</span></div>';
