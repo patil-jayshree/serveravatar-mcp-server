@@ -18,6 +18,11 @@ class ActivityLogger
             $clientName = McpConnectionTracker::detectClient(Request::userAgent());
         }
 
+        // Add user_agent to metadata if not already set
+        if (!isset($metadata['user_agent'])) {
+            $metadata['user_agent'] = Request::userAgent();
+        }
+        
         return Activity::create([
             'user_id' => $user->id,
             'type' => $type,
@@ -33,7 +38,8 @@ class ActivityLogger
         $readable = trim(preg_replace('/[_-]/', ' ', $toolName));
         $readable = preg_replace('/([a-z])([A-Z])/', '$1 $2', $readable);
         $readable = ucfirst(strtolower($readable));
-        $readable = str_replace('tool', '', $readable);
+        $readable = preg_replace('/\b[Tt]ool\b/', '', $readable);
+        $readable = preg_replace('/\s+/', ' ', $readable);
         $readable = trim($readable);
         return $readable ?: $toolName;
     }
@@ -50,19 +56,33 @@ class ActivityLogger
         );
     }
 
-    public static function toolExecuted($user, string $toolName, ?string $clientName = null, bool $success = true, ?array $arguments = null): Activity
+    public static function toolExecuted($user, string $toolName, ?string $clientName = null, bool $success = true, ?array $arguments = null): ?Activity
     {
+        // Deduplication: Skip if same tool called within 2 seconds with same arguments
+        $recentActivity = Activity::where('user_id', $user->id)
+            ->where('type', self::TYPE_TOOL_EXECUTED)
+            ->where('created_at', '>=', now()->subSeconds(2))
+            ->first();
+        
+        if ($recentActivity) {
+            $recentMeta = $recentActivity->metadata ?? [];
+            $recentArgs = $recentMeta['arguments'] ?? null;
+            if ($recentArgs === $arguments && ($recentMeta['tool'] ?? '') === $toolName) {
+                return null; // Skip duplicate
+            }
+        }
+        
         $client = $clientName ?? McpConnectionTracker::detectClient(Request::userAgent());
         $status = $success ? 'executed successfully' : 'failed';
         $readableTool = self::formatToolName($toolName);
-        $metadata = ['tool' => $toolName, 'success' => $success];
+        $metadata = ['tool' => $toolName, 'success' => $success, 'user_agent' => Request::userAgent()];
         if ($arguments !== null) {
             $metadata['arguments'] = $arguments;
         }
         return self::log(
             $user,
             Activity::TYPE_TOOL_EXECUTED,
-            "{$readableTool} {$status} via {$client}",
+            "{$readableTool} tool {$status}.",
             $metadata,
             $client
         );
@@ -70,32 +90,32 @@ class ActivityLogger
 
     public static function apiKeySaved($user): Activity
     {
-        return self::log($user, Activity::TYPE_API_KEY_SAVED, 'ServerAvatar API key saved successfully');
+        return self::log($user, Activity::TYPE_API_KEY_SAVED, 'ServerAvatar API key saved successfully.');
     }
 
     public static function apiKeyUpdated($user): Activity
     {
-        return self::log($user, Activity::TYPE_API_KEY_UPDATED, 'ServerAvatar API key updated successfully');
+        return self::log($user, Activity::TYPE_API_KEY_UPDATED, 'ServerAvatar API key updated successfully.');
     }
 
     public static function apiKeyDeleted($user): Activity
     {
-        return self::log($user, Activity::TYPE_API_KEY_DELETED, 'ServerAvatar API key removed');
+        return self::log($user, Activity::TYPE_API_KEY_DELETED, 'ServerAvatar API key removed.');
     }
 
     public static function profileUpdated($user): Activity
     {
-        return self::log($user, Activity::TYPE_PROFILE_UPDATED, 'Profile updated successfully');
+        return self::log($user, Activity::TYPE_PROFILE_UPDATED, 'Profile updated successfully.');
     }
 
     public static function passwordChanged($user): Activity
     {
-        return self::log($user, Activity::TYPE_PASSWORD_CHANGED, 'Password changed successfully');
+        return self::log($user, Activity::TYPE_PASSWORD_CHANGED, 'Password changed successfully.');
     }
 
     public static function accountDeleted($user): Activity
     {
-        return self::log($user, Activity::TYPE_SETTINGS_UPDATED, 'Account deleted');
+        return self::log($user, Activity::TYPE_SETTINGS_UPDATED, 'Account deleted.');
     }
 
     public static function settingsUpdated($user, string $setting): Activity

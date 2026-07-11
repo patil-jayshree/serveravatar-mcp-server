@@ -36,10 +36,10 @@ $csrf = csrf_token();
 .event-cell { display: flex; align-items: center; gap: 12px; min-width: 0; }
 .event-icon { width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .event-icon svg { width: 18px; height: 18px; }
-.event-info { display: flex; flex-direction: column; gap: 4px; }
+.event-info { display: flex; flex-direction: column; gap: 8px; }
 .event-desc { font-size: 0.875rem; font-weight: 600; color: var(--text-primary); }
 .event-via { font-size: 0.75rem; color: var(--text-muted); }
-.event-badge { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 0.6rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; white-space: nowrap; max-width: fit-content; }
+.event-badge { display: inline-block; padding: 4px 10px; border-radius: 12px; font-size: 0.6rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; white-space: nowrap; max-width: fit-content; }
 .badge-info { background: rgba(59, 130, 246, 0.12); color: #3b82f6; }
 .badge-success { background: rgba(22, 163, 74, 0.12); color: #16a34a; }
 .badge-warning { background: rgba(245, 158, 11, 0.12); color: #d97706; }
@@ -51,49 +51,82 @@ $csrf = csrf_token();
 .client-avatar { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; flex-shrink: 0; }
 .client-name { font-size: 0.85rem; font-weight: 600; color: var(--text-primary); }
 .client-type { font-size: 0.7rem; color: var(--text-muted); }
-.time-cell { display: flex; flex-direction: column; gap: 4px; }
+.time-cell { display: flex; flex-direction: column; gap: 8px; }
 .time-relative { font-size: 0.85rem; font-weight: 500; color: var(--text-primary); }
 .time-absolute { font-size: 0.7rem; color: var(--text-muted); }
 .actions-cell { text-align: left; }
 .view-btn { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; background: transparent; border: 1px solid var(--border-color); border-radius: var(--radius-md); color: var(--accent-primary); font-size: 0.75rem; font-weight: 600; cursor: pointer; transition: all 0.2s; }
 .view-btn:hover { background: var(--accent-primary); border-color: var(--accent-primary); color: white; }
 .no-actions { color: var(--text-muted); font-size: 0.85rem; }
-.activity-loading { display: flex; align-items: center; justify-content: center; min-height: 200px; color: var(--text-secondary); }
+.activity-loading { display: flex; align-items: center; justify-content: center; min-height: 200px; color: var(--text-primary); }
 .activity-loading i { font-size: 1.5rem; animation: spin 0.8s linear infinite; }
-.activity-empty { text-align: center; padding: 4rem 2rem; color: var(--text-secondary); }
+.activity-empty { text-align: center; padding: 4rem 2rem; color: var(--text-primary); }
 .activity-empty i { font-size: 3rem; color: var(--accent-primary); opacity: 0.5; margin-bottom: 1rem; }
 .activity-empty p { font-size: 0.9rem; }
 
 /* Slide-out Panel */
 .panel-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.4); z-index: 999; opacity: 0; visibility: hidden; transition: all 0.3s; }
 .panel-overlay.active { opacity: 1; visibility: visible; }
-.event-panel { position: fixed; top: 0; right: 0; width: 480px; max-width: 100%; height: 100%; background: var(--bg-card); box-shadow: -4px 0 20px rgba(0,0,0,0.15); z-index: 1000; transform: translateX(100%); transition: transform 0.3s ease; overflow-y: auto; }
+.event-panel { position: fixed; top: 0; right: 0; width: 400px; max-width: 100%; height: 100%; background: var(--bg-card); box-shadow: -4px 0 20px rgba(0,0,0,0.15); z-index: 1000; transform: translateX(100%); transition: transform 0.3s ease; overflow-y: auto; }
 .panel-overlay.active .event-panel { transform: translateX(0); }
-.panel-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--border-color); position: sticky; top: 0; background: var(--bg-card); }
-.panel-title { display: flex; align-items: center; gap: 10px; font-size: 1rem; font-weight: 700; color: var(--text-primary); }
-.panel-title i { color: var(--accent-primary); }
+.panel-header { padding: 12px 20px; position: sticky; top: 0; background: var(--bg-card); border-bottom: 1px solid var(--border-color); }
+.panel-header-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.panel-title { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; font-weight: 700; color: var(--text-primary); }
+.panel-title i { color: #3b82f6; }
+.panel-badge { display: inline-block; padding: 4px 10px; border-radius: 12px; font-size: 0.6rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; white-space: nowrap; max-width: fit-content; background: rgba(59, 130, 246, 0.1); color: #3b82f6; }
+.panel-badge.badge-success { background: rgba(22, 163, 74, 0.1); color: #16a34a; }
+.panel-badge.badge-warning { background: rgba(245, 158, 11, 0.1); color: #d97706; }
+.panel-badge.badge-danger { background: rgba(239, 68, 68, 0.1); color: #ef4444; }
+.panel-badge.badge-primary { background: rgba(139, 92, 246, 0.1); color: #8b5cf6; }
+.panel-badge.badge-cyan { background: rgba(6, 182, 212, 0.1); color: #06b6d4; }
+.panel-header-content { display: flex; flex-direction: column; gap: 8px; }
+.panel-desc { font-size: 0.85rem; color: var(--text-primary); }
 .panel-close { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; background: transparent; border: none; border-radius: 8px; color: var(--text-muted); cursor: pointer; font-size: 1.25rem; transition: all 0.2s; }
 .panel-close:hover { background: var(--bg-secondary); color: var(--text-primary); }
-.panel-body { padding: 20px; }
+.panel-body { padding: 12px 20px; }
 .panel-section { margin-bottom: 20px; }
 .panel-section:last-child { margin-bottom: 0; }
 .panel-section-title { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 10px; }
 .panel-info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.panel-info-item { display: flex; flex-direction: column; gap: 4px; }
+.panel-info-item { display: flex; flex-direction: column; gap: 8px; }
 .panel-info-label { font-size: 0.7rem; color: var(--text-muted); }
 .panel-info-value { font-size: 0.85rem; font-weight: 600; color: var(--text-primary); display: flex; align-items: center; gap: 6px; }
 .panel-info-value .client-badge { width: 20px; height: 20px; border-radius: 50%; font-size: 0.5rem; display: flex; align-items: center; justify-content: center; }
-.payload-block { background: var(--bg-secondary); border-radius: 8px; padding: 12px; position: relative; }
-.payload-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
-.payload-title { font-size: 0.75rem; font-weight: 600; color: var(--text-primary); }
-.payload-copy { display: flex; align-items: center; gap: 4px; padding: 4px 8px; background: transparent; border: none; border-radius: 4px; color: var(--text-muted); font-size: 0.7rem; cursor: pointer; transition: all 0.2s; }
-.payload-copy:hover { background: var(--bg-card); color: var(--accent-primary); }
-.payload-code { font-family: 'SF Mono', Monaco, monospace; font-size: 0.75rem; line-height: 1.6; color: var(--text-secondary); white-space: pre-wrap; word-break: break-all; max-height: 300px; overflow-y: auto; }
-.payload-code .key { color: #8b5cf6; }
-.payload-code .string { color: #16a34a; }
-.payload-code .number { color: #f59e0b; }
-.payload-code .bool { color: #3b82f6; }
-.payload-code .null { color: #ef4444; }
+
+/* Info Rows */
+.info-rows { display: flex; flex-direction: column; gap: 0; margin: 0 -20px; padding: 0 20px; border-bottom: 1px solid var(--border-color); }
+.info-row { display: flex; align-items: center; gap: 12px; padding: 10px 0; }
+.info-row:last-child { border-bottom: none; }
+.info-row i { font-size: 0.85rem; }
+.info-row-content { flex: 1; }
+.info-row-label { font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.03em; margin-bottom: 2px; }
+.info-row-value { font-size: 0.85rem; color: var(--text-primary); display: flex; align-items: center; gap: 6px; }
+.info-row-value .client-badge { width: 18px; height: 18px; border-radius: 50%; font-size: 0.45rem; font-weight: 700; display: flex; align-items: center; justify-content: center; color: white; flex-shrink: 0; }
+.client-logo-wrapper { margin-left: auto; display: flex; align-items: center; }
+.client-logo-wrapper img { width: 24px; height: 24px; }
+.client-logo-wrapper .client-badge { width: 24px; height: 24px; border-radius: 50%; font-size: 0.5rem; font-weight: 700; display: flex; align-items: center; justify-content: center; color: white; }
+.payload-block { background: #1e1e1e; border-radius: 8px; padding: 12px; position: relative; }
+.payload-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid #333; }
+.payload-title { font-size: 0.7rem; font-weight: 600; color: #e0e0e0; text-transform: uppercase; letter-spacing: 0.03em; }
+.payload-copy { background: #333; border: none; border-radius: 4px; padding: 4px 10px; font-size: 0.65rem; color: #a0a0a0; cursor: pointer; display: flex; align-items: center; gap: 4px; transition: all 0.2s; }
+.payload-copy:hover { background: #444; color: #fff; }
+
+/* Additional Info */
+.additional-info-header { display: flex; align-items: center; gap: 8px; font-size: 0.75rem; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 0.02em; margin-bottom: 12px; }
+.additional-info-divider { height: 1px; background: var(--border-color); margin: 16px -20px; }
+.additional-info-list { display: flex; flex-direction: column; gap: 0; }
+.additional-info-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; }
+.additional-info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.additional-info-label { font-size: 0.7rem; color: #6b7280; text-transform: uppercase; letter-spacing: 0.03em; }
+.additional-info-value { font-size: 0.8rem; color: #1f2937; font-weight: 500; }
+.payload-code-wrapper { display: flex; gap: 12px; }
+.payload-line-numbers { font-family: 'SF Mono', Monaco, monospace; font-size: 0.75rem; line-height: 1.6; color: #555; text-align: right; user-select: none; min-width: 24px; }
+.payload-code { font-family: 'SF Mono', Monaco, monospace; font-size: 0.75rem; line-height: 1.6; color: #d4d4d4; white-space: pre-wrap; word-break: break-all; max-height: 300px; overflow-y: auto; flex: 1; }
+.payload-code .key { color: #9cdcfe; }
+.payload-code .string { color: #ce9178; }
+.payload-code .number { color: #b5cea8; }
+.payload-code .bool { color: #569cd6; }
+.payload-code .null { color: #569cd6; }
 .panel-footer { padding: 16px 20px; border-top: 1px solid var(--border-color); position: sticky; bottom: 0; background: var(--bg-card); }
 .panel-close-btn { width: 100%; padding: 10px; background: transparent; border: 1px solid var(--border-color); border-radius: var(--radius-md); color: var(--text-primary); font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all 0.2s; }
 .panel-close-btn:hover { background: var(--bg-secondary); }
@@ -104,8 +137,8 @@ $csrf = csrf_token();
 .page-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
 .pagination-bar { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border-top: 1px solid var(--border-color); background: var(--bg-secondary); }
 .pagination-info { font-size: 0.8rem; color: var(--text-muted); }
-.pagination-buttons { display: flex; align-items: center; gap: 4px; }
-.page-btn { display: inline-flex; align-items: center; justify-content: center; min-width: 32px; height: 32px; padding: 0 8px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-sm); color: var(--text-secondary); font-size: 0.8rem; cursor: pointer; transition: all 0.2s; text-decoration: none; }
+.pagination-buttons { display: flex; align-items: center; gap: 8px; }
+.page-btn { display: inline-flex; align-items: center; justify-content: center; min-width: 32px; height: 32px; padding: 0 8px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-sm); color: var(--text-primary); font-size: 0.8rem; cursor: pointer; transition: all 0.2s; text-decoration: none; }
 .page-btn:hover:not(.disabled):not(.active) { border-color: var(--accent-primary); color: var(--accent-primary); }
 .page-btn.active { background: var(--accent-primary); border-color: var(--accent-primary); color: white; font-weight: 600; }
 .page-btn.disabled { opacity: 0.5; cursor: not-allowed; }
@@ -293,12 +326,18 @@ $csrf = csrf_token();
 <!-- Event Details Panel -->
 <div class="panel-overlay" id="panelOverlay" onclick="closeEventPanel(event)">
     <div class="event-panel" onclick="event.stopPropagation()">
-        <div class="panel-header">
-            <div class="panel-title">
-                <i class="fas fa-screwdriver-wrench"></i>
-                <span>Event Details</span>
+        <div class="panel-header" id="panelHeader">
+            <div class="panel-header-top">
+                <div class="panel-title">
+                    <i class="fas fa-screwdriver-wrench" style="color: #3b82f6;"></i>
+                    <span>Event Details</span>
+                </div>
+                <button class="panel-close" onclick="closeEventPanel()">&times;</button>
             </div>
-            <button class="panel-close" onclick="closeEventPanel()">&times;</button>
+            <div class="panel-header-content">
+                <span class="panel-badge" id="panelBadge">EXECUTED</span>
+                <div class="panel-desc" id="panelDesc">Event Details</div>
+            </div>
         </div>
         <div class="panel-body" id="panelBody">
             <!-- Dynamic content -->
@@ -476,56 +515,108 @@ function openEventPanel(id) {
     var metadata = activity.metadata || {};
     
     var panelBody = document.getElementById('panelBody');
+    var panelBadge = document.getElementById('panelBadge');
+    var panelDesc = document.getElementById('panelDesc');
+    
+    // Set badge and description in header
+    panelBadge.textContent = activity.type_label || 'EXECUTED';
+    panelBadge.className = 'panel-badge badge-' + (activity.color || 'primary');
+    panelDesc.textContent = activity.description || '';
     
     var html = '';
     
-    // Status & Description
-    html += '<div class="panel-section">';
-    html += '<span class="event-badge badge-' + activity.color + '">' + activity.type_label + '</span>';
-    html += '<div style="font-size: 0.9rem; font-weight: 600; color: var(--text-primary); margin-bottom: 4px;">' + activity.description + '</div>';
+    // Info Rows
+    html += '<div class="info-rows">';
+    
+    // Client row
+    var logoHtml = activity.client_logo 
+                    ? '<img src="' + activity.client_logo.light + '" alt="" width="24" height="24" class="icon-light"><img src="' + activity.client_logo.dark + '" alt="" width="24" height="24" class="icon-dark">'
+                    : '<span class="client-badge" style="background:' + (activity.client_color || '#8b5cf6') + ';">' + (activity.client_initials || 'SA') + '</span>';
+    html += '<div class="info-row client-info-row">';
+    html += '<i class="fas fa-user" style="color: #6b7280; width: 20px;"></i>';
+    html += '<div class="info-row-content">';
+    html += '<div class="info-row-label">Client</div>';
+    html += '<div class="info-row-value">' + (activity.client_name || 'System') + '</div>';
+    html += '</div>';
+    html += '<div class="client-logo-wrapper">' + logoHtml + '</div>';
     html += '</div>';
     
-    // Info Grid
-    html += '<div class="panel-section">';
-    html += '<div class="panel-section-title">Information</div>';
-    html += '<div class="panel-info-grid">';
-    var logoHtml = activity.client_logo 
-                    ? '<img src="' + activity.client_logo.light + '" alt="" width="16" height="16" class="icon-light" style="border-radius: 50%;"><img src="' + activity.client_logo.dark + '" alt="" width="16" height="16" class="icon-dark" style="border-radius: 50%;">'
-                    : '<span class="client-badge" style="background:' + (activity.client_color || '#8b5cf6') + ';">' + (activity.client_initials || 'SA') + '</span>';
-                html += '<div class="panel-info-item"><span class="panel-info-label">Client</span><span class="panel-info-value">' + logoHtml + ' ' + (activity.client_name || 'System') + '</span></div>';
-    html += '<div class="panel-info-item"><span class="panel-info-label">IP Address</span><span class="panel-info-value">' + (activity.ip_address || '—') + '</span></div>';
-    html += '<div class="panel-info-item"><span class="panel-info-label">Time</span><span class="panel-info-value">' + activity.time_ago + '</span></div>';
-    html += '<div class="panel-info-item"><span class="panel-info-label">Event ID</span><span class="panel-info-value" style="font-family: monospace; font-size: 0.75rem;">' + id + '</span></div>';
+    // IP Address row
+    html += '<div class="info-row">';
+    html += '<i class="fas fa-map-marker-alt" style="color: #6b7280; width: 20px;"></i>';
+    html += '<div class="info-row-content">';
+    html += '<div class="info-row-label">IP Address</div>';
+    html += '<div class="info-row-value">' + (activity.ip_address || '—') + '</div>';
     html += '</div>';
+    html += '</div>';
+    
+    // Time row
+    html += '<div class="info-row">';
+    html += '<i class="fas fa-clock" style="color: #6b7280; width: 20px;"></i>';
+    html += '<div class="info-row-content">';
+    html += '<div class="info-row-label">Time</div>';
+    html += '<div class="info-row-value" style="flex-direction: column; align-items: flex-start; gap: 2px;">';
+    html += '<span>' + activity.formatted_date + '</span>';
+    html += '<span style="font-size: 0.75rem; color: var(--text-muted); font-weight: normal;">' + activity.time_ago + '</span>';
+    html += '</div>';
+    html += '</div>';
+    html += '</div>';
+    
     html += '</div>';
     
     // Request Payload
     if (metadata.arguments) {
-        html += '<div class="panel-section">';
-        html += '<div class="panel-section-title">Request Payload</div>';
+        html += '<div class="panel-section" style="margin-top: 16px;">';
         html += '<div class="payload-block">';
-        html += '<div class="payload-header">';
-        html += '<span class="payload-title">Arguments</span>';
+        html += '<div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">';
+        html += '<div style="display: flex; align-items: center; gap: 8px;"><span style="font-size: 0.85rem; color: #6b7280;">{ }</span><span style="font-size: 0.7rem; font-weight: 600; color: #e0e0e0; text-transform: uppercase; letter-spacing: 0.02em;">REQUEST PAYLOAD</span></div>';
         html += '<button class="payload-copy" onclick="copyPayload(this)" data-payload=\'' + JSON.stringify(metadata.arguments) + '\'><i class="fas fa-copy"></i> Copy</button>';
         html += '</div>';
-        html += '<pre class="payload-code">' + syntaxHighlight(JSON.stringify(metadata.arguments, null, 2)) + '</pre>';
+        var argsJson = JSON.stringify(metadata.arguments, null, 2);
+        var argsLines = argsJson.split('\n');
+        var lineNums = '';
+        var lineText = '';
+        for (var i = 0; i < argsLines.length; i++) { lineNums += (i + 1) + '\n'; lineText += argsLines[i] + (i < argsLines.length - 1 ? '\n' : ''); }
+        html += '<div class="payload-code-wrapper"><pre class="payload-line-numbers">' + lineNums + '</pre><pre class="payload-code">' + syntaxHighlight(lineText) + '</pre></div>';
         html += '</div>';
         html += '</div>';
     }
     
     // Response (if available)
     if (metadata.response) {
-        html += '<div class="panel-section">';
-        html += '<div class="panel-section-title">Response</div>';
+        html += '<div class="panel-section" style="margin-top: 16px;">';
         html += '<div class="payload-block">';
-        html += '<div class="payload-header">';
-        html += '<span class="payload-title">Result</span>';
+        html += '<div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">';
+        html += '<div style="display: flex; align-items: center; gap: 8px;"><span style="font-size: 0.85rem; color: #6b7280;">{ }</span><span style="font-size: 0.7rem; font-weight: 600; color: #e0e0e0; text-transform: uppercase; letter-spacing: 0.02em;">RESPONSE</span></div>';
         html += '<button class="payload-copy" onclick="copyPayload(this)" data-payload=\'' + JSON.stringify(metadata.response) + '\'><i class="fas fa-copy"></i> Copy</button>';
         html += '</div>';
-        html += '<pre class="payload-code">' + syntaxHighlight(JSON.stringify(metadata.response, null, 2)) + '</pre>';
+        var respJson = JSON.stringify(metadata.response, null, 2);
+        var respLines = respJson.split('\n');
+        var respLineNums = '';
+        var respLineText = '';
+        for (var i = 0; i < respLines.length; i++) { respLineNums += (i + 1) + '\n'; respLineText += respLines[i] + (i < respLines.length - 1 ? '\n' : ''); }
+        html += '<div class="payload-code-wrapper"><pre class="payload-line-numbers">' + respLineNums + '</pre><pre class="payload-code">' + syntaxHighlight(respLineText) + '</pre></div>';
         html += '</div>';
         html += '</div>';
     }
+    
+    // Additional Info
+    html += '<div class="additional-info-divider"></div>';
+    html += '<div class="panel-section" style="margin-top: 16px;">';
+    html += '<div class="additional-info-header"><i class="fas fa-info-circle" style="color: #6b7280;"></i><span>Additional Info</span></div>';
+    html += '<div class="additional-info-list">';
+    var userAgent = metadata.user_agent || 'N/A';
+    // Status
+    var isSuccess = metadata.success !== false;
+    var statusBadge = isSuccess 
+        ? '<span style="background: rgba(22, 163, 74, 0.1); color: #16a34a; padding: 2px 8px; border-radius: 12px; font-size: 0.65rem; font-weight: 600;">SUCCESS</span>' 
+        : '<span style="background: rgba(239, 68, 68, 0.1); color: #ef4444; padding: 2px 8px; border-radius: 12px; font-size: 0.65rem; font-weight: 600;">FAILED</span>';
+    html += '<div class="additional-info-row"><span class="additional-info-label">Status</span>' + statusBadge + '</div>';
+    html += '<div class="additional-info-row"><span class="additional-info-label">User Agent</span><span class="additional-info-value" style="font-size: 0.7rem; word-break: break-all; max-width: 200px;">' + userAgent + '</span></div>';
+    html += '<div class="additional-info-row"><span class="additional-info-label">Platform</span><span class="additional-info-value">Web</span></div>';
+    html += '<div class="additional-info-row"><span class="additional-info-label">Source</span><span class="additional-info-value">MCP Server</span></div>';
+    html += '</div>';
+    html += '</div>';
     
     panelBody.innerHTML = html;
     document.getElementById('panelOverlay').classList.add('active');

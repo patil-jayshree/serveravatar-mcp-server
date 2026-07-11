@@ -22,6 +22,8 @@ class Activity extends Model
         'updated_at' => 'datetime',
     ];
 
+    protected $appends = ['type_label', 'time_ago', 'color', 'client_initials', 'client_color', 'client_logo', 'formatted_date'];
+
     const TYPE_CLIENT_CONNECTED = 'client_connected';
     const TYPE_CLIENT_DISCONNECTED = 'client_disconnected';
     const TYPE_TOOL_EXECUTED = 'tool_executed';
@@ -114,6 +116,11 @@ class Activity extends Model
     public function getTimeAgoAttribute(): string
     {
         return $this->created_at->diffForHumans();
+    }
+
+    public function getFormattedDateAttribute(): string
+    {
+        return $this->created_at->format('M j, Y • h:i A');
     }
     
     public function getClientInitialsAttribute(): string
