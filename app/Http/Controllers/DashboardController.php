@@ -76,9 +76,14 @@ class DashboardController extends Controller
             if (!$user->api_key_created_at) {
                 $user->api_key_created_at = now();
             }
+            $isNew = !$user->getOriginal('api_key') || empty($user->getOriginal('api_key'));
             $user->save();
 
-            ActivityLogger::apiKeySaved($user);
+            if ($isNew) {
+                ActivityLogger::apiKeySaved($user);
+            } else {
+                ActivityLogger::apiKeyUpdated($user);
+            }
 
             return response()->json(['success' => true, 'message' => 'API key saved successfully.']);
         } catch (Exception $e) {

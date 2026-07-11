@@ -50,16 +50,20 @@ class ActivityLogger
         );
     }
 
-    public static function toolExecuted($user, string $toolName, ?string $clientName = null, bool $success = true): Activity
+    public static function toolExecuted($user, string $toolName, ?string $clientName = null, bool $success = true, ?array $arguments = null): Activity
     {
         $client = $clientName ?? McpConnectionTracker::detectClient(Request::userAgent());
         $status = $success ? 'executed successfully' : 'failed';
         $readableTool = self::formatToolName($toolName);
+        $metadata = ['tool' => $toolName, 'success' => $success];
+        if ($arguments !== null) {
+            $metadata['arguments'] = $arguments;
+        }
         return self::log(
             $user,
             Activity::TYPE_TOOL_EXECUTED,
             "{$readableTool} {$status} via {$client}",
-            ['tool' => $toolName, 'success' => $success],
+            $metadata,
             $client
         );
     }
@@ -67,6 +71,11 @@ class ActivityLogger
     public static function apiKeySaved($user): Activity
     {
         return self::log($user, Activity::TYPE_API_KEY_SAVED, 'ServerAvatar API key saved successfully');
+    }
+
+    public static function apiKeyUpdated($user): Activity
+    {
+        return self::log($user, Activity::TYPE_API_KEY_UPDATED, 'ServerAvatar API key updated successfully');
     }
 
     public static function apiKeyDeleted($user): Activity

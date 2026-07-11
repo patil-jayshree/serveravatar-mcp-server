@@ -40,16 +40,18 @@ class TrackMcpAnalytics
                 foreach ($body as $rpcRequest) {
                     if (isset($rpcRequest['method']) && $rpcRequest['method'] === 'tools/call') {
                         $toolName = $rpcRequest['params']['name'] ?? 'unknown';
+                        $arguments = $rpcRequest['params']['arguments'] ?? null;
                         \App\Services\McpConnectionTracker::recordRequest($user, $clientName, $success, $responseTimeMs);
                         \App\Services\McpConnectionTracker::recordToolCall($user, $clientName);
-                        \App\Services\ActivityLogger::toolExecuted($user, $toolName, $clientName, $success);
+                        \App\Services\ActivityLogger::toolExecuted($user, $toolName, $clientName, $success, $arguments);
                     }
                 }
             } else {
                 $toolName = $body['params']['name'] ?? 'unknown';
+                $arguments = $body['params']['arguments'] ?? null;
                 \App\Services\McpConnectionTracker::recordRequest($user, $clientName, $success, $responseTimeMs);
                 \App\Services\McpConnectionTracker::recordToolCall($user, $clientName);
-                \App\Services\ActivityLogger::toolExecuted($user, $toolName, $clientName, $success);
+                \App\Services\ActivityLogger::toolExecuted($user, $toolName, $clientName, $success, $arguments);
             }
         } catch (\Throwable $e) {
             // Silently ignore - analytics must never affect MCP flow

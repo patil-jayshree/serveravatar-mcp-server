@@ -26,6 +26,7 @@ class Activity extends Model
     const TYPE_CLIENT_DISCONNECTED = 'client_disconnected';
     const TYPE_TOOL_EXECUTED = 'tool_executed';
     const TYPE_API_KEY_SAVED = 'api_key_saved';
+    const TYPE_API_KEY_UPDATED = 'api_key_updated';
     const TYPE_API_KEY_DELETED = 'api_key_deleted';
     const TYPE_PROFILE_UPDATED = 'profile_updated';
     const TYPE_PASSWORD_CHANGED = 'password_changed';
@@ -53,6 +54,7 @@ class Activity extends Model
             self::TYPE_CLIENT_DISCONNECTED => '<i class="fa-solid fa-plug-circle-exclamation" style="color: #f59e0b;"></i>',
             self::TYPE_TOOL_EXECUTED => '<i class="fas fa-screwdriver-wrench" style="color: #3b82f6;"></i>',
             self::TYPE_API_KEY_SAVED => '<i class="fas fa-key" style="color: #8b5cf6;"></i>',
+            self::TYPE_API_KEY_UPDATED => '<i class="fas fa-key" style="color: #06b6d4;"></i>',
             self::TYPE_API_KEY_DELETED => '<i class="fas fa-trash" style="color: #ef4444;"></i>',
             self::TYPE_PROFILE_UPDATED => '<i class="fas fa-user-pen" style="color: #06b6d4;"></i>',
             self::TYPE_PASSWORD_CHANGED => '<i class="fas fa-lock" style="color: #6366f1;"></i>',
@@ -67,7 +69,8 @@ class Activity extends Model
             self::TYPE_CLIENT_CONNECTED => 'CONNECTED',
             self::TYPE_CLIENT_DISCONNECTED => 'DISCONNECTED',
             self::TYPE_TOOL_EXECUTED => 'EXECUTED',
-            self::TYPE_API_KEY_SAVED => 'UPDATED',
+            self::TYPE_API_KEY_SAVED => 'SAVED',
+            self::TYPE_API_KEY_UPDATED => 'UPDATED',
             self::TYPE_API_KEY_DELETED => 'REMOVED',
             self::TYPE_PROFILE_UPDATED => 'UPDATED',
             self::TYPE_PASSWORD_CHANGED => 'SECURED',
@@ -83,6 +86,7 @@ class Activity extends Model
             self::TYPE_CLIENT_DISCONNECTED => 'warning',
             self::TYPE_TOOL_EXECUTED => 'info',
             self::TYPE_API_KEY_SAVED => 'primary',
+            self::TYPE_API_KEY_UPDATED => 'cyan',
             self::TYPE_API_KEY_DELETED => 'danger',
             self::TYPE_PROFILE_UPDATED => 'cyan',
             self::TYPE_PASSWORD_CHANGED => 'primary',
@@ -98,6 +102,7 @@ class Activity extends Model
             self::TYPE_CLIENT_DISCONNECTED => 'Client Disconnected',
             self::TYPE_TOOL_EXECUTED => 'Tool Executed',
             self::TYPE_API_KEY_SAVED => 'API Key Saved',
+            self::TYPE_API_KEY_UPDATED => 'API Key Updated',
             self::TYPE_API_KEY_DELETED => 'API Key Deleted',
             self::TYPE_PROFILE_UPDATED => 'Profile Updated',
             self::TYPE_PASSWORD_CHANGED => 'Password Changed',
@@ -109,5 +114,89 @@ class Activity extends Model
     public function getTimeAgoAttribute(): string
     {
         return $this->created_at->diffForHumans();
+    }
+    
+    public function getClientInitialsAttribute(): string
+    {
+        $name = strtolower($this->client_name ?? '');
+        if (!$name) return 'SA';
+        if (strpos($name, 'chatgpt') !== false) return 'CG';
+        if (strpos($name, 'claude') !== false) return 'CL';
+        if (strpos($name, 'cursor') !== false) return 'CU';
+        if (strpos($name, 'vscode') !== false) return 'VS';
+        if (strpos($name, 'windsurf') !== false) return 'WS';
+        if (strpos($name, 'perplexity') !== false) return 'PP';
+        if (strpos($name, 'zed') !== false) return 'ZD';
+        if (strpos($name, 'continue') !== false) return 'CT';
+        if (strpos($name, 'gemini') !== false) return 'GM';
+        if (strpos($name, 'mcp client') !== false) return 'MC';
+        return strtoupper(substr($name, 0, 2));
+    }
+
+    public function getClientLogoAttribute(): ?array
+    {
+        $name = strtolower($this->client_name ?? '');
+        if (strpos($name, 'chatgpt') !== false) {
+            return ['light' => '/images/clients/chatgpt-light.png', 'dark' => '/images/clients/chatgpt-dark.png'];
+        }
+        if (strpos($name, 'claude') !== false) {
+            return ['light' => '/images/clients/claude.png', 'dark' => '/images/clients/claude.png'];
+        }
+        if (strpos($name, 'cursor') !== false) {
+            return ['light' => '/images/clients/cursor-light.png', 'dark' => '/images/clients/cursor-dark.png'];
+        }
+        if (strpos($name, 'vscode') !== false) {
+            return ['light' => '/images/clients/vscode.png', 'dark' => '/images/clients/vscode.png'];
+        }
+        if (strpos($name, 'windsurf') !== false) {
+            return ['light' => '/images/clients/windsurf-light.png', 'dark' => '/images/clients/windsurf-dark.png'];
+        }
+        if (strpos($name, 'perplexity') !== false) {
+            return ['light' => '/images/clients/perplexity-light.png', 'dark' => '/images/clients/perplexity-dark.png'];
+        }
+        if (strpos($name, 'zed') !== false) {
+            return ['light' => '/images/clients/zed.png', 'dark' => '/images/clients/zed.png'];
+        }
+        if (strpos($name, 'continue') !== false) {
+            return ['light' => '/images/clients/continue.png', 'dark' => '/images/clients/continue.png'];
+        }
+        if (strpos($name, 'gemini') !== false) {
+            return ['light' => '/images/clients/gemini.png', 'dark' => '/images/clients/gemini.png'];
+        }
+        return null;
+    }
+    
+    public function getClientColorAttribute(): string
+    {
+        $name = strtolower($this->client_name ?? '');
+        if (!$name) return '#8b5cf6';
+        if (strpos($name, 'chatgpt') !== false) return '#10a37f';
+        if (strpos($name, 'claude') !== false) return '#d97706';
+        if (strpos($name, 'cursor') !== false) return '#22c55e';
+        if (strpos($name, 'vscode') !== false) return '#007acc';
+        if (strpos($name, 'windsurf') !== false) return '#6b7280';
+        if (strpos($name, 'perplexity') !== false) return '#6366f1';
+        if (strpos($name, 'zed') !== false) return '#22c55e';
+        if (strpos($name, 'continue') !== false) return '#8b5cf6';
+        if (strpos($name, 'gemini') !== false) return '#f59e0b';
+        if (strpos($name, 'mcp client') !== false) return '#06b6d4';
+        return '#8b5cf6';
+    }
+
+    public function getClientTypeAttribute(): string
+    {
+        $name = strtolower($this->client_name ?? '');
+        if (!$name) return 'AI Client';
+        if (strpos($name, 'chatgpt') !== false) return 'AI Clients';
+        if (strpos($name, 'claude') !== false) return 'AI Clients';
+        if (strpos($name, 'cursor') !== false) return 'AI IDE';
+        if (strpos($name, 'vscode') !== false) return 'IDE';
+        if (strpos($name, 'windsurf') !== false) return 'AI IDE';
+        if (strpos($name, 'perplexity') !== false) return 'AI Clients';
+        if (strpos($name, 'zed') !== false) return 'IDE';
+        if (strpos($name, 'continue') !== false) return 'IDE Extension';
+        if (strpos($name, 'gemini') !== false) return 'AI Clients';
+        if (strpos($name, 'mcp client') !== false) return 'Web Application';
+        return 'AI Client';
     }
 }
