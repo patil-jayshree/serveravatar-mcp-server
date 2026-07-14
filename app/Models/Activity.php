@@ -25,6 +25,7 @@ class Activity extends Model
     protected $appends = ['type_label', 'time_ago', 'color', 'client_initials', 'client_color', 'client_logo', 'formatted_date'];
 
     const TYPE_CLIENT_CONNECTED = 'client_connected';
+    const TYPE_CLIENT_RECONNECTED = 'client_reconnected';
     const TYPE_CLIENT_DISCONNECTED = 'client_disconnected';
     const TYPE_TOOL_EXECUTED = 'tool_executed';
     const TYPE_API_KEY_SAVED = 'api_key_saved';
@@ -51,12 +52,19 @@ class Activity extends Model
 
     public function getIconAttribute(): string
     {
+        // Special case: tool_executed icon depends on success status
+        if ($this->type === self::TYPE_TOOL_EXECUTED) {
+            $success = $this->metadata['success'] ?? true;
+            $color = $success ? '#3b82f6' : '#ef4444';
+            return '<i class="fas fa-screwdriver-wrench" style="color: ' . $color . ';"></i>';
+        }
+        
         return match($this->type) {
             self::TYPE_CLIENT_CONNECTED => '<i class="fa-solid fa-robot" style="color: #22c55e;"></i>',
+            self::TYPE_CLIENT_RECONNECTED => '<i class="fa-solid fa-rotate" style="color: #8b5cf6;"></i>',
             self::TYPE_CLIENT_DISCONNECTED => '<i class="fa-solid fa-plug-circle-exclamation" style="color: #f59e0b;"></i>',
-            self::TYPE_TOOL_EXECUTED => '<i class="fas fa-screwdriver-wrench" style="color: #3b82f6;"></i>',
             self::TYPE_API_KEY_SAVED => '<i class="fas fa-key" style="color: #8b5cf6;"></i>',
-            self::TYPE_API_KEY_UPDATED => '<i class="fas fa-key" style="color: #06b6d4;"></i>',
+            self::TYPE_API_KEY_UPDATED => '<i class="fas fa-key" style="color: #f59e0b;"></i>',
             self::TYPE_API_KEY_DELETED => '<i class="fas fa-trash" style="color: #ef4444;"></i>',
             self::TYPE_PROFILE_UPDATED => '<i class="fas fa-user-pen" style="color: #06b6d4;"></i>',
             self::TYPE_PASSWORD_CHANGED => '<i class="fas fa-lock" style="color: #6366f1;"></i>',
@@ -67,10 +75,16 @@ class Activity extends Model
 
     public function getBadgeAttribute(): string
     {
+        // Special case: tool_executed badge depends on success status
+        if ($this->type === self::TYPE_TOOL_EXECUTED) {
+            $success = $this->metadata['success'] ?? true;
+            return $success ? 'EXECUTED' : 'FAILED';
+        }
+        
         return match($this->type) {
             self::TYPE_CLIENT_CONNECTED => 'CONNECTED',
+            self::TYPE_CLIENT_RECONNECTED => 'RECONNECTED',
             self::TYPE_CLIENT_DISCONNECTED => 'DISCONNECTED',
-            self::TYPE_TOOL_EXECUTED => 'EXECUTED',
             self::TYPE_API_KEY_SAVED => 'SAVED',
             self::TYPE_API_KEY_UPDATED => 'UPDATED',
             self::TYPE_API_KEY_DELETED => 'REMOVED',
@@ -83,12 +97,18 @@ class Activity extends Model
 
     public function getColorAttribute(): string
     {
+        // Special case: tool_executed color depends on success status
+        if ($this->type === self::TYPE_TOOL_EXECUTED) {
+            $success = $this->metadata['success'] ?? true;
+            return $success ? 'info' : 'danger';
+        }
+        
         return match($this->type) {
             self::TYPE_CLIENT_CONNECTED => 'success',
+            self::TYPE_CLIENT_RECONNECTED => 'primary',
             self::TYPE_CLIENT_DISCONNECTED => 'warning',
-            self::TYPE_TOOL_EXECUTED => 'info',
             self::TYPE_API_KEY_SAVED => 'primary',
-            self::TYPE_API_KEY_UPDATED => 'cyan',
+            self::TYPE_API_KEY_UPDATED => 'warning',
             self::TYPE_API_KEY_DELETED => 'danger',
             self::TYPE_PROFILE_UPDATED => 'cyan',
             self::TYPE_PASSWORD_CHANGED => 'primary',

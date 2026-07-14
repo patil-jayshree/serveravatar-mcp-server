@@ -56,11 +56,34 @@ class ActivityLogger
         );
     }
 
-    public static function toolExecuted($user, string $toolName, ?string $clientName = null, bool $success = true, ?array $arguments = null): ?Activity
+    public static function clientReconnected($user, ?string $clientName = null): ?Activity
+    {
+        $client = $clientName ?? McpConnectionTracker::detectClient(Request::userAgent());
+        
+        // Deduplication with Cache lock: prevent race conditions when multiple requests hit at once
+        $cacheKey = 'mcp_reconnect:' . $user->id . ':' . $client;
+        
+        if (\Illuminate\Support\Facades\Cache::has($cacheKey)) {
+            return null; // Skip duplicate within lock period
+        }
+        
+        // Set cache lock for 30 seconds
+        \Illuminate\Support\Facades\Cache::put($cacheKey, true, 30);
+        
+        return self::log(
+            $user,
+            Activity::TYPE_CLIENT_RECONNECTED,
+            "Reconnected successfully via {$client}",
+            null,
+            $client
+        );
+    }
+
+    public static function toolExecuted($user, string $toolName, ?string $clientName = null, bool $success = true, ?array $arguments = null, ?array $response = null): ?Activity
     {
         // Deduplication: Skip if same tool called within 2 seconds with same arguments
         $recentActivity = Activity::where('user_id', $user->id)
-            ->where('type', self::TYPE_TOOL_EXECUTED)
+            ->where('type', Activity::TYPE_TOOL_EXECUTED)
             ->where('created_at', '>=', now()->subSeconds(2))
             ->first();
         
@@ -78,6 +101,9 @@ class ActivityLogger
         $metadata = ['tool' => $toolName, 'success' => $success, 'user_agent' => Request::userAgent()];
         if ($arguments !== null) {
             $metadata['arguments'] = $arguments;
+        }
+        if ($response !== null) {
+            $metadata['response'] = $response;
         }
         return self::log(
             $user,

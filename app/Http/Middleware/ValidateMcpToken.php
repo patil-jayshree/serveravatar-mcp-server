@@ -59,20 +59,29 @@ class ValidateMcpToken
                     return response()->json(['error' => 'ServerAvatar API key not configured. Please add it in your dashboard.'], 403);
                 }
                 
-                // Track MCP connection and log activity for new connections only
+                // Track MCP connection and log connect/reconnect activity
                 try {
                     $clientName = \App\Services\McpConnectionTracker::detectClient($request->userAgent());
                     $isNewConnection = !\App\Models\McpConnection::where('user_id', $user->id)
                         ->where('client_name', $clientName)
                         ->exists();
-
-                    \App\Services\McpConnectionTracker::trackActivity($user, $clientName);
-
+                    
+                    // Check if this is a tools/list or initialize request (refresh/reconnect)
+                    $body = $request->all();
+                    $method = $body['method'] ?? null;
+                    $isRefreshOrReconnect = in_array($method, ['tools/list', 'tools/listChanges', 'initialize']);
+                    
+                    // Log activity ONLY for new connections OR refresh/reconnect requests
                     if ($isNewConnection) {
                         \App\Services\ActivityLogger::clientConnected($user, $clientName);
+                    } elseif ($isRefreshOrReconnect) {
+                        \App\Services\ActivityLogger::clientReconnected($user, $clientName);
                     }
+                    
+                    // Now track the connection
+                    \App\Services\McpConnectionTracker::trackActivity($user, $clientName);
                 } catch (\Exception $e) {
-                    // Silently ignore tracking errors - don't affect MCP flow
+                    // Silently ignore tracking errors
                 }
             }
             

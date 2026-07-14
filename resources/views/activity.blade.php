@@ -12,19 +12,28 @@ $csrf = csrf_token();
 .filter-bar { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; padding: 0; border-radius: 0; margin-bottom: 16px; }
 .filter-search { flex: 1; min-width: 200px; position: relative; display: flex; align-items: center; }
 .filter-search i:first-child { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #9ca3af; font-size: 14px; pointer-events: none; z-index: 1; }
-.filter-search input { width: 100%; padding: 10px 36px 10px 36px; background: #ffffff; border: 1px solid #e0e0e5; border-radius: 8px; color: var(--text-primary); font-size: 0.85rem; transition: border-color 0.2s; }
+.filter-search input { width: 100%; padding: 10px 36px 10px 36px; background: var(--bg-input); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-primary); font-size: 0.85rem; transition: border-color 0.2s; }
 .filter-search .clear-search { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); color: #9ca3af; font-size: 14px; cursor: pointer; display: none; z-index: 2; }
 .filter-search .clear-search:hover { color: var(--accent-primary); }
 .filter-search .clear-search.show { display: block; }
 .filter-search input:focus { outline: none; border-color: var(--accent-primary); }
 .filter-search input::placeholder { color: #9ca3af; }
-.filter-select { position: relative; display: flex; align-items: center; gap: 8px; padding: 10px 32px 10px 12px; background: #ffffff; border: 1px solid #e0e0e5; border-radius: 8px; color: var(--text-primary); font-size: 0.85rem; cursor: pointer; appearance: none; min-width: 140px; transition: border-color 0.2s, box-shadow 0.2s; }
-.filter-select:hover { border-color: #c0c0c5; }
-.filter-select i { color: #6b7280; font-size: 12px; }
+.filter-select { position: relative; display: flex; align-items: center; gap: 8px; padding: 10px 32px 10px 12px; background: var(--bg-input); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-primary); font-size: 0.85rem; cursor: pointer; appearance: none; min-width: 140px; transition: border-color 0.2s, box-shadow 0.2s; }
+.filter-select:hover { border-color: var(--border-color-hover); }
+.filter-select i { color: var(--text-muted); font-size: 12px; }
 .filter-select select { position: absolute; left: 0; top: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
-.filter-clear { display: flex; align-items: center; gap: 6px; padding: 10px 16px; background: #ffffff; border: 1px solid #e0e0e5; border-radius: 8px; color: var(--text-primary); font-size: 0.85rem; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
+
+/* Custom Dropdown - replaces native select */
+.filter-dropdown { position: absolute; top: calc(100% + 4px); left: 0; min-width: 100%; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; box-shadow: var(--shadow-lg); z-index: 1000; opacity: 0; visibility: hidden; transform: translateY(-8px); transition: all 0.2s ease; max-height: 280px; overflow-y: auto; }
+.filter-dropdown.active { opacity: 1; visibility: visible; transform: translateY(0); }
+.filter-dropdown-item { padding: 10px 14px; font-size: 0.85rem; color: var(--text-primary); cursor: pointer; transition: background 0.15s; white-space: nowrap; }
+.filter-dropdown-item:hover { background: var(--bg-secondary); }
+.filter-dropdown-item.selected { background: var(--accent-primary-muted); color: var(--accent-primary); font-weight: 500; }
+.filter-dropdown-item:first-child { border-radius: 7px 7px 0 0; }
+.filter-dropdown-item:last-child { border-radius: 0 0 7px 7px; }
+.filter-clear { display: flex; align-items: center; gap: 6px; padding: 10px 16px; background: var(--bg-input); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-primary); font-size: 0.85rem; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
 .filter-clear:hover { border-color: var(--accent-primary); color: var(--accent-primary); }
-.filter-clear i { color: #6b7280; transition: color 0.2s; }
+.filter-clear i { color: var(--text-muted); transition: color 0.2s; }
 .filter-clear:hover i { color: var(--accent-primary); }
 .activity-table-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; }
 .activity-table { width: 100%; border-collapse: collapse; }
@@ -38,7 +47,6 @@ $csrf = csrf_token();
 .event-icon svg { width: 18px; height: 18px; }
 .event-info { display: flex; flex-direction: column; gap: 8px; }
 .event-desc { font-size: 0.875rem; font-weight: 600; color: var(--text-primary); }
-.event-via { font-size: 0.75rem; color: var(--text-muted); }
 .event-badge { display: inline-block; padding: 4px 10px; border-radius: 12px; font-size: 0.6rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; white-space: nowrap; max-width: fit-content; }
 .badge-info { background: rgba(59, 130, 246, 0.12); color: #3b82f6; }
 .badge-success { background: rgba(22, 163, 74, 0.12); color: #16a34a; }
@@ -67,7 +75,7 @@ $csrf = csrf_token();
 /* Slide-out Panel */
 .panel-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.4); z-index: 999; opacity: 0; visibility: hidden; transition: all 0.3s; }
 .panel-overlay.active { opacity: 1; visibility: visible; }
-.event-panel { position: fixed; top: 0; right: 0; width: 400px; max-width: 100%; height: 100%; background: var(--bg-card); box-shadow: -4px 0 20px rgba(0,0,0,0.15); z-index: 1000; transform: translateX(100%); transition: transform 0.3s ease; overflow-y: auto; }
+.event-panel { position: fixed; top: 0; right: 0; width: 400px; max-width: 100%; height: 100%; background: var(--bg-card); box-shadow: -4px 0 20px rgba(0,0,0,0.15); z-index: 1000; transform: translateX(100%); transition: transform 0.3s ease; display: flex; flex-direction: column; overflow: hidden; }
 .panel-overlay.active .event-panel { transform: translateX(0); }
 .panel-header { padding: 12px 20px; position: sticky; top: 0; background: var(--bg-card); border-bottom: 1px solid var(--border-color); }
 .panel-header-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
@@ -83,7 +91,7 @@ $csrf = csrf_token();
 .panel-desc { font-size: 0.85rem; color: var(--text-primary); }
 .panel-close { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; background: transparent; border: none; border-radius: 8px; color: var(--text-muted); cursor: pointer; font-size: 1.25rem; transition: all 0.2s; }
 .panel-close:hover { background: var(--bg-secondary); color: var(--text-primary); }
-.panel-body { padding: 12px 20px; }
+.panel-body { padding: 12px 20px; flex: 1; overflow-y: auto; }
 .panel-section { margin-bottom: 20px; }
 .panel-section:last-child { margin-bottom: 0; }
 .panel-section-title { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 10px; }
@@ -118,10 +126,10 @@ $csrf = csrf_token();
 .additional-info-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; }
 .additional-info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .additional-info-label { font-size: 0.7rem; color: #6b7280; text-transform: uppercase; letter-spacing: 0.03em; }
-.additional-info-value { font-size: 0.8rem; color: #1f2937; font-weight: 500; }
+.additional-info-value { font-size: 0.8rem; color: var(--text-primary); font-weight: 500; }
 .payload-code-wrapper { display: flex; gap: 12px; }
 .payload-line-numbers { font-family: 'SF Mono', Monaco, monospace; font-size: 0.75rem; line-height: 1.6; color: #555; text-align: right; user-select: none; min-width: 24px; }
-.payload-code { font-family: 'SF Mono', Monaco, monospace; font-size: 0.75rem; line-height: 1.6; color: #d4d4d4; white-space: pre-wrap; word-break: break-all; max-height: 300px; overflow-y: auto; flex: 1; }
+.payload-code { font-family: 'SF Mono', Monaco, monospace; font-size: 0.75rem; line-height: 1.6; color: #d4d4d4; white-space: pre-wrap; word-break: break-word; max-height: 400px; overflow-y: auto; flex: 1; }
 .payload-code .key { color: #9cdcfe; }
 .payload-code .string { color: #ce9178; }
 .payload-code .number { color: #b5cea8; }
@@ -168,45 +176,45 @@ $csrf = csrf_token();
     <button type="button" onclick="handleSearchClick()" class="btn-card-action" style="display: inline-block; padding: 11px 16px; background: var(--accent-primary); color: white; border-radius: var(--radius-md); font-size: 14px; font-weight: 600; border: none; cursor: pointer; white-space: nowrap; height: 44px;">
         Search
     </button>
-    <div class="filter-select">
+    <div class="filter-select" onclick="toggleDropdown('time')" id="timeFilterWrapper">
         <i class="fas fa-calendar"></i>
-        <span id="timeFilterLabel">{{ $timeFilter ?? 'All Time' }}</span>
-        <i class="fas fa-chevron-down" style="position: absolute; right: 10px; color: #6b7280; font-size: 10px; pointer-events: none;"></i>
-        <select id="timeFilter" onchange="handleFilterChange()">
-            <option value="" {{ $timeFilter == '' ? 'selected' : '' }}>All Time</option>
-            <option value="today" {{ $timeFilter == 'today' ? 'selected' : '' }}>Today</option>
-            <option value="7days" {{ $timeFilter == '7days' ? 'selected' : '' }}>Last 7 Days</option>
-            <option value="30days" {{ $timeFilter == '30days' ? 'selected' : '' }}>Last 30 Days</option>
-            <option value="90days" {{ $timeFilter == '90days' ? 'selected' : '' }}>Last 90 Days</option>
-        </select>
+        <span id="timeFilterLabel">{{ $timeFilter == 'today' ? 'Today' : ($timeFilter == '7days' ? 'Last 7 Days' : ($timeFilter == '30days' ? 'Last 30 Days' : ($timeFilter == '90days' ? 'Last 90 Days' : 'All Time'))) }}</span>
+        <i class="fas fa-chevron-down" style="position: absolute; right: 10px; color: var(--text-muted); font-size: 10px; pointer-events: none;"></i>
+        <div class="filter-dropdown" id="timeDropdown">
+            <div class="filter-dropdown-item" data-value="" onclick="selectOption('time', '', 'All Time', event)">All Time</div>
+            <div class="filter-dropdown-item" data-value="today" onclick="selectOption('time', 'today', 'Today', event)">Today</div>
+            <div class="filter-dropdown-item" data-value="7days" onclick="selectOption('time', '7days', 'Last 7 Days', event)">Last 7 Days</div>
+            <div class="filter-dropdown-item" data-value="30days" onclick="selectOption('time', '30days', 'Last 30 Days', event)">Last 30 Days</div>
+            <div class="filter-dropdown-item" data-value="90days" onclick="selectOption('time', '90days', 'Last 90 Days', event)">Last 90 Days</div>
+        </div>
     </div>
-    <div class="filter-select">
+    <div class="filter-select" onclick="toggleDropdown('event')" id="eventFilterWrapper">
         <i class="fas fa-filter"></i>
         <span id="eventFilterLabel">All Events</span>
-        <i class="fas fa-chevron-down" style="position: absolute; right: 10px; color: #6b7280; font-size: 10px; pointer-events: none;"></i>
-        <select id="eventFilter" onchange="handleFilterChange()">
-            <option value="" {{ $eventFilter == '' ? 'selected' : '' }}>All Events</option>
-            <option value="tool_executed" {{ $eventFilter == 'tool_executed' ? 'selected' : '' }}>Tool Executed</option>
-            <option value="client_connected">Client Connected</option>
-            <option value="client_disconnected">Client Disconnected</option>
-            <option value="api_key_saved">API Key Saved</option>
-            <option value="api_key_deleted">API Key Deleted</option>
-            <option value="profile_updated">Profile Updated</option>
-            <option value="password_changed">Password Changed</option>
-        </select>
+        <i class="fas fa-chevron-down" style="position: absolute; right: 10px; color: var(--text-muted); font-size: 10px; pointer-events: none;"></i>
+        <div class="filter-dropdown" id="eventDropdown">
+            <div class="filter-dropdown-item" data-value="" onclick="selectOption('event', '', 'All Events', event)">All Events</div>
+            <div class="filter-dropdown-item" data-value="tool_executed" onclick="selectOption('event', 'tool_executed', 'Tool Executed', event)">Tool Executed</div>
+            <div class="filter-dropdown-item" data-value="client_connected" onclick="selectOption('event', 'client_connected', 'Client Connected', event)">Client Connected</div>
+            <div class="filter-dropdown-item" data-value="client_disconnected" onclick="selectOption('event', 'client_disconnected', 'Client Disconnected', event)">Client Disconnected</div>
+            <div class="filter-dropdown-item" data-value="api_key_saved" onclick="selectOption('event', 'api_key_saved', 'API Key Saved', event)">API Key Saved</div>
+            <div class="filter-dropdown-item" data-value="api_key_deleted" onclick="selectOption('event', 'api_key_deleted', 'API Key Deleted', event)">API Key Deleted</div>
+            <div class="filter-dropdown-item" data-value="profile_updated" onclick="selectOption('event', 'profile_updated', 'Profile Updated', event)">Profile Updated</div>
+            <div class="filter-dropdown-item" data-value="password_changed" onclick="selectOption('event', 'password_changed', 'Password Changed', event)">Password Changed</div>
+        </div>
     </div>
-    <div class="filter-select">
+    <div class="filter-select" onclick="toggleDropdown('client')" id="clientFilterWrapper">
         <i class="fas fa-user"></i>
         <span id="clientFilterLabel">All Clients</span>
-        <i class="fas fa-chevron-down" style="position: absolute; right: 10px; color: #6b7280; font-size: 10px; pointer-events: none;"></i>
-        <select id="clientFilter" onchange="handleFilterChange()">
-            <option value="" {{ $clientFilter == '' ? 'selected' : '' }}>All Clients</option>
+        <i class="fas fa-chevron-down" style="position: absolute; right: 10px; color: var(--text-muted); font-size: 10px; pointer-events: none;"></i>
+        <div class="filter-dropdown" id="clientDropdown">
+            <div class="filter-dropdown-item" data-value="" onclick="selectOption('client', '', 'All Clients', event)">All Clients</div>
             @if(isset($clients) && $clients->count() > 0)
                 @foreach($clients as $client)
-                    <option value="{{ $client }}">{{ $client }}</option>
+                    <div class="filter-dropdown-item" data-value="{{ $client }}" onclick="selectOption('client', '{{ $client }}', '{{ $client }}', event)">{{ $client }}</div>
                 @endforeach
             @endif
-        </select>
+        </div>
     </div>
     <div class="filter-select" onclick="clearFilters()" style="cursor: pointer;">
         <i class="fas fa-rotate-right"></i>
@@ -236,7 +244,6 @@ $csrf = csrf_token();
                         </div>
                         <div class="event-info">
                             <span class="event-desc">{{ $activity->description }}</span>
-                            <span class="event-via">via {{ $activity->client_name ?? 'System' }}</span>
                             <span class="event-badge badge-{{ $activity->color }}">{{ $activity->typeLabel }}</span>
                         </div>
                     </div>
@@ -249,7 +256,7 @@ $csrf = csrf_token();
                                 <img src="{{ $activity->client_logo['dark'] }}" alt="" width="28" height="28" class="icon-dark">
                             </div>
                         @else
-                            <div class="client-avatar" style="background: {{ $activity->client_color ?? '#8b5cf6' }};">
+                            <div class="client-avatar" style="background: {{ $activity->type === 'api_key_updated' ? 'rgba(245, 158, 11, 0.2)' : ($activity->type === 'profile_updated' ? 'rgba(6, 182, 212, 0.2)' : ($activity->client_color ?? '#8b5cf6')) }};">
                                 {{ $activity->client_initials ?? 'SA' }}
                             </div>
                         @endif
@@ -452,6 +459,63 @@ function handleSearchClick() {
     loadActivities(1);
 }
 
+// Custom Dropdown Functions
+function toggleDropdown(filterType) {
+    event.stopPropagation();
+    var dropdown = document.getElementById(filterType + 'Dropdown');
+    var wasActive = dropdown.classList.contains('active');
+    
+    // Close all dropdowns first
+    document.querySelectorAll('.filter-dropdown').forEach(function(d) {
+        d.classList.remove('active');
+    });
+    
+    // Toggle this dropdown
+    if (!wasActive) {
+        // Mark selected item based on current filter
+        var currentValue = currentFilters[filterType];
+        dropdown.querySelectorAll('.filter-dropdown-item').forEach(function(item) {
+            item.classList.remove('selected');
+            if (item.getAttribute('data-value') === currentValue) {
+                item.classList.add('selected');
+            }
+        });
+        dropdown.classList.add('active');
+    }
+}
+
+function selectOption(filterType, value, label, e) {
+    e.stopPropagation();
+    
+    // Update current filter
+    currentFilters[filterType] = value;
+    
+    // Update label
+    document.getElementById(filterType + 'FilterLabel').textContent = label;
+    
+    // Update selected state in dropdown
+    var dropdown = document.getElementById(filterType + 'Dropdown');
+    dropdown.querySelectorAll('.filter-dropdown-item').forEach(function(item) {
+        item.classList.remove('selected');
+    });
+    e.target.classList.add('selected');
+    
+    // Close dropdown
+    dropdown.classList.remove('active');
+    
+    // Reload activities
+    loadActivities(1);
+}
+
+// Close dropdowns when clicking outside
+document.addEventListener('click', function(e) {
+    if (!e.target.closest('.filter-select')) {
+        document.querySelectorAll('.filter-dropdown').forEach(function(d) {
+            d.classList.remove('active');
+        });
+    }
+});
+
 function toggleClearBtn() {
     var input = document.getElementById('searchInput');
     var clearBtn = document.querySelector('.clear-search');
@@ -475,35 +539,25 @@ document.addEventListener('DOMContentLoaded', function() {
     toggleClearBtn();
 });
 
-function handleFilterChange() {
-    currentFilters.time = document.getElementById('timeFilter').value;
-    currentFilters.event = document.getElementById('eventFilter').value;
-    currentFilters.client = document.getElementById('clientFilter').value;
-    
-    updateFilterLabels();
-    loadActivities(1);
-}
 
-function updateFilterLabels() {
-    var timeSel = document.getElementById('timeFilter');
-    document.getElementById('timeFilterLabel').textContent = timeSel.options[timeSel.selectedIndex].textContent;
-    
-    var eventSel = document.getElementById('eventFilter');
-    document.getElementById('eventFilterLabel').textContent = eventSel.options[eventSel.selectedIndex].textContent;
-    
-    var clientSel = document.getElementById('clientFilter');
-    document.getElementById('clientFilterLabel').textContent = clientSel.options[clientSel.selectedIndex].textContent;
-}
 
 function clearFilters() {
     currentFilters = { search: '', time: '', event: '', client: '' };
     document.getElementById('searchInput').value = '';
-    document.getElementById('timeFilter').value = '';
-    document.getElementById('eventFilter').value = '';
-    document.getElementById('clientFilter').value = '';
     document.getElementById('timeFilterLabel').textContent = 'All Time';
     document.getElementById('eventFilterLabel').textContent = 'All Events';
     document.getElementById('clientFilterLabel').textContent = 'All Clients';
+    
+    // Remove selected class from all dropdown items
+    document.querySelectorAll('.filter-dropdown-item').forEach(function(item) {
+        item.classList.remove('selected');
+    });
+    
+    // Close any open dropdowns
+    document.querySelectorAll('.filter-dropdown').forEach(function(d) {
+        d.classList.remove('active');
+    });
+    
     loadActivities(1);
 }
 
@@ -570,14 +624,10 @@ function openEventPanel(id) {
         html += '<div class="payload-block">';
         html += '<div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">';
         html += '<div style="display: flex; align-items: center; gap: 8px;"><span style="font-size: 0.85rem; color: #6b7280;">{ }</span><span style="font-size: 0.7rem; font-weight: 600; color: #e0e0e0; text-transform: uppercase; letter-spacing: 0.02em;">REQUEST PAYLOAD</span></div>';
-        html += '<button class="payload-copy" onclick="copyPayload(this)" data-payload=\'' + JSON.stringify(metadata.arguments) + '\'><i class="fas fa-copy"></i> Copy</button>';
+        html += '<button class="payload-copy" onclick="copyPayload(this)" data-payload="' + JSON.stringify(metadata.arguments).replace(/'/g, "&#39;") + '"><i class="fas fa-copy"></i> Copy</button>';
         html += '</div>';
         var argsJson = JSON.stringify(metadata.arguments, null, 2);
-        var argsLines = argsJson.split('\n');
-        var lineNums = '';
-        var lineText = '';
-        for (var i = 0; i < argsLines.length; i++) { lineNums += (i + 1) + '\n'; lineText += argsLines[i] + (i < argsLines.length - 1 ? '\n' : ''); }
-        html += '<div class="payload-code-wrapper"><pre class="payload-line-numbers">' + lineNums + '</pre><pre class="payload-code">' + syntaxHighlight(lineText) + '</pre></div>';
+        html += '<div class="payload-code-wrapper"><pre class="payload-code" style="white-space: pre-wrap; overflow-x: auto;">' + syntaxHighlight(argsJson) + '</pre></div>';
         html += '</div>';
         html += '</div>';
     }
@@ -588,14 +638,14 @@ function openEventPanel(id) {
         html += '<div class="payload-block">';
         html += '<div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">';
         html += '<div style="display: flex; align-items: center; gap: 8px;"><span style="font-size: 0.85rem; color: #6b7280;">{ }</span><span style="font-size: 0.7rem; font-weight: 600; color: #e0e0e0; text-transform: uppercase; letter-spacing: 0.02em;">RESPONSE</span></div>';
-        html += '<button class="payload-copy" onclick="copyPayload(this)" data-payload=\'' + JSON.stringify(metadata.response) + '\'><i class="fas fa-copy"></i> Copy</button>';
+        html += '<button class="payload-copy" onclick="copyPayload(this)" data-payload="' + JSON.stringify(metadata.response).replace(/'/g, "&#39;") + '"><i class="fas fa-copy"></i> Copy</button>';
         html += '</div>';
         var respJson = JSON.stringify(metadata.response, null, 2);
         var respLines = respJson.split('\n');
         var respLineNums = '';
         var respLineText = '';
         for (var i = 0; i < respLines.length; i++) { respLineNums += (i + 1) + '\n'; respLineText += respLines[i] + (i < respLines.length - 1 ? '\n' : ''); }
-        html += '<div class="payload-code-wrapper"><pre class="payload-line-numbers">' + respLineNums + '</pre><pre class="payload-code">' + syntaxHighlight(respLineText) + '</pre></div>';
+        html += '<div class="payload-code-wrapper"><pre class="payload-code" style="white-space: pre-wrap; overflow-x: auto;">' + syntaxHighlight(respJson) + '</pre></div>';
         html += '</div>';
         html += '</div>';
     }

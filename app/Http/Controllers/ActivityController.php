@@ -169,8 +169,7 @@ class ActivityController extends Controller
                 $html .= '</div>';
                 $html .= '<div class="event-info">';
                 $html .= '<span class="event-desc">' . e($activity->description) . '</span>';
-                $html .= '<span class="event-via">via ' . e($activity->client_name ?? 'System') . '</span>';
-                $html .= '<span class="event-badge badge-' . $activity->color . '">' . e($activity->typeLabel) . '</span>';
+                                $html .= '<span class="event-badge badge-' . $activity->color . '">' . e($activity->typeLabel) . '</span>';
                 $html .= '</div>';
                 $html .= '</div>';
                 $html .= '</td>';
@@ -182,7 +181,14 @@ class ActivityController extends Controller
                 if ($logo) {
                     $html .= '<div class="client-avatar"><img src="' . $logo['light'] . '" alt="" width="28" height="28" class="icon-light"><img src="' . $logo['dark'] . '" alt="" width="28" height="28" class="icon-dark"></div>';
                 } else {
-                    $html .= '<div class="client-avatar" style="background: ' . $clientColor . ';">' . $clientInitials . '</div>';
+                    // Set background based on activity type for api_key_updated and profile_updated
+                    $bgColor = $clientColor;
+                    if ($activity->type === 'api_key_updated') {
+                        $bgColor = 'rgba(245, 158, 11, 0.2)';
+                    } elseif ($activity->type === 'profile_updated') {
+                        $bgColor = 'rgba(6, 182, 212, 0.2)';
+                    }
+                    $html .= '<div class="client-avatar" style="background: ' . $bgColor . ';">' . $clientInitials . '</div>';
                 }
                 $html .= '<div>';
                 $html .= '<div class="client-name">' . e($activity->client_name ?? 'System') . '</div>';
