@@ -6,7 +6,7 @@ use Closure;
 use App\JsonSchema\JsonSchemaTypeFactory;
 
 /**
- * Extended JsonSchema with support for MCP inputSecret type.
+ * Extended JsonSchema with MCP support.
  * 
  * @method static \Illuminate\JsonSchema\Types\ObjectType object(Closure|array<string, \Illuminate\JsonSchema\Types\Type> $properties = [])
  * @method static \Illuminate\JsonSchema\Types\IntegerType integer()
@@ -15,7 +15,6 @@ use App\JsonSchema\JsonSchemaTypeFactory;
  * @method static \Illuminate\JsonSchema\Types\BooleanType boolean()
  * @method static \Illuminate\JsonSchema\Types\ArrayType array()
  * @method static \Illuminate\JsonSchema\Types\UnionType union(array<int, string> $types)
- * @method static \Illuminate\JsonSchema\Types\StringType secret()
  */
 class JsonSchema extends \Illuminate\JsonSchema\JsonSchema
 {
