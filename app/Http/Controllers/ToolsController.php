@@ -42,6 +42,7 @@ class ToolsController extends Controller
                 // Map category to short name for table badge
                 $categoryBadgeMap = [
                     'ApplicationDomain' => 'Domain',
+                    'WordpressToolkit' => 'WP Toolkit',
                     'ApplicationUser' => 'App User',
                     'DatabaseUser' => 'DB User',
                 ];
@@ -156,6 +157,7 @@ class ToolsController extends Controller
                 ];
                 $categoryBadgeMap = [
                     'ApplicationDomain' => 'Domain',
+                    'WordpressToolkit' => 'WP Toolkit',
                     'ApplicationUser' => 'App User',
                     'DatabaseUser' => 'DB User',
                 ];

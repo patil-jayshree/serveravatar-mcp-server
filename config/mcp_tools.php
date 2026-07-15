@@ -213,6 +213,20 @@ return [
             'icon' => 'fa-trash',
         ],
         [
+            'name' => 'list_server_alerts',
+            'class' => \App\Mcp\Tools\Server\ListServerAlertsTool::class,
+            'description' => 'List server alerts configuration (server load, memory, disk thresholds)',
+            'usage' => 'listServerAlerts(organizationId, serverId)',
+            'icon' => 'fa-bell',
+        ],
+        [
+            'name' => 'update_server_alerts',
+            'class' => \App\Mcp\Tools\Server\UpdateServerAlertsTool::class,
+            'description' => 'Update server alerts configuration (thresholds for server load, memory, disk)',
+            'usage' => 'updateServerAlerts(organizationId, serverId, serverLoad, memoryUsage, diskUsage, ...)',
+            'icon' => 'fa-bell',
+        ],
+        [
             'name' => 'toggle_server_firewall',
             'class' => \App\Mcp\Tools\Firewall\ToggleServerFirewallTool::class,
             'description' => 'Toggle the server firewall (enable or disable the firewall)',
@@ -561,6 +575,257 @@ return [
             'description' => 'Disable HTTP to HTTPS redirection',
             'usage' => 'stopForceHttps(organizationId, serverId, applicationId)',
             'icon' => 'fa-stop',
+        ],
+
+        // WordPress Toolkit - Summary
+        [
+            'name' => 'get_wordpress_summary',
+            'class' => \App\Mcp\Tools\WordpressToolkit\GetWordpressSummaryTool::class,
+            'description' => 'Get WordPress Toolkit summary (core version, maintenance, plugin/theme counts)',
+            'usage' => 'getWordpressSummary(organizationId, serverId, applicationId)',
+            'icon' => 'fa-chart-pie',
+        ],
+        [
+            'name' => 'get_wordpress_user_summary',
+            'class' => \App\Mcp\Tools\WordpressToolkit\GetWordpressUserSummaryTool::class,
+            'description' => 'Get WordPress user summary (user counts)',
+            'usage' => 'getWordpressUserSummary(organizationId, serverId, applicationId)',
+            'icon' => 'fa-users',
+        ],
+        [
+            'name' => 'get_wordpress_theme_summary',
+            'class' => \App\Mcp\Tools\WordpressToolkit\GetWordpressThemeSummaryTool::class,
+            'description' => 'Get WordPress theme summary (theme counts, active theme, updates)',
+            'usage' => 'getWordpressThemeSummary(organizationId, serverId, applicationId)',
+            'icon' => 'fa-palette',
+        ],
+        [
+            'name' => 'get_wordpress_plugin_summary',
+            'class' => \App\Mcp\Tools\WordpressToolkit\GetWordpressPluginSummaryTool::class,
+            'description' => 'Get WordPress plugin summary (plugin counts, updates)',
+            'usage' => 'getWordpressPluginSummary(organizationId, serverId, applicationId)',
+            'icon' => 'fa-plug',
+        ],
+        [
+            'name' => 'get_wordpress_cron_summary',
+            'class' => \App\Mcp\Tools\WordpressToolkit\GetWordpressCronSummaryTool::class,
+            'description' => 'Get WordPress cron summary (WP Cron status, server cron configured)',
+            'usage' => 'getWordpressCronSummary(organizationId, serverId, applicationId)',
+            'icon' => 'fa-clock',
+        ],
+
+        // WordPress Toolkit - Core Updates
+        [
+            'name' => 'update_wordpress_core',
+            'class' => \App\Mcp\Tools\WordpressToolkit\UpdateWordpressCoreTool::class,
+            'description' => 'Update WordPress core to latest or specific version',
+            'usage' => 'updateWordpressCore(organizationId, serverId, applicationId, version?)',
+            'icon' => 'fa-arrows-rotate',
+        ],
+        [
+            'name' => 'update_wordpress_database',
+            'class' => \App\Mcp\Tools\WordpressToolkit\UpdateWordpressDatabaseTool::class,
+            'description' => 'Run WordPress database schema upgrade after core update',
+            'usage' => 'updateWordpressDatabase(organizationId, serverId, applicationId, dry_run?)',
+            'icon' => 'fa-database',
+        ],
+
+        // WordPress Toolkit - Themes
+        [
+            'name' => 'list_wordpress_themes',
+            'class' => \App\Mcp\Tools\WordpressToolkit\ListWordpressThemesTool::class,
+            'description' => 'List all installed WordPress themes',
+            'usage' => 'listWordpressThemes(organizationId, serverId, applicationId)',
+            'icon' => 'fa-palette',
+        ],
+        [
+            'name' => 'install_wordpress_theme',
+            'class' => \App\Mcp\Tools\WordpressToolkit\InstallWordpressThemeTool::class,
+            'description' => 'Install a WordPress theme from WordPress.org',
+            'usage' => 'installWordpressTheme(organizationId, serverId, applicationId, theme)',
+            'icon' => 'fa-download',
+        ],
+        [
+            'name' => 'update_wordpress_theme',
+            'class' => \App\Mcp\Tools\WordpressToolkit\UpdateWordpressThemeTool::class,
+            'description' => 'Update a specific WordPress theme to latest or version',
+            'usage' => 'updateWordpressTheme(organizationId, serverId, applicationId, theme, version?)',
+            'icon' => 'fa-arrow-up',
+        ],
+        [
+            'name' => 'update_all_wordpress_themes',
+            'class' => \App\Mcp\Tools\WordpressToolkit\UpdateAllWordpressThemesTool::class,
+            'description' => 'Update all WordPress themes to latest versions',
+            'usage' => 'updateAllWordpressThemes(organizationId, serverId, applicationId)',
+            'icon' => 'fa-up-down-left-right',
+        ],
+        [
+            'name' => 'activate_wordpress_theme',
+            'class' => \App\Mcp\Tools\WordpressToolkit\ActivateWordpressThemeTool::class,
+            'description' => 'Activate a WordPress theme',
+            'usage' => 'activateWordpressTheme(organizationId, serverId, applicationId, theme)',
+            'icon' => 'fa-check',
+        ],
+        [
+            'name' => 'uninstall_wordpress_theme',
+            'class' => \App\Mcp\Tools\WordpressToolkit\UninstallWordpressThemeTool::class,
+            'description' => 'Uninstall a WordPress theme (must deactivate first)',
+            'usage' => 'uninstallWordpressTheme(organizationId, serverId, applicationId, theme)',
+            'icon' => 'fa-trash',
+        ],
+
+        // WordPress Toolkit - Plugins
+        [
+            'name' => 'list_wordpress_plugins',
+            'class' => \App\Mcp\Tools\WordpressToolkit\ListWordpressPluginsTool::class,
+            'description' => 'List all installed WordPress plugins',
+            'usage' => 'listWordpressPlugins(organizationId, serverId, applicationId)',
+            'icon' => 'fa-plug',
+        ],
+        [
+            'name' => 'install_wordpress_plugin',
+            'class' => \App\Mcp\Tools\WordpressToolkit\InstallWordpressPluginTool::class,
+            'description' => 'Install a WordPress plugin from WordPress.org',
+            'usage' => 'installWordpressPlugin(organizationId, serverId, applicationId, plugin)',
+            'icon' => 'fa-download',
+        ],
+        [
+            'name' => 'update_wordpress_plugin',
+            'class' => \App\Mcp\Tools\WordpressToolkit\UpdateWordpressPluginTool::class,
+            'description' => 'Update a specific WordPress plugin to latest or version',
+            'usage' => 'updateWordpressPlugin(organizationId, serverId, applicationId, plugin, version?)',
+            'icon' => 'fa-arrow-up',
+        ],
+        [
+            'name' => 'update_all_wordpress_plugins',
+            'class' => \App\Mcp\Tools\WordpressToolkit\UpdateAllWordpressPluginsTool::class,
+            'description' => 'Update all WordPress plugins to latest versions',
+            'usage' => 'updateAllWordpressPlugins(organizationId, serverId, applicationId)',
+            'icon' => 'fa-up-down-left-right',
+        ],
+        [
+            'name' => 'toggle_wordpress_plugin',
+            'class' => \App\Mcp\Tools\WordpressToolkit\ToggleWordpressPluginTool::class,
+            'description' => 'Activate or deactivate a WordPress plugin',
+            'usage' => 'toggleWordpressPlugin(organizationId, serverId, applicationId, plugin, action)',
+            'icon' => 'fa-toggle-on',
+        ],
+        [
+            'name' => 'uninstall_wordpress_plugin',
+            'class' => \App\Mcp\Tools\WordpressToolkit\UninstallWordpressPluginTool::class,
+            'description' => 'Uninstall a WordPress plugin (must deactivate first)',
+            'usage' => 'uninstallWordpressPlugin(organizationId, serverId, applicationId, plugin)',
+            'icon' => 'fa-trash',
+        ],
+
+        // WordPress Toolkit - Performance
+        [
+            'name' => 'flush_wordpress_rewrite_rules',
+            'class' => \App\Mcp\Tools\WordpressToolkit\FlushWordpressRewriteRulesTool::class,
+            'description' => 'Regenerate WordPress permalink rewrite rules',
+            'usage' => 'flushWordpressRewriteRules(organizationId, serverId, applicationId)',
+            'icon' => 'fa-rotate',
+        ],
+        [
+            'name' => 'flush_wordpress_cache',
+            'class' => \App\Mcp\Tools\WordpressToolkit\FlushWordpressCacheTool::class,
+            'description' => 'Flush WordPress object/page cache',
+            'usage' => 'flushWordpressCache(organizationId, serverId, applicationId)',
+            'icon' => 'fa-bolt',
+        ],
+
+        // WordPress Toolkit - Cron
+        [
+            'name' => 'set_wordpress_cron_mode',
+            'class' => \App\Mcp\Tools\WordpressToolkit\SetWordpressCronModeTool::class,
+            'description' => 'Set WordPress cron mode (wp_cron or server_cron)',
+            'usage' => 'setWordpressCronMode(organizationId, serverId, applicationId, mode)',
+            'icon' => 'fa-clock',
+        ],
+        [
+            'name' => 'run_wordpress_cron',
+            'class' => \App\Mcp\Tools\WordpressToolkit\RunWordpressCronTool::class,
+            'description' => 'Run WordPress cron events manually',
+            'usage' => 'runWordpressCron(organizationId, serverId, applicationId, run_all?)',
+            'icon' => 'fa-play',
+        ],
+
+        // WordPress Toolkit - Security
+        [
+            'name' => 'toggle_wordpress_xmlrpc',
+            'class' => \App\Mcp\Tools\WordpressToolkit\ToggleWordpressXmlrpcTool::class,
+            'description' => 'Block or allow XML-RPC access',
+            'usage' => 'toggleWordpressXmlrpc(organizationId, serverId, applicationId, action)',
+            'icon' => 'fa-shield-halved',
+        ],
+        [
+            'name' => 'toggle_wordpress_php_execution',
+            'class' => \App\Mcp\Tools\WordpressToolkit\ToggleWordpressPhpExecutionTool::class,
+            'description' => 'Block or allow PHP execution in uploads directory',
+            'usage' => 'toggleWordpressPhpExecution(organizationId, serverId, applicationId, action)',
+            'icon' => 'fa-code',
+        ],
+        [
+            'name' => 'verify_wordpress_checksums',
+            'class' => \App\Mcp\Tools\WordpressToolkit\VerifyWordpressChecksumsTool::class,
+            'description' => 'Verify WordPress core files against official checksums',
+            'usage' => 'verifyWordpressChecksums(organizationId, serverId, applicationId)',
+            'icon' => 'fa-check-double',
+        ],
+
+        // WordPress Toolkit - Debug
+        [
+            'name' => 'get_wordpress_debug_info',
+            'class' => \App\Mcp\Tools\WordpressToolkit\GetWordpressDebugInfoTool::class,
+            'description' => 'Get WordPress debug settings (WP_DEBUG, WP_DEBUG_LOG, WP_DEBUG_DISPLAY)',
+            'usage' => 'getWordpressDebugInfo(organizationId, serverId, applicationId)',
+            'icon' => 'fa-bug',
+        ],
+        [
+            'name' => 'update_wordpress_debug',
+            'class' => \App\Mcp\Tools\WordpressToolkit\UpdateWordpressDebugTool::class,
+            'description' => 'Update WordPress debug setting',
+            'usage' => 'updateWordpressDebug(organizationId, serverId, applicationId, setting, value)',
+            'icon' => 'fa-screwdriver-wrench',
+        ],
+
+        // WordPress Toolkit - Site Settings
+        [
+            'name' => 'get_wordpress_site_settings',
+            'class' => \App\Mcp\Tools\WordpressToolkit\GetWordpressSiteSettingsTool::class,
+            'description' => 'Get WordPress site settings (language, timezone, formats, permalinks)',
+            'usage' => 'getWordpressSiteSettings(organizationId, serverId, applicationId)',
+            'icon' => 'fa-gear',
+        ],
+        [
+            'name' => 'update_wordpress_site_settings',
+            'class' => \App\Mcp\Tools\WordpressToolkit\UpdateWordpressSiteSettingsTool::class,
+            'description' => 'Update WordPress site settings',
+            'usage' => 'updateWordpressSiteSettings(organizationId, serverId, applicationId, ...)',
+            'icon' => 'fa-sliders',
+        ],
+
+        // WordPress Toolkit - Other
+        [
+            'name' => 'wordpress_search_replace',
+            'class' => \App\Mcp\Tools\WordpressToolkit\WordpressSearchReplaceTool::class,
+            'description' => 'Run database search and replace (for URL changes)',
+            'usage' => 'wordpressSearchReplace(organizationId, serverId, applicationId, search, replace, dry_run?)',
+            'icon' => 'fa-magnifying-glass',
+        ],
+        [
+            'name' => 'enable_wordpress_object_cache_pro',
+            'class' => \App\Mcp\Tools\WordpressToolkit\EnableWordpressObjectCacheProTool::class,
+            'description' => 'Enable Redis Object Cache Pro for WordPress',
+            'usage' => 'enableWordpressObjectCachePro(organizationId, serverId, applicationId, license_key)',
+            'icon' => 'fa-database',
+        ],
+        [
+            'name' => 'disable_wordpress_object_cache_pro',
+            'class' => \App\Mcp\Tools\WordpressToolkit\DisableWordpressObjectCacheProTool::class,
+            'description' => 'Disable Object Cache Pro and remove Redis configuration',
+            'usage' => 'disableWordpressObjectCachePro(organizationId, serverId, applicationId)',
+            'icon' => 'fa-power-off',
         ],
     ],
 ];

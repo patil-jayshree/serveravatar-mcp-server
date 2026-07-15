@@ -4,7 +4,7 @@ namespace App\Mcp\Servers;
 
 use App\Mcp\Tools\Database\{ListServerDatabasesTool, ListOrganizationDatabasesTool, CreateDatabaseTool, DeleteDatabaseTool};
 use App\Mcp\Tools\DatabaseUser\{ListDatabaseUsersTool, CreateDatabaseUserTool, UpdateDatabaseUserTool, DeleteDatabaseUserTool};
-use App\Mcp\Tools\Server\{CreateServerTool, ListCloudServerProvidersTool, ListCloudProviderRegionsTool, ListCloudProviderSizesTool, DeleteServerTool, ListServersTool, GetServerTool, GetServerUsageTool, ViewServerLogsTool, GetServerProcessesTool, GetServerServicesTool, UpdateServerServiceTool, GetPhpFpmContentTool, InstallPhpVersionTool, UpdateServerGeneralSettingsTool, RestartServerTool, GetServerSummaryTool, SetServerRestartScheduleTool, UpdateServerTagsTool, DeleteServerTagsTool};
+use App\Mcp\Tools\Server\{CreateServerTool, ListCloudServerProvidersTool, ListCloudProviderRegionsTool, ListCloudProviderSizesTool, DeleteServerTool, ListServersTool, GetServerTool, GetServerUsageTool, ViewServerLogsTool, GetServerProcessesTool, GetServerServicesTool, UpdateServerServiceTool, GetPhpFpmContentTool, InstallPhpVersionTool, UpdateServerGeneralSettingsTool, RestartServerTool, GetServerSummaryTool, SetServerRestartScheduleTool, UpdateServerTagsTool, DeleteServerTagsTool, ListServerAlertsTool, UpdateServerAlertsTool};
 use App\Mcp\Tools\Firewall\{ToggleServerFirewallTool, ListFirewallRulesTool, CreateFirewallRuleTool, DeleteFirewallRuleTool};
 use App\Mcp\Tools\Cronjob\{CreateCronjobTool, ListCronjobsTool, GetCronjobTool, UpdateCronjobTool, ToggleCronjobTool, DeleteCronjobTool};
 use App\Mcp\Tools\ApplicationUser\{ListUsersTool, CreateUserTool, GetUserTool, UpdateUserTool, DeleteUserTool, ToggleUserSshAccessTool, ToggleUserRootAccessTool, RemoveUserSshKeyTool};
@@ -13,6 +13,7 @@ use App\Mcp\Tools\Application\Node\{CreateNodeApplicationTool, GetNodeDeployment
 use App\Mcp\Tools\Supervisor\{ListSupervisorsTool, GetSupervisorTool, CreateSupervisorTool, UpdateSupervisorTool, DeleteSupervisorTool};
 use App\Mcp\Tools\ApplicationDomain\{ListDomainsTool, CreateDomainTool, DeleteDomainTool, ChangePrimaryDomainTool, ToggleDomainTool};
 use App\Mcp\Tools\SSL\{GetSslCertificateTool, InstallSslCertificateTool, UpdateSslCertificateTool, UninstallSslCertificateTool, ForceHttpsTool, StopForceHttpsTool};
+use App\Mcp\Tools\WordpressToolkit\{GetWordpressSummaryTool, GetWordpressUserSummaryTool, GetWordpressThemeSummaryTool, GetWordpressPluginSummaryTool, GetWordpressCronSummaryTool, UpdateWordpressCoreTool, UpdateWordpressDatabaseTool, ListWordpressThemesTool, InstallWordpressThemeTool, UpdateWordpressThemeTool, UpdateAllWordpressThemesTool, ActivateWordpressThemeTool, UninstallWordpressThemeTool, ListWordpressPluginsTool, InstallWordpressPluginTool, UpdateWordpressPluginTool, UpdateAllWordpressPluginsTool, ToggleWordpressPluginTool, UninstallWordpressPluginTool, FlushWordpressRewriteRulesTool, FlushWordpressCacheTool, SetWordpressCronModeTool, RunWordpressCronTool, ToggleWordpressXmlrpcTool, ToggleWordpressPhpExecutionTool, VerifyWordpressChecksumsTool, GetWordpressDebugInfoTool, UpdateWordpressDebugTool, GetWordpressSiteSettingsTool, UpdateWordpressSiteSettingsTool, WordpressSearchReplaceTool, EnableWordpressObjectCacheProTool, DisableWordpressObjectCacheProTool};
 
 use App\Mcp\Tools\Backup\ListBackupsTool;
 use App\Mcp\Tools\Organization\{ListOrganizationsTool, CreateOrganizationTool, GetOrganizationTool};
@@ -85,6 +86,8 @@ class ServerAvatarServer extends Server
         SetServerRestartScheduleTool::class,
         UpdateServerTagsTool::class,
         DeleteServerTagsTool::class,
+        ListServerAlertsTool::class,
+        UpdateServerAlertsTool::class,
         ToggleServerFirewallTool::class,
         ListFirewallRulesTool::class,
         CreateFirewallRuleTool::class,
@@ -119,6 +122,41 @@ class ServerAvatarServer extends Server
         UninstallSslCertificateTool::class,
         ForceHttpsTool::class,
         StopForceHttpsTool::class,
+
+        // WordPress Toolkit
+        GetWordpressSummaryTool::class,
+        GetWordpressUserSummaryTool::class,
+        GetWordpressThemeSummaryTool::class,
+        GetWordpressPluginSummaryTool::class,
+        GetWordpressCronSummaryTool::class,
+        UpdateWordpressCoreTool::class,
+        UpdateWordpressDatabaseTool::class,
+        ListWordpressThemesTool::class,
+        InstallWordpressThemeTool::class,
+        UpdateWordpressThemeTool::class,
+        UpdateAllWordpressThemesTool::class,
+        ActivateWordpressThemeTool::class,
+        UninstallWordpressThemeTool::class,
+        ListWordpressPluginsTool::class,
+        InstallWordpressPluginTool::class,
+        UpdateWordpressPluginTool::class,
+        UpdateAllWordpressPluginsTool::class,
+        ToggleWordpressPluginTool::class,
+        UninstallWordpressPluginTool::class,
+        FlushWordpressRewriteRulesTool::class,
+        FlushWordpressCacheTool::class,
+        SetWordpressCronModeTool::class,
+        RunWordpressCronTool::class,
+        ToggleWordpressXmlrpcTool::class,
+        ToggleWordpressPhpExecutionTool::class,
+        VerifyWordpressChecksumsTool::class,
+        GetWordpressDebugInfoTool::class,
+        UpdateWordpressDebugTool::class,
+        GetWordpressSiteSettingsTool::class,
+        UpdateWordpressSiteSettingsTool::class,
+        WordpressSearchReplaceTool::class,
+        EnableWordpressObjectCacheProTool::class,
+        DisableWordpressObjectCacheProTool::class,
     ];
 
     /**

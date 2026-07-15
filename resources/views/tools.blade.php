@@ -47,7 +47,7 @@ $perPage = $perPage ?? 10;
                 <option value="" {{ empty($selectedCategory) ? 'selected' : '' }}>All Categories</option>
                 @foreach($categories as $cat)
                 @php
-                $catDisplay = $cat === 'ApplicationDomain' ? 'Application Domain' : ($cat === 'ApplicationUser' ? 'Application User' : ($cat === 'DatabaseUser' ? 'Database User' : $cat));
+                $catDisplay = $cat === 'ApplicationDomain' ? 'Application Domain' : ($cat === 'ApplicationUser' ? 'Application User' : ($cat === 'DatabaseUser' ? 'Database User' : ($cat === 'WordpressToolkit' ? 'Wordpress Toolkit' : $cat)));
                 @endphp
                 <option value="{{ $cat }}" {{ $selectedCategory === $cat ? 'selected' : '' }}>{{ $catDisplay }}</option>
                 @endforeach

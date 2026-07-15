@@ -123,13 +123,6 @@ class ActivityLogger
             // For failed, use lowercase resource (e.g., "Failed to create application")
             $resourceLower = strtolower($resource);
             $description = 'Failed to ' . $actionFail . ' ' . $resourceLower . '.';
-            if ($errorMessage) {
-                $errorToShow = self::extractErrorMessage($errorMessage);
-                if (strlen($errorToShow) > 100) {
-                    $errorToShow = substr($errorToShow, 0, 100) . '...';
-                }
-                $description .= ' Error: "' . $errorToShow . '"';
-            }
         }
         
         return $description;
@@ -249,24 +242,6 @@ class ActivityLogger
         }
         
         return implode(' ', $result);
-    }
-    
-    private static function extractErrorMessage(string $errorMessage): string
-    {
-        $errorToShow = $errorMessage;
-        
-        // Try to parse as JSON
-        $decoded = json_decode($errorMessage, true);
-        if ($decoded && isset($decoded['message'])) {
-            $errorToShow = $decoded['message'];
-        } elseif (strpos($errorMessage, '"message":"') !== false) {
-            preg_match('/"message":"([^"]+)"/', $errorMessage, $matches);
-            if (isset($matches[1])) {
-                $errorToShow = $matches[1];
-            }
-        }
-        
-        return $errorToShow;
     }
     
     public static function clientConnected($user, ?string $clientName = null): Activity
