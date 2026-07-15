@@ -32,7 +32,13 @@ class ActivityController extends Controller
             }
             
             if ($eventFilter) {
-                $query->where('type', $eventFilter);
+                if ($eventFilter === 'tool_executed_success') {
+                    $query->where('type', 'tool_executed')->whereJsonContains('metadata', ['success' => true]);
+                } elseif ($eventFilter === 'tool_executed_failed') {
+                    $query->where('type', 'tool_executed')->whereJsonContains('metadata', ['success' => false]);
+                } else {
+                    $query->where('type', $eventFilter);
+                }
             }
             
             if ($clientFilter) {
@@ -109,7 +115,13 @@ class ActivityController extends Controller
             }
             
             if ($eventFilter) {
-                $query->where('type', $eventFilter);
+                if ($eventFilter === 'tool_executed_success') {
+                    $query->where('type', 'tool_executed')->whereJsonContains('metadata', ['success' => true]);
+                } elseif ($eventFilter === 'tool_executed_failed') {
+                    $query->where('type', 'tool_executed')->whereJsonContains('metadata', ['success' => false]);
+                } else {
+                    $query->where('type', $eventFilter);
+                }
             }
             
             if ($clientFilter) {

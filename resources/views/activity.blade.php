@@ -194,13 +194,14 @@ $csrf = csrf_token();
         <i class="fas fa-chevron-down" style="position: absolute; right: 10px; color: var(--text-muted); font-size: 10px; pointer-events: none;"></i>
         <div class="filter-dropdown" id="eventDropdown">
             <div class="filter-dropdown-item" data-value="" onclick="selectOption('event', '', 'All Events', event)">All Events</div>
-            <div class="filter-dropdown-item" data-value="tool_executed" onclick="selectOption('event', 'tool_executed', 'Tool Executed', event)">Tool Executed</div>
+            <div class="filter-dropdown-item" data-value="tool_executed" onclick="selectOption('event', 'tool_executed', 'Tool Executed', event)">Tool Executed (All)</div>
+            <div class="filter-dropdown-item" data-value="tool_executed_success" onclick="selectOption('event', 'tool_executed_success', 'Tool Executed - Success', event)">Tool Executed - Success</div>
+            <div class="filter-dropdown-item" data-value="tool_executed_failed" onclick="selectOption('event', 'tool_executed_failed', 'Tool Executed - Failed', event)">Tool Executed - Failed</div>
             <div class="filter-dropdown-item" data-value="client_connected" onclick="selectOption('event', 'client_connected', 'Client Connected', event)">Client Connected</div>
-            <div class="filter-dropdown-item" data-value="client_disconnected" onclick="selectOption('event', 'client_disconnected', 'Client Disconnected', event)">Client Disconnected</div>
             <div class="filter-dropdown-item" data-value="api_key_saved" onclick="selectOption('event', 'api_key_saved', 'API Key Saved', event)">API Key Saved</div>
-            <div class="filter-dropdown-item" data-value="api_key_deleted" onclick="selectOption('event', 'api_key_deleted', 'API Key Deleted', event)">API Key Deleted</div>
-            <div class="filter-dropdown-item" data-value="profile_updated" onclick="selectOption('event', 'profile_updated', 'Profile Updated', event)">Profile Updated</div>
+            <div class="filter-dropdown-item" data-value="api_key_updated" onclick="selectOption('event', 'api_key_updated', 'API Key Updated', event)">API Key Updated</div>
             <div class="filter-dropdown-item" data-value="password_changed" onclick="selectOption('event', 'password_changed', 'Password Changed', event)">Password Changed</div>
+            <div class="filter-dropdown-item" data-value="profile_updated" onclick="selectOption('event', 'profile_updated', 'Profile Updated', event)">Profile Updated</div>
         </div>
     </div>
     <div class="filter-select" onclick="toggleDropdown('client')" id="clientFilterWrapper">
@@ -303,8 +304,11 @@ $csrf = csrf_token();
         </div>
         <div class="pagination-buttons" id="paginationButtons">
             @if($currentPage > 1)
-                <a href="javascript:void(0)" onclick="loadActivities(1)" class="page-btn" title="First"><i class="fas fa-angle-double-left"></i></a>
-                <a href="javascript:void(0)" onclick="loadActivities({{ $currentPage - 1 }})" class="page-btn" title="Previous"><i class="fas fa-chevron-left"></i></a>
+                <a href="javascript:void(0)" onclick="loadActivities({{ $currentPage - 1 }})" class="page-btn">
+                    <i class="fas fa-chevron-left"></i> Previous
+                </a>
+            @else
+                <span class="page-btn disabled"><i class="fas fa-chevron-left"></i> Previous</span>
             @endif
             
             @php
@@ -312,6 +316,11 @@ $csrf = csrf_token();
                 $end = min($totalPages, $start + 2);
                 if ($end - $start < 2) { $start = max(1, $end - 2); }
             @endphp
+            
+            @if($start > 1)
+                <a href="javascript:void(0)" onclick="loadActivities(1)" class="page-btn">1</a>
+                @if($start > 2)<span style="padding: 0 4px; color: var(--text-muted);">...</span>@endif
+            @endif
             
             @for($i = $start; $i <= $end; $i++)
                 @if($i == $currentPage)
@@ -321,9 +330,17 @@ $csrf = csrf_token();
                 @endif
             @endfor
             
+            @if($end < $totalPages)
+                @if($end < $totalPages - 1)<span style="padding: 0 4px; color: var(--text-muted);">...</span>@endif
+                <a href="javascript:void(0)" onclick="loadActivities({{ $totalPages }})" class="page-btn">{{ $totalPages }}</a>
+            @endif
+            
             @if($currentPage < $totalPages)
-                <a href="javascript:void(0)" onclick="loadActivities({{ $currentPage + 1 }})" class="page-btn" title="Next"><i class="fas fa-chevron-right"></i></a>
-                <a href="javascript:void(0)" onclick="loadActivities({{ $totalPages }})" class="page-btn" title="Last"><i class="fas fa-angle-double-right"></i></a>
+                <a href="javascript:void(0)" onclick="loadActivities({{ $currentPage + 1 }})" class="page-btn">
+                    Next <i class="fas fa-chevron-right"></i>
+                </a>
+            @else
+                <span class="page-btn disabled">Next <i class="fas fa-chevron-right"></i></span>
             @endif
         </div>
     </div>
@@ -423,13 +440,19 @@ function updatePagination(data) {
     
     var btns = '<div class="pagination-buttons">';
     if (data.currentPage > 1) {
-        btns += '<a href="javascript:void(0)" onclick="loadActivities(1)" class="page-btn" title="First"><i class="fas fa-angle-double-left"></i></a>';
-        btns += '<a href="javascript:void(0)" onclick="loadActivities(' + (data.currentPage - 1) + ')" class="page-btn" title="Previous"><i class="fas fa-chevron-left"></i></a>';
+        btns += '<a href="javascript:void(0)" onclick="loadActivities(' + (data.currentPage - 1) + ')" class="page-btn"><i class="fas fa-chevron-left"></i> Previous</a>';
+    } else {
+        btns += '<span class="page-btn disabled"><i class="fas fa-chevron-left"></i> Previous</span>';
     }
     
     var start = Math.max(1, data.currentPage - 1);
     var end = Math.min(data.totalPages, start + 2);
     if (end - start < 2) start = Math.max(1, end - 2);
+    
+    if (start > 1) {
+        btns += '<a href="javascript:void(0)" onclick="loadActivities(1)" class="page-btn">1</a>';
+        if (start > 2) btns += '<span style="padding: 0 4px; color: var(--text-muted);">...</span>';
+    }
     
     for (var i = start; i <= end; i++) {
         if (i == data.currentPage) {
@@ -439,9 +462,15 @@ function updatePagination(data) {
         }
     }
     
+    if (end < data.totalPages) {
+        if (end < data.totalPages - 1) btns += '<span style="padding: 0 4px; color: var(--text-muted);">...</span>';
+        btns += '<a href="javascript:void(0)" onclick="loadActivities(' + data.totalPages + ')" class="page-btn">' + data.totalPages + '</a>';
+    }
+    
     if (data.currentPage < data.totalPages) {
-        btns += '<a href="javascript:void(0)" onclick="loadActivities(' + (data.currentPage + 1) + ')" class="page-btn" title="Next"><i class="fas fa-chevron-right"></i></a>';
-        btns += '<a href="javascript:void(0)" onclick="loadActivities(' + data.totalPages + ')" class="page-btn" title="Last"><i class="fas fa-angle-double-right"></i></a>';
+        btns += '<a href="javascript:void(0)" onclick="loadActivities(' + (data.currentPage + 1) + ')" class="page-btn">Next <i class="fas fa-chevron-right"></i></a>';
+    } else {
+        btns += '<span class="page-btn disabled">Next <i class="fas fa-chevron-right"></i></span>';
     }
     btns += '</div>';
     paginationBar.innerHTML += btns;
