@@ -11,6 +11,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/guide', function () {
+    if (auth()->check()) {
+        return view('guide-loggedin');
+    }
+    return view('guide');
+})->name('guide');
+
 Route::middleware('guest')->group(function () {
     Route::controller(LoginController::class)->group(function () {
         Route::get('login', 'showLoginForm')->name('login');
@@ -39,6 +46,7 @@ Route::middleware('auth')->group(function () {
         Route::get('dashboard', 'index')->name('dashboard');
         Route::get('integrations', 'integrations')->name('integrations');
         Route::get('mcp-server', 'mcpServer')->name('mcp-server');
+        Route::get('blog/mcp-guide', 'blogMcpGuide')->name('blog.mcp-guide');
         Route::post('dashboard/api-key', 'saveApiKey')->name('dashboard.api-key');
         Route::delete('dashboard/api-key', 'deleteApiKey')->name('dashboard.api-key.delete');
     });

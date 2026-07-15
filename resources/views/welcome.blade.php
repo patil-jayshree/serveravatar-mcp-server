@@ -159,6 +159,15 @@
         .how-desc { font-size: 0.8rem; color: var(--text-secondary); margin: 0; line-height: 1.4; }
         .how-arrow { color: #7c3aed; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 
+        /* Guide Section */
+        .guide-section { background: var(--bg-secondary); padding: 4rem 2rem; }
+        .guide-container { max-width: 900px; margin: 0 auto; text-align: center; }
+        .guide-title { font-size: 2rem; font-weight: 800; color: var(--text-primary); margin: 0 0 0.75rem 0; }
+        .guide-desc { font-size: 1rem; color: var(--text-secondary); margin: 0 0 1.5rem 0; line-height: 1.6; max-width: 600px; margin-left: auto; margin-right: auto; }
+        .guide-btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; background: var(--accent-primary); color: #fff; border-radius: 10px; font-size: 0.95rem; font-weight: 600; text-decoration: none; transition: all 0.2s; }
+        .guide-btn:hover { background: #6d28d9; transform: translateY(-1px); }
+        .guide-btn i { font-size: 1.1rem; }
+
         /* CTA Section */
         .cta-section { background: linear-gradient(135deg, rgba(139, 92, 246, 0.08) 0%, rgba(139, 92, 246, 0.03) 100%); border-top: 1px solid rgba(139, 92, 246, 0.1); border-bottom: 1px solid rgba(139, 92, 246, 0.1); padding: 3rem 2rem; }
         .cta-container { max-width: 900px; margin: 0 auto; display: flex; align-items: center; gap: 1.5rem; }
@@ -342,6 +351,17 @@
                     <p class="how-desc">Start managing your servers with AI.</p>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- Guide Section -->
+    <section class="guide-section">
+        <div class="guide-container">
+            <h2 class="guide-title">📚 MCP Guide</h2>
+            <p class="guide-desc">Learn how to connect ServerAvatar MCP with ChatGPT, Claude, Cursor, and other AI clients. Step-by-step setup instructions included.</p>
+            <a href="{{ route('guide') }}" class="guide-btn">
+                <i class="fas fa-book-open"></i> View Complete Guide
+            </a>
         </div>
     </section>
 

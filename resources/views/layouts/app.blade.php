@@ -417,6 +417,13 @@
                         <span>Account Settings</span>
                     </a>
                 </div>
+                <div class="nav-section">
+                    <div class="nav-section-title">Additional</div>
+                    <a href="{{ route('guide') }}" class="nav-link {{ request()->is('guide') ? 'active' : '' }}">
+                        <i class="fas fa-book"></i>
+                        <span>Guide</span>
+                    </a>
+                </div>
             </nav>
             
             <div class="sidebar-footer">

@@ -22,21 +22,6 @@
     <div class="integration-grid">
         <!-- ChatGPT -->
         <div class="integration-card simple">
-            @if($connectedClients->where('client_name', 'ChatGPT')->count() > 0)
-            <span class="badge badge-success badge-top-right">✓ Connected</span>
-            @else
-            <span class="badge badge-popular badge-top-right"><i class="fas fa-magic-wand-sparkles" style="color: #fbbf24;"></i> Popular</span>
-            @endif
-            <div class="integration-logo" style="background: rgba(139, 92, 246, 0.12);">
-                <img src="/images/clients/chatgpt-light.png" class="icon-light" width="28" height="28" style="object-fit: contain;" /><img src="/images/clients/chatgpt-dark.png" class="icon-dark" width="28" height="28" style="object-fit: contain;" onerror="this.style.display='none'; this.parentElement.innerHTML='<i class=\'fas fa-robot\'></i>'" />
-            </div>
-            <div class="integration-text">
-                <span class="integration-name">ChatGPT</span>
-                <span class="integration-desc">Connect via MCP in ChatGPT Settings</span>
-            </div>
-        </div>
-        <!-- Claude -->
-        <div class="integration-card simple">
             @if($connectedClients->where('client_name', 'Claude')->count() > 0)
             <span class="badge badge-success badge-top-right">✓ Connected</span>
             @else
@@ -48,6 +33,20 @@
             <div class="integration-text">
                 <span class="integration-name">Claude</span>
                 <span class="integration-desc">Add to ~/.claude/mcp_servers.json</span>
+            </div>
+        </div>
+        <div class="integration-card simple">
+            @if($connectedClients->where('client_name', 'ChatGPT')->count() > 0)
+            <span class="badge badge-success badge-top-right">✓ Connected</span>
+            @else
+            <span class="badge badge-popular badge-top-right"><i class="fas fa-magic-wand-sparkles" style="color: #fbbf24;"></i> Popular</span>
+            @endif
+            <div class="integration-logo" style="background: rgba(139, 92, 246, 0.12);">
+                <img src="/images/clients/chatgpt-light.png" class="icon-light" width="28" height="28" style="object-fit: contain;" /><img src="/images/clients/chatgpt-dark.png" class="icon-dark" width="28" height="28" style="object-fit: contain;" onerror="this.style.display='none'; this.parentElement.innerHTML='<i class=\'fas fa-robot\'></i>'" />
+            </div>
+            <div class="integration-text">
+                <span class="integration-name">ChatGPT</span>
+                <span class="integration-desc">Connect via MCP in ChatGPT Settings</span>
             </div>
         </div>
         <!-- Cursor -->
@@ -80,7 +79,6 @@
         </div>
         <!-- Perplexity -->
         <div class="integration-card simple">
-            <span class="badge badge-popular badge-top-right"><i class="fas fa-magic-wand-sparkles" style="color: #fbbf24;"></i> Popular</span>
             @if($connectedClients->where('client_name', 'Perplexity')->count() > 0)
             <span class="badge badge-success badge-top-right">✓ Connected</span>
             @endif
