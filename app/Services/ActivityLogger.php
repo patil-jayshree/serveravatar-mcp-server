@@ -64,6 +64,211 @@ class ActivityLogger
         return $readable ?: $toolName;
     }
     
+    public static function buildToolDescription(string $toolName, bool $success, ?string $errorMessage = null): string
+    {
+        // Split tool name into parts
+        $parts = preg_split('/[_-]/', strtolower($toolName));
+        
+        // Remove 'tool' suffix if present
+        $parts = array_filter($parts, fn($p) => $p !== 'tool');
+        $parts = array_values($parts);
+        
+        if (empty($parts)) {
+            return $success ? 'Operation completed successfully.' : 'Operation failed.';
+        }
+        
+        $action = $parts[0] ?? '';
+        $resourceParts = array_slice($parts, 1);
+        
+        // Map actions to past tense and failure forms
+        $actionMap = [
+            'create' => ['past' => 'created', 'fail' => 'create'],
+            'list' => ['past' => 'retrieved', 'fail' => 'retrieve'],
+            'get' => ['past' => 'retrieved', 'fail' => 'retrieve'],
+            'delete' => ['past' => 'deleted', 'fail' => 'delete'],
+            'update' => ['past' => 'updated', 'fail' => 'update'],
+            'toggle' => ['past' => 'toggled', 'fail' => 'toggle'],
+            'install' => ['past' => 'installed', 'fail' => 'install'],
+            'uninstall' => ['past' => 'uninstalled', 'fail' => 'uninstall'],
+            'set' => ['past' => 'set', 'fail' => 'set'],
+            'remove' => ['past' => 'removed', 'fail' => 'remove'],
+            'change' => ['past' => 'changed', 'fail' => 'change'],
+            'enable' => ['past' => 'enabled', 'fail' => 'enable'],
+            'disable' => ['past' => 'disabled', 'fail' => 'disable'],
+            'force' => ['past' => 'forced', 'fail' => 'force'],
+            'stop' => ['past' => 'stopped', 'fail' => 'stop'],
+            'start' => ['past' => 'started', 'fail' => 'start'],
+            'restart' => ['past' => 'restarted', 'fail' => 'restart'],
+            'manage' => ['past' => 'managed', 'fail' => 'manage'],
+            'save' => ['past' => 'saved', 'fail' => 'save'],
+        ];
+        
+        // Check for special compound resources
+        $resource = self::formatResourceName($resourceParts);
+        
+        // Determine action word
+        if (isset($actionMap[$action])) {
+            $wordInfo = $actionMap[$action];
+            $actionPast = $wordInfo['past'];
+            $actionFail = $wordInfo['fail'];
+        } else {
+            $actionPast = $action;
+            $actionFail = $action;
+        }
+        
+        // Build description
+        if ($success) {
+            $description = ucfirst($resource) . ' ' . $actionPast . ' successfully.';
+        } else {
+            // For failed, use lowercase resource (e.g., "Failed to create application")
+            $resourceLower = strtolower($resource);
+            $description = 'Failed to ' . $actionFail . ' ' . $resourceLower . '.';
+            if ($errorMessage) {
+                $errorToShow = self::extractErrorMessage($errorMessage);
+                if (strlen($errorToShow) > 100) {
+                    $errorToShow = substr($errorToShow, 0, 100) . '...';
+                }
+                $description .= ' Error: "' . $errorToShow . '"';
+            }
+        }
+        
+        return $description;
+    }
+    
+    private static function formatResourceName(array $parts): string
+    {
+        if (empty($parts)) {
+            return 'resource';
+        }
+        
+        $resource = implode(' ', $parts);
+        
+        // Format specific resources
+        $resourceMappings = [
+            'application' => 'Application',
+            'applications' => 'Applications',
+            'user' => 'Application user',
+            'users' => 'Application users',
+            'server' => 'Server',
+            'servers' => 'Servers',
+            'database' => 'Database',
+            'databases' => 'Databases',
+            'domain' => 'Domain',
+            'domains' => 'Domains',
+            'firewall rule' => 'Firewall rule',
+            'firewall rules' => 'Firewall rules',
+            'ssl certificate' => 'SSL certificate',
+            'cronjob' => 'Cronjob',
+            'cronjobs' => 'Cronjobs',
+            'backup' => 'Backup',
+            'backups' => 'Backups',
+            'supervisor' => 'Supervisor',
+            'organization' => 'Organization',
+            'organizations' => 'Organizations',
+            'database user' => 'Database user',
+            'database users' => 'Database users',
+            'primary domain' => 'Application primary domain',
+            'php settings' => 'PHP settings',
+            'basic auth' => 'Basic auth',
+        ];
+        
+        // Check exact match first
+        if (isset($resourceMappings[$resource])) {
+            return $resourceMappings[$resource];
+        }
+        
+        // Check for WordPress/Laravel/etc application
+        $frameworks = [
+            'wordpress' => 'WordPress',
+            'laravel' => 'Laravel',
+            'nodejs' => 'Node.js',
+            'node' => 'Node.js',
+            'php' => 'PHP',
+            'python' => 'Python',
+            'static' => 'Static',
+        ];
+        foreach ($frameworks as $framework => $properName) {
+            if (strpos($resource, $framework) !== false) {
+                // Replace framework with proper casing
+                $formatted = preg_replace('/' . $framework . '\s*/i', '', $resource);
+                $formatted = trim($formatted);
+                if (!empty($formatted) && $formatted !== 'application' && $formatted !== 'applications') {
+                    return $properName . ' ' . self::formatResourceName([$formatted]);
+                } elseif ($formatted === 'application' || $formatted === 'applications' || empty($formatted)) {
+                    return $properName . ' application';
+                }
+                return $properName . ' ' . self::formatResourceName([$formatted]);
+            }
+        }
+        
+        // Map individual words
+        $wordMappings = [
+            'application' => 'Application',
+            'applications' => 'Applications',
+            'user' => 'Application user',
+            'users' => 'Application users',
+            'server' => 'Server',
+            'servers' => 'Servers',
+            'database' => 'Database',
+            'databases' => 'Databases',
+            'domain' => 'Domain',
+            'domains' => 'Domains',
+            'firewall' => 'Firewall',
+            'rule' => 'rule',
+            'rules' => 'rules',
+            'ssl' => 'SSL',
+            'certificate' => 'certificate',
+            'cronjob' => 'Cronjob',
+            'cronjobs' => 'Cronjobs',
+            'backup' => 'Backup',
+            'backups' => 'Backups',
+            'supervisor' => 'Supervisor',
+            'organization' => 'Organization',
+            'organizations' => 'Organizations',
+            'primary' => 'primary',
+            'php' => 'PHP',
+            'settings' => 'settings',
+            'basic' => 'Basic',
+            'auth' => 'auth',
+            'root' => 'root',
+            'access' => 'access',
+            'ssh' => 'SSH',
+            'redis' => 'Redis',
+            'configuration' => 'configuration',
+            'api' => 'API',
+            'key' => 'key',
+        ];
+        
+        $result = [];
+        foreach ($parts as $part) {
+            if (isset($wordMappings[$part])) {
+                $result[] = $wordMappings[$part];
+            } else {
+                $result[] = ucfirst($part);
+            }
+        }
+        
+        return implode(' ', $result);
+    }
+    
+    private static function extractErrorMessage(string $errorMessage): string
+    {
+        $errorToShow = $errorMessage;
+        
+        // Try to parse as JSON
+        $decoded = json_decode($errorMessage, true);
+        if ($decoded && isset($decoded['message'])) {
+            $errorToShow = $decoded['message'];
+        } elseif (strpos($errorMessage, '"message":"') !== false) {
+            preg_match('/"message":"([^"]+)"/', $errorMessage, $matches);
+            if (isset($matches[1])) {
+                $errorToShow = $matches[1];
+            }
+        }
+        
+        return $errorToShow;
+    }
+    
     public static function clientConnected($user, ?string $clientName = null): Activity
     {
         $client = $clientName ?? McpConnectionTracker::detectClient(Request::userAgent());
@@ -116,33 +321,9 @@ class ActivityLogger
         }
         
         $client = $clientName ?? McpConnectionTracker::detectClient(Request::userAgent());
-        $readableTool = self::formatToolName($toolName);
         
-        // Build description based on success/failure
-        if ($success) {
-            $description = "{$readableTool} tool executed successfully.";
-        } else {
-            $description = "{$readableTool} tool execution failed.";
-            if ($errorMessage) {
-                // Extract message from JSON if present (e.g. API error responses)
-                $errorToShow = $errorMessage;
-                $decoded = json_decode($errorMessage, true);
-                if ($decoded && isset($decoded['message'])) {
-                    $errorToShow = $decoded['message'];
-                } elseif (strpos($errorMessage, '"message":"') !== false) {
-                    // Extract from embedded JSON like "API request failed: {...}"
-                    preg_match('/"message":"([^"]+)"/', $errorMessage, $matches);
-                    if (isset($matches[1])) {
-                        $errorToShow = $matches[1];
-                    }
-                }
-                // Truncate if too long
-                if (strlen($errorToShow) > 100) {
-                    $errorToShow = substr($errorToShow, 0, 100) . '...';
-                }
-                $description .= " Error: \"{$errorToShow}\"";
-            }
-        }
+        // Build user-friendly description
+        $description = self::buildToolDescription($toolName, $success, $errorMessage);
         
         $metadata = ['tool' => $toolName, 'success' => $success, 'user_agent' => Request::userAgent()];
         if ($arguments !== null) {
