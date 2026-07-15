@@ -78,7 +78,7 @@ class Activity extends Model
         // Special case: tool_executed badge depends on success status
         if ($this->type === self::TYPE_TOOL_EXECUTED) {
             $success = $this->metadata['success'] ?? true;
-            return $success ? 'EXECUTED' : 'FAILED';
+            return $success ? 'SUCCESS' : 'FAILED';
         }
         
         return match($this->type) {

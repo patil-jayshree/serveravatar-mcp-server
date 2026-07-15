@@ -76,7 +76,14 @@ class TrackMcpAnalytics
                     // Check if the inner response contains an error (API error inside result)
                     if (isset($responseData['error'])) {
                         $mcpError = true;
-                        $errorMessage = $responseData['error'];
+                        // Extract string error message from array/object
+                        $errorData = $responseData['error'];
+                        if (is_array($errorData)) {
+                            // Try common error message fields
+                            $errorMessage = $errorData['message'] ?? $errorData['error'] ?? $errorData['Message'] ?? json_encode($errorData);
+                        } else {
+                            $errorMessage = $errorData;
+                        }
                     }
                 }
             }

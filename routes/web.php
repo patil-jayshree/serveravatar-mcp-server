@@ -78,3 +78,9 @@ Route::middleware('auth')->group(function () {
             Route::delete('/account', 'deleteAccount')->name('account.delete');
         });
 });
+
+Route::get('client-logo', function (\Illuminate\Http\Request $request) {
+    $theme = $request->get('theme', 'dark');
+    $name = $request->get('name', '');
+    return \App\Helpers\ClientLogoHelper::getLogoHtml($name, $theme);
+});

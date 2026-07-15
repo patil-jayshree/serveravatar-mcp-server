@@ -244,7 +244,7 @@ $csrf = csrf_token();
                         </div>
                         <div class="event-info">
                             <span class="event-desc">{{ $activity->description }}</span>
-                            <span class="event-badge badge-{{ $activity->color }}">{{ $activity->typeLabel }}</span>
+                            <span class="event-badge badge-{{ $activity->color }}">{{ $activity->badge }}</span>
                         </div>
                     </div>
                 </td>

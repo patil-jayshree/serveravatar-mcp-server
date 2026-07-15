@@ -149,6 +149,7 @@ class ActivityController extends Controller
                     'id' => $activity->id,
                     'description' => $activity->description,
                     'type_label' => $activity->typeLabel,
+                    'badge' => $activity->badge,
                     'color' => $activity->color,
                     'icon' => $activity->icon,
                     'client_name' => $activity->client_name,
@@ -171,7 +172,7 @@ class ActivityController extends Controller
                 $html .= '</div>';
                 $html .= '<div class="event-info">';
                 $html .= '<span class="event-desc">' . e($activity->description) . '</span>';
-                                $html .= '<span class="event-badge badge-' . $activity->color . '">' . e($activity->typeLabel) . '</span>';
+                                $html .= '<span class="event-badge badge-' . $activity->color . '">' . e($activity->badge) . '</span>';
                 $html .= '</div>';
                 $html .= '</div>';
                 $html .= '</td>';

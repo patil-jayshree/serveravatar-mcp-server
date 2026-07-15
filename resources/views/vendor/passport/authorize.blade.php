@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="dark" class="dark">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -315,7 +315,7 @@
 
                 <div class="client-info">
                     <div class="client-name">
-                        <span class="app-icon">{!! \App\Helpers\ClientLogoHelper::getLogoHtml($client->name) !!}</span>
+                        <span class="app-icon" id="client-logo-icon" data-client-name="{{ $client->name }}">{!! \App\Helpers\ClientLogoHelper::getLogoHtml($client->name, 'dark') !!}</span>
                         {{ $client->name }}
                     </div>
                     <p class="client-description">This application is requesting access to your account.</p>
@@ -360,12 +360,28 @@
             const html = document.documentElement;
             const theme = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
             html.setAttribute('data-theme', theme);
+            html.classList.toggle('dark', theme === 'dark');
             localStorage.setItem('theme', theme);
+            updateLogo(theme);
         }
+        
+        function updateLogo(theme) {
+            const logoIcon = document.getElementById('client-logo-icon');
+            if (logoIcon) {
+                const clientName = logoIcon.getAttribute('data-client-name');
+                fetch('/client-logo?theme=' + theme + '&name=' + encodeURIComponent(clientName))
+                    .then(r => r.text())
+                    .then(html => {
+                        logoIcon.innerHTML = html;
+                    });
+            }
+        }
+        
         (function() {
             const saved = localStorage.getItem('theme');
             if (saved) {
                 document.documentElement.setAttribute('data-theme', saved);
+                document.documentElement.classList.toggle('dark', saved === 'dark');
             }
         })();
     </script>

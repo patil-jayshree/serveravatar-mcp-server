@@ -41,9 +41,29 @@ class ActivityLogger
         $readable = preg_replace('/\b[Tt]ool\b/', '', $readable);
         $readable = preg_replace('/\s+/', ' ', $readable);
         $readable = trim($readable);
+        
+        // Map ambiguous terms to more specific ones based on context
+        $replacements = [
+            '/\bUser\b/i' => 'Application User',
+            '/\bUsers\b/i' => 'Application Users',
+            '/\bServer\b/' => 'Server',
+            '/\bApplication\b/' => 'Application',
+            '/\bDatabase\b/' => 'Database',
+            '/\bFirewall\b/' => 'Firewall',
+            '/\bSsl\b/i' => 'SSL',
+            '/\bBackup\b/' => 'Backup',
+            '/\bCronjob\b/' => 'Cronjob',
+            '/\bSupervisor\b/' => 'Supervisor',
+            '/\bOrganization\b/' => 'Organization',
+        ];
+        
+        foreach ($replacements as $pattern => $replacement) {
+            $readable = preg_replace($pattern, $replacement, $readable);
+        }
+        
         return $readable ?: $toolName;
     }
-
+    
     public static function clientConnected($user, ?string $clientName = null): Activity
     {
         $client = $clientName ?? McpConnectionTracker::detectClient(Request::userAgent());
@@ -79,7 +99,7 @@ class ActivityLogger
         );
     }
 
-    public static function toolExecuted($user, string $toolName, ?string $clientName = null, bool $success = true, ?array $arguments = null, ?array $response = null): ?Activity
+    public static function toolExecuted($user, string $toolName, ?string $clientName = null, bool $success = true, ?array $arguments = null, ?array $response = null, ?string $errorMessage = null): ?Activity
     {
         // Deduplication: Skip if same tool called within 2 seconds with same arguments
         $recentActivity = Activity::where('user_id', $user->id)
@@ -96,8 +116,34 @@ class ActivityLogger
         }
         
         $client = $clientName ?? McpConnectionTracker::detectClient(Request::userAgent());
-        $status = $success ? 'executed successfully' : 'failed';
         $readableTool = self::formatToolName($toolName);
+        
+        // Build description based on success/failure
+        if ($success) {
+            $description = "{$readableTool} tool executed successfully.";
+        } else {
+            $description = "{$readableTool} tool execution failed.";
+            if ($errorMessage) {
+                // Extract message from JSON if present (e.g. API error responses)
+                $errorToShow = $errorMessage;
+                $decoded = json_decode($errorMessage, true);
+                if ($decoded && isset($decoded['message'])) {
+                    $errorToShow = $decoded['message'];
+                } elseif (strpos($errorMessage, '"message":"') !== false) {
+                    // Extract from embedded JSON like "API request failed: {...}"
+                    preg_match('/"message":"([^"]+)"/', $errorMessage, $matches);
+                    if (isset($matches[1])) {
+                        $errorToShow = $matches[1];
+                    }
+                }
+                // Truncate if too long
+                if (strlen($errorToShow) > 100) {
+                    $errorToShow = substr($errorToShow, 0, 100) . '...';
+                }
+                $description .= " Error: \"{$errorToShow}\"";
+            }
+        }
+        
         $metadata = ['tool' => $toolName, 'success' => $success, 'user_agent' => Request::userAgent()];
         if ($arguments !== null) {
             $metadata['arguments'] = $arguments;
@@ -105,10 +151,13 @@ class ActivityLogger
         if ($response !== null) {
             $metadata['response'] = $response;
         }
+        if ($errorMessage !== null) {
+            $metadata['error_message'] = $errorMessage;
+        }
         return self::log(
             $user,
             Activity::TYPE_TOOL_EXECUTED,
-            "{$readableTool} tool {$status}.",
+            $description,
             $metadata,
             $client
         );
