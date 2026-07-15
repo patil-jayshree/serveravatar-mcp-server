@@ -158,6 +158,8 @@ class ActivityController extends Controller
                     'client_type' => $this->getClientType($activity->client_name),
                     'ip_address' => $activity->ip_address,
                     'time_ago' => $activity->created_at->diffForHumans(),
+                    'formatted_date' => $activity->created_at->format('M j, Y'),
+                    'formatted_time' => $activity->created_at->format('h:i A'),
                     'metadata' => $metadata,
                 ]) . '\'>';
                 
@@ -221,9 +223,54 @@ class ActivityController extends Controller
                 $html .= '<tr><td colspan="4"><div class="activity-empty"><i class="fas fa-clock"></i><p>No activity recorded yet.</p></div></td></tr>';
             }
 
+            // Build pagination HTML (same as Tools page)
+            $paginationHtml = '';
+            if ($totalPages > 1) {
+                $paginationHtml .= '<div class="pagination-info">
+                    Showing ' . (($page - 1) * $perPage + 1) . ' to ' . min($page * $perPage, $totalActivities) . ' of ' . $totalActivities . ' events
+                </div>';
+                $paginationHtml .= '<div class="pagination-buttons">';
+                
+                if ($page > 1) {
+                    $paginationHtml .= '<a href="javascript:void(0)" onclick="loadActivities(' . ($page - 1) . ')" class="page-btn"><i class="fas fa-chevron-left"></i> Previous</a>';
+                } else {
+                    $paginationHtml .= '<span class="page-btn disabled"><i class="fas fa-chevron-left"></i> Previous</span>';
+                }
+                
+                $start = max(1, $page - 1);
+                $end = min($totalPages, $start + 2);
+                if ($end - $start < 2) { $start = max(1, $end - 2); }
+                
+                if ($start > 1) {
+                    $paginationHtml .= '<a href="javascript:void(0)" onclick="loadActivities(1)" class="page-btn">1</a>';
+                    if ($start > 2) { $paginationHtml .= '<span style="padding: 0 4px; color: var(--text-muted);">...</span>'; }
+                }
+                
+                for ($i = $start; $i <= $end; $i++) {
+                    if ($i == $page) {
+                        $paginationHtml .= '<span class="page-btn active">' . $i . '</span>';
+                    } else {
+                        $paginationHtml .= '<a href="javascript:void(0)" onclick="loadActivities(' . $i . ')" class="page-btn">' . $i . '</a>';
+                    }
+                }
+                
+                if ($end < $totalPages) {
+                    if ($end < $totalPages - 1) { $paginationHtml .= '<span style="padding: 0 4px; color: var(--text-muted);">...</span>'; }
+                    $paginationHtml .= '<a href="javascript:void(0)" onclick="loadActivities(' . $totalPages . ')" class="page-btn">' . $totalPages . '</a>';
+                }
+                
+                if ($page < $totalPages) {
+                    $paginationHtml .= '<a href="javascript:void(0)" onclick="loadActivities(' . ($page + 1) . ')" class="page-btn">Next <i class="fas fa-chevron-right"></i></a>';
+                } else {
+                    $paginationHtml .= '<span class="page-btn disabled">Next <i class="fas fa-chevron-right"></i></span>';
+                }
+                $paginationHtml .= '</div>';
+            }
+
             return response()->json([
                 'success' => true,
                 'html' => $html,
+                'pagination' => $paginationHtml,
                 'totalActivities' => $totalActivities,
                 'totalPages' => $totalPages,
                 'currentPage' => (int) $page,
