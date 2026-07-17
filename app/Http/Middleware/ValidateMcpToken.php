@@ -5,10 +5,15 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Laravel\Passport\Token;
+use Laravel\Passport\TokenRepository;
 use Symfony\Component\HttpFoundation\Response;
 
 class ValidateMcpToken
 {
+    public function __construct(
+        private TokenRepository $tokenRepository
+    ) {}
+
     public function handle(Request $request, Closure $next): Response
     {
         $authHeader = $request->header('Authorization');
@@ -20,28 +25,25 @@ class ValidateMcpToken
         $bearerToken = trim(substr($authHeader, 7));
         
         try {
-            $tokenId = null;
-            $parts = explode('.', $bearerToken);
+            $tokenId = $this->extractTokenId($bearerToken);
             
-            if (count($parts) === 3) {
-                $payload = json_decode($this->base64url_decode($parts[1]), true);
-                if (!$payload || !isset($payload['jti'])) {
-                    return response()->json(['error' => 'Invalid token payload'], 401);
-                }
-                $tokenId = $payload['jti'];
-                
-                if (isset($payload['exp']) && $payload['exp'] < time()) {
-                    return response()->json(['error' => 'Token has expired'], 401);
-                }
-            } else {
-                $tokenId = $bearerToken;
+            if (!$tokenId) {
+                return response()->json(['error' => 'Invalid token format'], 401);
             }
             
             $accessToken = Token::find($tokenId);
             
-            if (!$accessToken) {
-                return response()->json(['error' => 'Token not found', 'hint' => count($parts) === 3 ? 'jwt' : 'raw'], 401);
+            if (!$accessToken && strlen($tokenId) >= 32) {
+                $accessToken = $this->tokenRepository->find($tokenId);
             }
+            
+            if (!$accessToken) {
+                return response()->json(['error' => 'Token not found'], 401);
+            }
+            
+            // Update last used timestamp
+            $accessToken->last_used_at = now();
+            $accessToken->save();
             
             if ($accessToken->revoked) {
                 return response()->json(['error' => 'Token has been revoked'], 401);
@@ -51,31 +53,37 @@ class ValidateMcpToken
                 return response()->json(['error' => 'Token has expired'], 401);
             }
             
+            $scopes = $accessToken->scopes ?: [];
+            if (!empty($scopes) && !in_array('mcp:use', $scopes) && !in_array('*', $scopes)) {
+                return response()->json(['error' => 'Token does not have MCP access scope'], 403);
+            }
+            
             $user = $accessToken->user;
-            if ($user) {
-                auth()->guard('web')->setUser($user);
+            if (!$user) {
+                return response()->json(['error' => 'User not found for token'], 401);
+            }
+            
+            if (!$user->hasApiKey()) {
+                return response()->json(['error' => 'ServerAvatar API key not configured. Please add it in your dashboard.'], 403);
+            }
+            
+            $request->setUserResolver(fn () => $user);
+            auth()->guard('web')->setUser($user);
+            
+            // Track MCP connection
+            try {
+                $clientName = \App\Services\McpConnectionTracker::detectClient($request->userAgent());
+                $isNewConnection = !\App\Models\McpConnection::where('user_id', $user->id)
+                    ->where('client_name', $clientName)
+                    ->exists();
                 
-                if (!$user->hasApiKey()) {
-                    return response()->json(['error' => 'ServerAvatar API key not configured. Please add it in your dashboard.'], 403);
+                if ($isNewConnection) {
+                    \App\Services\ActivityLogger::clientConnected($user, $clientName);
                 }
                 
-                // Track MCP connection - log client_connected only for NEW connections
-                try {
-                    $clientName = \App\Services\McpConnectionTracker::detectClient($request->userAgent());
-                    $isNewConnection = !\App\Models\McpConnection::where('user_id', $user->id)
-                        ->where('client_name', $clientName)
-                        ->exists();
-                    
-                    // Log activity ONLY for new connections
-                    if ($isNewConnection) {
-                        \App\Services\ActivityLogger::clientConnected($user, $clientName);
-                    }
-                    
-                    // Now track the connection
-                    \App\Services\McpConnectionTracker::trackActivity($user, $clientName);
-                } catch (\Exception $e) {
-                    // Silently ignore tracking errors
-                }
+                \App\Services\McpConnectionTracker::trackActivity($user, $clientName);
+            } catch (\Exception $e) {
+                // Silently ignore
             }
             
         } catch (\Exception $e) {
@@ -83,6 +91,31 @@ class ValidateMcpToken
         }
 
         return $next($request);
+    }
+    
+    private function extractTokenId(string $bearerToken): ?string
+    {
+        $parts = explode('.', $bearerToken);
+        
+        if (count($parts) === 3) {
+            $payload = json_decode($this->base64url_decode($parts[1]), true);
+            if (!$payload || !isset($payload['jti'])) {
+                return null;
+            }
+            
+            if (isset($payload['exp']) && $payload['exp'] < time()) {
+                return null;
+            }
+            
+            return $payload['jti'];
+        }
+        
+        if (str_contains($bearerToken, '|')) {
+            $idPart = explode('|', $bearerToken)[0];
+            return $idPart ?: null;
+        }
+        
+        return $bearerToken ?: null;
     }
     
     private function base64url_decode(string $data): string

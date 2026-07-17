@@ -158,36 +158,43 @@
         <li>Check server resources and logs</li>
     </ul>
 
-    <h2>🔑 Step 1: Get Your ServerAvatar API Access Key</h2>
-    <p>Before connecting to AI clients, you need to get your ServerAvatar API access key. This key authenticates your account with the MCP server.</p>
+    <h2>🔑 Step 1: Generate Your ServerAvatar API Key</h2>
+    <p>Follow these simple steps to connect ServerAvatar MCP with your favorite AI client.</p>
     
     <div class="step-box">
         <p><span class="step-number">1</span>Log in to your ServerAvatar account</p>
-        <p><span class="step-number">2</span>Go to <strong>Account → API</strong> in the sidebar</p>
-        <p><span class="step-number">3</span>Click on <strong>Create API Key</strong> or use your existing key</p>
-        <p><span class="step-number">4</span>Copy the API key - you'll use this to connect AI clients</p>
+        <p><span class="step-number">2</span>Navigate to <strong>Account Settings → API Access</strong></p>
+        <p><span class="step-number">3</span>Generate or view your API Access Key</p>
+        <p><span class="step-number">4</span>Copy the API Key—you'll use it to authorize ServerAvatar MCP</p>
     </div>
 
     <div class="note-box">
-        <p><strong>⚠️ Important:</strong> Your API key is like a password. Never share it publicly or commit it to version control.</p>
+        <p><strong>⚠️ Note:</strong> Keep your API Key secure. Never share it publicly.</p>
     </div>
 
-    <h2>📡 Step 2: Your MCP Server Details</h2>
-    <p>You'll need these two things to connect AI clients:</p>
+    <h2>🔗 Step 2: Connect Your ServerAvatar Account to ServerAvatar MCP</h2>
+    <p>Once your API Key is verified, your ServerAvatar MCP account is ready to communicate with your ServerAvatar account.</p>
     
     <div class="step-box">
-        <p><strong>MCP Server URL:</strong></p>
-        <pre><code>https://mcp.178.105.137.4.nip.io/mcp/serveravatar</code></pre>
-        
-        <p style="margin-top: 1rem;"><strong>Authentication:</strong> API Key (from Step 1)</p>
+        <p><span class="step-number">1</span>Log in to your ServerAvatar MCP dashboard</p>
+        <p><span class="step-number">2</span>Go to <strong>Account Settings → API Access</strong></p>
+        <p><span class="step-number">3</span>Paste the API Key you copied from your ServerAvatar account</p>
+        <p><span class="step-number">4</span>Click <strong>Update API Key</strong></p>
     </div>
 
-    <h3>Where to Find Your MCP Server Info</h3>
+    <h2>📋 Step 3: Copy Your MCP Server URL</h2>
+    <p>After connecting your API Key:</p>
+    
     <div class="step-box">
-        <p><span class="step-number">1</span>Go to <strong>Dashboard → MCP Server</strong> page</p>
-        <p><span class="step-number">2</span>Copy the <strong>MCP Server URL</strong></p>
-        <p><span class="step-number">3</span>Use your <strong>API Key</strong> (from Account → API) as the authentication token</p>
+        <p><span class="step-number">1</span>Open the <strong>Dashboard</strong> or <strong>MCP Server</strong> page</p>
+        <p><span class="step-number">2</span>Locate the <strong>MCP Server URL</strong></p>
+        <p><span class="step-number">3</span>Click <strong>Copy URL</strong></p>
     </div>
+
+    <p>You'll need this URL when configuring your AI client.</p>
+
+    <h2>🤖 Step 4: Connect Your AI Client</h2>
+    <p>Choose the AI client you'd like to use with ServerAvatar MCP.</p>
 
     <h2>📊 ServerAvatar MCP Tools</h2>
     <p>ServerAvatar MCP provides <strong>55+ tools</strong> organized into categories:</p>
@@ -249,60 +256,87 @@
     
     <div class="client-card">
         <h4>ChatGPT + ServerAvatar MCP</h4>
-        <p>Connect via MCP in ChatGPT Settings to manage your servers directly from ChatGPT.</p>
+        <p>Before connecting your MCP server, make sure your ChatGPT account supports MCP connectors.</p>
         
-        <h3>Step 1: Get Your MCP Token</h3>
+        <h3>Step 1: Enable Developer Mode</h3>
         <div class="step-box">
-            <p>1. Log in to your ServerAvatar account</p>
-            <p>2. Go to <strong>Dashboard → MCP Server</strong></p>
-            <p>3. Copy your unique MCP authentication token</p>
+            <p><span class="step-number">1</span>Log in to your ChatGPT account</p>
+            <p><span class="step-number">2</span>Open Settings</p>
+            <p><span class="step-number">3</span>Enable Developer Mode (if available for your account)</p>
         </div>
 
-        <h3>Step 2: Add to ChatGPT</h3>
-        <div class="step-box">
-            <p><span class="step-number">1</span>Open ChatGPT and click on your profile</p>
-            <p><span class="step-number">2</span>Go to <strong>Settings → Beta Features</strong></p>
-            <p><span class="step-number">3</span>Enable <strong>MCP Servers</strong></p>
-            <p><span class="step-number">4</span>Add a new MCP server with:</p>
+        <div class="note-box">
+            <p><strong>⚠️ Note:</strong> MCP connectors are available only on supported ChatGPT plans and may not be available for every account.</p>
         </div>
-        <pre><code>Name: serveravatar
-URL: https://mcp.178.105.137.4.nip.io/mcp/serveravatar
-Auth Type: Bearer Token
-Token: your-api-key-from-account-api</code></pre>
+
+        <h3>Step 2: Create a New MCP Connector</h3>
+        <div class="step-box">
+            <p><span class="step-number">1</span>Open Settings</p>
+            <p><span class="step-number">2</span>Go to <strong>Apps</strong> (or Plugins, depending on your ChatGPT version)</p>
+            <p><span class="step-number">3</span>Click <strong>Create New</strong></p>
+            <p><span class="step-number">4</span>Enter a name: <strong>ServerAvatar MCP</strong></p>
+            <p><span class="step-number">5</span>Paste your MCP Server URL into the <strong>Connection URL</strong> field</p>
+            <p><span class="step-number">6</span>Save the connector</p>
+            <p><span class="step-number">7</span>Complete the authorization process if prompted</p>
+        </div>
+
+        <p>Once connected successfully, ServerAvatar MCP will appear in your available connectors.</p>
+
+        <h3>Step 3: Start Using ServerAvatar MCP</h3>
+        <div class="step-box">
+            <p><span class="step-number">1</span>Open a new conversation</p>
+            <p><span class="step-number">2</span>Select your connected <strong>ServerAvatar MCP</strong> connector</p>
+        </div>
+
+        <p>You can now use natural language commands such as:</p>
+        <ul>
+            <li>Create a WordPress application</li>
+            <li>List all servers</li>
+            <li>Restart Nginx</li>
+            <li>Install an SSL certificate</li>
+            <li>Create a database</li>
+        </ul>
     </div>
 
     <h2 id="claude">🧠 Claude</h2>
     
     <div class="client-card">
         <h4>Claude Desktop + ServerAvatar MCP</h4>
-        <p>Add ServerAvatar MCP to your Claude configuration file.</p>
+        <p>Claude supports connecting external MCP servers using Custom Connectors.</p>
         
-        <h3>Step 1: Find Claude Config File</h3>
+        <h3>Step 1: Open Claude Settings</h3>
         <div class="step-box">
-            <p><strong>macOS:</strong> <code>~/Library/Application Support/Claude/claude_desktop_config.json</code></p>
-            <p><strong>Windows:</strong> <code>%APPDATA%\Claude\claude_desktop_config.json</code></p>
-            <p><strong>Linux:</strong> <code>~/.config/Claude/claude_desktop_config.json</code></p>
+            <p><span class="step-number">1</span>Log in to your Claude account</p>
+            <p><span class="step-number">2</span>Open Settings</p>
+            <p><span class="step-number">3</span>Navigate to <strong>Connectors</strong> or <strong>Customize</strong> (depending on your Claude version)</p>
         </div>
 
-        <h3>Step 2: Edit Config</h3>
-        <pre><code>{
-  "mcpServers": {
-    "serveravatar": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-http",
-        "https://mcp.178.105.137.4.nip.io/mcp/serveravatar",
-        {
-          "Authorization": "***"
-        }
-      ]
-    }
-  }
-}</code></pre>
+        <h3>Step 2: Add a Custom Connector</h3>
+        <div class="step-box">
+            <p><span class="step-number">1</span>Click <strong>Add Custom Connector</strong></p>
+            <p><span class="step-number">2</span>Enter a connector name: <strong>ServerAvatar MCP</strong></p>
+            <p><span class="step-number">3</span>Paste your MCP Server URL into the connection URL field</p>
+            <p><span class="step-number">4</span>Save the connector</p>
+            <p><span class="step-number">5</span>Complete the authorization process if required</p>
+        </div>
 
-        <h3>Step 3: Restart Claude</h3>
-        <p>Quit and reopen Claude Desktop for the changes to take effect.</p>
+        <p>After a successful connection, the ServerAvatar MCP connector will be available in Claude.</p>
+
+        <h3>Step 3: Start Managing Your Servers</h3>
+        <div class="step-box">
+            <p><span class="step-number">1</span>Open a new Claude chat</p>
+            <p><span class="step-number">2</span>Select your <strong>ServerAvatar MCP</strong> connector</p>
+        </div>
+
+        <p>You can now ask Claude to perform ServerAvatar operations, for example:</p>
+        <ul>
+            <li>Create an application</li>
+            <li>List servers</li>
+            <li>Manage databases</li>
+            <li>Restart services</li>
+            <li>Install SSL certificates</li>
+            <li>Change application settings</li>
+        </ul>
     </div>
 
     <h2 id="cursor">📝 Cursor</h2>
@@ -373,43 +407,3 @@ Headers: {"Authorization": "***"}</code></pre>
 
 # Get server status
 "Show me the status of my production server"
-
-# Create database
-"Create a new database called myapp_production"
-
-# Manage cronjobs
-"List all cronjobs on my server"
-
-# WordPress management
-"Update all WordPress plugins on my site"
-
-# Server monitoring
-"What's the current server load and memory usage?"</code></pre>
-
-    <h2>🔐 Security</h2>
-    <div class="note-box">
-        <p><strong>Important:</strong> Your MCP token provides access to your ServerAvatar account. Keep it secure and never share it publicly.</p>
-        <ul style="margin: 0.5rem 0 0 1.25rem;">
-            <li>Each user has their own unique token</li>
-            <li>Tokens are stored securely in your user profile</li>
-            <li>You can regenerate your token anytime from the dashboard</li>
-        </ul>
-    </div>
-
-    <h2>❓ Troubleshooting</h2>
-    
-    <h3>Connection Issues</h3>
-    <ul>
-        <li><strong>Token expired?</strong> Regenerate from Dashboard → MCP Server</li>
-        <li><strong>Server unreachable?</strong> Check if the MCP server URL is correct</li>
-        <li><strong>Auth failed?</strong> Ensure Bearer token format is correct</li>
-    </ul>
-
-    <h3>Tool Not Working</h3>
-    <ul>
-        <li>Verify your account has permission for the requested action</li>
-        <li>Check if the server/application exists</li>
-        <li>Some features require specific ServerAvatar plan</li>
-    </ul>
-</div>
-@endsection

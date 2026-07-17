@@ -28,6 +28,7 @@ class DashboardController extends Controller
             $recentActivities = ActivityLogger::getRecent($user, 5);
             $lastActivity = $recentActivities->first();
             $onboardingComplete = $user->hasApiKey();
+            $activeTokensCount = $user->tokens()->where('name', 'like', 'mcp:%')->count();
 
             return view('dashboard', [
                 'user' => $user,
@@ -41,6 +42,7 @@ class DashboardController extends Controller
                 'recentActivities' => $recentActivities,
                 'lastActivity' => $lastActivity,
                 'onboardingComplete' => $onboardingComplete,
+                'activeTokensCount' => $activeTokensCount,
             ]);
         } catch (Exception $e) {
             return view('dashboard', [
@@ -59,6 +61,7 @@ class DashboardController extends Controller
                 'sparklineTools' => array_fill(0, 7, 0),
                 'sparklineClients' => array_fill(0, 7, 0),
                 'recentActivities' => collect(),
+                'activeTokensCount' => 0,
             ])->with('error', 'Unable to load dashboard. Please try again.');
         }
     }

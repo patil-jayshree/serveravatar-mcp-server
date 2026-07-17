@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\{LoginController, RegisterController, ForgotPasswordController, ResetPasswordController};
 use App\Http\Controllers\{DashboardController, ActivityController, ToolsController, ClientsController, ProfileController};
+use App\Http\Controllers\Api\McpTokenController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -84,6 +85,16 @@ Route::middleware('auth')->group(function () {
             Route::patch('/profile', 'updateProfile')->name('profile.update');
             Route::patch('/profile/password', 'updatePassword')->name('profile.password');
             Route::delete('/account', 'deleteAccount')->name('account.delete');
+        });
+
+    // MCP Token management for IDE clients
+    Route::prefix('mcp-tokens')
+        ->name('mcp-tokens.')
+        ->controller(McpTokenController::class)
+        ->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::post('/', 'store')->name('store');
+            Route::delete('/{tokenId}', 'destroy')->name('destroy');
         });
 });
 

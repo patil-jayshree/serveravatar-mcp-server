@@ -365,13 +365,14 @@
         .copy-url-btn:hover { background: #2563eb; transform: translateY(-1px); }
         .copy-url-btn.copied { background: var(--accent-success); }
         /* Quick Actions */
-        .quick-actions-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
+        .quick-actions-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; }
         .quick-action-btn { display: flex; align-items: center; justify-content: center; gap: 0.75rem; padding: 0.75rem 1rem; background: var(--bg-primary); border: 1px solid var(--border-color); border-radius: 10px; text-decoration: none; cursor: pointer; transition: all var(--transition-fast); }
         .quick-action-btn:hover { border-color: var(--accent-primary); background: var(--bg-card-hover); transform: translateY(-1px); }
         .qa-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
         .qa-tools { background: rgba(139, 92, 246, 0.12); color: var(--accent-primary); }
         .qa-key { background: rgba(139, 92, 246, 0.12); color: var(--accent-primary); }
         .qa-clients { background: rgba(139, 92, 246, 0.12); color: var(--accent-primary); }
+        .qa-tokens { background: rgba(139, 92, 246, 0.12); color: var(--accent-primary); }
         .qa-label { font-size: 14px; font-weight: 600; color: var(--text-primary); white-space: nowrap; }
 
         /* MCP Meta Grid */
@@ -709,17 +710,17 @@
                     </div>
                 </div>
 
-                <!-- Active Clients -->
+                <!-- Active Tokens -->
                 <div class="analytics-card">
-                    <div class="analytics-card-label">Active Clients</div>
-                    <div class="analytics-card-value">{{ $analytics['active_clients'] }}</div>
+                    <div class="analytics-card-label">Active IDE Tokens</div>
+                    <div class="analytics-card-value">{{ $activeTokensCount ?? 0 }}</div>
                     <div class="analytics-card-status">
-                        @if($analytics['active_clients'] > 0)
+                        @if(($activeTokensCount ?? 0) > 0)
                         <span style="width:7px;height:7px;border-radius:50%;background:#16a34a;flex-shrink:0;box-shadow:0 0 4px rgba(22,163,74,0.5);"></span>
-                        <span style="color:#16a34a;">{{ $analytics['active_clients'] }} Active Client{{ $analytics['active_clients'] > 1 ? 's' : '' }}</span>
+                        <span style="color:#16a34a;">{{ $activeTokensCount }} Active Token{{ $activeTokensCount > 1 ? 's' : '' }}</span>
                         @else
                         <span style="width:7px;height:7px;border-radius:50%;background:#6b7280;flex-shrink:0;"></span>
-                        <span>No Active Clients</span>
+                        <span>No Active Tokens</span>
                         @endif
                     </div>
                 </div>
@@ -993,6 +994,12 @@
                             <i class="fas fa-users" style="color: var(--accent-primary);"></i>
                         </div>
                         <span class="qa-label">Active AI Clients</span>
+                    </a>
+                    <a href="{{ route('mcp-server') }}" class="quick-action-btn" style="text-decoration: none;">
+                        <div class="qa-icon qa-tokens">
+                            <i class="fas fa-shield-halved" style="color: var(--accent-primary);"></i>
+                        </div>
+                        <span class="qa-label">Manage Tokens</span>
                     </a>
                 </div>
             </div>
