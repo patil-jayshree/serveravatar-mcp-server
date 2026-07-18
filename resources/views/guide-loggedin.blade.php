@@ -78,20 +78,23 @@
 @section('content')
 <div class="page-header">
     <h1 class="page-title">MCP Guide</h1>
-    <p class="page-subtitle">Learn how to connect ServerAvatar MCP with AI clients.</p>
+    <p class="page-subtitle">Learn how to connect ServerAvatar MCP with your favorite AI clients and manage your servers using natural language.</p>
 </div>
 
 <div class="card blog-content">
     <h2>🤖 What is MCP?</h2>
-    <p><strong>Model Context Protocol (MCP)</strong> is a standardized way for AI applications to connect with external tools and data sources. Think of it like a universal adapter that lets AI clients like ChatGPT, Claude, or Cursor connect to almost anything – servers, databases, files, APIs, and more.</p>
+    <p><strong>Model Context Protocol (MCP)</strong> is an open standard that allows AI applications to securely communicate with external tools and services.</p>
     
-    <p>Without MCP, AI models are limited to their training data. MCP opens up the real world to AI, allowing it to:</p>
+    <p>Instead of relying only on their built-in knowledge, AI assistants can perform real-time actions such as:</p>
     <ul>
-        <li>Read and write files on your computer</li>
-        <li>Access web APIs and external services</li>
-        <li>Manage servers and databases</li>
-        <li>Control applications</li>
+        <li>Manage servers</li>
+        <li>Access databases</li>
+        <li>Read and write files</li>
+        <li>Call APIs</li>
+        <li>Automate infrastructure tasks</li>
     </ul>
+    
+    <p>Think of MCP as a bridge between your AI assistant and your ServerAvatar account.</p>
 
     <h2>💡 Key Features of MCP</h2>
     <div class="feature-grid">
@@ -118,26 +121,28 @@
     </div>
 
     <h2>🔌 How MCP Works</h2>
-    <p>MCP follows a simple client-server architecture:</p>
-    <div class="note-box">
-        <p><strong>AI Client (Your Computer)</strong></p>
-        <p style="margin: 0.5rem 0; text-align: center;">↓ ↓ ↓</p>
-        <p><strong>MCP Server (like ServerAvatar)</strong></p>
-        <p style="margin: 0.5rem 0; text-align: center;">↓</p>
-        <p><strong>Real World (Servers, Databases, APIs)</strong></p>
+    <p>MCP uses a simple client-server architecture to connect AI assistants with external tools.</p>
+    <div class="note-box" style="font-family: monospace; font-size: 0.9rem; line-height: 1.4;">
+        <pre style="margin: 0; padding: 0; background: transparent; border: none; font-family: inherit;">┌─────────────────────────────┐
+│ 🤖 AI Client │
+│ ChatGPT • Claude • Cursor │
+└──────────────┬──────────────┘
+              │
+      Secure MCP Connection
+              │
+              ▼
+┌─────────────────────────────┐
+│ ⚡ ServerAvatar MCP Server │
+│ Authentication & MCP Tools │
+└──────────────┬──────────────┘
+              │
+              ▼
+┌─────────────────────────────┐
+│ 🌍 Your Infrastructure │
+│ Servers • Apps • Databases │
+│ SSL • Firewall • WordPress │
+└─────────────────────────────┘</pre>
     </div>
-    <p>The AI client (ChatGPT, Claude, etc.) connects to an MCP server. The server exposes "tools" that the AI can use. When you ask the AI to do something, it can call these tools in real-time.</p>
-
-    <h2>🎯 MCP Use Cases</h2>
-    <ul>
-        <li><strong>Server Management</strong> – Restart services, check logs, deploy apps</li>
-        <li><strong>Database Operations</strong> – Query data, create tables, backup</li>
-        <li><strong>File Operations</strong> – Read/write files, search code</li>
-        <li><strong>API Integration</strong> – Connect third-party services</li>
-        <li><strong>Automation</strong> – Chain complex tasks together</li>
-    </ul>
-
-    <hr style="border: none; border-top: 1px solid var(--border-color); margin: 2rem 0;">
 
     <h2>🚀 Introducing ServerAvatar MCP</h2>
     <p>Now that you understand MCP, let's talk about <strong>ServerAvatar MCP</strong> – a powerful implementation that brings your ServerAvatar server management panel directly into any MCP-compatible AI client.</p>
@@ -158,6 +163,7 @@
         <li>Check server resources and logs</li>
     </ul>
 
+    <h2>Quick Setup</h2>
     <h2>🔑 Step 1: Generate Your ServerAvatar API Key</h2>
     <p>Follow these simple steps to connect ServerAvatar MCP with your favorite AI client.</p>
     
@@ -241,15 +247,11 @@
         </tbody>
     </table>
 
-    <h2>🤖 Step 3: Connect with AI Clients</h2>
-    <p>Now that you have your MCP token, choose your preferred AI client below and follow the steps to connect:</p>
-
-    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin: 1rem 0;">
-        <a href="#chatgpt" style="padding: 0.5rem 1rem; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 20px; text-decoration: none; color: var(--text-primary);">🤖 ChatGPT</a>
-        <a href="#claude" style="padding: 0.5rem 1rem; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 20px; text-decoration: none; color: var(--text-primary);">🧠 Claude</a>
-        <a href="#cursor" style="padding: 0.5rem 1rem; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 20px; text-decoration: none; color: var(--text-primary);">📝 Cursor</a>
-        <a href="#windsurf" style="padding: 0.5rem 1rem; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 20px; text-decoration: none; color: var(--text-primary);">🌊 Windsurf</a>
-        <a href="#cline" style="padding: 0.5rem 1rem; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 20px; text-decoration: none; color: var(--text-primary);">⚡ Cline</a>
+    <div class="note-box">
+        <p><strong>📌 Before You Connect</strong></p>
+        <p><strong>💡 IDE Access Token Requirement</strong></p>
+        <p>IDE Access Tokens are only required for IDE-based AI clients such as Cursor, Windsurf, VS Code, Cline, and Continue.</p>
+        <p>Browser-based AI clients like ChatGPT and Claude connect using your MCP Server URL and do not require an IDE Access Token.</p>
     </div>
 
     <h2 id="chatgpt">🤖 ChatGPT</h2>
@@ -345,57 +347,71 @@
         <h4>Cursor IDE + ServerAvatar MCP</h4>
         <p>Use ServerAvatar tools directly in Cursor's AI chat.</p>
         
-        <h3>Step 1: Open Cursor Settings</h3>
+        <h3>Step 1: Install and Sign In</h3>
         <div class="step-box">
-            <p><span class="step-number">1</span>Open Cursor → Settings (Cmd+,)</p>
-            <p><span class="step-number">2</span>Go to <strong>MCP Servers</strong></p>
-            <p><span class="step-number">3</span>Click <strong>Add New MCP Server</strong></p>
+            <p><span class="step-number">1</span>Download and install Cursor IDE on your computer.</p>
+            <p><span class="step-number">2</span>Sign in to your Cursor account.</p>
         </div>
 
-        <h3>Step 2: Configure Server</h3>
-        <pre><code>Server Name: serveravatar
-Server URL: https://mcp.178.105.137.4.nip.io/mcp/serveravatar
-Headers: {"Authorization": "***"}</code></pre>
-    </div>
+        <h3>Step 2: Generate an IDE Access Token</h3>
+        <p>Before connecting Cursor, you need an access token.</p>
+        <div class="step-box">
+            <p><span class="step-number">1</span>Log in to ServerAvatar MCP.</p>
+            <p><span class="step-number">2</span>Navigate to <strong>Endpoint & Tokens</strong>.</p>
+            <p><span class="step-number">3</span>Under <strong>IDE Access Tokens</strong>, enter a token name (e.g., Cursor Development).</p>
+            <p><span class="step-number">4</span>Click <strong>Generate Token</strong>.</p>
+            <p><span class="step-number">5</span>Copy the generated token immediately. It is displayed only once.</p>
+        </div>
 
-    <h2 id="windsurf">🌊 Windsurf</h2>
-    
-    <div class="client-card">
-        <h4>Windsurf + ServerAvatar MCP</h4>
-        <p>Integrate ServerAvatar with Windsurf IDE.</p>
-        
-        <h3>Configuration</h3>
+        <h3>Step 3: Open MCP Settings</h3>
+        <div class="step-box">
+            <p><span class="step-number">1</span>Open Cursor.</p>
+            <p><span class="step-number">2</span>Navigate to <strong>Settings → Tools & MCP</strong>.</p>
+            <p><span class="step-number">3</span>Under <strong>Installed MCP Servers</strong>, click <strong>+ Add New MCP Server</strong>.</p>
+            <p><span class="step-number">4</span>Cursor will open the <code>mcp.json</code> configuration file.</p>
+        </div>
+
+        <h3>Step 4: Configure ServerAvatar MCP</h3>
+        <p>Replace or add the following configuration in the <code>mcp.json</code> file.</p>
         <pre><code>{
   "mcpServers": {
-    "serveravatar": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-http", "https://mcp.178.105.137.4.nip.io/mcp/serveravatar"],
-      "env": {
-        "AUTHORIZATION": "***"
+    "ServerAvatar MCP": {
+      "url": "YOUR_MCP_SERVER_URL",
+      "headers": {
+        "Authorization": "Bearer YOUR_IDE_ACCESS_TOKEN"
       }
     }
   }
 }</code></pre>
-    </div>
+        <p>Replace:</p>
+        <ul>
+            <li><code>YOUR_MCP_SERVER_URL</code> with the MCP Server URL from ServerAvatar MCP → Endpoint & Tokens.</li>
+            <li><code>YOUR_IDE_ACCESS_TOKEN</code> with the IDE Access Token you generated earlier.</li>
+        </ul>
+        <p>Save the <code>mcp.json</code> file.</p>
 
-    <h2 id="cline">⚡ Cline</h2>
-    
-    <div class="client-card">
-        <h4>Cline + ServerAvatar MCP</h4>
-        <p>Use ServerAvatar tools in Cline VS Code extension.</p>
+        <h3>Step 5: Verify the Connection</h3>
+        <div class="step-box">
+            <p><span class="step-number">1</span>Return to <strong>Settings → Tools & MCP</strong>.</p>
+            <p><span class="step-number">2</span>Verify that <strong>ServerAvatar MCP</strong> appears under <strong>Installed MCP Servers</strong>.</p>
+            <p><span class="step-number">3</span>Ensure the server status shows <strong>Connected</strong> or <strong>Available</strong>.</p>
+        </div>
+        <p>If the connection fails, verify your MCP Server URL and IDE Access Token, then reload Cursor.</p>
+
+        <h3>Step 6: Start Using ServerAvatar MCP</h3>
+        <p>Open a new AI chat or Agent session in Cursor and start using natural language commands, for example:</p>
+        <ul>
+            <li>List my servers</li>
+            <li>Create a WordPress application</li>
+            <li>List databases</li>
+            <li>Restart Nginx</li>
+            <li>Install an SSL certificate</li>
+        </ul>
+        <p>Cursor will automatically invoke the appropriate ServerAvatar MCP tools when required.</p>
         
-        <h3>Step 1: Configure MCP in Cline Settings</h3>
-        <pre><code>{
-  "mcpServers": {
-    "serveravatar": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-http", "https://mcp.178.105.137.4.nip.io/mcp/serveravatar"],
-      "env": {
-        "AUTHORIZATION": "***"
-      }
-    }
-  }
-}</code></pre>
+        <div class="note-box">
+            <p><strong>💡 Tip:</strong> If you update the <code>mcp.json</code> file, reload or restart Cursor to ensure the new MCP configuration is loaded.</p>
+        </div>
     </div>
 
     <h2>📋 Example Commands</h2>
@@ -407,3 +423,63 @@ Headers: {"Authorization": "***"}</code></pre>
 
 # Get server status
 "Show me the status of my production server"
+
+# Create a WordPress application
+"Create a new WordPress application"
+
+# List all databases
+"List all my databases"
+
+# Restart Nginx service
+"Restart Nginx on my server"
+
+# Install SSL certificate
+"Install SSL for mydomain.com"
+</code></pre>
+
+    <h2>🔐 Security</h2>
+    <div class="note-box">
+        <p><strong>Important:</strong> Keep your API Key and IDE Access Tokens secure at all times.</p>
+        <ul style="margin: 0.5rem 0 0 1.25rem;">
+            <li>Never share your API Key or IDE Access Tokens.</li>
+            <li>Store tokens securely.</li>
+            <li>Revoke unused tokens immediately.</li>
+            <li>Generate separate IDE tokens for different devices.</li>
+            <li>Review active tokens regularly.</li>
+        </ul>
+    </div>
+
+    <h2>⚡ Quick Recap</h2>
+    <ul>
+        <li>✅ Generate your ServerAvatar API Key</li>
+        <li>✅ Connect your ServerAvatar account to ServerAvatar MCP</li>
+        <li>✅ Copy your MCP Server URL</li>
+        <li>✅ Connect your preferred AI client</li>
+        <li>✅ Verify the connection</li>
+        <li>✅ Start managing your infrastructure with AI</li>
+    </ul>
+
+    <h2>❓ Troubleshooting</h2>
+    
+    <div style="margin: 1.5rem 0;">
+        <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1rem; margin-bottom: 1rem;">
+            <p style="font-weight: 600; margin: 0 0 0.5rem 0;">Connection failed</p>
+            <p style="margin: 0; text-align: center; color: var(--text-muted);">↓</p>
+            <p style="margin: 0.5rem 0 0 0;">Check your MCP Server URL.</p>
+        </div>
+        <hr style="border: none; border-top: 1px dashed var(--border-color); margin: 1rem 0;">
+        
+        <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1rem; margin-bottom: 1rem;">
+            <p style="font-weight: 600; margin: 0 0 0.5rem 0;">Unauthorized</p>
+            <p style="margin: 0; text-align: center; color: var(--text-muted);">↓</p>
+            <p style="margin: 0.5rem 0 0 0;">Verify your API Key or IDE Access Token.</p>
+        </div>
+        <hr style="border: none; border-top: 1px dashed var(--border-color); margin: 1rem 0;">
+        
+        <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1rem;">
+            <p style="font-weight: 600; margin: 0 0 0.5rem 0;">No tools found</p>
+            <p style="margin: 0; text-align: center; color: var(--text-muted);">↓</p>
+            <p style="margin: 0.5rem 0 0 0;">Reconnect your AI client.</p>
+        </div>
+    </div>
+@endsection
