@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Services\ActivityLogger;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Laravel\Passport\TokenRepository;
@@ -62,7 +63,10 @@ class McpTokenController extends Controller
 
         // Get the numeric token ID (this is what ValidateMcpToken middleware looks up)
         $tokenId = $token->token->getKey();
-        
+
+        // Log activity
+        ActivityLogger::tokenCreated($user, $request->input('name'));
+
         return response()->json([
             'message' => 'Token created successfully',
             'token_id' => $tokenId,
@@ -86,6 +90,9 @@ class McpTokenController extends Controller
 
         // Delete the token (this table uses expires_at, not revoked column)
         $token->delete();
+
+        // Log activity
+        ActivityLogger::tokenRevoked($user, $token->name);
 
         return response()->json(['message' => 'Token revoked successfully']);
     }

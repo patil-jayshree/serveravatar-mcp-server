@@ -25,15 +25,14 @@ class Activity extends Model
     protected $appends = ['type_label', 'time_ago', 'color', 'client_initials', 'client_color', 'client_logo', 'formatted_date'];
 
     const TYPE_CLIENT_CONNECTED = 'client_connected';
-    const TYPE_CLIENT_RECONNECTED = 'client_reconnected';
-    const TYPE_CLIENT_DISCONNECTED = 'client_disconnected';
     const TYPE_TOOL_EXECUTED = 'tool_executed';
     const TYPE_API_KEY_SAVED = 'api_key_saved';
     const TYPE_API_KEY_UPDATED = 'api_key_updated';
-    const TYPE_API_KEY_DELETED = 'api_key_deleted';
     const TYPE_PROFILE_UPDATED = 'profile_updated';
     const TYPE_PASSWORD_CHANGED = 'password_changed';
     const TYPE_SETTINGS_UPDATED = 'settings_updated';
+    const TYPE_TOKEN_CREATED = 'token_created';
+    const TYPE_TOKEN_REVOKED = 'token_revoked';
 
     public function user(): BelongsTo
     {
@@ -61,14 +60,13 @@ class Activity extends Model
         
         return match($this->type) {
             self::TYPE_CLIENT_CONNECTED => '<i class="fa-solid fa-robot" style="color: #22c55e;"></i>',
-            self::TYPE_CLIENT_RECONNECTED => '<i class="fa-solid fa-rotate" style="color: #8b5cf6;"></i>',
-            self::TYPE_CLIENT_DISCONNECTED => '<i class="fa-solid fa-plug-circle-exclamation" style="color: #f59e0b;"></i>',
             self::TYPE_API_KEY_SAVED => '<i class="fas fa-key" style="color: #8b5cf6;"></i>',
             self::TYPE_API_KEY_UPDATED => '<i class="fas fa-key" style="color: #f59e0b;"></i>',
-            self::TYPE_API_KEY_DELETED => '<i class="fas fa-trash" style="color: #ef4444;"></i>',
             self::TYPE_PROFILE_UPDATED => '<i class="fas fa-user-pen" style="color: #06b6d4;"></i>',
             self::TYPE_PASSWORD_CHANGED => '<i class="fas fa-lock" style="color: #6366f1;"></i>',
             self::TYPE_SETTINGS_UPDATED => '<i class="fas fa-sliders" style="color: #64748b;"></i>',
+            self::TYPE_TOKEN_CREATED => '<i class="fas fa-key" style="color: #22c55e;"></i>',
+            self::TYPE_TOKEN_REVOKED => '<i class="fas fa-key" style="color: #ef4444;"></i>',
             default => '<i class="fas fa-circle-info" style="color: #94a3b8;"></i>',
         };
     }
@@ -83,14 +81,13 @@ class Activity extends Model
         
         return match($this->type) {
             self::TYPE_CLIENT_CONNECTED => 'CONNECTED',
-            self::TYPE_CLIENT_RECONNECTED => 'RECONNECTED',
-            self::TYPE_CLIENT_DISCONNECTED => 'DISCONNECTED',
             self::TYPE_API_KEY_SAVED => 'SAVED',
             self::TYPE_API_KEY_UPDATED => 'UPDATED',
-            self::TYPE_API_KEY_DELETED => 'REMOVED',
             self::TYPE_PROFILE_UPDATED => 'UPDATED',
             self::TYPE_PASSWORD_CHANGED => 'SECURED',
             self::TYPE_SETTINGS_UPDATED => 'UPDATED',
+            self::TYPE_TOKEN_CREATED => 'CREATED',
+            self::TYPE_TOKEN_REVOKED => 'REVOKED',
             default => 'INFO',
         };
     }
@@ -105,14 +102,13 @@ class Activity extends Model
         
         return match($this->type) {
             self::TYPE_CLIENT_CONNECTED => 'success',
-            self::TYPE_CLIENT_RECONNECTED => 'primary',
-            self::TYPE_CLIENT_DISCONNECTED => 'warning',
             self::TYPE_API_KEY_SAVED => 'primary',
             self::TYPE_API_KEY_UPDATED => 'warning',
-            self::TYPE_API_KEY_DELETED => 'danger',
             self::TYPE_PROFILE_UPDATED => 'cyan',
             self::TYPE_PASSWORD_CHANGED => 'primary',
             self::TYPE_SETTINGS_UPDATED => 'secondary',
+            self::TYPE_TOKEN_CREATED => 'success',
+            self::TYPE_TOKEN_REVOKED => 'danger',
             default => 'secondary',
         };
     }
@@ -121,14 +117,14 @@ class Activity extends Model
     {
         return match($this->type) {
             self::TYPE_CLIENT_CONNECTED => 'Client Connected',
-            self::TYPE_CLIENT_DISCONNECTED => 'Client Disconnected',
             self::TYPE_TOOL_EXECUTED => 'Tool Executed',
             self::TYPE_API_KEY_SAVED => 'API Key Saved',
             self::TYPE_API_KEY_UPDATED => 'API Key Updated',
-            self::TYPE_API_KEY_DELETED => 'API Key Deleted',
             self::TYPE_PROFILE_UPDATED => 'Profile Updated',
             self::TYPE_PASSWORD_CHANGED => 'Password Changed',
             self::TYPE_SETTINGS_UPDATED => 'Settings Updated',
+            self::TYPE_TOKEN_CREATED => 'Token Created',
+            self::TYPE_TOKEN_REVOKED => 'Token Revoked',
             default => 'Activity',
         };
     }

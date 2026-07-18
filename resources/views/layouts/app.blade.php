@@ -395,7 +395,7 @@
 
                     <a href="{{ route('mcp-server') }}" class="nav-link {{ request()->is('mcp-server') ? 'active' : '' }}">
                         <i class="fas fa-server"></i>
-                        <span>MCP Server</span>
+                        <span>Endpoint & Tokens</span>
                     </a>
                     <a href="{{ route('tools') }}" class="nav-link {{ request()->is('tools*') ? 'active' : '' }}">
                         <i class="fas fa-wrench"></i>

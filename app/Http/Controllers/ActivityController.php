@@ -157,7 +157,7 @@ class ActivityController extends Controller
                 $clientInitials = $this->getClientInitials($activity->client_name);
                 $clientColor = $this->getClientColor($activity->client_name);
                 
-                $html .= '<tr data-id="' . $activity->id . '" data-activity=\'' . json_encode([
+                $activityJson = htmlspecialchars(json_encode([
                     'id' => $activity->id,
                     'description' => $activity->description,
                     'type_label' => $activity->typeLabel,
@@ -174,7 +174,8 @@ class ActivityController extends Controller
                     'formatted_date' => $activity->created_at->format('M j, Y'),
                     'formatted_time' => $activity->created_at->format('h:i A'),
                     'metadata' => $metadata,
-                ]) . '\'>';
+                ]), ENT_QUOTES, 'UTF-8');
+                $html .= '<tr data-id="' . $activity->id . '" data-activity="' . $activityJson . '">';
                 
                 // Event column
                 $html .= '<td>';
@@ -196,13 +197,8 @@ class ActivityController extends Controller
                 if ($logo) {
                     $html .= '<div class="client-avatar"><img src="' . $logo['light'] . '" alt="" width="28" height="28" class="icon-light"><img src="' . $logo['dark'] . '" alt="" width="28" height="28" class="icon-dark"></div>';
                 } else {
-                    // Set background based on activity type for api_key_updated and profile_updated
-                    $bgColor = $clientColor;
-                    if ($activity->type === 'api_key_updated') {
-                        $bgColor = 'rgba(245, 158, 11, 0.2)';
-                    } elseif ($activity->type === 'profile_updated') {
-                        $bgColor = 'rgba(6, 182, 212, 0.2)';
-                    }
+                    // Set background based on activity icon color
+                    $bgColor = $this->getActivityIconColor($activity);
                     $html .= '<div class="client-avatar" style="background: ' . $bgColor . ';">' . $clientInitials . '</div>';
                 }
                 $html .= '<div>';
@@ -380,5 +376,27 @@ class ActivityController extends Controller
         if (strpos($name, 'gemini') !== false) return 'AI Clients';
         if (strpos($name, 'mcp client') !== false) return 'Web Application';
         return 'AI Client';
+    }
+
+    private function getActivityIconColor($activity)
+    {
+        // For tool_executed, color depends on success status
+        if ($activity->type === 'tool_executed') {
+            $success = $activity->metadata['success'] ?? true;
+            return $success ? 'rgba(59, 130, 246, 0.2)' : 'rgba(239, 68, 68, 0.2)';
+        }
+
+        // Match colors from Activity model icon() method
+        return match($activity->type) {
+            'client_connected' => 'rgba(34, 197, 94, 0.2)',      // green
+            'api_key_saved' => 'rgba(139, 92, 246, 0.2)',        // purple
+            'api_key_updated' => 'rgba(245, 158, 11, 0.2)',      // amber
+            'profile_updated' => 'rgba(6, 182, 212, 0.2)',       // cyan
+            'password_changed' => 'rgba(99, 102, 241, 0.2)',     // indigo
+            'settings_updated' => 'rgba(100, 116, 139, 0.2)',    // gray
+            'token_created' => 'rgba(34, 197, 94, 0.2)',         // green
+            'token_revoked' => 'rgba(239, 68, 68, 0.2)',         // red
+            default => 'rgba(139, 92, 246, 0.2)',                // default purple
+        };
     }
 }

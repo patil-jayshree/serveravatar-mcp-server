@@ -256,29 +256,6 @@ class ActivityLogger
         );
     }
 
-    public static function clientReconnected($user, ?string $clientName = null): ?Activity
-    {
-        $client = $clientName ?? McpConnectionTracker::detectClient(Request::userAgent());
-        
-        // Deduplication with Cache lock: prevent race conditions when multiple requests hit at once
-        $cacheKey = 'mcp_reconnect:' . $user->id . ':' . $client;
-        
-        if (\Illuminate\Support\Facades\Cache::has($cacheKey)) {
-            return null; // Skip duplicate within lock period
-        }
-        
-        // Set cache lock for 30 seconds
-        \Illuminate\Support\Facades\Cache::put($cacheKey, true, 30);
-        
-        return self::log(
-            $user,
-            Activity::TYPE_CLIENT_RECONNECTED,
-            "Reconnected successfully via {$client}",
-            null,
-            $client
-        );
-    }
-
     public static function toolExecuted($user, string $toolName, ?string $clientName = null, bool $success = true, ?array $arguments = null, ?array $response = null, ?string $errorMessage = null): ?Activity
     {
         // Deduplication: Skip if same tool called within 2 seconds with same arguments
@@ -329,9 +306,16 @@ class ActivityLogger
         return self::log($user, Activity::TYPE_API_KEY_UPDATED, 'ServerAvatar API key updated successfully.');
     }
 
-    public static function apiKeyDeleted($user): Activity
+    public static function tokenCreated($user, string $tokenName): Activity
     {
-        return self::log($user, Activity::TYPE_API_KEY_DELETED, 'ServerAvatar API key removed.');
+        $displayName = preg_replace('/^mcp:/i', '', $tokenName);
+        return self::log($user, Activity::TYPE_TOKEN_CREATED, "IDE token '{$displayName}' created successfully.");
+    }
+
+    public static function tokenRevoked($user, string $tokenName): Activity
+    {
+        $displayName = preg_replace('/^mcp:/i', '', $tokenName);
+        return self::log($user, Activity::TYPE_TOKEN_REVOKED, "IDE token '{$displayName}' revoked successfully.");
     }
 
     public static function profileUpdated($user): Activity

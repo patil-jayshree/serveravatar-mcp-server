@@ -200,6 +200,8 @@ $csrf = csrf_token();
             <div class="filter-dropdown-item" data-value="client_connected" onclick="selectOption('event', 'client_connected', 'Client Connected', event)">Client Connected</div>
             <div class="filter-dropdown-item" data-value="api_key_saved" onclick="selectOption('event', 'api_key_saved', 'API Key Saved', event)">API Key Saved</div>
             <div class="filter-dropdown-item" data-value="api_key_updated" onclick="selectOption('event', 'api_key_updated', 'API Key Updated', event)">API Key Updated</div>
+            <div class="filter-dropdown-item" data-value="token_created" onclick="selectOption('event', 'token_created', 'Token Created', event)">Token Created</div>
+            <div class="filter-dropdown-item" data-value="token_revoked" onclick="selectOption('event', 'token_revoked', 'Token Revoked', event)">Token Revoked</div>
             <div class="filter-dropdown-item" data-value="password_changed" onclick="selectOption('event', 'password_changed', 'Password Changed', event)">Password Changed</div>
             <div class="filter-dropdown-item" data-value="profile_updated" onclick="selectOption('event', 'profile_updated', 'Profile Updated', event)">Profile Updated</div>
         </div>
@@ -257,7 +259,7 @@ $csrf = csrf_token();
                                 <img src="{{ $activity->client_logo['dark'] }}" alt="" width="28" height="28" class="icon-dark">
                             </div>
                         @else
-                            <div class="client-avatar" style="background: {{ $activity->type === 'api_key_updated' ? 'rgba(245, 158, 11, 0.2)' : ($activity->type === 'profile_updated' ? 'rgba(6, 182, 212, 0.2)' : ($activity->client_color ?? '#8b5cf6')) }};">
+                            <div class="client-avatar" style="background: @if($activity->type === 'tool_executed'){{ ($activity->metadata['success'] ?? true) ? 'rgba(59, 130, 246, 0.2)' : 'rgba(239, 68, 68, 0.2)' }}@elseif($activity->type === 'client_connected')rgba(34, 197, 94, 0.2)@elseif($activity->type === 'api_key_saved')rgba(139, 92, 246, 0.2)@elseif($activity->type === 'api_key_updated')rgba(245, 158, 11, 0.2)@elseif($activity->type === 'profile_updated')rgba(6, 182, 212, 0.2)@elseif($activity->type === 'password_changed')rgba(99, 102, 241, 0.2)@elseif($activity->type === 'settings_updated')rgba(100, 116, 139, 0.2)@elseif($activity->type === 'token_created')rgba(34, 197, 94, 0.2)@elseif($activity->type === 'token_revoked')rgba(239, 68, 68, 0.2)@else{{ $activity->client_color ?? 'rgba(139, 92, 246, 0.2)' }}@endif;">
                                 {{ $activity->client_initials ?? 'SA' }}
                             </div>
                         @endif
@@ -387,6 +389,8 @@ var currentFilters = {
 // Initialize filter labels on page load
 document.addEventListener('DOMContentLoaded', function() {
     updateFilterLabels();
+    // Load fresh data on page load
+    loadActivities(currentPage);
 });
 
 function loadActivities(page) {
@@ -435,7 +439,14 @@ function loadActivities(page) {
 function updatePagination(data) {
     var paginationBar = document.querySelector('.pagination-bar');
     if (!paginationBar) return;
-    
+
+    // Hide pagination bar when there are no results
+    if (data.totalPages <= 1) {
+        paginationBar.style.display = 'none';
+        return;
+    }
+
+    paginationBar.style.display = 'flex';
     paginationBar.innerHTML = '<div class="pagination-info">Showing ' + ((data.currentPage - 1) * 10 + 1) + ' to ' + Math.min(data.currentPage * 10, data.totalActivities) + ' of ' + data.totalActivities + ' events</div>';
     
     var btns = '<div class="pagination-buttons">';

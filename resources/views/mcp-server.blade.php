@@ -39,11 +39,6 @@
                 <i class="fas fa-copy"></i> Copy URL
             </button>
         </div>
-        <div style="margin-top: 0.75rem;">
-            <a href="#" style="display: inline-flex; align-items: center; gap: 6px; font-size: 0.8rem; color: var(--accent-primary); text-decoration: none; font-weight: 500;">
-                <i class="fas fa-book"></i> View Documentation
-            </a>
-        </div>
     </div>
 
     <!-- IDE Access Tokens -->
@@ -62,9 +57,6 @@
                     <p style="margin: 4px 0 0 0; font-size: 0.85rem; color: var(--text-secondary);">Generate secure access tokens for IDE-based MCP clients such as Cursor, Windsurf, Cline and VS Code.</p>
                 </div>
             </div>
-            <a href="#" style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: transparent; border: 1px solid #7c3aed; border-radius: 8px; color: #7c3aed; text-decoration: none; font-size: 0.8rem; font-weight: 600;">
-                View Documentation <i class="fas fa-external-link-alt" style="font-size: 0.7rem;"></i>
-            </a>
         </div>
 
         <!-- Token Generation Section -->
@@ -317,10 +309,13 @@ async function loadTokens() {
                         <span style="display: flex; align-items: center; gap: 5px;"><i class="far fa-clock" style="color: var(--text-muted);"></i> ${token.last_used_at ? 'Last used ' + formatDate(token.last_used_at) : 'Never used'}</span>
                     </div>
                 </div>
-                <button onclick="revokeToken('${token.id}', '${escapeHtml(token.name)}')" 
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <span style="display: inline-flex; align-items: center; padding: 1px 6px; background: rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.3); border-radius: 20px; font-size: 0.65rem; font-weight: 600; color: #22c55e; text-transform: uppercase; letter-spacing: 0.3px;">Active</span>
+                    <button onclick="revokeToken('${token.id}', '${escapeHtml(token.name)}')" 
                         style="display: inline-flex; align-items: center; gap: 4px; padding: 6px 12px; background: transparent; border: 1px solid #ef4444; border-radius: var(--radius-sm); color: #ef4444; font-size: 0.75rem; font-weight: 600; cursor: pointer;">
-                    <i class="fas fa-trash"></i> Revoke
-                </button>
+                        <i class="fas fa-trash"></i> Revoke
+                    </button>
+                </div>
             </div>
         `).join('');
     } catch (error) {
