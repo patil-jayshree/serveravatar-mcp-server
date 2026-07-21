@@ -12,10 +12,10 @@ window.clientsData = {
         imageLight: '/images/clients/chatgpt-light.png',
         badge: '2 min',
         steps: [
-            { title: 'Log in to your ChatGPT account', desc: 'Open ChatGPT and sign in to your account.' },
-            { title: 'Go to Settings > Developer', desc: 'Navigate to Settings and enable Developer Mode.' },
+            { title: 'Log in to your ChatGPT Account', desc: 'Open ChatGPT and sign in to your account.' },
+            { title: 'Enable Developer Mode', desc: 'Navigate to Settings and enable Developer Mode.' },
             { title: 'Create MCP Connector', desc: 'Click "Create New", name it "ServerAvatar MCP", and paste the connection URL.' },
-            { title: 'Start Using', desc: 'Open a new chat and start managing your infrastructure!' }
+            { title: 'Start Using ServerAvatar MCP', desc: 'Open a new chat and start managing your infrastructure!' }
         ]
     },
     claude: {
@@ -23,10 +23,10 @@ window.clientsData = {
         image: '/images/clients/claude.png',
         badge: '2 min',
         steps: [
-            { title: 'Log in to Claude', desc: 'Open Claude.ai and sign in to your account.' },
-            { title: 'Go to Settings > Extensions', desc: 'Navigate to Settings and find the MCP extensions section.' },
-            { title: 'Add MCP Server', desc: 'Click "Add Extension", name it "ServerAvatar MCP", and paste the connection URL.' },
-            { title: 'Start Using', desc: 'Start a new conversation and use ServerAvatar tools!' }
+            { title: 'Log in to your Claude account', desc: 'Open Claude.ai and sign in to your account.' },
+            { title: 'Open Settings', desc: 'Navigate to Settings.' },
+            { title: 'Add a custom connector', desc: 'Click "Add Extension", name it "ServerAvatar MCP", and paste the connection URL.' },
+            { title: 'Start Managing MCP', desc: 'Start a new conversation and use ServerAvatar tools!' }
         ]
     },
     cursor: {
@@ -35,12 +35,12 @@ window.clientsData = {
         imageLight: '/images/clients/cursor-light.png',
         badge: '3 min',
         steps: [
-            { title: 'Install and Sign In', desc: 'Download and install Cursor, then sign in to your account.' },
-            { title: 'Generate an IDE Access Token', desc: 'Go to your dashboard, navigate to MCP Panel, and generate a new IDE Access Token.' },
-            { title: 'Open MCP Settings', desc: 'Press Cmd/Ctrl + , to open Settings, then navigate to the MCP section.' },
-            { title: 'Configure ServerAvatar MCP', desc: 'Click "Add MCP Server", select HTTP, name it "ServerAvatar MCP", and paste the URL and token.' },
+            { title: 'Install & Sign In', desc: 'Download and install Cursor, then sign in to your account.' },
+            { title: 'Generate Token', desc: 'Go to your dashboard, navigate to MCP Panel, and generate a new IDE Access Token.' },
+            { title: 'Open Settings', desc: 'Press Cmd/Ctrl + , to open Settings, then navigate to the MCP section.' },
+            { title: 'Configuration', desc: 'Click "Add MCP Server", select HTTP, name it "ServerAvatar MCP", and paste the URL and token.' },
             { title: 'Verify the Connection', desc: 'Click "Check" next to your server to verify the connection is working.' },
-            { title: 'Start Using', desc: 'Start coding and managing your servers directly!' }
+            { title: 'Start using MCP', desc: 'Start coding and managing your servers directly!' }
         ]
     },
     vscode: {
@@ -564,6 +564,21 @@ window.clientsData = {
         </div>
         <script>
         function copyCommand(text, el) {
+            navigator.clipboard.writeText(text).then(function() {
+                var icon = el.querySelector('.fa-copy');
+                icon.classList.remove('fa-copy');
+                icon.classList.add('fa-check');
+                icon.style.color = '#22c55e';
+                setTimeout(function() {
+                    icon.classList.remove('fa-check');
+                    icon.classList.add('fa-copy');
+                    icon.style.color = '#9ca3af';
+                }, 1500);
+            });
+        }
+        function copyCode(el) {
+            var codeBlock = el.parentElement.querySelector('pre');
+            var text = codeBlock.textContent;
             navigator.clipboard.writeText(text).then(function() {
                 var icon = el.querySelector('.fa-copy');
                 icon.classList.remove('fa-copy');
@@ -1105,58 +1120,335 @@ window.clientsData = {
     </div>
 
 <!-- AI Client Connection Modal -->
-<div x-show="modalOpen" x-cloak style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:9999;padding:20px;" @click.self="closeModal()">
-    <div x-show="selectedClient" style="background:#fff;border-radius:16px;width:100%;max-width:900px;max-height:90vh;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 25px 50px rgba(0,0,0,0.25);" @click.stop>
+<div x-show="modalOpen" x-cloak style="position:fixed;top:0;left:0;right:0;bottom:0;z-index:9999;background:rgba(0,0,0,0.5);" @click.self="closeModal()">
+    <div x-show="selectedClient" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:900px;max-width:calc(100vw - 48px);max-height:90vh;background:#fff;border-radius:20px;box-shadow:0 25px 50px -12px rgba(0,0,0,0.25);overflow:hidden;display:flex;flex-direction:column;" @click.stop>
         
-        <!-- Modal Header -->
-        <div style="background:linear-gradient(135deg,#f5f3ff 0%,#ede9fe 100%);padding:20px 24px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #e5e7eb;">
-            <div style="display:flex;align-items:center;gap:14px;">
+        <!-- Modal Header (Fixed) -->
+        <div style="background:#fff;padding:24px 24px 20px 24px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #e5e7eb;flex-shrink:0;">
+            <div style="display:flex;align-items:center;gap:16px;">
                 <template x-if="selectedClient && selectedClient.imageLight">
-                    <img :src="selectedClient.imageLight" :alt="selectedClient.name" class="icon-light" style="width:36px;height:36px;object-fit:contain;">
+                    <img :src="selectedClient.imageLight" :alt="selectedClient.name" class="icon-light" style="width:48px;height:48px;object-fit:contain;border-radius:8px;">
                 </template>
                 <template x-if="selectedClient && !selectedClient.imageLight">
-                    <img :src="selectedClient.image" :alt="selectedClient.name" style="width:36px;height:36px;object-fit:contain;">
+                    <img :src="selectedClient.image" :alt="selectedClient.name" style="width:48px;height:48px;object-fit:contain;border-radius:8px;">
                 </template>
                 <div>
-                    <h3 style="font-size:18px;font-weight:700;color:#1a1a2e;margin:0;" x-text="selectedClient ? selectedClient.name + ' Setup Guide' : ''"></h3>
-                    <p style="font-size:12px;color:#6b7280;margin:4px 0 0 0;" x-text="selectedClient ? selectedClient.badge + ' setup' : ''"></p>
+                    <h3 style="font-size:20px;font-weight:700;color:#1a1a2e;margin:0;" x-text="selectedClient ? selectedClient.name + ' Setup Guide' : ''"></h3>
+                    <p style="font-size:13px;color:#6b7280;margin:6px 0 0 0;" x-text="selectedClient ? 'Follow the steps below to connect ServerAvatar MCP with ' + selectedClient.name : ''"></p>
                 </div>
             </div>
-            <button @click="closeModal()" style="background:none;border:none;cursor:pointer;padding:8px;color:#6b7280;font-size:18px;">
+            <button @click="closeModal()" style="background:none;border:none;cursor:pointer;padding:8px;color:#1a1a2e;font-size:20px;line-height:1;">
                 <i class="fas fa-times"></i>
             </button>
         </div>
         
         <!-- Modal Body -->
-        <div style="display:flex;flex:1;overflow:hidden;">
+        <div style="display:flex;flex:1;overflow:hidden;min-height:0;max-height:calc(90vh - 140px);">
             
-            <!-- Sidebar -->
-            <div style="width:240px;background:#fafafa;border-right:1px solid #e5e7eb;padding:20px;flex-shrink:0;">
-                <div style="font-size:12px;font-weight:600;color:#6b7280;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:16px;">Steps</div>
+            <!-- Sidebar (Fixed) -->
+            <div style="width:240px;background:#fafafa;border-right:1px solid #e5e7eb;padding:20px;flex-shrink:0;overflow-y:auto;overflow-x:hidden;">
+                
                 <template x-for="(step, index) in selectedClient ? selectedClient.steps : []" :key="index">
-                    <div style="display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid #f0f0f0;">
-                        <div style="width:28px;height:28px;min-width:28px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;" x-text="index + 1"></div>
-                        <div style="font-size:13px;font-weight:500;color:#1a1a2e;line-height:1.4;" x-text="step.title"></div>
+                    <div style="display:flex;align-items:center;gap:12px;padding:12px 0;">
+                        <div style="display:flex;align-items:center;gap:12px;position:relative;">
+                            <div style="width:28px;height:28px;min-width:28px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex-shrink:0;z-index:1;" x-text="index + 1"></div>
+                            <template x-if="index < (selectedClient ? selectedClient.steps.length - 1 : 0)">
+                                <div style="position:absolute;left:13px;top:28px;width:2px;height:28px;border-left:2px dotted #d1d5db;z-index:0;"></div>
+                            </template>
+                        </div>
+                        <div x-text="step.title" :style="index === 0 ? 'font-size:14px;font-weight:500;color:#7c3aed;line-height:1.4;flex:1;' : 'font-size:14px;font-weight:500;color:#1a1a2e;line-height:1.4;flex:1;'"></div>
                     </div>
                 </template>
                 
-                <div style="margin-top:20px;padding:16px;background:#fff;border-radius:12px;border:1px solid #e5e7eb;">
-                    <p style="font-size:12px;font-weight:600;color:#1a1a2e;margin:0 0 8px 0;">Need Help?</p>
-                    <a href="https://support.serveravatar.com" target="_blank" style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:500;color:#7c3aed;text-decoration:none;">
-                        Contact Support <i class="fas fa-arrow-right" style="font-size:10px;"></i>
+                <div style="margin-top:100px;padding:16px;background:#f5f3ff;border-radius:16px;border:1px solid #e9d5ff;">
+                    <p style="font-size:14px;font-weight:700;color:#7c3aed;margin:0 0 8px 0;">Need Help?</p>
+                    <p style="font-size:13px;color:#6b7280;margin:0 0 12px 0;">Contact our support team</p>
+                    <a href="https://support.serveravatar.com" target="_blank" style="display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:#7c3aed;text-decoration:none;">
+                        Get Support <i class="fas fa-arrow-right" style="font-size:10px;"></i>
                     </a>
                 </div>
             </div>
             
-            <!-- Main Content -->
-            <div style="flex:1;padding:24px;overflow-y:auto;">
-                <template x-for="(step, index) in selectedClient ? selectedClient.steps : []" :key="index">
-                    <div style="margin-bottom:28px;">
-                        <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
-                            <div style="width:32px;height:32px;min-width:32px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;" x-text="index + 1"></div>
-                            <h4 style="font-size:16px;font-weight:700;color:#1a1a2e;margin:0;" x-text="step.title"></h4>
+            <!-- Main Content (Scrollable) -->
+            <div style="flex:1;padding:24px;overflow-y:auto;overflow-x:hidden;min-height:0;">
+                
+                <!-- ChatGPT Info Note -->
+                <template x-if="selectedClient && selectedClient.name === 'ChatGPT'">
+                    <div style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:12px;padding:12px 16px;display:flex;align-items:flex-start;gap:14px;margin-bottom:16px;">
+                        <i class="fas fa-info-circle" style="color:#7c3aed;font-size:20px;margin-top:2px;"></i>
+                        <div>
+                            <p style="font-size:14px;font-weight:600;color:#7c3aed;margin:0 0 4px 0;">Important Note</p>
+                            <p style="font-size:13px;color:#7c3aed;margin:0;line-height:1.5;">MCP connectors are available only on supported ChatGPT plans and may not be available for every account.</p>
                         </div>
-                        <p style="font-size:14px;color:#6b7280;margin:0 0 16px 44px;line-height:1.6;" x-text="step.desc"></p>
+                    </div>
+                </template>
+                
+                <!-- ChatGPT Step 1 Card -->
+                <template x-if="selectedClient && selectedClient.name === 'ChatGPT'">
+                    <div style="background:#fafafa;border:1px solid #e5e7eb;border-radius:12px;padding:20px;margin-bottom:12px;">
+                        <h4 style="font-size:16px;font-weight:700;color:#7c3aed;margin:0 0 16px 0;">Step 1: <span style="color:#1a1a2e;">Enable Developer Mode</span></h4>
+                        <div style="display:flex;flex-direction:column;gap:10px;">
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">1</div>
+                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Log in to your ChatGPT account</p>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">2</div>
+                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Open Settings</p>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">3</div>
+                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Enable Developer Mode (if available for your account)</p>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+                
+                <!-- ChatGPT Step 2 Card -->
+                <template x-if="selectedClient && selectedClient.name === 'ChatGPT'">
+                    <div style="background:#fafafa;border:1px solid #e5e7eb;border-radius:12px;padding:20px;margin-bottom:12px;">
+                        <h4 style="font-size:16px;font-weight:700;color:#7c3aed;margin:0 0 16px 0;">Step 2: <span style="color:#1a1a2e;">Create a New MCP Connector</span></h4>
+                        <div style="display:flex;flex-direction:column;gap:10px;">
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">1</div>
+                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Open Settings</p>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">2</div>
+                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Go to Apps (or Plugins, depending on your ChatGPT version)</p>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">3</div>
+                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Click Create New</p>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">4</div>
+                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Enter a name: ServerAvatar MCP</p>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">5</div>
+                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Paste your MCP Server URL into the Connection URL field</p>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">6</div>
+                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Save the connector</p>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">7</div>
+                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Complete the authorization process if prompted</p>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+                
+                <!-- ChatGPT Step 3 Card -->
+                <template x-if="selectedClient && selectedClient.name === 'ChatGPT'">
+                    <div style="background:#fafafa;border:1px solid #e5e7eb;border-radius:12px;padding:20px;margin-bottom:12px;">
+                        <h4 style="font-size:16px;font-weight:700;color:#7c3aed;margin:0 0 16px 0;">Step 3: <span style="color:#1a1a2e;">Start Using ServerAvatar MCP</span></h4>
+                        <div style="display:flex;flex-direction:column;gap:10px;">
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">1</div>
+                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Open a new chat/Conversion</p>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">2</div>
+                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Select the ServerAvatar MCP connector from the top model dropdown</p>
+                            </div>
+                        </div>
+                        <p style="font-size:14px;color:#6b7280;margin:16px 0 12px 0;">You can now use natural language commands such as:</p>
+                        <div style="display:flex;flex-wrap:nowrap;gap:8px;overflow-x:auto;">
+                            <button style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:500;color:#7c3aed;cursor:pointer;white-space:nowrap;">List all my servers</button>
+                            <button style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:500;color:#7c3aed;cursor:pointer;white-space:nowrap;">Show server status</button>
+                            <button style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:500;color:#7c3aed;cursor:pointer;white-space:nowrap;">Create new database</button>
+                            <button style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:500;color:#7c3aed;cursor:pointer;white-space:nowrap;">Deploy WordPress</button>
+                        </div>
+                    </div>
+                </template>
+                
+                <!-- Claude Step 1 Card -->
+                <template x-if="selectedClient && selectedClient.name === 'Claude'">
+                    <div style="background:#fafafa;border:1px solid #e5e7eb;border-radius:12px;padding:20px;margin-bottom:12px;">
+                        <h4 style="font-size:16px;font-weight:700;color:#7c3aed;margin:0 0 16px 0;">Step 1: <span style="color:#1a1a2e;">Open Claude Settings</span></h4>
+                        <div style="display:flex;flex-direction:column;gap:10px;">
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">1</div>
+                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Log into your Claude account</p>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">2</div>
+                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Open Settings</p>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">3</div>
+                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Navigate to Connectors or Customize (depending on your Claude version)</p>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+                
+                <!-- Claude Step 2 Card -->
+                <template x-if="selectedClient && selectedClient.name === 'Claude'">
+                    <div style="background:#fafafa;border:1px solid #e5e7eb;border-radius:12px;padding:20px;margin-bottom:12px;">
+                        <h4 style="font-size:16px;font-weight:700;color:#7c3aed;margin:0 0 16px 0;">Step 2: <span style="color:#1a1a2e;">Add a Custom Connector</span></h4>
+                        <div style="display:flex;flex-direction:column;gap:10px;">
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">1</div>
+                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Click Add Custom Connector</p>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">2</div>
+                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Enter a connector name: ServerAvatar MCP</p>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">3</div>
+                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Paste your MCP Server URL into the connection URL field</p>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">4</div>
+                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Save the connector</p>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">5</div>
+                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Complete the authorization process if required</p>
+                            </div>
+                        </div>
+                        <p style="font-size:13px;color:#6b7280;margin:16px 0 0 0;line-height:1.5;">After a successful connection, the ServerAvatar MCP connector will be available in Claude.</p>
+                    </div>
+                </template>
+                
+                <!-- Claude Step 3 Card -->
+                <template x-if="selectedClient && selectedClient.name === 'Claude'">
+                    <div style="background:#fafafa;border:1px solid #e5e7eb;border-radius:12px;padding:20px;margin-bottom:12px;">
+                        <h4 style="font-size:16px;font-weight:700;color:#1a1a2e;margin:0 0 16px 0;">Step 3: <span style="color:#7c3aed;">Start Managing Your Servers</span></h4>
+                        <div style="display:flex;flex-direction:column;gap:10px;">
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">1</div>
+                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Open a new Claude chat</p>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">2</div>
+                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Select your ServerAvatar MCP connector</p>
+                            </div>
+                        </div>
+                        <p style="font-size:14px;color:#6b7280;margin:16px 0 12px 0;">You can now ask Claude to perform ServerAvatar operations, for example:</p>
+                        <div style="display:flex;flex-wrap:nowrap;gap:8px;overflow-x:auto;">
+                            <button style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:500;color:#7c3aed;cursor:pointer;white-space:nowrap;">Create an application</button>
+                            <button style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:500;color:#7c3aed;cursor:pointer;white-space:nowrap;">List servers</button>
+                            <button style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:500;color:#7c3aed;cursor:pointer;white-space:nowrap;">Manage databases</button>
+                            <button style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:500;color:#7c3aed;cursor:pointer;white-space:nowrap;">Install SSL certificates</button>
+                            <button style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:500;color:#7c3aed;cursor:pointer;white-space:nowrap;">Change application settings</button>
+                        </div>
+                    </div>
+                </template>
+                
+                <!-- Cursor Step 1 Card -->
+                <template x-if="selectedClient && selectedClient.name === 'Cursor'">
+                    <div style="background:#fafafa;border:1px solid #e5e7eb;border-radius:12px;padding:20px;margin-bottom:12px;">
+                        <h4 style="font-size:16px;font-weight:700;color:#7c3aed;margin:0 0 16px 0;">Step 1: <span style="color:#1a1a2e;">Install and Sign In</span></h4>
+                        <div style="display:flex;flex-direction:column;gap:10px;">
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">1</div>
+                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Download and install Cursor IDE on your computer</p>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">2</div>
+                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Sign in to your Cursor account</p>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+                
+                <!-- Cursor Step 2 Card -->
+                <template x-if="selectedClient && selectedClient.name === 'Cursor'">
+                    <div style="background:#fafafa;border:1px solid #e5e7eb;border-radius:12px;padding:20px;margin-bottom:12px;">
+                        <h4 style="font-size:16px;font-weight:700;color:#7c3aed;margin:0 0 16px 0;">Step 2: <span style="color:#1a1a2e;">Generate an IDE Access Token</span></h4>
+                        <div style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:8px;padding:12px 16px;margin-bottom:12px;">
+                            <p style="font-size:13px;color:#7c3aed;margin:0;line-height:1.5;"><strong>Note:</strong> An access token is required before connecting Cursor.</p>
+                        </div>
+                        <div style="display:flex;flex-direction:column;gap:10px;">
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">1</div>
+                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Log in to ServerAvatar MCP</p>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">2</div>
+                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Navigate to Endpoint & Tokens</p>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">3</div>
+                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Under IDE Access Tokens, enter a token name (e.g., Cursor Development)</p>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">4</div>
+                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Click Generate Token</p>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">5</div>
+                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Copy the generated token immediately (it won't be shown again)</p>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+                
+                <!-- Cursor Step 3 Card -->
+                <template x-if="selectedClient && selectedClient.name === 'Cursor'">
+                    <div style="background:#fafafa;border:1px solid #e5e7eb;border-radius:12px;padding:20px;margin-bottom:12px;">
+                        <h4 style="font-size:16px;font-weight:700;color:#7c3aed;margin:0 0 16px 0;">Step 3: <span style="color:#1a1a2e;">Open MCP Settings</span></h4>
+                        <div style="display:flex;flex-direction:column;gap:10px;">
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">1</div>
+                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Open Cursor</p>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">2</div>
+                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Navigate to Settings → Tools & MCP</p>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">3</div>
+                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Under Installed MCP Servers, click + Add New MCP Server</p>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">4</div>
+                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Cursor will open the mcp.json configuration file</p>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+                
+                <!-- Cursor Step 4 Card -->
+                <template x-if="selectedClient && selectedClient.name === 'Cursor'">
+                    <div style="background:#fafafa;border:1px solid #e5e7eb;border-radius:12px;padding:20px;margin-bottom:12px;">
+                        <h4 style="font-size:16px;font-weight:700;color:#7c3aed;margin:0 0 16px 0;">Step 4: <span style="color:#1a1a2e;">Configure ServerAvatar MCP</span></h4>
+                        <p style="font-size:14px;color:#1a1a2e;margin:0 0 12px 0;line-height:1.5;">Modify your mcp.json file with the following configuration:</p>
+                        <div style="background:#1e1e2e;border-radius:12px;padding:16px;margin-bottom:12px;overflow-x:auto;position:relative;">
+                            <div style="position:absolute;top:12px;left:16px;font-size:12px;color:#9ca3af;"><i class="fas fa-file-code" style="margin-right:6px;"></i>mcp.json</div>
+                            <button onclick="copyCode(this)" style="position:absolute;top:12px;right:12px;background:#374151;border:none;border-radius:6px;padding:6px 10px;cursor:pointer;color:#9ca3af;font-size:12px;display:flex;align-items:center;gap:4px;">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <pre style="font-size:12px;color:#a5f3cb;margin:0;line-height:1.7;white-space:pre;padding-top:24px;">{
+  "mcpServers": {
+    "serveravatar-mcp" : {
+      "url" : "YOUR_MCP_SERVER_URL",
+      "headers": {
+        "Authorization": "Bearer YOUR_IDE_ACCESS_TOKEN"
+      }
+    }
+  }
+}</pre>
+                        </div>
+                        <p style="font-size:14px;font-weight:600;color:#7c3aed;margin:0 0 12px 0;">Replace:</p>
+                        <div style="display:flex;flex-direction:column;gap:10px;">
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;"><code style="background:#f3f4f6;padding:2px 8px;border-radius:12px;font-size:12px;color:#7c3aed;font-weight:500;">YOUR_MCP_SERVER_URL</code> with the MCP Server URL from ServerAvatar MCP → Endpoint & Tokens</p>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;"><code style="background:#f3f4f6;padding:2px 8px;border-radius:12px;font-size:12px;color:#7c3aed;font-weight:500;">YOUR_IDE_ACCESS_TOKEN</code> with the IDE Access Token you generated</p>
+                            </div>
+                        </div>
+                        <div style="border-bottom:2px solid #fcd34d;margin-top:16px;"></div>
+                        <div style="background:#fef3c7;border:1px solid #fcd34d;border-radius:8px;padding:12px 16px;margin-top:16px;">
+                            <p style="font-size:14px;color:#92400e;margin:0;line-height:1.5;"><strong>Don't forget!</strong> Save the <code style="background:#fde68a;padding:2px 6px;border-radius:4px;font-size:13px;">mcp.json</code> file after making the changes.</p>
+                        </div>
                     </div>
                 </template>
                 
