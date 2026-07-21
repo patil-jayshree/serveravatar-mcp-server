@@ -51,9 +51,7 @@ class DeleteUserTool extends Tool
         return [
             'organization_id' => $schema->string()->description('The organization ID')->required(),
             'server_id' => $schema->string()->description('The server ID')->required(),
-            'ids' => $schema->array([
-                'items' => $schema->integer()->description('Application user ID'),
-            ])->description('Array of application user IDs to delete (from listUsers)')->required(),
+            'ids' => $schema->array()->items($schema->integer()->description('Application user ID'))->description('Array of application user IDs to delete (from listUsers)')->required(),
         ];
     }
 }

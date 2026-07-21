@@ -528,6 +528,13 @@
             });
         });
     </script>
+    <!-- Alpine.js Collapse Plugin (must load before Alpine) -->
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.13.0/dist/cdn.min.js"></script>
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.0/dist/cdn.min.js"></script>
+    <style>
+        [x-cloak] { display: none !important; }
+    </style>
     @yield('scripts')
 </body>
 </html>

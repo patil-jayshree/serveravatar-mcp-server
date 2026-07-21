@@ -52,9 +52,7 @@ class UpdateServerTagsTool extends Tool
         return [
             'organization_id' => $schema->string()->description('The organization ID')->required(),
             'server_id' => $schema->string()->description('The server ID')->required(),
-            'tags' => $schema->array([
-                'items' => $schema->string()->description('Tag name'),
-            ])->description('Array of tag names to assign to the server (replaces all existing tags). Example: ["Production", "Backend"]')->required(),
+            'tags' => $schema->array()->items($schema->string()->description('Tag name'))->description('Array of tag names to assign to the server (replaces all existing tags). Example: ["Production", "Backend"]')->required(),
         ];
     }
 }
