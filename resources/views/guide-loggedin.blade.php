@@ -48,11 +48,11 @@ window.clientsData = {
         image: '/images/clients/vscode.png',
         badge: '3 min',
         steps: [
-            { title: 'Install VS Code', desc: 'Download and install Visual Studio Code from code.visualstudio.com.' },
-            { title: 'Install MCP Extension', desc: 'Open Extensions (Cmd/Ctrl+Shift+X), search for "MCP", and install the official MCP extension.' },
-            { title: 'Generate an IDE Access Token', desc: 'Go to your ServerAvatar dashboard, navigate to MCP Panel, and generate a new IDE Access Token.' },
-            { title: 'Configure MCP Server', desc: 'Open settings.json, add ServerAvatar MCP config with connection URL and your IDE Access Token.' },
-            { title: 'Start Using', desc: 'Use the Command Palette to access ServerAvatar tools!' }
+            { title: 'Install VS Code', desc: 'Download and install Visual Studio Code.' },
+            { title: 'Install Copilot Extensions', desc: 'Install GitHub Copilot and GitHub Copilot Chat extensions.' },
+            { title: 'Add ServerAvatar MCP', desc: 'Add your MCP server to VS Code.' },
+            { title: 'Authenticate', desc: 'OAuth or IDE Access Token.' },
+            { title: 'Start Using', desc: 'Open GitHub Copilot Chat in Agent mode.' }
         ]
     },
     windsurf: {
@@ -354,36 +354,119 @@ window.clientsData = {
             <p style="font-size:14px;color:#6b7280;line-height:1.6;margin:0;">ServerAvatar MCP provides 55+ tools across multiple categories.</p>
         </div>
         
+        <!-- Available Tools Banner -->
+        <div style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:12px;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;gap:24px;margin-bottom:20px;flex-wrap:wrap;">
+            <!-- Left Side: Icon + Text -->
+            <div style="display:flex;align-items:center;gap:14px;">
+                <div style="width:52px;height:52px;min-width:52px;background:#f5f3ff;border:2px solid #ddd6fe;border-radius:50%;display:flex;align-items:center;justify-content:center;">
+                    <i class="fas fa-wrench" style="color:#7c3aed;font-size:22px;"></i>
+                </div>
+                <div>
+                    <h3 style="font-size:15px;font-weight:700;color:#7c3aed;margin:0 0 4px 0;">Powerful. Organized. Ready to Use.</h3>
+                    <p style="font-size:12px;color:#6b7280;margin:0;line-height:1.4;">Tools are grouped by category to help you quickly find the right capabilities for your workflow.</p>
+                </div>
+            </div>
+            
+            <!-- Divider -->
+            <div style="width:1px;height:44px;background:#ddd6fe;display:none;"></div>
+            
+            <!-- Right Side: Stats -->
+            <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
+                <!-- Stat 1: Total Tools -->
+                <div style="display:flex;align-items:center;gap:10px;">
+                    <div style="width:36px;height:36px;min-width:36px;background:#f5f3ff;border:1px solid #ddd6fe;border-radius:8px;display:flex;align-items:center;justify-content:center;">
+                        <i class="fas fa-star" style="color:#7c3aed;font-size:14px;"></i>
+                    </div>
+                    <div>
+                        <div style="font-size:18px;font-weight:700;color:#7c3aed;">55+</div>
+                        <div style="font-size:11px;color:#6b7280;">Total Tools</div>
+                    </div>
+                </div>
+                
+                <!-- Stat 2: Categories -->
+                <div style="display:flex;align-items:center;gap:10px;">
+                    <div style="width:36px;height:36px;min-width:36px;background:#f5f3ff;border:1px solid #ddd6fe;border-radius:8px;display:flex;align-items:center;justify-content:center;">
+                        <i class="fas fa-th-large" style="color:#7c3aed;font-size:14px;"></i>
+                    </div>
+                    <div>
+                        <div style="font-size:18px;font-weight:700;color:#7c3aed;">10+</div>
+                        <div style="font-size:11px;color:#6b7280;">Categories</div>
+                    </div>
+                </div>
+                
+                <!-- Stat 3: MCP Ready -->
+                <div style="display:flex;align-items:center;gap:10px;">
+                    <div style="width:36px;height:36px;min-width:36px;background:#f5f3ff;border:1px solid #ddd6fe;border-radius:8px;display:flex;align-items:center;justify-content:center;">
+                        <i class="fas fa-bolt" style="color:#7c3aed;font-size:14px;"></i>
+                    </div>
+                    <div>
+                        <div style="font-size:18px;font-weight:700;color:#7c3aed;">100%</div>
+                        <div style="font-size:11px;color:#6b7280;">MCP Ready</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
         <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
-            <div style="background:#f9f8fc;border:1px solid #f0eef5;border-radius:12px;padding:16px 12px;text-align:center;">
-                <div style="color:#3b82f6;font-size:22px;margin-bottom:8px;"><i class="fas fa-server"></i></div>
-                <div style="font-size:13px;font-weight:600;color:#1a1a2e;margin-bottom:2px;">Servers</div>
-                <div style="font-size:11px;color:#6b7280;">19 Tools</div>
+            <div style="background:#ffffff;border:1px solid #e5e7eb;border-radius:12px;padding:16px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:all 0.2s;">
+                <div style="width:48px;height:48px;min-width:48px;background:#eff6ff;border-radius:50%;display:flex;align-items:center;justify-content:center;">
+                    <i class="fas fa-server" style="color:#3b82f6;font-size:20px;"></i>
+                </div>
+                <div style="flex:1;min-width:0;">
+                    <div style="font-size:14px;font-weight:600;color:#1a1a2e;margin-bottom:3px;">Servers</div>
+                    <div style="font-size:11px;color:#6b7280;line-height:1.4;">Manage and monitor servers, resources, and configurations</div>
+                </div>
+                <span style="background:#eff6ff;color:#3b82f6;font-size:10px;font-weight:600;padding:5px 10px;border-radius:20px;white-space:nowrap;">19 Tools</span>
             </div>
-            <div style="background:#f9f8fc;border:1px solid #f0eef5;border-radius:12px;padding:16px 12px;text-align:center;">
-                <div style="color:#3b82f6;font-size:22px;margin-bottom:8px;"><i class="fas fa-globe"></i></div>
-                <div style="font-size:13px;font-weight:600;color:#1a1a2e;margin-bottom:2px;">Applications</div>
-                <div style="font-size:11px;color:#6b7280;">7 Tools</div>
+            <div style="background:#ffffff;border:1px solid #e5e7eb;border-radius:12px;padding:16px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:all 0.2s;">
+                <div style="width:48px;height:48px;min-width:48px;background:#eff6ff;border-radius:50%;display:flex;align-items:center;justify-content:center;">
+                    <i class="fas fa-globe" style="color:#3b82f6;font-size:20px;"></i>
+                </div>
+                <div style="flex:1;min-width:0;">
+                    <div style="font-size:14px;font-weight:600;color:#1a1a2e;margin-bottom:3px;">Applications</div>
+                    <div style="font-size:11px;color:#6b7280;line-height:1.4;">Deploy, manage and optimize your applications with ease</div>
+                </div>
+                <span style="background:#eff6ff;color:#3b82f6;font-size:10px;font-weight:600;padding:5px 10px;border-radius:20px;white-space:nowrap;">7 Tools</span>
             </div>
-            <div style="background:#f9f8fc;border:1px solid #f0eef5;border-radius:12px;padding:16px 12px;text-align:center;">
-                <div style="color:#f97316;font-size:22px;margin-bottom:8px;"><i class="fas fa-database"></i></div>
-                <div style="font-size:13px;font-weight:600;color:#1a1a2e;margin-bottom:2px;">Databases</div>
-                <div style="font-size:11px;color:#6b7280;">2 Tools</div>
+            <div style="background:#ffffff;border:1px solid #e5e7eb;border-radius:12px;padding:16px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:all 0.2s;">
+                <div style="width:48px;height:48px;min-width:48px;background:#fff7ed;border-radius:50%;display:flex;align-items:center;justify-content:center;">
+                    <i class="fas fa-hdd" style="color:#f97316;font-size:20px;"></i>
+                </div>
+                <div style="flex:1;min-width:0;">
+                    <div style="font-size:14px;font-weight:600;color:#1a1a2e;margin-bottom:3px;">Databases</div>
+                    <div style="font-size:11px;color:#6b7280;line-height:1.4;">Create, manage and optimize your databases</div>
+                </div>
+                <span style="background:#fff7ed;color:#f97316;font-size:10px;font-weight:600;padding:5px 10px;border-radius:20px;white-space:nowrap;">2 Tools</span>
             </div>
-            <div style="background:#f9f8fc;border:1px solid #f0eef5;border-radius:12px;padding:16px 12px;text-align:center;">
-                <div style="color:#ef4444;font-size:22px;margin-bottom:8px;"><i class="fas fa-shield-alt"></i></div>
-                <div style="font-size:13px;font-weight:600;color:#1a1a2e;margin-bottom:2px;">Firewall</div>
-                <div style="font-size:11px;color:#6b7280;">4 Tools</div>
+            <div style="background:#ffffff;border:1px solid #e5e7eb;border-radius:12px;padding:16px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:all 0.2s;">
+                <div style="width:48px;height:48px;min-width:48px;background:#fef2f2;border-radius:50%;display:flex;align-items:center;justify-content:center;">
+                    <i class="fas fa-shield-alt" style="color:#ef4444;font-size:20px;"></i>
+                </div>
+                <div style="flex:1;min-width:0;">
+                    <div style="font-size:14px;font-weight:600;color:#1a1a2e;margin-bottom:3px;">Firewall</div>
+                    <div style="font-size:11px;color:#6b7280;line-height:1.4;">Manage firewall rules and security settings</div>
+                </div>
+                <span style="background:#fef2f2;color:#ef4444;font-size:10px;font-weight:600;padding:5px 10px;border-radius:20px;white-space:nowrap;">4 Tools</span>
             </div>
-            <div style="background:#f9f8fc;border:1px solid #f0eef5;border-radius:12px;padding:16px 12px;text-align:center;">
-                <div style="color:#22c55e;font-size:22px;margin-bottom:8px;"><i class="fas fa-clock"></i></div>
-                <div style="font-size:13px;font-weight:600;color:#1a1a2e;margin-bottom:2px;">Cronjobs</div>
-                <div style="font-size:11px;color:#6b7280;">6 Tools</div>
+            <div style="background:#ffffff;border:1px solid #e5e7eb;border-radius:12px;padding:16px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:all 0.2s;">
+                <div style="width:48px;height:48px;min-width:48px;background:#f0fdf4;border-radius:50%;display:flex;align-items:center;justify-content:center;">
+                    <i class="fas fa-clock" style="color:#22c55e;font-size:20px;"></i>
+                </div>
+                <div style="flex:1;min-width:0;">
+                    <div style="font-size:14px;font-weight:600;color:#1a1a2e;margin-bottom:3px;">Cronjobs</div>
+                    <div style="font-size:11px;color:#6b7280;line-height:1.4;">Schedule and manage automated tasks</div>
+                </div>
+                <span style="background:#f0fdf4;color:#22c55e;font-size:10px;font-weight:600;padding:5px 10px;border-radius:20px;white-space:nowrap;">6 Tools</span>
             </div>
-            <div style="background:#f9f8fc;border:1px solid #f0eef5;border-radius:12px;padding:16px 12px;text-align:center;">
-                <div style="color:#3b82f6;font-size:22px;margin-bottom:8px;"><i class="fab fa-wordpress"></i></div>
-                <div style="font-size:13px;font-weight:600;color:#1a1a2e;margin-bottom:2px;">WordPress</div>
-                <div style="font-size:11px;color:#6b7280;">33 Tools</div>
+            <div style="background:#ffffff;border:1px solid #e5e7eb;border-radius:12px;padding:16px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:all 0.2s;">
+                <div style="width:48px;height:48px;min-width:48px;background:#eff6ff;border-radius:50%;display:flex;align-items:center;justify-content:center;">
+                    <i class="fab fa-wordpress" style="color:#3b82f6;font-size:20px;"></i>
+                </div>
+                <div style="flex:1;min-width:0;">
+                    <div style="font-size:14px;font-weight:600;color:#1a1a2e;margin-bottom:3px;">WordPress</div>
+                    <div style="font-size:11px;color:#6b7280;line-height:1.4;">Manage WordPress sites, plugins, themes, and updates</div>
+                </div>
+                <span style="background:#eff6ff;color:#3b82f6;font-size:10px;font-weight:600;padding:5px 10px;border-radius:20px;white-space:nowrap;">33 Tools</span>
             </div>
         </div>
         
@@ -391,22 +474,133 @@ window.clientsData = {
             <a href="{{ url('/tools') }}" style="display:inline-flex;align-items:center;gap:8px;color:#7c3aed;font-size:14px;font-weight:600;text-decoration:none;">Explore All Tools <i class="fas fa-arrow-right" style="font-size:12px;"></i></a>
         </div>
     </div>
+</div>
 
-    <!-- Card 6: Connect AI Clients -->
+<!-- Card 6: Connect AI Clients -->
+<div style="display:flex;gap:24px;margin-top:20px;width:100%;box-sizing:border-box;">
     <div style="background:#ffffff;border:1px solid #e5e7eb;border-radius:16px;padding:32px;flex:1;box-shadow:0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.03);">
         <div style="margin-bottom:20px;">
             <h2 style="font-size:24px;font-weight:700;margin:0 0 6px 0;line-height:1.2;"><span style="color:#7c3aed;">6.</span> Connect AI Clients</h2>
             <p style="font-size:14px;color:#6b7280;line-height:1.6;margin:0;">Choose your AI client and follow the setup guide.</p>
         </div>
         
+        <!-- How It Works Banner -->
+        <div style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:12px;padding:20px;margin-bottom:20px;">
+            <div style="display:flex;align-items:center;gap:20px;">
+                <!-- Left Side: Title and Description -->
+                <div style="display:flex;align-items:center;gap:16px;flex:1;">
+                    <div style="width:48px;height:48px;min-width:48px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(124,58,237,0.1);">
+                        <i class="fas fa-book-open" style="color:#7c3aed;font-size:22px;"></i>
+                    </div>
+                    <div>
+                        <h3 style="font-size:16px;font-weight:700;color:#7c3aed;margin:0 0 4px 0;">How it works</h3>
+                        <p style="font-size:13px;color:#6b7280;margin:0;line-height:1.5;">Click on any AI client below to open a step-by-step setup guide. Each guide contains simple steps with screenshots for easy connection.</p>
+                    </div>
+                </div>
+                
+                <!-- Right Side: Steps -->
+                <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;">
+                    <!-- Row 1: Circle Icons + Arrows -->
+                    <div style="display:flex;align-items:center;justify-content:center;">
+                        <!-- Step 1 -->
+                        <div style="width:80px;display:flex;flex-direction:column;align-items:center;">
+                            <div style="position:relative;width:56px;height:56px;display:flex;align-items:center;justify-content:center;">
+                                <div style="position:absolute;top:-9px;left:50%;transform:translateX(-50%);width:20px;height:20px;background:#7c3aed;border-radius:50%;display:flex;align-items:center;justify-content:center;">
+                                    <span style="color:#fff;font-size:11px;font-weight:600;">1</span>
+                                </div>
+                                <div style="width:48px;height:48px;background:#f5f3ff;border:2px solid #ddd6fe;border-radius:50%;display:flex;align-items:center;justify-content:center;">
+                                    <i class="fas fa-hand-pointer" style="color:#7c3aed;font-size:20px;"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Arrow 1 -->
+                        <div style="width:50px;display:flex;align-items:center;justify-content:center;height:48px;">
+                            <span style="color:#7c3aed;font-size:20px;font-weight:300;">---></span>
+                        </div>
+                        <!-- Step 2 -->
+                        <div style="width:80px;display:flex;flex-direction:column;align-items:center;">
+                            <div style="position:relative;width:56px;height:56px;display:flex;align-items:center;justify-content:center;">
+                                <div style="position:absolute;top:-9px;left:50%;transform:translateX(-50%);width:20px;height:20px;background:#7c3aed;border-radius:50%;display:flex;align-items:center;justify-content:center;">
+                                    <span style="color:#fff;font-size:11px;font-weight:600;">2</span>
+                                </div>
+                                <div style="width:48px;height:48px;background:#f5f3ff;border:2px solid #ddd6fe;border-radius:50%;display:flex;align-items:center;justify-content:center;">
+                                    <i class="fas fa-file-alt" style="color:#7c3aed;font-size:20px;"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Arrow 2 -->
+                        <div style="width:50px;display:flex;align-items:center;justify-content:center;height:48px;">
+                            <span style="color:#7c3aed;font-size:20px;font-weight:300;">---></span>
+                        </div>
+                        <!-- Step 3 -->
+                        <div style="width:80px;display:flex;flex-direction:column;align-items:center;">
+                            <div style="position:relative;width:56px;height:56px;display:flex;align-items:center;justify-content:center;">
+                                <div style="position:absolute;top:-9px;left:50%;transform:translateX(-50%);width:20px;height:20px;background:#7c3aed;border-radius:50%;display:flex;align-items:center;justify-content:center;">
+                                    <span style="color:#fff;font-size:11px;font-weight:600;">3</span>
+                                </div>
+                                <div style="width:48px;height:48px;background:#f5f3ff;border:2px solid #ddd6fe;border-radius:50%;display:flex;align-items:center;justify-content:center;">
+                                    <i class="fas fa-list-ul" style="color:#7c3aed;font-size:20px;"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Arrow 3 -->
+                        <div style="width:50px;display:flex;align-items:center;justify-content:center;height:48px;">
+                            <span style="color:#7c3aed;font-size:20px;font-weight:300;">---></span>
+                        </div>
+                        <!-- Step 4 -->
+                        <div style="width:80px;display:flex;flex-direction:column;align-items:center;">
+                            <div style="position:relative;width:56px;height:56px;display:flex;align-items:center;justify-content:center;">
+                                <div style="position:absolute;top:-9px;left:50%;transform:translateX(-50%);width:20px;height:20px;background:#7c3aed;border-radius:50%;display:flex;align-items:center;justify-content:center;">
+                                    <span style="color:#fff;font-size:11px;font-weight:600;">4</span>
+                                </div>
+                                <div style="width:48px;height:48px;background:#f5f3ff;border:2px solid #ddd6fe;border-radius:50%;display:flex;align-items:center;justify-content:center;">
+                                    <i class="fas fa-check" style="color:#7c3aed;font-size:20px;"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Row 2: Labels -->
+                    <div style="display:flex;align-items:flex-start;justify-content:center;margin-top:12px;">
+                        <div style="width:80px;text-align:center;">
+                            <span style="font-size:12px;font-weight:500;color:#374151;white-space:nowrap;display:block;">Select AI Client</span>
+                        </div>
+                        <div style="width:50px;"></div>
+                        <div style="width:80px;text-align:center;">
+                            <span style="font-size:12px;font-weight:500;color:#374151;white-space:nowrap;display:block;">Open Setup Guide</span>
+                        </div>
+                        <div style="width:50px;"></div>
+                        <div style="width:80px;text-align:center;">
+                            <span style="font-size:12px;font-weight:500;color:#374151;white-space:nowrap;display:block;">Follow Steps</span>
+                        </div>
+                        <div style="width:50px;"></div>
+                        <div style="width:80px;text-align:center;">
+                            <span style="font-size:12px;font-weight:500;color:#374151;white-space:nowrap;display:block;">Connect & Start</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Description -->
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;">
+            <i class="fas fa-star" style="color:#7c3aed;font-size:16px;"></i>
+            <p style="font-size:13px;color:#6b7280;margin:0;line-height:1.6;">
+                Click any AI client to view setup steps in a <span style="color:#7c3aed;font-weight:500;">guided walkthrough</span>.
+            </p>
+        </div>
+        
         <!-- ChatGPT -->
-        <div @click="openModal('chatgpt')" onclick="console.log('ChatGPT clicked')" style="background:#f9f8fc;border:1px solid #f0eef5;border-radius:12px;padding:6px 10px;display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;cursor:pointer;transition:all 200ms;" onmouseover="this.style.background='#f5f3ff';this.style.borderColor='#ddd6fe'" onmouseout="this.style.background='#f9f8fc';this.style.borderColor='#f0eef5'">
+        <div @click="openModal('chatgpt')" onclick="console.log('ChatGPT clicked')" style="background:#f9f8fc;border:1px solid #f0eef5;border-radius:12px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;cursor:pointer;transition:all 200ms;" onmouseover="this.style.background='#f5f3ff';this.style.borderColor='#ddd6fe'" onmouseout="this.style.background='#f9f8fc';this.style.borderColor='#f0eef5'">
             <div style="display:flex;align-items:center;gap:14px;">
                 <div style="width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;overflow:hidden;">
                     <img src="/images/clients/chatgpt-dark.png" alt="ChatGPT" class="icon-dark" style="width:32px;height:32px;object-fit:contain;">
                     <img src="/images/clients/chatgpt-light.png" alt="ChatGPT" class="icon-light" style="width:32px;height:32px;object-fit:contain;">
                 </div>
-                <div style="font-size:14px;font-weight:600;color:#1a1a2e;">ChatGPT</div>
+                <div>
+                    <div style="font-size:14px;font-weight:600;color:#1a1a2e;">ChatGPT</div>
+                    <div style="font-size:12px;color:#6b7280;margin-top:2px;">Click to open step-by-step setup guide</div>
+                </div>
             </div>
             <div style="display:flex;align-items:center;gap:8px;">
                 <span style="background:#f3effd;border:1px solid #e9d5ff;color:#7c3aed;font-size:12px;font-weight:500;padding:2px 10px;border-radius:20px;">2 min</span>
@@ -415,12 +609,15 @@ window.clientsData = {
         </div>
         
         <!-- Claude -->
-        <div @click="openModal('claude')" style="background:#f9f8fc;border:1px solid #f0eef5;border-radius:12px;padding:6px 10px;display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;cursor:pointer;transition:all 200ms;" onmouseover="this.style.background='#f5f3ff';this.style.borderColor='#ddd6fe'" onmouseout="this.style.background='#f9f8fc';this.style.borderColor='#f0eef5'">
+        <div @click="openModal('claude')" style="background:#f9f8fc;border:1px solid #f0eef5;border-radius:12px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;cursor:pointer;transition:all 200ms;" onmouseover="this.style.background='#f5f3ff';this.style.borderColor='#ddd6fe'" onmouseout="this.style.background='#f9f8fc';this.style.borderColor='#f0eef5'">
             <div style="display:flex;align-items:center;gap:14px;">
                 <div style="width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;overflow:hidden;">
                     <img src="/images/clients/claude.png" alt="Claude" style="width:32px;height:32px;object-fit:contain;">
                 </div>
-                <div style="font-size:14px;font-weight:600;color:#1a1a2e;">Claude</div>
+                <div>
+                    <div style="font-size:14px;font-weight:600;color:#1a1a2e;">Claude</div>
+                    <div style="font-size:12px;color:#6b7280;margin-top:2px;">Click to open step-by-step setup guide</div>
+                </div>
             </div>
             <div style="display:flex;align-items:center;gap:8px;">
                 <span style="background:#f3effd;border:1px solid #e9d5ff;color:#7c3aed;font-size:12px;font-weight:500;padding:2px 10px;border-radius:20px;">2 min</span>
@@ -429,13 +626,16 @@ window.clientsData = {
         </div>
         
         <!-- Cursor -->
-        <div @click="openModal('cursor')" style="background:#f9f8fc;border:1px solid #f0eef5;border-radius:12px;padding:6px 10px;display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;cursor:pointer;transition:all 200ms;" onmouseover="this.style.background='#f5f3ff';this.style.borderColor='#ddd6fe'" onmouseout="this.style.background='#f9f8fc';this.style.borderColor='#f0eef5'">
+        <div @click="openModal('cursor')" style="background:#f9f8fc;border:1px solid #f0eef5;border-radius:12px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;cursor:pointer;transition:all 200ms;" onmouseover="this.style.background='#f5f3ff';this.style.borderColor='#ddd6fe'" onmouseout="this.style.background='#f9f8fc';this.style.borderColor='#f0eef5'">
             <div style="display:flex;align-items:center;gap:14px;">
                 <div style="width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;overflow:hidden;">
                     <img src="/images/clients/cursor-dark.png" alt="Cursor" class="icon-dark" style="width:32px;height:32px;object-fit:contain;">
                     <img src="/images/clients/cursor-light.png" alt="Cursor" class="icon-light" style="width:32px;height:32px;object-fit:contain;">
                 </div>
-                <div style="font-size:14px;font-weight:600;color:#1a1a2e;">Cursor</div>
+                <div>
+                    <div style="font-size:14px;font-weight:600;color:#1a1a2e;">Cursor</div>
+                    <div style="font-size:12px;color:#6b7280;margin-top:2px;">Click to open step-by-step setup guide</div>
+                </div>
             </div>
             <div style="display:flex;align-items:center;gap:8px;">
                 <span style="background:#f3effd;border:1px solid #e9d5ff;color:#7c3aed;font-size:12px;font-weight:500;padding:2px 10px;border-radius:20px;">3 min</span>
@@ -444,12 +644,15 @@ window.clientsData = {
         </div>
         
         <!-- VS Code -->
-        <div @click="openModal('vscode')" style="background:#f9f8fc;border:1px solid #f0eef5;border-radius:12px;padding:6px 10px;display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;cursor:pointer;transition:all 200ms;" onmouseover="this.style.background='#f5f3ff';this.style.borderColor='#ddd6fe'" onmouseout="this.style.background='#f9f8fc';this.style.borderColor='#f0eef5'">
+        <div @click="openModal('vscode')" style="background:#f9f8fc;border:1px solid #f0eef5;border-radius:12px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;cursor:pointer;transition:all 200ms;" onmouseover="this.style.background='#f5f3ff';this.style.borderColor='#ddd6fe'" onmouseout="this.style.background='#f9f8fc';this.style.borderColor='#f0eef5'">
             <div style="display:flex;align-items:center;gap:14px;">
                 <div style="width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;overflow:hidden;">
                     <img src="/images/clients/vscode.png" alt="VS Code" style="width:32px;height:32px;object-fit:contain;">
                 </div>
-                <div style="font-size:14px;font-weight:600;color:#1a1a2e;">VS Code</div>
+                <div>
+                    <div style="font-size:14px;font-weight:600;color:#1a1a2e;">VS Code</div>
+                    <div style="font-size:12px;color:#6b7280;margin-top:2px;">Click to open step-by-step setup guide</div>
+                </div>
             </div>
             <div style="display:flex;align-items:center;gap:8px;">
                 <span style="background:#f3effd;border:1px solid #e9d5ff;color:#7c3aed;font-size:12px;font-weight:500;padding:2px 10px;border-radius:20px;">3 min</span>
@@ -457,19 +660,14 @@ window.clientsData = {
             </div>
         </div>
         
-        <!-- Windsurf -->
-        <div @click="openModal('windsurf')" style="background:#f9f8fc;border:1px solid #f0eef5;border-radius:12px;padding:6px 10px;display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;cursor:pointer;transition:all 200ms;" onmouseover="this.style.background='#f5f3ff';this.style.borderColor='#ddd6fe'" onmouseout="this.style.background='#f9f8fc';this.style.borderColor='#f0eef5'">
-            <div style="display:flex;align-items:center;gap:14px;">
-                <div style="width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;overflow:hidden;">
-                    <img src="/images/clients/windsurf-dark.png" alt="Windsurf" class="icon-dark" style="width:32px;height:32px;object-fit:contain;">
-                    <img src="/images/clients/windsurf-light.png" alt="Windsurf" class="icon-light" style="width:32px;height:32px;object-fit:contain;">
-                </div>
-                <div style="font-size:14px;font-weight:600;color:#1a1a2e;">Windsurf</div>
+        <!-- Info Banner -->
+        <div style="background:#f5f3ff;border:1px solid #e9d5ff;border-radius:12px;padding:12px 16px;display:flex;align-items:center;gap:16px;margin-top:4px;">
+            <div style="width:44px;height:44px;min-width:44px;background:#f5f3ff;border:2px solid #ddd6fe;border-radius:50%;display:flex;align-items:center;justify-content:center;">
+                <i class="fas fa-lightbulb" style="color:#7c3aed;font-size:20px;"></i>
             </div>
-            <div style="display:flex;align-items:center;gap:8px;">
-                <span style="background:#f3effd;border:1px solid #e9d5ff;color:#7c3aed;font-size:12px;font-weight:500;padding:2px 10px;border-radius:20px;">3 min</span>
-                <i class="fas fa-chevron-right" style="color:#9ca3af;font-size:12px;"></i>
-            </div>
+            <p style="font-size:14px;color:#374151;margin:0;line-height:1.6;">
+                Choose your preferred AI client and follow the guided setup steps to connect ServerAvatar MCP in just a few minutes.
+            </p>
         </div>
         
     </div>
@@ -779,346 +977,6 @@ window.clientsData = {
         </div>
     </div>
 </div>
-
-<h2>🚀 Introducing ServerAvatar MCP</h2>
-    <p>Now that you understand MCP, let's talk about <strong>ServerAvatar MCP</strong> – a powerful implementation that brings your ServerAvatar server management panel directly into any MCP-compatible AI client.</p>
-
-    <div class="note-box">
-        <p><strong>💡 What is ServerAvatar?</strong></p>
-        <p>ServerAvatar is a server management platform that helps you manage VPS servers, websites, databases, domains, SSL certificates, and more – all from a web dashboard.</p>
-    </div>
-
-    <p>With ServerAvatar MCP, you can do everything from your AI chat:</p>
-    <ul>
-        <li>List and manage your servers</li>
-        <li>Create/delete databases</li>
-        <li>Manage applications and websites</li>
-        <li>Configure firewall rules</li>
-        <li>Set up cronjobs</li>
-        <li>Manage WordPress sites (themes, plugins, updates)</li>
-        <li>Check server resources and logs</li>
-    </ul>
-
-    <h2>Quick Setup</h2>
-    <h2>🔑 Step 1: Generate Your ServerAvatar API Key</h2>
-    <p>Follow these simple steps to connect ServerAvatar MCP with your favorite AI client.</p>
-    
-    <div class="step-box">
-        <p><span class="step-number">1</span>Log in to your ServerAvatar account</p>
-        <p><span class="step-number">2</span>Navigate to <strong>Account Settings → API Access</strong></p>
-        <p><span class="step-number">3</span>Generate or view your API Access Key</p>
-        <p><span class="step-number">4</span>Copy the API Key—you'll use it to authorize ServerAvatar MCP</p>
-    </div>
-
-    <div class="note-box">
-        <p><strong>⚠️ Note:</strong> Keep your API Key secure. Never share it publicly.</p>
-    </div>
-
-    <h2>🔗 Step 2: Connect Your ServerAvatar Account to ServerAvatar MCP</h2>
-    <p>Once your API Key is verified, your ServerAvatar MCP account is ready to communicate with your ServerAvatar account.</p>
-    
-    <div class="step-box">
-        <p><span class="step-number">1</span>Log in to your ServerAvatar MCP dashboard</p>
-        <p><span class="step-number">2</span>Go to <strong>Account Settings → API Access</strong></p>
-        <p><span class="step-number">3</span>Paste the API Key you copied from your ServerAvatar account</p>
-        <p><span class="step-number">4</span>Click <strong>Update API Key</strong></p>
-    </div>
-
-    <h2>📋 Step 3: Copy Your MCP Server URL</h2>
-    <p>After connecting your API Key:</p>
-    
-    <div class="step-box">
-        <p><span class="step-number">1</span>Open the <strong>Dashboard</strong> or <strong>MCP Server</strong> page</p>
-        <p><span class="step-number">2</span>Locate the <strong>MCP Server URL</strong></p>
-        <p><span class="step-number">3</span>Click <strong>Copy URL</strong></p>
-    </div>
-
-    <p>You'll need this URL when configuring your AI client.</p>
-
-    <h2>🤖 Step 4: Connect Your AI Client</h2>
-    <p>Choose the AI client you'd like to use with ServerAvatar MCP.</p>
-
-    <h2>📊 ServerAvatar MCP Tools</h2>
-    <p>ServerAvatar MCP provides <strong>55+ tools</strong> organized into categories:</p>
-
-    <table style="width: 100%; border-collapse: collapse; margin: 1rem 0;">
-        <thead>
-            <tr style="background: var(--bg-tertiary);">
-                <th style="padding: 0.75rem; text-align: left; border: 1px solid var(--border-color);">Category</th>
-                <th style="padding: 0.75rem; text-align: left; border: 1px solid var(--border-color);">Tools</th>
-                <th style="padding: 0.75rem; text-align: left; border: 1px solid var(--border-color);">Description</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td style="padding: 0.75rem; border: 1px solid var(--border-color);"><strong>Server</strong></td>
-                <td style="padding: 0.75rem; border: 1px solid var(--border-color);">19</td>
-                <td style="padding: 0.75rem; border: 1px solid var(--border-color);">Create, list, restart, update, tags, firewall</td>
-            </tr>
-            <tr>
-                <td style="padding: 0.75rem; border: 1px solid var(--border-color);"><strong>Application</strong></td>
-                <td style="padding: 0.75rem; border: 1px solid var(--border-color);">7</td>
-                <td style="padding: 0.75rem; border: 1px solid var(--border-color);">Manage websites and apps</td>
-            </tr>
-            <tr>
-                <td style="padding: 0.75rem; border: 1px solid var(--border-color);"><strong>Database</strong></td>
-                <td style="padding: 0.75rem; border: 1px solid var(--border-color);">2</td>
-                <td style="padding: 0.75rem; border: 1px solid var(--border-color);">Database user management</td>
-            </tr>
-            <tr>
-                <td style="padding: 0.75rem; border: 1px solid var(--border-color);"><strong>Firewall</strong></td>
-                <td style="padding: 0.75rem; border: 1px solid var(--border-color);">4</td>
-                <td style="padding: 0.75rem; border: 1px solid var(--border-color);">Firewall rules configuration</td>
-            </tr>
-            <tr>
-                <td style="padding: 0.75rem; border: 1px solid var(--border-color);"><strong>Cronjob</strong></td>
-                <td style="padding: 0.75rem; border: 1px solid var(--border-color);">6</td>
-                <td style="padding: 0.75rem; border: 1px solid var(--border-color);">Schedule management tasks</td>
-            </tr>
-            <tr>
-                <td style="padding: 0.75rem; border: 1px solid var(--border-color);"><strong>WordPress Toolkit</strong></td>
-                <td style="padding: 0.75rem; border: 1px solid var(--border-color);">33</td>
-                <td style="padding: 0.75rem; border: 1px solid var(--border-color);">Themes, plugins, updates, security</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <div class="note-box">
-        <p><strong>📌 Before You Connect</strong></p>
-        <p><strong>💡 IDE Access Token Requirement</strong></p>
-        <p>IDE Access Tokens are only required for IDE-based AI clients such as Cursor, Windsurf, VS Code, Cline, and Continue.</p>
-        <p>Browser-based AI clients like ChatGPT and Claude connect using your MCP Server URL and do not require an IDE Access Token.</p>
-    </div>
-
-    <h2 id="chatgpt">🤖 ChatGPT</h2>
-    
-    <div class="client-card">
-        <h4>ChatGPT + ServerAvatar MCP</h4>
-        <p>Before connecting your MCP server, make sure your ChatGPT account supports MCP connectors.</p>
-        
-        <h3>Step 1: Enable Developer Mode</h3>
-        <div class="step-box">
-            <p><span class="step-number">1</span>Log in to your ChatGPT account</p>
-            <p><span class="step-number">2</span>Open Settings</p>
-            <p><span class="step-number">3</span>Enable Developer Mode (if available for your account)</p>
-        </div>
-
-        <div class="note-box">
-            <p><strong>⚠️ Note:</strong> MCP connectors are available only on supported ChatGPT plans and may not be available for every account.</p>
-        </div>
-
-        <h3>Step 2: Create a New MCP Connector</h3>
-        <div class="step-box">
-            <p><span class="step-number">1</span>Open Settings</p>
-            <p><span class="step-number">2</span>Go to <strong>Apps</strong> (or Plugins, depending on your ChatGPT version)</p>
-            <p><span class="step-number">3</span>Click <strong>Create New</strong></p>
-            <p><span class="step-number">4</span>Enter a name: <strong>ServerAvatar MCP</strong></p>
-            <p><span class="step-number">5</span>Paste your MCP Server URL into the <strong>Connection URL</strong> field</p>
-            <p><span class="step-number">6</span>Save the connector</p>
-            <p><span class="step-number">7</span>Complete the authorization process if prompted</p>
-        </div>
-
-        <p>Once connected successfully, ServerAvatar MCP will appear in your available connectors.</p>
-
-        <h3>Step 3: Start Using ServerAvatar MCP</h3>
-        <div class="step-box">
-            <p><span class="step-number">1</span>Open a new conversation</p>
-            <p><span class="step-number">2</span>Select your connected <strong>ServerAvatar MCP</strong> connector</p>
-        </div>
-
-        <p>You can now use natural language commands such as:</p>
-        <ul>
-            <li>Create a WordPress application</li>
-            <li>List all servers</li>
-            <li>Restart Nginx</li>
-            <li>Install an SSL certificate</li>
-            <li>Create a database</li>
-        </ul>
-    </div>
-
-    <h2 id="claude">🧠 Claude</h2>
-    
-    <div class="client-card">
-        <h4>Claude Desktop + ServerAvatar MCP</h4>
-        <p>Claude supports connecting external MCP servers using Custom Connectors.</p>
-        
-        <h3>Step 1: Open Claude Settings</h3>
-        <div class="step-box">
-            <p><span class="step-number">1</span>Log in to your Claude account</p>
-            <p><span class="step-number">2</span>Open Settings</p>
-            <p><span class="step-number">3</span>Navigate to <strong>Connectors</strong> or <strong>Customize</strong> (depending on your Claude version)</p>
-        </div>
-
-        <h3>Step 2: Add a Custom Connector</h3>
-        <div class="step-box">
-            <p><span class="step-number">1</span>Click <strong>Add Custom Connector</strong></p>
-            <p><span class="step-number">2</span>Enter a connector name: <strong>ServerAvatar MCP</strong></p>
-            <p><span class="step-number">3</span>Paste your MCP Server URL into the connection URL field</p>
-            <p><span class="step-number">4</span>Save the connector</p>
-            <p><span class="step-number">5</span>Complete the authorization process if required</p>
-        </div>
-
-        <p>After a successful connection, the ServerAvatar MCP connector will be available in Claude.</p>
-
-        <h3>Step 3: Start Managing Your Servers</h3>
-        <div class="step-box">
-            <p><span class="step-number">1</span>Open a new Claude chat</p>
-            <p><span class="step-number">2</span>Select your <strong>ServerAvatar MCP</strong> connector</p>
-        </div>
-
-        <p>You can now ask Claude to perform ServerAvatar operations, for example:</p>
-        <ul>
-            <li>Create an application</li>
-            <li>List servers</li>
-            <li>Manage databases</li>
-            <li>Restart services</li>
-            <li>Install SSL certificates</li>
-            <li>Change application settings</li>
-        </ul>
-    </div>
-
-    <h2 id="cursor">📝 Cursor</h2>
-    
-    <div class="client-card">
-        <h4>Cursor IDE + ServerAvatar MCP</h4>
-        <p>Use ServerAvatar tools directly in Cursor's AI chat.</p>
-        
-        <h3>Step 1: Install and Sign In</h3>
-        <div class="step-box">
-            <p><span class="step-number">1</span>Download and install Cursor IDE on your computer.</p>
-            <p><span class="step-number">2</span>Sign in to your Cursor account.</p>
-        </div>
-
-        <h3>Step 2: Generate an IDE Access Token</h3>
-        <p>Before connecting Cursor, you need an access token.</p>
-        <div class="step-box">
-            <p><span class="step-number">1</span>Log in to ServerAvatar MCP.</p>
-            <p><span class="step-number">2</span>Navigate to <strong>Endpoint & Tokens</strong>.</p>
-            <p><span class="step-number">3</span>Under <strong>IDE Access Tokens</strong>, enter a token name (e.g., Cursor Development).</p>
-            <p><span class="step-number">4</span>Click <strong>Generate Token</strong>.</p>
-            <p><span class="step-number">5</span>Copy the generated token immediately. It is displayed only once.</p>
-        </div>
-
-        <h3>Step 3: Open MCP Settings</h3>
-        <div class="step-box">
-            <p><span class="step-number">1</span>Open Cursor.</p>
-            <p><span class="step-number">2</span>Navigate to <strong>Settings → Tools & MCP</strong>.</p>
-            <p><span class="step-number">3</span>Under <strong>Installed MCP Servers</strong>, click <strong>+ Add New MCP Server</strong>.</p>
-            <p><span class="step-number">4</span>Cursor will open the <code>mcp.json</code> configuration file.</p>
-        </div>
-
-        <h3>Step 4: Configure ServerAvatar MCP</h3>
-        <p>Replace or add the following configuration in the <code>mcp.json</code> file.</p>
-        <pre><code>{
-  "mcpServers": {
-    "ServerAvatar MCP": {
-      "url": "YOUR_MCP_SERVER_URL",
-      "headers": {
-        "Authorization": "Bearer YOUR_IDE_ACCESS_TOKEN"
-      }
-    }
-  }
-}</code></pre>
-        <p>Replace:</p>
-        <ul>
-            <li><code>YOUR_MCP_SERVER_URL</code> with the MCP Server URL from ServerAvatar MCP → Endpoint & Tokens.</li>
-            <li><code>YOUR_IDE_ACCESS_TOKEN</code> with the IDE Access Token you generated earlier.</li>
-        </ul>
-        <p>Save the <code>mcp.json</code> file.</p>
-
-        <h3>Step 5: Verify the Connection</h3>
-        <div class="step-box">
-            <p><span class="step-number">1</span>Return to <strong>Settings → Tools & MCP</strong>.</p>
-            <p><span class="step-number">2</span>Verify that <strong>ServerAvatar MCP</strong> appears under <strong>Installed MCP Servers</strong>.</p>
-            <p><span class="step-number">3</span>Ensure the server status shows <strong>Connected</strong> or <strong>Available</strong>.</p>
-        </div>
-        <p>If the connection fails, verify your MCP Server URL and IDE Access Token, then reload Cursor.</p>
-
-        <h3>Step 6: Start Using ServerAvatar MCP</h3>
-        <p>Open a new AI chat or Agent session in Cursor and start using natural language commands, for example:</p>
-        <ul>
-            <li>List my servers</li>
-            <li>Create a WordPress application</li>
-            <li>List databases</li>
-            <li>Restart Nginx</li>
-            <li>Install an SSL certificate</li>
-        </ul>
-        <p>Cursor will automatically invoke the appropriate ServerAvatar MCP tools when required.</p>
-        
-        <div class="note-box">
-            <p><strong>💡 Tip:</strong> If you update the <code>mcp.json</code> file, reload or restart Cursor to ensure the new MCP configuration is loaded.</p>
-        </div>
-    </div>
-
-    <h2>📋 Example Commands</h2>
-    
-    <p>Once connected, you can use natural language to manage your infrastructure:</p>
-    
-    <pre><code># List all servers
-"List all my servers"
-
-# Get server status
-"Show me the status of my production server"
-
-# Create a WordPress application
-"Create a new WordPress application"
-
-# List all databases
-"List all my databases"
-
-# Restart Nginx service
-"Restart Nginx on my server"
-
-# Install SSL certificate
-"Install SSL for mydomain.com"
-</code></pre>
-
-    <h2>🔐 Security</h2>
-    <div class="note-box">
-        <p><strong>Important:</strong> Keep your API Key and IDE Access Tokens secure at all times.</p>
-        <ul style="margin: 0.5rem 0 0 1.25rem;">
-            <li>Never share your API Key or IDE Access Tokens.</li>
-            <li>Store tokens securely.</li>
-            <li>Revoke unused tokens immediately.</li>
-            <li>Generate separate IDE tokens for different devices.</li>
-            <li>Review active tokens regularly.</li>
-        </ul>
-    </div>
-
-    <h2>⚡ Quick Recap</h2>
-    <ul>
-        <li>✅ Generate your ServerAvatar API Key</li>
-        <li>✅ Connect your ServerAvatar account to ServerAvatar MCP</li>
-        <li>✅ Copy your MCP Server URL</li>
-        <li>✅ Connect your preferred AI client</li>
-        <li>✅ Verify the connection</li>
-        <li>✅ Start managing your infrastructure with AI</li>
-    </ul>
-
-    <h2>❓ Troubleshooting</h2>
-    
-    <div style="margin: 1.5rem 0;">
-        <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1rem; margin-bottom: 1rem;">
-            <p style="font-weight: 600; margin: 0 0 0.5rem 0;">Connection failed</p>
-            <p style="margin: 0; text-align: center; color: var(--text-muted);">↓</p>
-            <p style="margin: 0.5rem 0 0 0;">Check your MCP Server URL.</p>
-        </div>
-        <hr style="border: none; border-top: 1px dashed var(--border-color); margin: 1rem 0;">
-        
-        <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1rem; margin-bottom: 1rem;">
-            <p style="font-weight: 600; margin: 0 0 0.5rem 0;">Unauthorized</p>
-            <p style="margin: 0; text-align: center; color: var(--text-muted);">↓</p>
-            <p style="margin: 0.5rem 0 0 0;">Verify your API Key or IDE Access Token.</p>
-        </div>
-        <hr style="border: none; border-top: 1px dashed var(--border-color); margin: 1rem 0;">
-        
-        <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1rem;">
-            <p style="font-weight: 600; margin: 0 0 0.5rem 0;">No tools found</p>
-            <p style="margin: 0; text-align: center; color: var(--text-muted);">↓</p>
-            <p style="margin: 0.5rem 0 0 0;">Reconnect your AI client.</p>
-        </div>
-    </div>
-
 <!-- AI Client Connection Modal -->
 <div x-show="modalOpen" x-cloak style="position:fixed;top:0;left:0;right:0;bottom:0;z-index:9999;background:rgba(0,0,0,0.5);" @click.self="closeModal()">
     <div x-show="selectedClient" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:900px;max-width:calc(100vw - 48px);max-height:90vh;background:#fff;border-radius:20px;box-shadow:0 25px 50px -12px rgba(0,0,0,0.25);overflow:hidden;display:flex;flex-direction:column;" @click.stop>
@@ -1160,9 +1018,9 @@ window.clientsData = {
                     </div>
                 </template>
                 
-                <div style="margin-top:100px;padding:16px;background:#f5f3ff;border-radius:16px;border:1px solid #e9d5ff;">
+                <div style="margin-top:60px;padding:12px;background:#f5f3ff;border-radius:16px;border:1px solid #e9d5ff;">
                     <p style="font-size:14px;font-weight:700;color:#7c3aed;margin:0 0 8px 0;">Need Help?</p>
-                    <p style="font-size:13px;color:#6b7280;margin:0 0 12px 0;">Contact our support team</p>
+                    <p style="font-size:13px;color:#6b7280;margin:0 0 8px 0;">Contact our support team</p>
                     <a href="https://support.serveravatar.com" target="_blank" style="display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:#7c3aed;text-decoration:none;">
                         Get Support <i class="fas fa-arrow-right" style="font-size:10px;"></i>
                     </a>
@@ -1439,15 +1297,269 @@ window.clientsData = {
                         <p style="font-size:14px;font-weight:600;color:#7c3aed;margin:0 0 12px 0;">Replace:</p>
                         <div style="display:flex;flex-direction:column;gap:10px;">
                             <div style="display:flex;align-items:center;gap:12px;">
+                                <div style="width:6px;height:6px;min-width:6px;background:#7c3aed;border-radius:50%;flex-shrink:0;"></div>
                                 <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;"><code style="background:#f3f4f6;padding:2px 8px;border-radius:12px;font-size:12px;color:#7c3aed;font-weight:500;">YOUR_MCP_SERVER_URL</code> with the MCP Server URL from ServerAvatar MCP → Endpoint & Tokens</p>
                             </div>
                             <div style="display:flex;align-items:center;gap:12px;">
+                                <div style="width:6px;height:6px;min-width:6px;background:#7c3aed;border-radius:50%;flex-shrink:0;"></div>
                                 <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;"><code style="background:#f3f4f6;padding:2px 8px;border-radius:12px;font-size:12px;color:#7c3aed;font-weight:500;">YOUR_IDE_ACCESS_TOKEN</code> with the IDE Access Token you generated</p>
                             </div>
                         </div>
-                        <div style="border-bottom:2px solid #fcd34d;margin-top:16px;"></div>
                         <div style="background:#fef3c7;border:1px solid #fcd34d;border-radius:8px;padding:12px 16px;margin-top:16px;">
                             <p style="font-size:14px;color:#92400e;margin:0;line-height:1.5;"><strong>Don't forget!</strong> Save the <code style="background:#fde68a;padding:2px 6px;border-radius:4px;font-size:13px;">mcp.json</code> file after making the changes.</p>
+                        </div>
+                    </div>
+                </template>
+                
+                <!-- Cursor Step 5 Card -->
+                <template x-if="selectedClient && selectedClient.name === 'Cursor'">
+                    <div style="background:#fafafa;border:1px solid #e5e7eb;border-radius:12px;padding:20px;margin-bottom:12px;">
+                        <h4 style="font-size:16px;font-weight:700;color:#7c3aed;margin:0 0 16px 0;">Step 5: <span style="color:#1a1a2e;">Verify the Connection</span></h4>
+                        <div style="display:flex;flex-direction:column;gap:10px;">
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">1</div>
+                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Return to Settings → Tools & MCP.</p>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">2</div>
+                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Verify that ServerAvatar MCP appears under Installed MCP Servers.</p>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">3</div>
+                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Ensure the server status shows Connected or Available.</p>
+                            </div>
+                        </div>
+                        <div style="background:#fef2f2;border:1px solid #fecaca;border-radius:8px;padding:12px 16px;margin-top:16px;">
+                            <p style="font-size:14px;color:#991b1b;margin:0;line-height:1.5;">If the connection fails, verify your MCP Server URL and IDE Access Token, then reload Cursor.</p>
+                        </div>
+                    </div>
+                </template>
+                
+                <!-- Cursor Step 6 Card -->
+                <template x-if="selectedClient && selectedClient.name === 'Cursor'">
+                    <div style="background:#fafafa;border:1px solid #e5e7eb;border-radius:12px;padding:20px;margin-bottom:12px;">
+                        <h4 style="font-size:16px;font-weight:700;color:#7c3aed;margin:0 0 16px 0;">Step 6: <span style="color:#1a1a2e;">Start Using ServerAvatar MCP</span></h4>
+                        <p style="font-size:14px;color:#1a1a2e;margin:0 0 12px 0;line-height:1.5;">Open a new AI chat or Agent session in Cursor and start using natural language commands, for example:</p>
+                        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;">
+                            <button style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:500;color:#7c3aed;cursor:pointer;white-space:nowrap;">List my servers</button>
+                            <button style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:500;color:#7c3aed;cursor:pointer;white-space:nowrap;">Create a WordPress application</button>
+                            <button style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:500;color:#7c3aed;cursor:pointer;white-space:nowrap;">List databases</button>
+                            <button style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:500;color:#7c3aed;cursor:pointer;white-space:nowrap;">Restart Nginx</button>
+                            <button style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:500;color:#7c3aed;cursor:pointer;white-space:nowrap;">Install an SSL certificate</button>
+                        </div>
+                        <p style="font-size:14px;color:#1a1a2e;margin:0 0 16px 0;line-height:1.5;">Cursor will automatically invoke the appropriate ServerAvatar MCP tools when required.</p>
+                        <div style="background:#fef3c7;border:1px solid #fcd34d;border-radius:8px;padding:12px 16px;">
+                            <p style="font-size:14px;color:#92400e;margin:0;line-height:1.5;"><strong>💡 Tip:</strong> If you update the mcp.json file, reload or restart Cursor to ensure the new MCP configuration is loaded.</p>
+                        </div>
+                    </div>
+                </template>
+                
+                <!-- VS Code Step 1 Card -->
+                <template x-if="selectedClient && selectedClient.name === 'VS Code'">
+                    <div style="background:#fafafa;border:1px solid #e5e7eb;border-radius:12px;padding:20px;margin-bottom:12px;">
+                        <h4 style="font-size:16px;font-weight:700;color:#7c3aed;margin:0 0 16px 0;">Step 1: <span style="color:#1a1a2e;">Install VS Code</span></h4>
+                        <div style="display:flex;flex-direction:column;gap:10px;">
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">1</div>
+                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Download and install Visual Studio Code</p>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">2</div>
+                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Install GitHub Copilot and GitHub Copilot Chat extensions</p>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+                
+                <!-- VS Code Step 2 Card -->
+                <template x-if="selectedClient && selectedClient.name === 'VS Code'">
+                    <div style="background:#fafafa;border:1px solid #e5e7eb;border-radius:12px;padding:20px;margin-bottom:12px;">
+                        <h4 style="font-size:16px;font-weight:700;color:#7c3aed;margin:0 0 16px 0;">Step 2: <span style="color:#1a1a2e;">Generate an IDE Access Token</span></h4>
+                        <div style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:8px;padding:12px 16px;margin-bottom:12px;">
+                            <p style="font-size:13px;color:#7c3aed;margin:0;line-height:1.5;"><strong>Note:</strong> An access token is required before connecting VS Code.</p>
+                        </div>
+                        <div style="display:flex;flex-direction:column;gap:10px;">
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">1</div>
+                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Log in to ServerAvatar MCP</p>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">2</div>
+                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Navigate to Endpoint & Tokens</p>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">3</div>
+                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Under IDE Access Tokens, enter a token name</p>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">4</div>
+                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Click Generate Token</p>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">5</div>
+                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Copy the generated token immediately</p>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+                
+                <!-- VS Code Step 3 Card -->
+                <template x-if="selectedClient && selectedClient.name === 'VS Code'">
+                    <div style="background:#fafafa;border:1px solid #e5e7eb;border-radius:12px;padding:20px;margin-bottom:12px;">
+                        <h4 style="font-size:16px;font-weight:700;color:#7c3aed;margin:0 0 16px 0;">Step 3: <span style="color:#1a1a2e;">Add ServerAvatar MCP</span></h4>
+                        <div style="display:flex;flex-direction:column;gap:10px;">
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">1</div>
+                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Open VS Code</p>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">2</div>
+                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Go to Command Palette (Ctrl+Shift+P or Cmd+Shift+P)</p>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">3</div>
+                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Search for "MCP" and select "Add MCP Server"</p>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">4</div>
+                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Enter the MCP Server URL and your IDE Access Token</p>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+                
+                <!-- VS Code Step 4 Card -->
+                <template x-if="selectedClient && selectedClient.name === 'VS Code'">
+                    <div style="background:#fafafa;border:1px solid #e5e7eb;border-radius:12px;padding:20px;margin-bottom:12px;">
+                        <h4 style="font-size:16px;font-weight:700;color:#7c3aed;margin:0 0 16px 0;">Step 4: <span style="color:#1a1a2e;">Configure ServerAvatar MCP</span></h4>
+                        
+                        <!-- OAuth Option -->
+                        <div style="background:#fef3c7;border:1px solid #fcd34d;border-radius:8px;padding:12px 16px;margin-bottom:16px;">
+                            <p style="font-size:13px;color:#92400e;margin:0 0 8px 0;font-weight:600;"><i class="fas fa-key" style="margin-right:6px;"></i>Option 1: OAuth (Recommended)</p>
+                            <p style="font-size:13px;color:#92400e;margin:0;line-height:1.5;">OAuth provides secure authentication without sharing tokens. Select "Sign in with OAuth" when connecting.</p>
+                        </div>
+                        
+                        <!-- IDE Token Option -->
+                        <div style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:8px;padding:12px 16px;margin-bottom:16px;">
+                            <p style="font-size:13px;color:#7c3aed;margin:0 0 12px 0;font-weight:600;"><i class="fas fa-key" style="margin-right:6px;"></i>Option 2: IDE Access Token</p>
+                            <p style="font-size:14px;color:#1a1a2e;margin:0 0 12px 0;line-height:1.5;">Modify your settings.json file with the following configuration:</p>
+                            <div style="background:#1e1e2e;border-radius:8px;padding:14px;overflow-x:auto;position:relative;">
+                                <div style="position:absolute;top:10px;left:14px;font-size:11px;color:#9ca3af;"><i class="fas fa-file-code" style="margin-right:4px;"></i>settings.json</div>
+                                <button onclick="copyCode(this)" style="position:absolute;top:8px;right:8px;background:#374151;border:none;border-radius:4px;padding:4px 8px;cursor:pointer;color:#9ca3af;font-size:11px;display:flex;align-items:center;gap:4px;">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                                <pre style="font-size:11px;color:#a5f3cb;margin:0;line-height:1.6;white-space:pre;padding-top:20px;">{
+  "mcpServers": {
+    "serveravatar-mcp": {
+      "url": "YOUR_MCP_SERVER_URL",
+      "headers": {
+        "Authorization": "Bearer YOUR_IDE_ACCESS_TOKEN"
+      }
+    }
+  }
+}</pre>
+                            </div>
+                        </div>
+                        
+                        <p style="font-size:14px;font-weight:600;color:#7c3aed;margin:0 0 10px 0;">Replace:</p>
+                        <div style="display:flex;flex-direction:column;gap:8px;">
+                            <div style="display:flex;align-items:center;gap:10px;">
+                                <code style="background:#f3f4f6;padding:2px 8px;border-radius:8px;font-size:12px;color:#7c3aed;font-weight:500;">YOUR_MCP_SERVER_URL</code>
+                                <span style="font-size:13px;color:#1a1a2e;">→ Your MCP Server URL</span>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:10px;">
+                                <code style="background:#f3f4f6;padding:2px 8px;border-radius:8px;font-size:12px;color:#7c3aed;font-weight:500;">YOUR_IDE_ACCESS_TOKEN</code>
+                                <span style="font-size:13px;color:#1a1a2e;">→ IDE Access Token from ServerAvatar</span>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+                
+                <!-- Windsurf Step 1 Card -->
+                <template x-if="selectedClient && selectedClient.name === 'Windsurf'">
+                    <div style="background:#fafafa;border:1px solid #e5e7eb;border-radius:12px;padding:20px;margin-bottom:12px;">
+                        <h4 style="font-size:16px;font-weight:700;color:#7c3aed;margin:0 0 16px 0;">Step 1: <span style="color:#1a1a2e;">Install Windsurf</span></h4>
+                        <div style="display:flex;flex-direction:column;gap:10px;">
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">1</div>
+                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Download and install Windsurf IDE</p>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">2</div>
+                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Launch Windsurf and create an account</p>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+                
+                <!-- Windsurf Step 2 Card -->
+                <template x-if="selectedClient && selectedClient.name === 'Windsurf'">
+                    <div style="background:#fafafa;border:1px solid #e5e7eb;border-radius:12px;padding:20px;margin-bottom:12px;">
+                        <h4 style="font-size:16px;font-weight:700;color:#7c3aed;margin:0 0 16px 0;">Step 2: <span style="color:#1a1a2e;">Generate an IDE Access Token</span></h4>
+                        <div style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:8px;padding:12px 16px;margin-bottom:12px;">
+                            <p style="font-size:13px;color:#7c3aed;margin:0;line-height:1.5;"><strong>Note:</strong> An access token is required before connecting Windsurf.</p>
+                        </div>
+                        <div style="display:flex;flex-direction:column;gap:10px;">
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">1</div>
+                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Log in to ServerAvatar MCP</p>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">2</div>
+                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Navigate to Endpoint & Tokens</p>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">3</div>
+                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Generate a new IDE Access Token</p>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">4</div>
+                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Copy the token immediately</p>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+                
+                <!-- Windsurf Step 3 Card -->
+                <template x-if="selectedClient && selectedClient.name === 'Windsurf'">
+                    <div style="background:#fafafa;border:1px solid #e5e7eb;border-radius:12px;padding:20px;margin-bottom:12px;">
+                        <h4 style="font-size:16px;font-weight:700;color:#7c3aed;margin:0 0 16px 0;">Step 3: <span style="color:#1a1a2e;">Add ServerAvatar MCP to Windsurf</span></h4>
+                        <div style="display:flex;flex-direction:column;gap:10px;">
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">1</div>
+                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Open Windsurf Settings</p>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">2</div>
+                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Go to Extensions or MCP Settings</p>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">3</div>
+                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Add a new MCP server with your Server URL and token</p>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+                
+                <!-- Windsurf Step 4 Card -->
+                <template x-if="selectedClient && selectedClient.name === 'Windsurf'">
+                    <div style="background:#fafafa;border:1px solid #e5e7eb;border-radius:12px;padding:20px;margin-bottom:12px;">
+                        <h4 style="font-size:16px;font-weight:700;color:#7c3aed;margin:0 0 16px 0;">Step 4: <span style="color:#1a1a2e;">Start Using</span></h4>
+                        <div style="display:flex;flex-direction:column;gap:10px;">
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">1</div>
+                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Open the Windsurf AI chat</p>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:12px;">
+                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">2</div>
+                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Start using natural language commands</p>
+                            </div>
+                        </div>
+                        <p style="font-size:14px;color:#6b7280;margin:16px 0 12px 0;">Example commands:</p>
+                        <div style="display:flex;flex-wrap:wrap;gap:8px;">
+                            <button style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:500;color:#7c3aed;cursor:pointer;white-space:nowrap;">List all my servers</button>
+                            <button style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:500;color:#7c3aed;cursor:pointer;white-space:nowrap;">Create a database</button>
+                            <button style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:500;color:#7c3aed;cursor:pointer;white-space:nowrap;">Deploy WordPress</button>
                         </div>
                     </div>
                 </template>
