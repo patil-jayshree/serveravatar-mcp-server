@@ -1354,126 +1354,94 @@ window.clientsData = {
                     </div>
                 </template>
                 
-                <!-- VS Code Step 1 Card -->
+                <!-- VS Code Info Note -->
                 <template x-if="selectedClient && selectedClient.name === 'VS Code'">
-                    <div style="background:#fafafa;border:1px solid #e5e7eb;border-radius:12px;padding:20px;margin-bottom:12px;">
-                        <h4 style="font-size:16px;font-weight:700;color:#7c3aed;margin:0 0 16px 0;">Step 1: <span style="color:#1a1a2e;">Install VS Code</span></h4>
-                        <div style="display:flex;flex-direction:column;gap:10px;">
-                            <div style="display:flex;align-items:center;gap:12px;">
-                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">1</div>
-                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Download and install Visual Studio Code</p>
-                            </div>
-                            <div style="display:flex;align-items:center;gap:12px;">
-                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">2</div>
-                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Install GitHub Copilot and GitHub Copilot Chat extensions</p>
-                            </div>
+                    <div style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:12px;padding:16px;margin-bottom:12px;">
+                        <div style="display:flex;align-items:flex-start;gap:12px;">
+                            <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;">i</div>
+                            <p style="font-size:13px;color:#7c3aed;margin:0;line-height:1.5;">Visual Studio Code supports connecting to ServerAvatar MCP using <strong>OAuth Authorization (Recommended)</strong> or <strong>IDE Access Tokens (Manual Configuration)</strong>.</p>
                         </div>
                     </div>
                 </template>
                 
-                <!-- VS Code Step 2 Card -->
+                <!-- VS Code Section Title -->
                 <template x-if="selectedClient && selectedClient.name === 'VS Code'">
-                    <div style="background:#fafafa;border:1px solid #e5e7eb;border-radius:12px;padding:20px;margin-bottom:12px;">
-                        <h4 style="font-size:16px;font-weight:700;color:#7c3aed;margin:0 0 16px 0;">Step 2: <span style="color:#1a1a2e;">Generate an IDE Access Token</span></h4>
-                        <div style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:8px;padding:12px 16px;margin-bottom:12px;">
-                            <p style="font-size:13px;color:#7c3aed;margin:0;line-height:1.5;"><strong>Note:</strong> An access token is required before connecting VS Code.</p>
+                    <div style="margin-bottom:12px;">
+                        <h4 style="font-size:18px;font-weight:700;color:#1a1a2e;margin:0 0 8px 0;">Choose Authentication Method</h4>
+                        <p style="font-size:14px;color:#6b7280;margin:0;">Select the method you want to use to connect to ServerAvatar MCP.</p>
+                    </div>
+                </template>
+                
+                <!-- VS Code OAuth Card -->
+                <template x-if="selectedClient && selectedClient.name === 'VS Code'">
+                    <div style="background:#ecfdf5;border:1px solid #6ee7b7;border-radius:12px;padding:16px;margin-bottom:12px;">
+                        <div style="display:flex;align-items:center;gap:12px;">
+                            <div style="width:48px;height:48px;min-width:48px;background:#10b981;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;">
+                                <i class="fas fa-shield-alt" style="font-size:20px;"></i>
+                            </div>
+                            <div style="flex:1;">
+                                <span style="background:#d1fae5;color:#065f46;font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;display:inline-block;margin-bottom:4px;">Recommended</span>
+                                <p style="font-size:15px;font-weight:600;color:#065f46;margin:0;">OAuth Authorization</p>
+                            </div>
                         </div>
-                        <div style="display:flex;flex-direction:column;gap:10px;">
-                            <div style="display:flex;align-items:center;gap:12px;">
-                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">1</div>
-                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Log in to ServerAvatar MCP</p>
-                            </div>
-                            <div style="display:flex;align-items:center;gap:12px;">
-                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">2</div>
-                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Navigate to Endpoint & Tokens</p>
-                            </div>
-                            <div style="display:flex;align-items:center;gap:12px;">
-                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">3</div>
-                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Under IDE Access Tokens, enter a token name</p>
-                            </div>
-                            <div style="display:flex;align-items:center;gap:12px;">
-                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">4</div>
-                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Click Generate Token</p>
-                            </div>
-                            <div style="display:flex;align-items:center;gap:12px;">
-                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">5</div>
-                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Copy the generated token immediately</p>
-                            </div>
+                        <div style="padding-left:60px;margin-top:8px;">
+                            <p style="font-size:13px;color:#065f46;margin:0 0 6px 0;"><i class="fas fa-check-circle" style="color:#10b981;margin-right:8px;"></i>Secure and easy to set up</p>
+                            <p style="font-size:13px;color:#065f46;margin:0 0 6px 0;"><i class="fas fa-check-circle" style="color:#10b981;margin-right:8px;"></i>No tokens to manage</p>
+                            <p style="font-size:13px;color:#065f46;margin:0;"><i class="fas fa-check-circle" style="color:#10b981;margin-right:8px;"></i>One-click browser authorization</p>
                         </div>
                     </div>
                 </template>
                 
-                <!-- VS Code Step 3 Card -->
+                <!-- VS Code IDE Token Card -->
                 <template x-if="selectedClient && selectedClient.name === 'VS Code'">
-                    <div style="background:#fafafa;border:1px solid #e5e7eb;border-radius:12px;padding:20px;margin-bottom:12px;">
-                        <h4 style="font-size:16px;font-weight:700;color:#7c3aed;margin:0 0 16px 0;">Step 3: <span style="color:#1a1a2e;">Add ServerAvatar MCP</span></h4>
-                        <div style="display:flex;flex-direction:column;gap:10px;">
-                            <div style="display:flex;align-items:center;gap:12px;">
-                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">1</div>
-                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Open VS Code</p>
+                    <div style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:12px;padding:16px;margin-bottom:12px;">
+                        <div style="display:flex;align-items:center;gap:12px;">
+                            <div style="width:48px;height:48px;min-width:48px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;">
+                                <i class="fas fa-key" style="font-size:20px;"></i>
                             </div>
-                            <div style="display:flex;align-items:center;gap:12px;">
-                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">2</div>
-                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Go to Command Palette (Ctrl+Shift+P or Cmd+Shift+P)</p>
+                            <div style="flex:1;">
+                                <p style="font-size:15px;font-weight:600;color:#7c3aed;margin:0;">IDE Access Token</p>
                             </div>
-                            <div style="display:flex;align-items:center;gap:12px;">
-                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">3</div>
-                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Search for "MCP" and select "Add MCP Server"</p>
-                            </div>
-                            <div style="display:flex;align-items:center;gap:12px;">
-                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">4</div>
-                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Enter the MCP Server URL and your IDE Access Token</p>
-                            </div>
+                            <i class="fas fa-arrow-right" style="color:#7c3aed;font-size:14px;"></i>
+                        </div>
+                        <div style="padding-left:60px;margin-top:8px;">
+                            <p style="font-size:13px;color:#7c3aed;margin:0 0 6px 0;"><i class="fas fa-check-circle" style="color:#7c3aed;margin-right:8px;"></i>Manual configuration</p>
+                            <p style="font-size:13px;color:#7c3aed;margin:0 0 6px 0;"><i class="fas fa-check-circle" style="color:#7c3aed;margin-right:8px;"></i>Use your IDE Access Token</p>
+                            <p style="font-size:13px;color:#7c3aed;margin:0;"><i class="fas fa-check-circle" style="color:#7c3aed;margin-right:8px;"></i>Works with any MCP client</p>
                         </div>
                     </div>
                 </template>
                 
-                <!-- VS Code Step 4 Card -->
-                <template x-if="selectedClient && selectedClient.name === 'VS Code'">
-                    <div style="background:#fafafa;border:1px solid #e5e7eb;border-radius:12px;padding:20px;margin-bottom:12px;">
-                        <h4 style="font-size:16px;font-weight:700;color:#7c3aed;margin:0 0 16px 0;">Step 4: <span style="color:#1a1a2e;">Configure ServerAvatar MCP</span></h4>
-                        
-                        <!-- OAuth Option -->
-                        <div style="background:#fef3c7;border:1px solid #fcd34d;border-radius:8px;padding:12px 16px;margin-bottom:16px;">
-                            <p style="font-size:13px;color:#92400e;margin:0 0 8px 0;font-weight:600;"><i class="fas fa-key" style="margin-right:6px;"></i>Option 1: OAuth (Recommended)</p>
-                            <p style="font-size:13px;color:#92400e;margin:0;line-height:1.5;">OAuth provides secure authentication without sharing tokens. Select "Sign in with OAuth" when connecting.</p>
-                        </div>
-                        
-                        <!-- IDE Token Option -->
-                        <div style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:8px;padding:12px 16px;margin-bottom:16px;">
-                            <p style="font-size:13px;color:#7c3aed;margin:0 0 12px 0;font-weight:600;"><i class="fas fa-key" style="margin-right:6px;"></i>Option 2: IDE Access Token</p>
-                            <p style="font-size:14px;color:#1a1a2e;margin:0 0 12px 0;line-height:1.5;">Modify your settings.json file with the following configuration:</p>
-                            <div style="background:#1e1e2e;border-radius:8px;padding:14px;overflow-x:auto;position:relative;">
-                                <div style="position:absolute;top:10px;left:14px;font-size:11px;color:#9ca3af;"><i class="fas fa-file-code" style="margin-right:4px;"></i>settings.json</div>
-                                <button onclick="copyCode(this)" style="position:absolute;top:8px;right:8px;background:#374151;border:none;border-radius:4px;padding:4px 8px;cursor:pointer;color:#9ca3af;font-size:11px;display:flex;align-items:center;gap:4px;">
-                                    <i class="fas fa-copy"></i> Copy
-                                </button>
-                                <pre style="font-size:11px;color:#a5f3cb;margin:0;line-height:1.6;white-space:pre;padding-top:20px;">{
-  "mcpServers": {
-    "serveravatar-mcp": {
-      "url": "YOUR_MCP_SERVER_URL",
-      "headers": {
-        "Authorization": "Bearer YOUR_IDE_ACCESS_TOKEN"
-      }
-    }
-  }
-}</pre>
-                            </div>
-                        </div>
-                        
-                        <p style="font-size:14px;font-weight:600;color:#7c3aed;margin:0 0 10px 0;">Replace:</p>
-                        <div style="display:flex;flex-direction:column;gap:8px;">
-                            <div style="display:flex;align-items:center;gap:10px;">
-                                <code style="background:#f3f4f6;padding:2px 8px;border-radius:8px;font-size:12px;color:#7c3aed;font-weight:500;">YOUR_MCP_SERVER_URL</code>
-                                <span style="font-size:13px;color:#1a1a2e;">→ Your MCP Server URL</span>
-                            </div>
-                            <div style="display:flex;align-items:center;gap:10px;">
-                                <code style="background:#f3f4f6;padding:2px 8px;border-radius:8px;font-size:12px;color:#7c3aed;font-weight:500;">YOUR_IDE_ACCESS_TOKEN</code>
-                                <span style="font-size:13px;color:#1a1a2e;">→ IDE Access Token from ServerAvatar</span>
-                            </div>
-                        </div>
-                    </div>
-                </template>
+                <script>
+                function toggleVsCodeCard(card) {
+                    var oauthContent = document.getElementById('vscode-oauth-content');
+                    var tokenContent = document.getElementById('vscode-token-content');
+                    var oauthArrow = document.getElementById('vscode-oauth-arrow');
+                    var tokenArrow = document.getElementById('vscode-token-arrow');
+                    
+                    if (card === 'oauth') {
+                        if (oauthContent.style.display === 'none' || oauthContent.style.display === '') {
+                            oauthContent.style.display = 'block';
+                            oauthArrow.style.transform = 'rotate(180deg)';
+                            tokenContent.style.display = 'none';
+                            tokenArrow.style.transform = 'rotate(0deg)';
+                        } else {
+                            oauthContent.style.display = 'none';
+                            oauthArrow.style.transform = 'rotate(0deg)';
+                        }
+                    } else {
+                        if (tokenContent.style.display === 'none' || tokenContent.style.display === '') {
+                            tokenContent.style.display = 'block';
+                            tokenArrow.style.transform = 'rotate(180deg)';
+                            oauthContent.style.display = 'none';
+                            oauthArrow.style.transform = 'rotate(0deg)';
+                        } else {
+                            tokenContent.style.display = 'none';
+                            tokenArrow.style.transform = 'rotate(0deg)';
+                        }
+                    }
+                }
+                </script>
                 
                 <!-- Windsurf Step 1 Card -->
                 <template x-if="selectedClient && selectedClient.name === 'Windsurf'">
