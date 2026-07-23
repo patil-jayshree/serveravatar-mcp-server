@@ -100,7 +100,11 @@
         .sidebar-brand span { color: var(--accent-primary); }
         
         /* Sidebar Navigation */
-        .sidebar-nav { flex: 1; padding: 1rem 0.75rem; overflow-y: auto; }
+        .sidebar-nav { flex: 1; padding: 1rem 0.75rem; overflow-y: auto; scrollbar-width: thin; scrollbar-color: var(--border-color) transparent; }
+        .sidebar-nav::-webkit-scrollbar { width: 6px; }
+        .sidebar-nav::-webkit-scrollbar-track { background: transparent; }
+        .sidebar-nav::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 3px; }
+        .sidebar-nav::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
         .nav-section { margin-bottom: 1.5rem; }
         .nav-section-title { font-size: 0.7rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; padding: 0 0.75rem; margin-bottom: 0.5rem; }
         .nav-link { display: flex; align-items: center; gap: 0.75rem; padding: 0.625rem 0.75rem; border-radius: var(--radius-sm); color: var(--text-secondary); font-size: 0.875rem; font-weight: 500; transition: all var(--transition-fast); cursor: pointer; text-decoration: none; }
