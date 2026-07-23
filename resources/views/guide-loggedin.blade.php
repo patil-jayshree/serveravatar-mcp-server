@@ -367,6 +367,98 @@ window.clientsData = {
 .guide-modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 9999; background: rgba(0,0,0,0.5); }
 .guide-modal-content { background: var(--bg-card); border-radius: 20px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); overflow: hidden; display: flex; flex-direction: column; }
 .guide-modal-header { background: var(--bg-card); border-bottom: 1px solid var(--border-color); padding: 24px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+.guide-modal-sidebar { background: #fafafa; border-right: 1px solid #e5e7eb; }
+.guide-modal-sidebar::-webkit-scrollbar { width: 0; height: 0; }
+.guide-modal-sidebar { -ms-overflow-style: none; scrollbar-width: none; }
+.guide-modal-step-num { background: #7c3aed; color: #fff; }
+.guide-modal-step-title-active { color: #7c3aed; }
+.guide-modal-step-title { color: #1a1a2e; }
+.guide-modal-header-title { color: #1a1a2e; }
+.guide-modal-header-subtitle { color: #6b7280; }
+.guide-modal-close-btn { color: #1a1a2e; }
+.guide-modal-need-help { background: #f5f3ff; border: 1px solid #e9d5ff; }
+.guide-modal-need-help p { color: #7c3aed; }
+.guide-modal-need-help a { color: #7c3aed; }
+
+/* Modal Step Cards */
+.guide-modal-step-card { background: #fafafa; border: 1px solid #e5e7eb; border-radius: 12px; padding: 20px; margin-bottom: 12px; }
+.guide-modal-step-card h4 { font-size: 16px; font-weight: 700; color: #7c3aed; margin: 0 0 16px 0; }
+.guide-modal-step-card h4 span { color: #1a1a2e; }
+.guide-modal-substep { display: flex; align-items: center; gap: 12px; }
+.guide-modal-substep-num { width: 24px; height: 24px; min-width: 24px; background: #7c3aed; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; flex-shrink: 0; }
+.guide-modal-substep-text { font-size: 14px; color: #1a1a2e; margin: 0; line-height: 1.5; }
+.guide-modal-info-note { background: #f5f3ff; border: 1px solid #ddd6fe; border-radius: 12px; padding: 12px 16px; display: flex; align-items: flex-start; gap: 14px; margin-bottom: 16px; }
+.guide-modal-info-note p { color: #7c3aed; }
+.guide-modal-info-note .note-title { font-size: 14px; font-weight: 600; margin: 0 0 4px 0; }
+.guide-modal-info-note .note-text { font-size: 13px; margin: 0; line-height: 1.5; }
+.guide-modal-note-box { background: #f5f3ff; border: 1px solid #ddd6fe; border-radius: 8px; padding: 12px 16px; margin-bottom: 12px; }
+.guide-modal-note-box p { font-size: 13px; color: #7c3aed; margin: 0; line-height: 1.5; }
+.guide-modal-note-box strong { font-weight: 600; }
+.guide-modal-example-btn { background: #f5f3ff; border: 1px solid #ddd6fe; border-radius: 8px; padding: 6px 12px; font-size: 12px; font-weight: 500; color: #7c3aed; cursor: pointer; white-space: nowrap; }
+.guide-modal-desc-text { font-size: 14px; color: #1a1a2e; margin: 0 0 12px 0; line-height: 1.5; }
+
+/* VS Code Modal Specific */
+.guide-modal-vscode-info { background: #f5f3ff; border: 1px solid #ddd6fe; border-radius: 12px; padding: 16px; margin-bottom: 12px; }
+.guide-modal-vscode-info .info-icon { width: 24px; height: 24px; min-width: 24px; background: #7c3aed; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; }
+.guide-modal-vscode-info p { font-size: 13px; color: #7c3aed; margin: 0; line-height: 1.5; }
+.guide-modal-vscode-section-title h4 { font-size: 18px; font-weight: 700; color: #1a1a2e; margin: 0 0 8px 0; }
+.guide-modal-vscode-section-title p { font-size: 14px; color: #6b7280; margin: 0; }
+.guide-modal-oauth-card { background: #ecfdf5; border: 1px solid #6ee7b7; border-radius: 12px; margin-bottom: 12px; overflow: hidden; }
+.guide-modal-oauth-header { padding: 16px 16px 8px 16px; display: flex; align-items: center; gap: 12px; cursor: pointer; }
+.guide-modal-oauth-icon { width: 48px; height: 48px; min-width: 48px; background: #10b981; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+.guide-modal-oauth-icon i { font-size: 20px; }
+.guide-modal-oauth-badge { background: #d1fae5; color: #065f46; font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 20px; display: inline-block; margin-bottom: 4px; }
+.guide-modal-oauth-title { font-size: 15px; font-weight: 600; color: #065f46; margin: 0; }
+.guide-modal-oauth-arrow { color: #10b981; font-size: 14px; transition: transform 0.3s; }
+.guide-modal-oauth-body { padding: 0 16px 16px 76px; }
+.guide-modal-oauth-body p { font-size: 13px; color: #065f46; margin: 0 0 6px 0; }
+.guide-modal-oauth-body i { color: #10b981; margin-right: 8px; }
+.guide-modal-oauth-content { padding: 0 16px 16px 16px; border-top: 1px solid #6ee7b7; }
+.guide-modal-token-card { background: #fef3c7; border: 1px solid #fcd34d; border-radius: 12px; margin-bottom: 12px; overflow: hidden; }
+.guide-modal-token-header { padding: 16px 16px 8px 16px; display: flex; align-items: center; gap: 12px; cursor: pointer; }
+.guide-modal-token-icon { width: 48px; height: 48px; min-width: 48px; background: #f59e0b; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+.guide-modal-token-icon i { font-size: 20px; }
+.guide-modal-token-badge { background: #fde68a; color: #92400e; font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 20px; display: inline-block; margin-bottom: 4px; }
+.guide-modal-token-title { font-size: 15px; font-weight: 600; color: #92400e; margin: 0; }
+.guide-modal-token-arrow { color: #f59e0b; font-size: 14px; transition: transform 0.3s; }
+.guide-modal-token-body { padding: 0 16px 16px 76px; }
+.guide-modal-token-body p { font-size: 13px; color: #92400e; margin: 0 0 6px 0; }
+.guide-modal-token-body i { color: #f59e0b; margin-right: 8px; }
+
+.guide-modal-idetoken-card { background: #f5f3ff; border: 1px solid #ddd6fe; border-radius: 12px; margin-bottom: 12px; overflow: hidden; }
+.guide-modal-idetoken-header { padding: 16px 16px 8px 16px; display: flex; align-items: center; gap: 12px; cursor: pointer; }
+.guide-modal-idetoken-icon { width: 48px; height: 48px; min-width: 48px; background: #7c3aed; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+.guide-modal-idetoken-icon i { font-size: 20px; }
+.guide-modal-idetoken-title { font-size: 15px; font-weight: 600; color: #7c3aed; margin: 0; }
+.guide-modal-idetoken-arrow { color: #7c3aed; font-size: 14px; transition: transform 0.3s; }
+.guide-modal-idetoken-body { padding: 0 16px 16px 76px; }
+.guide-modal-idetoken-body p { font-size: 13px; color: #7c3aed; margin: 0 0 6px 0; }
+.guide-modal-idetoken-body i { color: #7c3aed; margin-right: 8px; }
+.guide-modal-idetoken-content { padding: 0 16px 16px 16px; border-top: 1px solid #ddd6fe; }
+.guide-modal-code { background: #f3f4f6; padding: 2px 8px; border-radius: 12px; font-size: 12px; color: #7c3aed; font-weight: 500; font-family: monospace; }
+.guide-modal-code-inline { background: #f3f4f6; padding: 2px 8px; border-radius: 4px; font-size: 13px; color: #7c3aed; font-family: monospace; }
+.guide-modal-bold-text { font-size: 14px; color: #1a1a2e; margin: 16px 0 0 0; line-height: 1.5; }
+.guide-modal-bold-text strong { font-weight: 600; }
+.guide-modal-check-item { font-size: 13px; color: #065f46; margin: 0 0 6px 0; }
+.guide-modal-check-item i { color: #10b981; margin-right: 8px; }
+.guide-modal-idetoken-check { font-size: 13px; color: #7c3aed; margin: 0 0 6px 0; }
+.guide-modal-idetoken-check i { color: #7c3aed; margin-right: 8px; }
+.guide-modal-help-box { background: #fef3c7; border: 1px solid #fcd34d; border-radius: 12px; padding: 16px; display: flex; align-items: flex-start; gap: 12px; }
+.guide-modal-help-box .help-icon { width: 24px; height: 24px; min-width: 24px; background: #f59e0b; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; flex-shrink: 0; }
+.guide-modal-help-box .help-icon i { font-size: 12px; }
+.guide-modal-help-box p { font-size: 13px; color: #92400e; margin: 0; line-height: 1.5; }
+.guide-modal-help-box .help-title { font-size: 14px; font-weight: 600; color: #92400e; margin: 0 0 8px 0; }
+.guide-modal-success-box { background: #ecfdf5; border: 1px solid #6ee7b7; border-radius: 10px; padding: 14px 16px; display: flex; align-items: flex-start; gap: 12px; margin-top: 16px; text-align: center; justify-content: center; }
+.guide-modal-success-box p { font-size: 14px; color: #065f46; margin: 0; font-weight: 500; }
+.guide-modal-code-block { background: #1e1e2e; padding: 16px; border-radius: 8px; position: relative; margin-top: 12px; }
+.guide-modal-code-block .code-title { position: absolute; top: 8px; left: 12px; font-size: 11px; color: #9ca3af; }
+.guide-modal-code-block pre { margin: 0; font-size: 13px; color: #e2e8f0; white-space: pre-wrap; word-break: break-all; font-family: monospace; margin-top: 20px; }
+.guide-modal-tip-box { background: #fef3c7; border: 1px solid #fcd34d; border-radius: 8px; padding: 12px 16px; }
+.guide-modal-tip-box p { font-size: 14px; color: #92400e; margin: 0; line-height: 1.5; }
+.guide-modal-error-text { font-size: 14px; color: #991b1b; margin: 0; line-height: 1.5; }
+.guide-modal-error-box { background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; padding: 12px 16px; margin-top: 16px; }
+.guide-modal-step-title { font-size: 16px; font-weight: 700; color: #1a1a2e; margin: 0 0 16px 0; }
+.guide-modal-step-title span { color: #7c3aed; }
 
 .guide-warning-box { background: #fef3c7; border: 1px solid #fcd34d; border-radius: 10px; padding: 14px 16px; display: flex; align-items: flex-start; gap: 12px; margin-top: 16px; }
 .guide-warning-box i { color: #dc2626; font-size: 18px; padding-top: 1px; }
@@ -1197,17 +1289,22 @@ window.clientsData = {
         <div class="guide-modal-header">
             <div style="display:flex;align-items:center;gap:16px;">
                 <template x-if="selectedClient && selectedClient.imageLight">
-                    <img :src="selectedClient.imageLight" :alt="selectedClient.name" class="icon-light" style="width:48px;height:48px;object-fit:contain;border-radius:8px;">
+                    <div style="display:flex;">
+                        <img :src="selectedClient.image" :alt="selectedClient.name" class="icon-dark" style="width:48px;height:48px;object-fit:contain;border-radius:8px;">
+                        <img :src="selectedClient.imageLight" :alt="selectedClient.name" class="icon-light" style="width:48px;height:48px;object-fit:contain;border-radius:8px;">
+                    </div>
                 </template>
                 <template x-if="selectedClient && !selectedClient.imageLight">
-                    <img :src="selectedClient.image" :alt="selectedClient.name" style="width:48px;height:48px;object-fit:contain;border-radius:8px;">
+                    <div class="guide-modal-logo-wrap" style="width:48px;height:48px;border-radius:8px;display:flex;align-items:center;justify-content:center;">
+                        <img :src="selectedClient.image" :alt="selectedClient.name" style="width:40px;height:40px;object-fit:contain;">
+                    </div>
                 </template>
                 <div>
-                    <h3 style="font-size:20px;font-weight:700;color:#1a1a2e;margin:0;" x-text="selectedClient ? selectedClient.name + ' Setup Guide' : ''"></h3>
-                    <p style="font-size:13px;color:#6b7280;margin:6px 0 0 0;" x-text="selectedClient ? 'Follow the steps below to connect ServerAvatar MCP with ' + selectedClient.name : ''"></p>
+                    <h3 class="guide-modal-header-title" style="font-size:20px;font-weight:700;margin:0;" x-text="selectedClient ? selectedClient.name + ' Setup Guide' : ''"></h3>
+                    <p class="guide-modal-header-subtitle" style="font-size:13px;margin:6px 0 0 0;" x-text="selectedClient ? 'Follow the steps below to connect ServerAvatar MCP with ' + selectedClient.name : ''"></p>
                 </div>
             </div>
-            <button @click="closeModal()" style="background:none;border:none;cursor:pointer;padding:8px;color:#1a1a2e;font-size:20px;line-height:1;">
+            <button @click="closeModal()" class="guide-modal-close-btn" style="background:none;border:none;cursor:pointer;padding:8px;font-size:20px;line-height:1;">
                 <i class="fas fa-times"></i>
             </button>
         </div>
@@ -1216,24 +1313,24 @@ window.clientsData = {
         <div style="display:flex;flex:1;overflow:hidden;min-height:0;max-height:calc(90vh - 140px);">
             
             <!-- Sidebar (Fixed) -->
-            <div style="width:240px;background:#fafafa;border-right:1px solid #e5e7eb;padding:20px;flex-shrink:0;overflow-y:auto;overflow-x:hidden;">
+            <div class="guide-modal-sidebar" style="width:240px;padding:20px;flex-shrink:0;overflow-y:auto;overflow-x:hidden;">
                 
                 <template x-for="(step, index) in selectedClient ? selectedClient.steps : []" :key="index">
                     <div style="display:flex;align-items:center;gap:12px;padding:12px 0;">
                         <div style="display:flex;align-items:center;gap:12px;position:relative;">
-                            <div style="width:28px;height:28px;min-width:28px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex-shrink:0;z-index:1;" x-text="index + 1"></div>
+                            <div class="guide-modal-step-num" style="width:28px;height:28px;min-width:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex-shrink:0;z-index:1;" x-text="index + 1"></div>
                             <template x-if="index < (selectedClient ? selectedClient.steps.length - 1 : 0)">
                                 <div class="guide-step-dotted-line" style="position:absolute;left:13px;top:28px;width:2px;height:28px;z-index:0;"></div>
                             </template>
                         </div>
-                        <div x-text="step.title" :style="index === 0 ? 'font-size:14px;font-weight:500;color:#7c3aed;line-height:1.4;flex:1;' : 'font-size:14px;font-weight:500;color:#1a1a2e;line-height:1.4;flex:1;'"></div>
+                        <div x-text="step.title" :class="index === 0 ? 'guide-modal-step-text-active' : 'guide-modal-step-text'" style="font-size:14px;font-weight:500;line-height:1.4;flex:1;"></div>
                     </div>
                 </template>
                 
-                <div style="margin-top:60px;padding:12px;background:#f5f3ff;border-radius:16px;border:1px solid #e9d5ff;">
-                    <p style="font-size:14px;font-weight:700;color:#7c3aed;margin:0 0 8px 0;">Need Help?</p>
-                    <p style="font-size:13px;color:#6b7280;margin:0 0 8px 0;">Contact our support team</p>
-                    <a href="https://support.serveravatar.com" target="_blank" style="display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:#7c3aed;text-decoration:none;">
+                <div class="guide-modal-need-help" style="margin-top:60px;padding:12px;border-radius:16px;">
+                    <p style="font-size:14px;font-weight:700;margin:0 0 8px 0;">Need Help?</p>
+                    <p class="guide-modal-need-help-desc" style="font-size:13px;margin:0 0 8px 0;">Contact our support team</p>
+                    <a href="https://support.serveravatar.com" target="_blank" style="display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;text-decoration:none;">
                         Get Support <i class="fas fa-arrow-right" style="font-size:10px;"></i>
                     </a>
                 </div>
@@ -1244,31 +1341,31 @@ window.clientsData = {
                 
                 <!-- ChatGPT Info Note -->
                 <template x-if="selectedClient && selectedClient.name === 'ChatGPT'">
-                    <div style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:12px;padding:12px 16px;display:flex;align-items:flex-start;gap:14px;margin-bottom:16px;">
+                    <div class="guide-modal-info-note">
                         <i class="fas fa-info-circle" style="color:#7c3aed;font-size:20px;margin-top:2px;"></i>
                         <div>
-                            <p style="font-size:14px;font-weight:600;color:#7c3aed;margin:0 0 4px 0;">Important Note</p>
-                            <p style="font-size:13px;color:#7c3aed;margin:0;line-height:1.5;">MCP connectors are available only on supported ChatGPT plans and may not be available for every account.</p>
+                            <p class="note-title">Important Note</p>
+                            <p class="note-text">MCP connectors are available only on supported ChatGPT plans and may not be available for every account.</p>
                         </div>
                     </div>
                 </template>
                 
                 <!-- ChatGPT Step 1 Card -->
                 <template x-if="selectedClient && selectedClient.name === 'ChatGPT'">
-                    <div style="background:#fafafa;border:1px solid #e5e7eb;border-radius:12px;padding:20px;margin-bottom:12px;">
-                        <h4 style="font-size:16px;font-weight:700;color:#7c3aed;margin:0 0 16px 0;">Step 1: <span style="color:#1a1a2e;">Enable Developer Mode</span></h4>
+                    <div class="guide-modal-step-card">
+                        <h4>Step 1: <span>Enable Developer Mode</span></h4>
                         <div style="display:flex;flex-direction:column;gap:10px;">
-                            <div style="display:flex;align-items:center;gap:12px;">
-                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">1</div>
-                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Log in to your ChatGPT account</p>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">1</div>
+                                <p class="guide-modal-substep-text">Log in to your ChatGPT account</p>
                             </div>
-                            <div style="display:flex;align-items:center;gap:12px;">
-                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">2</div>
-                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Open Settings</p>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">2</div>
+                                <p class="guide-modal-substep-text">Open Settings</p>
                             </div>
-                            <div style="display:flex;align-items:center;gap:12px;">
-                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">3</div>
-                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Enable Developer Mode (if available for your account)</p>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">3</div>
+                                <p class="guide-modal-substep-text">Enable Developer Mode (if available for your account)</p>
                             </div>
                         </div>
                     </div>
@@ -1276,36 +1373,36 @@ window.clientsData = {
                 
                 <!-- ChatGPT Step 2 Card -->
                 <template x-if="selectedClient && selectedClient.name === 'ChatGPT'">
-                    <div style="background:#fafafa;border:1px solid #e5e7eb;border-radius:12px;padding:20px;margin-bottom:12px;">
-                        <h4 style="font-size:16px;font-weight:700;color:#7c3aed;margin:0 0 16px 0;">Step 2: <span style="color:#1a1a2e;">Create a New MCP Connector</span></h4>
+                    <div class="guide-modal-step-card">
+                        <h4>Step 2: <span>Create a New MCP Connector</span></h4>
                         <div style="display:flex;flex-direction:column;gap:10px;">
-                            <div style="display:flex;align-items:center;gap:12px;">
-                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">1</div>
-                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Open Settings</p>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">1</div>
+                                <p class="guide-modal-substep-text">Open Settings</p>
                             </div>
-                            <div style="display:flex;align-items:center;gap:12px;">
-                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">2</div>
-                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Go to Apps (or Plugins, depending on your ChatGPT version)</p>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">2</div>
+                                <p class="guide-modal-substep-text">Go to Apps (or Plugins, depending on your ChatGPT version)</p>
                             </div>
-                            <div style="display:flex;align-items:center;gap:12px;">
-                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">3</div>
-                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Click Create New</p>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">3</div>
+                                <p class="guide-modal-substep-text">Click Create New</p>
                             </div>
-                            <div style="display:flex;align-items:center;gap:12px;">
-                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">4</div>
-                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Enter a name: ServerAvatar MCP</p>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">4</div>
+                                <p class="guide-modal-substep-text">Enter a name: ServerAvatar MCP</p>
                             </div>
-                            <div style="display:flex;align-items:center;gap:12px;">
-                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">5</div>
-                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Paste your MCP Server URL into the Connection URL field</p>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">5</div>
+                                <p class="guide-modal-substep-text">Paste your MCP Server URL into the Connection URL field</p>
                             </div>
-                            <div style="display:flex;align-items:center;gap:12px;">
-                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">6</div>
-                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Save the connector</p>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">6</div>
+                                <p class="guide-modal-substep-text">Save the connector</p>
                             </div>
-                            <div style="display:flex;align-items:center;gap:12px;">
-                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">7</div>
-                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Complete the authorization process if prompted</p>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">7</div>
+                                <p class="guide-modal-substep-text">Complete the authorization process if prompted</p>
                             </div>
                         </div>
                     </div>
@@ -1313,44 +1410,44 @@ window.clientsData = {
                 
                 <!-- ChatGPT Step 3 Card -->
                 <template x-if="selectedClient && selectedClient.name === 'ChatGPT'">
-                    <div style="background:#fafafa;border:1px solid #e5e7eb;border-radius:12px;padding:20px;margin-bottom:12px;">
-                        <h4 style="font-size:16px;font-weight:700;color:#7c3aed;margin:0 0 16px 0;">Step 3: <span style="color:#1a1a2e;">Start Using ServerAvatar MCP</span></h4>
+                    <div class="guide-modal-step-card">
+                        <h4>Step 3: <span>Start Using ServerAvatar MCP</span></h4>
                         <div style="display:flex;flex-direction:column;gap:10px;">
-                            <div style="display:flex;align-items:center;gap:12px;">
-                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">1</div>
-                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Open a new chat/Conversion</p>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">1</div>
+                                <p class="guide-modal-substep-text">Open a new chat/Conversion</p>
                             </div>
-                            <div style="display:flex;align-items:center;gap:12px;">
-                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">2</div>
-                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Select the ServerAvatar MCP connector from the top model dropdown</p>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">2</div>
+                                <p class="guide-modal-substep-text">Select the ServerAvatar MCP connector from the top model dropdown</p>
                             </div>
                         </div>
                         <p style="font-size:14px;color:#6b7280;margin:16px 0 12px 0;">You can now use natural language commands such as:</p>
                         <div style="display:flex;flex-wrap:nowrap;gap:8px;overflow-x:auto;">
-                            <button style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:500;color:#7c3aed;cursor:pointer;white-space:nowrap;">List all my servers</button>
-                            <button style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:500;color:#7c3aed;cursor:pointer;white-space:nowrap;">Show server status</button>
-                            <button style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:500;color:#7c3aed;cursor:pointer;white-space:nowrap;">Create new database</button>
-                            <button style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:500;color:#7c3aed;cursor:pointer;white-space:nowrap;">Deploy WordPress</button>
+                            <button class="guide-modal-example-btn">List all my servers</button>
+                            <button class="guide-modal-example-btn">Show server status</button>
+                            <button class="guide-modal-example-btn">Create new database</button>
+                            <button class="guide-modal-example-btn">Deploy WordPress</button>
                         </div>
                     </div>
                 </template>
                 
                 <!-- Claude Step 1 Card -->
                 <template x-if="selectedClient && selectedClient.name === 'Claude'">
-                    <div style="background:#fafafa;border:1px solid #e5e7eb;border-radius:12px;padding:20px;margin-bottom:12px;">
-                        <h4 style="font-size:16px;font-weight:700;color:#7c3aed;margin:0 0 16px 0;">Step 1: <span style="color:#1a1a2e;">Open Claude Settings</span></h4>
+                    <div class="guide-modal-step-card">
+                        <h4>Step 1: <span>Open Claude Settings</span></h4>
                         <div style="display:flex;flex-direction:column;gap:10px;">
-                            <div style="display:flex;align-items:center;gap:12px;">
-                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">1</div>
-                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Log into your Claude account</p>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">1</div>
+                                <p class="guide-modal-substep-text">Log into your Claude account</p>
                             </div>
-                            <div style="display:flex;align-items:center;gap:12px;">
-                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">2</div>
-                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Open Settings</p>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">2</div>
+                                <p class="guide-modal-substep-text">Open Settings</p>
                             </div>
-                            <div style="display:flex;align-items:center;gap:12px;">
-                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">3</div>
-                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Navigate to Connectors or Customize (depending on your Claude version)</p>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">3</div>
+                                <p class="guide-modal-substep-text">Navigate to Connectors or Customize (depending on your Claude version)</p>
                             </div>
                         </div>
                     </div>
@@ -1358,28 +1455,28 @@ window.clientsData = {
                 
                 <!-- Claude Step 2 Card -->
                 <template x-if="selectedClient && selectedClient.name === 'Claude'">
-                    <div style="background:#fafafa;border:1px solid #e5e7eb;border-radius:12px;padding:20px;margin-bottom:12px;">
-                        <h4 style="font-size:16px;font-weight:700;color:#7c3aed;margin:0 0 16px 0;">Step 2: <span style="color:#1a1a2e;">Add a Custom Connector</span></h4>
+                    <div class="guide-modal-step-card">
+                        <h4>Step 2: <span>Add a Custom Connector</span></h4>
                         <div style="display:flex;flex-direction:column;gap:10px;">
-                            <div style="display:flex;align-items:center;gap:12px;">
-                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">1</div>
-                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Click Add Custom Connector</p>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">1</div>
+                                <p class="guide-modal-substep-text">Click Add Custom Connector</p>
                             </div>
-                            <div style="display:flex;align-items:center;gap:12px;">
-                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">2</div>
-                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Enter a connector name: ServerAvatar MCP</p>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">2</div>
+                                <p class="guide-modal-substep-text">Enter a connector name: ServerAvatar MCP</p>
                             </div>
-                            <div style="display:flex;align-items:center;gap:12px;">
-                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">3</div>
-                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Paste your MCP Server URL into the connection URL field</p>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">3</div>
+                                <p class="guide-modal-substep-text">Paste your MCP Server URL into the connection URL field</p>
                             </div>
-                            <div style="display:flex;align-items:center;gap:12px;">
-                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">4</div>
-                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Save the connector</p>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">4</div>
+                                <p class="guide-modal-substep-text">Save the connector</p>
                             </div>
-                            <div style="display:flex;align-items:center;gap:12px;">
-                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">5</div>
-                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Complete the authorization process if required</p>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">5</div>
+                                <p class="guide-modal-substep-text">Complete the authorization process if required</p>
                             </div>
                         </div>
                         <p style="font-size:13px;color:#6b7280;margin:16px 0 0 0;line-height:1.5;">After a successful connection, the ServerAvatar MCP connector will be available in Claude.</p>
@@ -1388,41 +1485,41 @@ window.clientsData = {
                 
                 <!-- Claude Step 3 Card -->
                 <template x-if="selectedClient && selectedClient.name === 'Claude'">
-                    <div style="background:#fafafa;border:1px solid #e5e7eb;border-radius:12px;padding:20px;margin-bottom:12px;">
-                        <h4 style="font-size:16px;font-weight:700;color:#1a1a2e;margin:0 0 16px 0;">Step 3: <span style="color:#7c3aed;">Start Managing Your Servers</span></h4>
+                    <div class="guide-modal-step-card">
+                        <h4 class="guide-modal-step-title">Step 3: <span>Start Managing Your Servers</span></h4>
                         <div style="display:flex;flex-direction:column;gap:10px;">
-                            <div style="display:flex;align-items:center;gap:12px;">
-                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">1</div>
-                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Open a new Claude chat</p>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">1</div>
+                                <p class="guide-modal-substep-text">Open a new Claude chat</p>
                             </div>
-                            <div style="display:flex;align-items:center;gap:12px;">
-                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">2</div>
-                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Select your ServerAvatar MCP connector</p>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">2</div>
+                                <p class="guide-modal-substep-text">Select your ServerAvatar MCP connector</p>
                             </div>
                         </div>
                         <p style="font-size:14px;color:#6b7280;margin:16px 0 12px 0;">You can now ask Claude to perform ServerAvatar operations, for example:</p>
                         <div style="display:flex;flex-wrap:nowrap;gap:8px;overflow-x:auto;">
-                            <button style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:500;color:#7c3aed;cursor:pointer;white-space:nowrap;">Create an application</button>
-                            <button style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:500;color:#7c3aed;cursor:pointer;white-space:nowrap;">List servers</button>
-                            <button style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:500;color:#7c3aed;cursor:pointer;white-space:nowrap;">Manage databases</button>
-                            <button style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:500;color:#7c3aed;cursor:pointer;white-space:nowrap;">Install SSL certificates</button>
-                            <button style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:500;color:#7c3aed;cursor:pointer;white-space:nowrap;">Change application settings</button>
+                            <button class="guide-modal-example-btn">Create an application</button>
+                            <button class="guide-modal-example-btn">List servers</button>
+                            <button class="guide-modal-example-btn">Manage databases</button>
+                            <button class="guide-modal-example-btn">Install SSL certificates</button>
+                            <button class="guide-modal-example-btn">Change application settings</button>
                         </div>
                     </div>
                 </template>
                 
                 <!-- Cursor Step 1 Card -->
                 <template x-if="selectedClient && selectedClient.name === 'Cursor'">
-                    <div style="background:#fafafa;border:1px solid #e5e7eb;border-radius:12px;padding:20px;margin-bottom:12px;">
-                        <h4 style="font-size:16px;font-weight:700;color:#7c3aed;margin:0 0 16px 0;">Step 1: <span style="color:#1a1a2e;">Install and Sign In</span></h4>
+                    <div class="guide-modal-step-card">
+                        <h4>Step 1: <span>Install and Sign In</span></h4>
                         <div style="display:flex;flex-direction:column;gap:10px;">
-                            <div style="display:flex;align-items:center;gap:12px;">
-                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">1</div>
-                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Download and install Cursor IDE on your computer</p>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">1</div>
+                                <p class="guide-modal-substep-text">Download and install Cursor IDE on your computer</p>
                             </div>
-                            <div style="display:flex;align-items:center;gap:12px;">
-                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">2</div>
-                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Sign in to your Cursor account</p>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">2</div>
+                                <p class="guide-modal-substep-text">Sign in to your Cursor account</p>
                             </div>
                         </div>
                     </div>
@@ -1430,31 +1527,31 @@ window.clientsData = {
                 
                 <!-- Cursor Step 2 Card -->
                 <template x-if="selectedClient && selectedClient.name === 'Cursor'">
-                    <div style="background:#fafafa;border:1px solid #e5e7eb;border-radius:12px;padding:20px;margin-bottom:12px;">
-                        <h4 style="font-size:16px;font-weight:700;color:#7c3aed;margin:0 0 16px 0;">Step 2: <span style="color:#1a1a2e;">Generate an IDE Access Token</span></h4>
-                        <div style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:8px;padding:12px 16px;margin-bottom:12px;">
-                            <p style="font-size:13px;color:#7c3aed;margin:0;line-height:1.5;"><strong>Note:</strong> An access token is required before connecting Cursor.</p>
+                    <div class="guide-modal-step-card">
+                        <h4>Step 2: <span>Generate an IDE Access Token</span></h4>
+                        <div class="guide-modal-note-box">
+                            <p><strong>Note:</strong> An access token is required before connecting Cursor.</p>
                         </div>
                         <div style="display:flex;flex-direction:column;gap:10px;">
-                            <div style="display:flex;align-items:center;gap:12px;">
-                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">1</div>
-                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Log in to ServerAvatar MCP</p>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">1</div>
+                                <p class="guide-modal-substep-text">Log in to ServerAvatar MCP</p>
                             </div>
-                            <div style="display:flex;align-items:center;gap:12px;">
-                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">2</div>
-                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Navigate to Endpoint & Tokens</p>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">2</div>
+                                <p class="guide-modal-substep-text">Navigate to Endpoint & Tokens</p>
                             </div>
-                            <div style="display:flex;align-items:center;gap:12px;">
-                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">3</div>
-                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Under IDE Access Tokens, enter a token name (e.g., Cursor Development)</p>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">3</div>
+                                <p class="guide-modal-substep-text">Under IDE Access Tokens, enter a token name (e.g., Cursor Development)</p>
                             </div>
-                            <div style="display:flex;align-items:center;gap:12px;">
-                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">4</div>
-                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Click Generate Token</p>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">4</div>
+                                <p class="guide-modal-substep-text">Click Generate Token</p>
                             </div>
-                            <div style="display:flex;align-items:center;gap:12px;">
-                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">5</div>
-                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Copy the generated token immediately (it won't be shown again)</p>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">5</div>
+                                <p class="guide-modal-substep-text">Copy the generated token immediately (it won't be shown again)</p>
                             </div>
                         </div>
                     </div>
@@ -1462,24 +1559,24 @@ window.clientsData = {
                 
                 <!-- Cursor Step 3 Card -->
                 <template x-if="selectedClient && selectedClient.name === 'Cursor'">
-                    <div style="background:#fafafa;border:1px solid #e5e7eb;border-radius:12px;padding:20px;margin-bottom:12px;">
-                        <h4 style="font-size:16px;font-weight:700;color:#7c3aed;margin:0 0 16px 0;">Step 3: <span style="color:#1a1a2e;">Open MCP Settings</span></h4>
+                    <div class="guide-modal-step-card">
+                        <h4>Step 3: <span>Open MCP Settings</span></h4>
                         <div style="display:flex;flex-direction:column;gap:10px;">
-                            <div style="display:flex;align-items:center;gap:12px;">
-                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">1</div>
-                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Open Cursor</p>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">1</div>
+                                <p class="guide-modal-substep-text">Open Cursor</p>
                             </div>
-                            <div style="display:flex;align-items:center;gap:12px;">
-                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">2</div>
-                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Navigate to Settings → Tools & MCP</p>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">2</div>
+                                <p class="guide-modal-substep-text">Navigate to Settings → Tools & MCP</p>
                             </div>
-                            <div style="display:flex;align-items:center;gap:12px;">
-                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">3</div>
-                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Under Installed MCP Servers, click + Add New MCP Server</p>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">3</div>
+                                <p class="guide-modal-substep-text">Under Installed MCP Servers, click + Add New MCP Server</p>
                             </div>
-                            <div style="display:flex;align-items:center;gap:12px;">
-                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">4</div>
-                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Cursor will open the mcp.json configuration file</p>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">4</div>
+                                <p class="guide-modal-substep-text">Cursor will open the mcp.json configuration file</p>
                             </div>
                         </div>
                     </div>
@@ -1487,9 +1584,9 @@ window.clientsData = {
                 
                 <!-- Cursor Step 4 Card -->
                 <template x-if="selectedClient && selectedClient.name === 'Cursor'">
-                    <div style="background:#fafafa;border:1px solid #e5e7eb;border-radius:12px;padding:20px;margin-bottom:12px;">
-                        <h4 style="font-size:16px;font-weight:700;color:#7c3aed;margin:0 0 16px 0;">Step 4: <span style="color:#1a1a2e;">Configure ServerAvatar MCP</span></h4>
-                        <p style="font-size:14px;color:#1a1a2e;margin:0 0 12px 0;line-height:1.5;">Modify your mcp.json file with the following configuration:</p>
+                    <div class="guide-modal-step-card">
+                        <h4>Step 4: <span>Configure ServerAvatar MCP</span></h4>
+                        <p class="guide-modal-desc-text">Modify your mcp.json file with the following configuration:</p>
                         <div style="background:#1e1e2e;border-radius:12px;padding:16px;margin-bottom:12px;overflow-x:auto;position:relative;">
                             <div style="position:absolute;top:12px;left:16px;font-size:12px;color:#9ca3af;"><i class="fas fa-file-code" style="margin-right:6px;"></i>mcp.json</div>
                             <button onclick="copyCode(this)" style="position:absolute;top:12px;right:12px;background:#374151;border:none;border-radius:6px;padding:6px 10px;cursor:pointer;color:#9ca3af;font-size:12px;display:flex;align-items:center;gap:4px;">
@@ -1508,189 +1605,189 @@ window.clientsData = {
                         </div>
                         <p style="font-size:14px;font-weight:600;color:#7c3aed;margin:0 0 12px 0;">Replace:</p>
                         <div style="display:flex;flex-direction:column;gap:10px;">
-                            <div style="display:flex;align-items:center;gap:12px;">
+                            <div class="guide-modal-substep">
                                 <div style="width:6px;height:6px;min-width:6px;background:#7c3aed;border-radius:50%;flex-shrink:0;"></div>
-                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;"><code style="background:#f3f4f6;padding:2px 8px;border-radius:12px;font-size:12px;color:#7c3aed;font-weight:500;">YOUR_MCP_SERVER_URL</code> with the MCP Server URL from ServerAvatar MCP → Endpoint & Tokens</p>
+                                <p class="guide-modal-substep-text"><code class="guide-modal-code">YOUR_MCP_SERVER_URL</code> with the MCP Server URL from ServerAvatar MCP → Endpoint & Tokens</p>
                             </div>
-                            <div style="display:flex;align-items:center;gap:12px;">
+                            <div class="guide-modal-substep">
                                 <div style="width:6px;height:6px;min-width:6px;background:#7c3aed;border-radius:50%;flex-shrink:0;"></div>
-                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;"><code style="background:#f3f4f6;padding:2px 8px;border-radius:12px;font-size:12px;color:#7c3aed;font-weight:500;">YOUR_IDE_ACCESS_TOKEN</code> with the IDE Access Token you generated</p>
+                                <p class="guide-modal-substep-text"><code class="guide-modal-code">YOUR_IDE_ACCESS_TOKEN</code> with the IDE Access Token you generated</p>
                             </div>
                         </div>
-                        <div style="background:#fef3c7;border:1px solid #fcd34d;border-radius:8px;padding:12px 16px;margin-top:16px;">
-                            <p style="font-size:14px;color:#92400e;margin:0;line-height:1.5;"><strong>Don't forget!</strong> Save the <code style="background:#fde68a;padding:2px 6px;border-radius:4px;font-size:13px;">mcp.json</code> file after making the changes.</p>
+                        <div class="guide-modal-tip-box" style="margin-top:16px;">
+                            <p><strong>Don't forget!</strong> Save the <code class="guide-modal-code">mcp.json</code> file after making the changes.</p>
                         </div>
                     </div>
                 </template>
                 
                 <!-- Cursor Step 5 Card -->
                 <template x-if="selectedClient && selectedClient.name === 'Cursor'">
-                    <div style="background:#fafafa;border:1px solid #e5e7eb;border-radius:12px;padding:20px;margin-bottom:12px;">
-                        <h4 style="font-size:16px;font-weight:700;color:#7c3aed;margin:0 0 16px 0;">Step 5: <span style="color:#1a1a2e;">Verify the Connection</span></h4>
+                    <div class="guide-modal-step-card">
+                        <h4>Step 5: <span>Verify the Connection</span></h4>
                         <div style="display:flex;flex-direction:column;gap:10px;">
-                            <div style="display:flex;align-items:center;gap:12px;">
-                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">1</div>
-                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Return to Settings → Tools & MCP.</p>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">1</div>
+                                <p class="guide-modal-substep-text">Return to Settings → Tools & MCP.</p>
                             </div>
-                            <div style="display:flex;align-items:center;gap:12px;">
-                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">2</div>
-                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Verify that ServerAvatar MCP appears under Installed MCP Servers.</p>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">2</div>
+                                <p class="guide-modal-substep-text">Verify that ServerAvatar MCP appears under Installed MCP Servers.</p>
                             </div>
-                            <div style="display:flex;align-items:center;gap:12px;">
-                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">3</div>
-                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Ensure the server status shows Connected or Available.</p>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">3</div>
+                                <p class="guide-modal-substep-text">Ensure the server status shows Connected or Available.</p>
                             </div>
                         </div>
-                        <div style="background:#fef2f2;border:1px solid #fecaca;border-radius:8px;padding:12px 16px;margin-top:16px;">
-                            <p style="font-size:14px;color:#991b1b;margin:0;line-height:1.5;">If the connection fails, verify your MCP Server URL and IDE Access Token, then reload Cursor.</p>
+                        <div class="guide-modal-error-box">
+                            <p class="guide-modal-error-text">If the connection fails, verify your MCP Server URL and IDE Access Token, then reload Cursor.</p>
                         </div>
                     </div>
                 </template>
                 
                 <!-- Cursor Step 6 Card -->
                 <template x-if="selectedClient && selectedClient.name === 'Cursor'">
-                    <div style="background:#fafafa;border:1px solid #e5e7eb;border-radius:12px;padding:20px;margin-bottom:12px;">
-                        <h4 style="font-size:16px;font-weight:700;color:#7c3aed;margin:0 0 16px 0;">Step 6: <span style="color:#1a1a2e;">Start Using ServerAvatar MCP</span></h4>
-                        <p style="font-size:14px;color:#1a1a2e;margin:0 0 12px 0;line-height:1.5;">Open a new AI chat or Agent session in Cursor and start using natural language commands, for example:</p>
+                    <div class="guide-modal-step-card">
+                        <h4>Step 6: <span>Start Using ServerAvatar MCP</span></h4>
+                        <p class="guide-modal-desc-text">Open a new AI chat or Agent session in Cursor and start using natural language commands, for example:</p>
                         <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;">
-                            <button style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:500;color:#7c3aed;cursor:pointer;white-space:nowrap;">List my servers</button>
-                            <button style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:500;color:#7c3aed;cursor:pointer;white-space:nowrap;">Create a WordPress application</button>
-                            <button style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:500;color:#7c3aed;cursor:pointer;white-space:nowrap;">List databases</button>
-                            <button style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:500;color:#7c3aed;cursor:pointer;white-space:nowrap;">Restart Nginx</button>
-                            <button style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:500;color:#7c3aed;cursor:pointer;white-space:nowrap;">Install an SSL certificate</button>
+                            <button class="guide-modal-example-btn">List my servers</button>
+                            <button class="guide-modal-example-btn">Create a WordPress application</button>
+                            <button class="guide-modal-example-btn">List databases</button>
+                            <button class="guide-modal-example-btn">Restart Nginx</button>
+                            <button class="guide-modal-example-btn">Install an SSL certificate</button>
                         </div>
-                        <p style="font-size:14px;color:#1a1a2e;margin:0 0 16px 0;line-height:1.5;">Cursor will automatically invoke the appropriate ServerAvatar MCP tools when required.</p>
-                        <div style="background:#fef3c7;border:1px solid #fcd34d;border-radius:8px;padding:12px 16px;">
-                            <p style="font-size:14px;color:#92400e;margin:0;line-height:1.5;"><strong>💡 Tip:</strong> If you update the mcp.json file, reload or restart Cursor to ensure the new MCP configuration is loaded.</p>
+                        <p class="guide-modal-desc-text" style="margin:0 0 16px 0;">Cursor will automatically invoke the appropriate ServerAvatar MCP tools when required.</p>
+                        <div class="guide-modal-tip-box">
+                            <p><strong>💡 Tip:</strong> If you update the mcp.json file, reload or restart Cursor to ensure the new MCP configuration is loaded.</p>
                         </div>
                     </div>
                 </template>
                 
                 <!-- VS Code Info Note -->
                 <template x-if="selectedClient && selectedClient.name === 'VS Code'">
-                    <div style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:12px;padding:16px;margin-bottom:12px;">
+                    <div class="guide-modal-vscode-info">
                         <div style="display:flex;align-items:flex-start;gap:12px;">
-                            <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;">i</div>
-                            <p style="font-size:13px;color:#7c3aed;margin:0;line-height:1.5;">Visual Studio Code supports connecting to ServerAvatar MCP using <strong>OAuth Authorization (Recommended)</strong> or <strong>IDE Access Tokens (Manual Configuration)</strong>.</p>
+                            <div class="info-icon">i</div>
+                            <p>Visual Studio Code supports connecting to ServerAvatar MCP using <strong>OAuth Authorization (Recommended)</strong> or <strong>IDE Access Tokens (Manual Configuration)</strong>.</p>
                         </div>
                     </div>
                 </template>
                 
                 <!-- VS Code Section Title -->
                 <template x-if="selectedClient && selectedClient.name === 'VS Code'">
-                    <div style="margin-bottom:12px;">
-                        <h4 style="font-size:18px;font-weight:700;color:#1a1a2e;margin:0 0 8px 0;">Choose Authentication Method</h4>
-                        <p style="font-size:14px;color:#6b7280;margin:0;">Select the method you want to use to connect to ServerAvatar MCP.</p>
+                    <div class="guide-modal-vscode-section-title" style="margin-bottom:12px;">
+                        <h4>Choose Authentication Method</h4>
+                        <p>Select the method you want to use to connect to ServerAvatar MCP.</p>
                     </div>
                 </template>
                 
                 <!-- VS Code OAuth Card -->
                 <template x-if="selectedClient && selectedClient.name === 'VS Code'">
-                    <div style="background:#ecfdf5;border:1px solid #6ee7b7;border-radius:12px;margin-bottom:12px;overflow:hidden;">
+                    <div class="guide-modal-oauth-card">
                         <div onclick="toggleVsCodeCard('oauth')" style="cursor:pointer;">
-                            <div style="padding:16px 16px 8px 16px;display:flex;align-items:center;gap:12px;">
-                                <div style="width:48px;height:48px;min-width:48px;background:#10b981;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;">
+                            <div class="guide-modal-oauth-header">
+                                <div class="guide-modal-oauth-icon">
                                     <i class="fas fa-shield-alt" style="font-size:20px;"></i>
                                 </div>
                                 <div style="flex:1;">
-                                    <span style="background:#d1fae5;color:#065f46;font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;display:inline-block;margin-bottom:4px;">Recommended</span>
-                                    <p style="font-size:15px;font-weight:600;color:#065f46;margin:0;">OAuth Authorization</p>
+                                    <span class="guide-modal-oauth-badge">Recommended</span>
+                                    <p class="guide-modal-oauth-title">OAuth Authorization</p>
                                 </div>
-                                <i id="vscode-oauth-arrow" class="fas fa-chevron-down" style="color:#10b981;font-size:14px;transition:transform 0.3s;"></i>
+                                <i id="vscode-oauth-arrow" class="fas fa-chevron-down" style="color:#10b981;font-size:14px;transition:transform 0.3s;" class="guide-modal-oauth-arrow"></i>
                             </div>
                             <div style="padding:0 16px 16px 76px;">
-                                <p style="font-size:13px;color:#065f46;margin:0 0 6px 0;"><i class="fas fa-check-circle" style="color:#10b981;margin-right:8px;"></i>Secure and easy to set up</p>
-                                <p style="font-size:13px;color:#065f46;margin:0 0 6px 0;"><i class="fas fa-check-circle" style="color:#10b981;margin-right:8px;"></i>No tokens to manage</p>
-                                <p style="font-size:13px;color:#065f46;margin:0;"><i class="fas fa-check-circle" style="color:#10b981;margin-right:8px;"></i>One-click browser authorization</p>
+                                <p class="guide-modal-check-item"><i class="fas fa-check-circle"></i>Secure and easy to set up</p>
+                                <p class="guide-modal-check-item"><i class="fas fa-check-circle"></i>No tokens to manage</p>
+                                <p class="guide-modal-check-item"><i class="fas fa-check-circle"></i>One-click browser authorization</p>
                             </div>
                         </div>
                         <div id="vscode-oauth-content" style="display:none;padding:0 16px 16px 16px;border-top:1px solid #6ee7b7;">
-                            <div style="background:#fafafa;border:1px solid #e5e7eb;border-radius:12px;padding:20px;margin-top:16px;">
-                                <h4 style="font-size:16px;font-weight:700;color:#7c3aed;margin:0 0 16px 0;">Step 1: <span style="color:#1a1a2e;">Install and Sign In</span></h4>
+                            <div class="guide-modal-step-card" style="margin-top:16px;">
+                                <h4>Step 1: <span>Install and Sign In</span></h4>
                                 <div style="display:flex;flex-direction:column;gap:10px;">
-                                    <div style="display:flex;align-items:center;gap:12px;">
-                                        <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">1</div>
-                                        <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Install the latest version of Visual Studio Code.</p>
+                                    <div class="guide-modal-substep">
+                                        <div class="guide-modal-substep-num">1</div>
+                                        <p class="guide-modal-substep-text">Install the latest version of Visual Studio Code.</p>
                                     </div>
-                                    <div style="display:flex;align-items:center;gap:12px;">
-                                        <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">2</div>
-                                        <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Install the GitHub Copilot and GitHub Copilot Chat extensions.</p>
+                                    <div class="guide-modal-substep">
+                                        <div class="guide-modal-substep-num">2</div>
+                                        <p class="guide-modal-substep-text">Install the GitHub Copilot and GitHub Copilot Chat extensions.</p>
                                     </div>
-                                    <div style="display:flex;align-items:center;gap:12px;">
-                                        <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">3</div>
-                                        <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Sign in with your GitHub account.</p>
+                                    <div class="guide-modal-substep">
+                                        <div class="guide-modal-substep-num">3</div>
+                                        <p class="guide-modal-substep-text">Sign in with your GitHub account.</p>
                                     </div>
                                 </div>
                             </div>
-                            <div style="background:#fafafa;border:1px solid #e5e7eb;border-radius:12px;padding:20px;margin-top:12px;">
-                                <h4 style="font-size:16px;font-weight:700;color:#7c3aed;margin:0 0 16px 0;">Step 2: <span style="color:#1a1a2e;">Add Your MCP Server</span></h4>
+                            <div class="guide-modal-step-card" style="margin-top:12px;">
+                                <h4>Step 2: <span>Add Your MCP Server</span></h4>
                                 <div style="display:flex;flex-direction:column;gap:10px;">
-                                    <div style="display:flex;align-items:center;gap:12px;">
-                                        <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">1</div>
-                                        <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Press <strong>Ctrl + Shift + P</strong>.</p>
+                                    <div class="guide-modal-substep">
+                                        <div class="guide-modal-substep-num">1</div>
+                                        <p class="guide-modal-substep-text">Press <strong>Ctrl + Shift + P</strong>.</p>
                                     </div>
-                                    <div style="display:flex;align-items:center;gap:12px;">
-                                        <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">2</div>
-                                        <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Run: <code style="background:#f3f4f6;padding:2px 8px;border-radius:4px;font-size:13px;color:#7c3aed;">MCP: Add Server</code></p>
+                                    <div class="guide-modal-substep">
+                                        <div class="guide-modal-substep-num">2</div>
+                                        <p class="guide-modal-substep-text">Run: <code class="guide-modal-code-inline">MCP: Add Server</code></p>
                                     </div>
-                                    <div style="display:flex;align-items:center;gap:12px;">
-                                        <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">3</div>
-                                        <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Select <strong>HTTP (Remote) MCP Server</strong>.</p>
+                                    <div class="guide-modal-substep">
+                                        <div class="guide-modal-substep-num">3</div>
+                                        <p class="guide-modal-substep-text">Select <strong>HTTP (Remote) MCP Server</strong>.</p>
                                     </div>
-                                    <div style="display:flex;align-items:center;gap:12px;">
-                                        <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">4</div>
-                                        <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Enter your ServerAvatar MCP Endpoint URL.</p>
+                                    <div class="guide-modal-substep">
+                                        <div class="guide-modal-substep-num">4</div>
+                                        <p class="guide-modal-substep-text">Enter your ServerAvatar MCP Endpoint URL.</p>
                                     </div>
-                                    <div style="display:flex;align-items:center;gap:12px;">
-                                        <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">5</div>
-                                        <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Enter a name (for example, <strong>ServerAvatar MCP</strong>).</p>
+                                    <div class="guide-modal-substep">
+                                        <div class="guide-modal-substep-num">5</div>
+                                        <p class="guide-modal-substep-text">Enter a name (for example, <strong>ServerAvatar MCP</strong>).</p>
                                     </div>
                                 </div>
                             </div>
-                            <div style="background:#fafafa;border:1px solid #e5e7eb;border-radius:12px;padding:20px;margin-top:12px;">
-                                <h4 style="font-size:16px;font-weight:700;color:#7c3aed;margin:0 0 16px 0;">Step 3: <span style="color:#1a1a2e;">Authorize</span></h4>
+                            <div class="guide-modal-step-card" style="margin-top:12px;">
+                                <h4>Step 3: <span>Authorize</span></h4>
                                 <div style="display:flex;flex-direction:column;gap:10px;">
-                                    <div style="display:flex;align-items:center;gap:12px;">
-                                        <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">1</div>
-                                        <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Visual Studio Code will automatically open your browser.</p>
+                                    <div class="guide-modal-substep">
+                                        <div class="guide-modal-substep-num">1</div>
+                                        <p class="guide-modal-substep-text">Visual Studio Code will automatically open your browser.</p>
                                     </div>
-                                    <div style="display:flex;align-items:center;gap:12px;">
-                                        <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">2</div>
-                                        <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Sign in to your ServerAvatar MCP account if prompted.</p>
+                                    <div class="guide-modal-substep">
+                                        <div class="guide-modal-substep-num">2</div>
+                                        <p class="guide-modal-substep-text">Sign in to your ServerAvatar MCP account if prompted.</p>
                                     </div>
-                                    <div style="display:flex;align-items:center;gap:12px;">
-                                        <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">3</div>
-                                        <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Click <strong>Authorize</strong>.</p>
+                                    <div class="guide-modal-substep">
+                                        <div class="guide-modal-substep-num">3</div>
+                                        <p class="guide-modal-substep-text">Click <strong>Authorize</strong>.</p>
                                     </div>
-                                    <div style="display:flex;align-items:center;gap:12px;">
-                                        <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">4</div>
-                                        <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Return to Visual Studio Code.</p>
+                                    <div class="guide-modal-substep">
+                                        <div class="guide-modal-substep-num">4</div>
+                                        <p class="guide-modal-substep-text">Return to Visual Studio Code.</p>
                                     </div>
                                 </div>
                             </div>
-                            <div style="background:#fafafa;border:1px solid #e5e7eb;border-radius:12px;padding:20px;margin-top:12px;">
-                                <h4 style="font-size:16px;font-weight:700;color:#7c3aed;margin:0 0 16px 0;">Step 4: <span style="color:#1a1a2e;">Verify</span></h4>
+                            <div class="guide-modal-step-card" style="margin-top:12px;">
+                                <h4>Step 4: <span>Verify</span></h4>
                                 <div style="display:flex;flex-direction:column;gap:10px;">
-                                    <div style="display:flex;align-items:center;gap:12px;">
-                                        <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">1</div>
-                                        <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Open <strong>Extensions → MCP Servers</strong>.</p>
+                                    <div class="guide-modal-substep">
+                                        <div class="guide-modal-substep-num">1</div>
+                                        <p class="guide-modal-substep-text">Open <strong>Extensions → MCP Servers</strong>.</p>
                                     </div>
-                                    <div style="display:flex;align-items:center;gap:12px;">
-                                        <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">2</div>
-                                        <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Your ServerAvatar MCP server should appear under <strong>Installed</strong>.</p>
+                                    <div class="guide-modal-substep">
+                                        <div class="guide-modal-substep-num">2</div>
+                                        <p class="guide-modal-substep-text">Your ServerAvatar MCP server should appear under <strong>Installed</strong>.</p>
                                     </div>
                                 </div>
                             </div>
-                            <div style="background:#fafafa;border:1px solid #e5e7eb;border-radius:12px;padding:20px;margin-top:12px;">
-                                <h4 style="font-size:16px;font-weight:700;color:#7c3aed;margin:0 0 16px 0;">Step 5: <span style="color:#1a1a2e;">Start Using</span></h4>
+                            <div class="guide-modal-step-card" style="margin-top:12px;">
+                                <h4>Step 5: <span>Start Using</span></h4>
                                 <div style="display:flex;flex-direction:column;gap:10px;">
-                                    <div style="display:flex;align-items:center;gap:12px;">
-                                        <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">1</div>
-                                        <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Open <strong>GitHub Copilot Chat</strong> in <strong>Agent mode</strong>.</p>
+                                    <div class="guide-modal-substep">
+                                        <div class="guide-modal-substep-num">1</div>
+                                        <p class="guide-modal-substep-text">Open <strong>GitHub Copilot Chat</strong> in <strong>Agent mode</strong>.</p>
                                     </div>
-                                    <div style="display:flex;align-items:center;gap:12px;">
-                                        <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">2</div>
-                                        <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Use your connected MCP server to manage your infrastructure with natural language.</p>
+                                    <div class="guide-modal-substep">
+                                        <div class="guide-modal-substep-num">2</div>
+                                        <p class="guide-modal-substep-text">Use your connected MCP server to manage your infrastructure with natural language.</p>
                                     </div>
                                 </div>
                             </div>
@@ -1700,62 +1797,62 @@ window.clientsData = {
                 
                 <!-- VS Code IDE Token Card -->
                 <template x-if="selectedClient && selectedClient.name === 'VS Code'">
-                    <div style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:12px;margin-bottom:12px;overflow:hidden;">
+                    <div class="guide-modal-idetoken-card">
                         <div onclick="toggleVsCodeCard('token')" style="cursor:pointer;">
-                            <div style="padding:16px 16px 8px 16px;display:flex;align-items:center;gap:12px;">
-                                <div style="width:48px;height:48px;min-width:48px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;">
-                                    <i class="fas fa-key" style="font-size:20px;"></i>
+                            <div class="guide-modal-idetoken-header">
+                                <div class="guide-modal-idetoken-icon">
+                                    <i class="fas fa-key"></i>
                                 </div>
                                 <div style="flex:1;">
-                                    <p style="font-size:15px;font-weight:600;color:#7c3aed;margin:0;">IDE Access Token</p>
+                                    <p class="guide-modal-idetoken-title">IDE Access Token</p>
                                 </div>
-                                <i id="vscode-token-arrow" class="fas fa-chevron-down" style="color:#7c3aed;font-size:14px;transition:transform 0.3s;"></i>
+                                <i id="vscode-token-arrow" class="fas fa-chevron-down guide-modal-idetoken-arrow"></i>
                             </div>
-                            <div style="padding:0 16px 16px 76px;">
-                                <p style="font-size:13px;color:#7c3aed;margin:0 0 6px 0;"><i class="fas fa-check-circle" style="color:#7c3aed;margin-right:8px;"></i>Manual configuration</p>
-                                <p style="font-size:13px;color:#7c3aed;margin:0 0 6px 0;"><i class="fas fa-check-circle" style="color:#7c3aed;margin-right:8px;"></i>Use your IDE Access Token</p>
-                                <p style="font-size:13px;color:#7c3aed;margin:0;"><i class="fas fa-check-circle" style="color:#7c3aed;margin-right:8px;"></i>Works with any MCP client</p>
+                            <div class="guide-modal-idetoken-body">
+                                <p class="guide-modal-idetoken-check"><i class="fas fa-check-circle"></i>Manual configuration</p>
+                                <p class="guide-modal-idetoken-check"><i class="fas fa-check-circle"></i>Use your IDE Access Token</p>
+                                <p class="guide-modal-idetoken-check"><i class="fas fa-check-circle"></i>Works with any MCP client</p>
                             </div>
                         </div>
-                        <div id="vscode-token-content" style="display:none;padding:0 16px 16px 16px;border-top:1px solid #ddd6fe;">
+                        <div id="vscode-token-content" class="guide-modal-idetoken-content" style="display:none;">
                             <div style="padding-top:16px;">
-                                <div style="background:#fafafa;border:1px solid #e5e7eb;border-radius:12px;padding:20px;margin-bottom:12px;">
-                                    <h4 style="font-size:16px;font-weight:700;color:#7c3aed;margin:0 0 16px 0;">Step 1: <span style="color:#1a1a2e;">Generate an IDE Access Token</span></h4>
+                                <div class="guide-modal-step-card">
+                                    <h4>Step 1: <span>Generate an IDE Access Token</span></h4>
                                     <div style="display:flex;flex-direction:column;gap:10px;">
-                                        <div style="display:flex;align-items:center;gap:12px;">
-                                            <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">1</div>
-                                            <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Log in to ServerAvatar MCP.</p>
+                                        <div class="guide-modal-substep">
+                                            <div class="guide-modal-substep-num">1</div>
+                                            <p class="guide-modal-substep-text">Log in to ServerAvatar MCP.</p>
                                         </div>
-                                        <div style="display:flex;align-items:center;gap:12px;">
-                                            <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">2</div>
-                                            <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Open Endpoint & Tokens.</p>
+                                        <div class="guide-modal-substep">
+                                            <div class="guide-modal-substep-num">2</div>
+                                            <p class="guide-modal-substep-text">Open Endpoint & Tokens.</p>
                                         </div>
-                                        <div style="display:flex;align-items:center;gap:12px;">
-                                            <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">3</div>
-                                            <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Generate an IDE Access Token.</p>
+                                        <div class="guide-modal-substep">
+                                            <div class="guide-modal-substep-num">3</div>
+                                            <p class="guide-modal-substep-text">Generate an IDE Access Token.</p>
                                         </div>
-                                        <div style="display:flex;align-items:center;gap:12px;">
-                                            <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">4</div>
-                                            <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Copy the token immediately.</p>
+                                        <div class="guide-modal-substep">
+                                            <div class="guide-modal-substep-num">4</div>
+                                            <p class="guide-modal-substep-text">Copy the token immediately.</p>
                                         </div>
                                     </div>
                                 </div>
-                                <div style="background:#fafafa;border:1px solid #e5e7eb;border-radius:12px;padding:20px;margin-bottom:12px;">
-                                    <h4 style="font-size:16px;font-weight:700;color:#7c3aed;margin:0 0 16px 0;">Step 2: <span style="color:#1a1a2e;">Open MCP Configuration</span></h4>
+                                <div class="guide-modal-step-card">
+                                    <h4>Step 2: <span>Open MCP Configuration</span></h4>
                                     <div style="display:flex;flex-direction:column;gap:10px;">
-                                        <div style="display:flex;align-items:center;gap:12px;">
-                                            <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">1</div>
-                                            <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Press: <strong>Ctrl + Shift + P</strong></p>
+                                        <div class="guide-modal-substep">
+                                            <div class="guide-modal-substep-num">1</div>
+                                            <p class="guide-modal-substep-text">Press: <strong>Ctrl + Shift + P</strong></p>
                                         </div>
-                                        <div style="display:flex;align-items:center;gap:12px;">
-                                            <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">2</div>
-                                            <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Run: <code style="background:#f3f4f6;padding:2px 8px;border-radius:4px;font-size:13px;color:#7c3aed;">MCP: Open User Configuration</code></p>
+                                        <div class="guide-modal-substep">
+                                            <div class="guide-modal-substep-num">2</div>
+                                            <p class="guide-modal-substep-text">Run: <code class="guide-modal-code-inline">MCP: Open User Configuration</code></p>
                                         </div>
                                     </div>
                                 </div>
-                                <div style="background:#fafafa;border:1px solid #e5e7eb;border-radius:12px;padding:20px;margin-bottom:12px;">
-                                    <h4 style="font-size:16px;font-weight:700;color:#7c3aed;margin:0 0 16px 0;">Step 3: <span style="color:#1a1a2e;">Configure ServerAvatar MCP</span></h4>
-                                    <p style="font-size:14px;color:#1a1a2e;margin:0 0 12px 0;line-height:1.5;">Add the following configuration:</p>
+                                <div class="guide-modal-step-card">
+                                    <h4>Step 3: <span>Configure ServerAvatar MCP</span></h4>
+                                    <p class="guide-modal-desc-text">Add the following configuration:</p>
                                     <div style="background:#1e1e2e;border-radius:12px;padding:16px;margin-bottom:12px;overflow-x:auto;position:relative;">
                                         <div style="position:absolute;top:12px;left:16px;font-size:12px;color:#9ca3af;"><i class="fas fa-file-code" style="margin-right:6px;"></i>mcp.json</div>
                                         <button onclick="copyCode(this)" style="position:absolute;top:12px;right:12px;background:#374151;border:none;border-radius:6px;padding:6px 10px;cursor:pointer;color:#9ca3af;font-size:12px;display:flex;align-items:center;gap:4px;">
@@ -1783,66 +1880,66 @@ window.clientsData = {
                                     </div>
                                     <p style="font-size:14px;font-weight:600;color:#7c3aed;margin:0 0 12px 0;">Replace:</p>
                                     <div style="display:flex;flex-direction:column;gap:10px;">
-                                        <div style="display:flex;align-items:center;gap:12px;">
+                                        <div class="guide-modal-substep">
                                             <div style="width:6px;height:6px;min-width:6px;background:#7c3aed;border-radius:50%;flex-shrink:0;"></div>
-                                            <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;"><code style="background:#f3f4f6;padding:2px 8px;border-radius:12px;font-size:12px;color:#7c3aed;font-weight:500;">YOUR_MCP_SERVER_URL</code> with your ServerAvatar MCP Endpoint.</p>
+                                            <p class="guide-modal-substep-text"><code class="guide-modal-code">YOUR_MCP_SERVER_URL</code> with your ServerAvatar MCP Endpoint.</p>
                                         </div>
-                                        <div style="display:flex;align-items:center;gap:12px;">
+                                        <div class="guide-modal-substep">
                                             <div style="width:6px;height:6px;min-width:6px;background:#7c3aed;border-radius:50%;flex-shrink:0;"></div>
-                                            <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;"><code style="background:#f3f4f6;padding:2px 8px;border-radius:12px;font-size:12px;color:#7c3aed;font-weight:500;">YOUR_IDE_ACCESS_TOKEN</code> with your generated IDE Access Token.</p>
+                                            <p class="guide-modal-substep-text"><code class="guide-modal-code">YOUR_IDE_ACCESS_TOKEN</code> with your generated IDE Access Token.</p>
                                         </div>
                                     </div>
-                                    <p style="font-size:14px;color:#1a1a2e;margin:16px 0 0 0;line-height:1.5;"><strong>Save the file.</strong></p>
+                                    <p class="guide-modal-bold-text"><strong>Save the file.</strong></p>
                                 </div>
-                                <div style="background:#fafafa;border:1px solid #e5e7eb;border-radius:12px;padding:20px;margin-bottom:12px;">
-                                    <h4 style="font-size:16px;font-weight:700;color:#7c3aed;margin:0 0 16px 0;">Step 4: <span style="color:#1a1a2e;">Reload VS Code</span></h4>
+                                <div class="guide-modal-step-card">
+                                    <h4>Step 4: <span>Reload VS Code</span></h4>
                                     <div style="display:flex;flex-direction:column;gap:10px;">
-                                        <div style="display:flex;align-items:center;gap:12px;">
-                                            <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">1</div>
-                                            <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Run: <code style="background:#f3f4f6;padding:2px 8px;border-radius:4px;font-size:13px;color:#7c3aed;">Developer: Reload Window</code></p>
+                                        <div class="guide-modal-substep">
+                                            <div class="guide-modal-substep-num">1</div>
+                                            <p class="guide-modal-substep-text">Run: <code class="guide-modal-code-inline">Developer: Reload Window</code></p>
                                         </div>
-                                        <div style="display:flex;align-items:center;gap:12px;">
-                                            <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">2</div>
-                                            <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Or restart Visual Studio Code.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div style="background:#fafafa;border:1px solid #e5e7eb;border-radius:12px;padding:20px;margin-bottom:12px;">
-                                    <h4 style="font-size:16px;font-weight:700;color:#7c3aed;margin:0 0 16px 0;">Step 5: <span style="color:#1a1a2e;">Verify</span></h4>
-                                    <div style="display:flex;flex-direction:column;gap:10px;">
-                                        <div style="display:flex;align-items:center;gap:12px;">
-                                            <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">1</div>
-                                            <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Open: <strong>Extensions → MCP Servers</strong></p>
-                                        </div>
-                                        <div style="display:flex;align-items:center;gap:12px;">
-                                            <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">2</div>
-                                            <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Confirm that ServerAvatar MCP appears under <strong>Installed</strong>.</p>
+                                        <div class="guide-modal-substep">
+                                            <div class="guide-modal-substep-num">2</div>
+                                            <p class="guide-modal-substep-text">Or restart Visual Studio Code.</p>
                                         </div>
                                     </div>
                                 </div>
-                                <div style="background:#fafafa;border:1px solid #e5e7eb;border-radius:12px;padding:20px;margin-bottom:12px;">
-                                    <h4 style="font-size:16px;font-weight:700;color:#7c3aed;margin:0 0 16px 0;">Step 6: <span style="color:#1a1a2e;">Start Using</span></h4>
+                                <div class="guide-modal-step-card">
+                                    <h4>Step 5: <span>Verify</span></h4>
                                     <div style="display:flex;flex-direction:column;gap:10px;">
-                                        <div style="display:flex;align-items:center;gap:12px;">
-                                            <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">1</div>
-                                            <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Open <strong>GitHub Copilot Chat</strong> in <strong>Agent mode</strong>.</p>
+                                        <div class="guide-modal-substep">
+                                            <div class="guide-modal-substep-num">1</div>
+                                            <p class="guide-modal-substep-text">Open: <strong>Extensions → MCP Servers</strong></p>
                                         </div>
-                                        <div style="display:flex;align-items:center;gap:12px;">
-                                            <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">2</div>
-                                            <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Use: <code style="background:#f3f4f6;padding:2px 8px;border-radius:4px;font-size:13px;color:#7c3aed;">@ServerAvatar MCP</code></p>
+                                        <div class="guide-modal-substep">
+                                            <div class="guide-modal-substep-num">2</div>
+                                            <p class="guide-modal-substep-text">Confirm that ServerAvatar MCP appears under <strong>Installed</strong>.</p>
                                         </div>
-                                        <div style="display:flex;align-items:center;gap:12px;">
-                                            <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">3</div>
-                                            <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Then ask natural language commands, for example:</p>
+                                    </div>
+                                </div>
+                                <div class="guide-modal-step-card">
+                                    <h4>Step 6: <span>Start Using</span></h4>
+                                    <div style="display:flex;flex-direction:column;gap:10px;">
+                                        <div class="guide-modal-substep">
+                                            <div class="guide-modal-substep-num">1</div>
+                                            <p class="guide-modal-substep-text">Open <strong>GitHub Copilot Chat</strong> in <strong>Agent mode</strong>.</p>
+                                        </div>
+                                        <div class="guide-modal-substep">
+                                            <div class="guide-modal-substep-num">2</div>
+                                            <p class="guide-modal-substep-text">Use: <code class="guide-modal-code-inline">@ServerAvatar MCP</code></p>
+                                        </div>
+                                        <div class="guide-modal-substep">
+                                            <div class="guide-modal-substep-num">3</div>
+                                            <p class="guide-modal-substep-text">Then ask natural language commands, for example:</p>
                                         </div>
                                     </div>
                                     <div style="display:flex;flex-wrap:nowrap;gap:8px;margin:12px 0 0 0;overflow-x:auto;">
-                                        <button style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:500;color:#7c3aed;cursor:pointer;white-space:nowrap;">List all my servers</button>
-                                        <button style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:500;color:#7c3aed;cursor:pointer;white-space:nowrap;">Create a WordPress application</button>
-                                        <button style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:500;color:#7c3aed;cursor:pointer;white-space:nowrap;">Install an SSL certificate</button>
-                                        <button style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:500;color:#7c3aed;cursor:pointer;white-space:nowrap;">Create a database</button>
+                                        <button class="guide-modal-example-btn">List all my servers</button>
+                                        <button class="guide-modal-example-btn">Create a WordPress application</button>
+                                        <button class="guide-modal-example-btn">Install an SSL certificate</button>
+                                        <button class="guide-modal-example-btn">Create a database</button>
                                     </div>
-                                    <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">GitHub Copilot will automatically invoke the appropriate ServerAvatar MCP tools.</p>
+                                    <p class="guide-modal-substep-text">GitHub Copilot will automatically invoke the appropriate ServerAvatar MCP tools.</p>
                                 </div>
                             </div>
                         </div>
@@ -1851,15 +1948,13 @@ window.clientsData = {
                 
                 <!-- VS Code Help Section -->
                 <template x-if="selectedClient && selectedClient.name === 'VS Code'">
-                    <div style="background:#fef9e7;border:1px solid #fcd34d;border-radius:12px;padding:16px;margin-top:16px;margin-bottom:10px;">
-                        <div style="display:flex;align-items:flex-start;gap:12px;">
-                            <div style="width:24px;height:24px;min-width:24px;background:#f59e0b;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex-shrink:0;">
-                                <i class="fas fa-lightbulb" style="font-size:12px;"></i>
-                            </div>
-                            <div>
-                                <p style="font-size:14px;font-weight:600;color:#92400e;margin:0 0 8px 0;">Not sure which one to choose?</p>
-                                <p style="font-size:13px;color:#92400e;margin:0;line-height:1.5;">We recommend using <strong>OAuth Authorization</strong> for an easier and more secure experience. <strong>IDE Access Token</strong> is great for manual configuration or testing purposes.</p>
-                            </div>
+                    <div class="guide-modal-help-box" style="margin-top:16px;margin-bottom:10px;">
+                        <div class="help-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <div>
+                            <p class="help-title">Not sure which one to choose?</p>
+                            <p>We recommend using <strong>OAuth Authorization</strong> for an easier and more secure experience. <strong>IDE Access Token</strong> is great for manual configuration or testing purposes.</p>
                         </div>
                     </div>
                 </template>
@@ -1897,16 +1992,16 @@ window.clientsData = {
                 
                 <!-- Windsurf Step 1 Card -->
                 <template x-if="selectedClient && selectedClient.name === 'Windsurf'">
-                    <div style="background:#fafafa;border:1px solid #e5e7eb;border-radius:12px;padding:20px;margin-bottom:12px;">
-                        <h4 style="font-size:16px;font-weight:700;color:#7c3aed;margin:0 0 16px 0;">Step 1: <span style="color:#1a1a2e;">Install Windsurf</span></h4>
+                    <div class="guide-modal-step-card">
+                        <h4>Step 1: <span>Install Windsurf</span></h4>
                         <div style="display:flex;flex-direction:column;gap:10px;">
-                            <div style="display:flex;align-items:center;gap:12px;">
-                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">1</div>
-                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Download and install Windsurf IDE</p>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">1</div>
+                                <p class="guide-modal-substep-text">Download and install Windsurf IDE</p>
                             </div>
-                            <div style="display:flex;align-items:center;gap:12px;">
-                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">2</div>
-                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Launch Windsurf and create an account</p>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">2</div>
+                                <p class="guide-modal-substep-text">Launch Windsurf and create an account</p>
                             </div>
                         </div>
                     </div>
@@ -1914,27 +2009,27 @@ window.clientsData = {
                 
                 <!-- Windsurf Step 2 Card -->
                 <template x-if="selectedClient && selectedClient.name === 'Windsurf'">
-                    <div style="background:#fafafa;border:1px solid #e5e7eb;border-radius:12px;padding:20px;margin-bottom:12px;">
-                        <h4 style="font-size:16px;font-weight:700;color:#7c3aed;margin:0 0 16px 0;">Step 2: <span style="color:#1a1a2e;">Generate an IDE Access Token</span></h4>
+                    <div class="guide-modal-step-card">
+                        <h4>Step 2: <span>Generate an IDE Access Token</span></h4>
                         <div style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:8px;padding:12px 16px;margin-bottom:12px;">
                             <p style="font-size:13px;color:#7c3aed;margin:0;line-height:1.5;"><strong>Note:</strong> An access token is required before connecting Windsurf.</p>
                         </div>
                         <div style="display:flex;flex-direction:column;gap:10px;">
-                            <div style="display:flex;align-items:center;gap:12px;">
-                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">1</div>
-                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Log in to ServerAvatar MCP</p>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">1</div>
+                                <p class="guide-modal-substep-text">Log in to ServerAvatar MCP</p>
                             </div>
-                            <div style="display:flex;align-items:center;gap:12px;">
-                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">2</div>
-                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Navigate to Endpoint & Tokens</p>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">2</div>
+                                <p class="guide-modal-substep-text">Navigate to Endpoint & Tokens</p>
                             </div>
-                            <div style="display:flex;align-items:center;gap:12px;">
-                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">3</div>
-                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Generate a new IDE Access Token</p>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">3</div>
+                                <p class="guide-modal-substep-text">Generate a new IDE Access Token</p>
                             </div>
-                            <div style="display:flex;align-items:center;gap:12px;">
-                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">4</div>
-                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Copy the token immediately</p>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">4</div>
+                                <p class="guide-modal-substep-text">Copy the token immediately</p>
                             </div>
                         </div>
                     </div>
@@ -1942,20 +2037,20 @@ window.clientsData = {
                 
                 <!-- Windsurf Step 3 Card -->
                 <template x-if="selectedClient && selectedClient.name === 'Windsurf'">
-                    <div style="background:#fafafa;border:1px solid #e5e7eb;border-radius:12px;padding:20px;margin-bottom:12px;">
-                        <h4 style="font-size:16px;font-weight:700;color:#7c3aed;margin:0 0 16px 0;">Step 3: <span style="color:#1a1a2e;">Add ServerAvatar MCP to Windsurf</span></h4>
+                    <div class="guide-modal-step-card">
+                        <h4>Step 3: <span>Add ServerAvatar MCP to Windsurf</span></h4>
                         <div style="display:flex;flex-direction:column;gap:10px;">
-                            <div style="display:flex;align-items:center;gap:12px;">
-                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">1</div>
-                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Open Windsurf Settings</p>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">1</div>
+                                <p class="guide-modal-substep-text">Open Windsurf Settings</p>
                             </div>
-                            <div style="display:flex;align-items:center;gap:12px;">
-                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">2</div>
-                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Go to Extensions or MCP Settings</p>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">2</div>
+                                <p class="guide-modal-substep-text">Go to Extensions or MCP Settings</p>
                             </div>
-                            <div style="display:flex;align-items:center;gap:12px;">
-                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">3</div>
-                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Add a new MCP server with your Server URL and token</p>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">3</div>
+                                <p class="guide-modal-substep-text">Add a new MCP server with your Server URL and token</p>
                             </div>
                         </div>
                     </div>
@@ -1963,31 +2058,31 @@ window.clientsData = {
                 
                 <!-- Windsurf Step 4 Card -->
                 <template x-if="selectedClient && selectedClient.name === 'Windsurf'">
-                    <div style="background:#fafafa;border:1px solid #e5e7eb;border-radius:12px;padding:20px;margin-bottom:12px;">
-                        <h4 style="font-size:16px;font-weight:700;color:#7c3aed;margin:0 0 16px 0;">Step 4: <span style="color:#1a1a2e;">Start Using</span></h4>
+                    <div class="guide-modal-step-card">
+                        <h4>Step 4: <span>Start Using</span></h4>
                         <div style="display:flex;flex-direction:column;gap:10px;">
-                            <div style="display:flex;align-items:center;gap:12px;">
-                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">1</div>
-                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Open the Windsurf AI chat</p>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">1</div>
+                                <p class="guide-modal-substep-text">Open the Windsurf AI chat</p>
                             </div>
-                            <div style="display:flex;align-items:center;gap:12px;">
-                                <div style="width:24px;height:24px;min-width:24px;background:#7c3aed;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;">2</div>
-                                <p style="font-size:14px;color:#1a1a2e;margin:0;line-height:1.5;">Start using natural language commands</p>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">2</div>
+                                <p class="guide-modal-substep-text">Start using natural language commands</p>
                             </div>
                         </div>
                         <p style="font-size:14px;color:#6b7280;margin:16px 0 12px 0;">Example commands:</p>
                         <div style="display:flex;flex-wrap:wrap;gap:8px;">
-                            <button style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:500;color:#7c3aed;cursor:pointer;white-space:nowrap;">List all my servers</button>
-                            <button style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:500;color:#7c3aed;cursor:pointer;white-space:nowrap;">Create a database</button>
-                            <button style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:500;color:#7c3aed;cursor:pointer;white-space:nowrap;">Deploy WordPress</button>
+                            <button class="guide-modal-example-btn">List all my servers</button>
+                            <button class="guide-modal-example-btn">Create a database</button>
+                            <button class="guide-modal-example-btn">Deploy WordPress</button>
                         </div>
                     </div>
                 </template>
                 
                 <!-- Success Message -->
-                <div style="background:#dcfce7;border:1px solid #86efac;border-radius:12px;padding:16px 20px;display:flex;align-items:center;gap:12px;">
+                <div class="guide-modal-success-box" style="border-radius:12px;padding:16px 20px;display:flex;align-items:center;">
                     <div style="color:#22c55e;font-size:20px;"><i class="fas fa-check-circle"></i></div>
-                    <p style="font-size:14px;font-weight:600;color:#166534;margin:0;">You're all set! Start managing your infrastructure with AI.</p>
+                    <p style="font-size:14px;font-weight:600;margin:0;">You're all set! Start managing your infrastructure with AI.</p>
                 </div>
             </div>
         </div>
