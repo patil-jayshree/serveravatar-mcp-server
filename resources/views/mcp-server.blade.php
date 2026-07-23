@@ -217,7 +217,7 @@
                 <div style="font-size: 0.8rem; color: var(--text-secondary);">Check our documentation for setup guides and troubleshooting.</div>
             </div>
         </div>
-        <a href="#" style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: var(--bg-primary); border: 1px solid var(--border-color); border-radius: var(--radius-md); color: var(--accent-primary); text-decoration: none; font-size: 0.8rem; font-weight: 600; white-space: nowrap;">
+        <a href="{{ route('guide') }}" style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: var(--bg-primary); border: 1px solid var(--border-color); border-radius: var(--radius-md); color: var(--accent-primary); text-decoration: none; font-size: 0.8rem; font-weight: 600; white-space: nowrap;">
             <i class="fas fa-book"></i> Documentation
         </a>
     </div>
