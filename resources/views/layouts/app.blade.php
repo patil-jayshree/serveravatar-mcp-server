@@ -89,6 +89,111 @@
         [data-theme="dark"] .icon-dark { display: block !important; }
         a { text-decoration: none; color: inherit; }
 
+        /* Guide-specific theme variables */
+        [data-theme="dark"] .guide-card { background: #1a1a2e; border-color: #2d2d44; }
+        [data-theme="dark"] .guide-banner { background: #1a1a2e; border-color: #2d2d44; }
+        [data-theme="dark"] .guide-feature-box { background: #1e1e32; border-color: #2d2d44; }
+        [data-theme="dark"] .guide-flow-box { background: #1e1e32; border-color: #3d3d5c; }
+        [data-theme="dark"] .guide-info-box { background: #1a1a2e; border-color: #2d2d44; }
+        [data-theme="dark"] .guide-note-box { background: #1e1e32; border-color: #3d3d5c; }
+        [data-theme="dark"] .guide-tools-banner-box { background: #1e1e32; border-color: #3d3d5c; }
+        [data-theme="dark"] .guide-tools-banner-box .icon-wrap { background: #1a1a2e; }
+        [data-theme="dark"] .guide-how-it-works-box { background: #1e1e32; border-color: #3d3d5c; }
+        [data-theme="dark"] .guide-how-it-works-box .outer-circle { background: #1a1a2e; }
+        [data-theme="dark"] .guide-tool-card-simple { background: #1a1a2e; border-color: #2d2d44; }
+        [data-theme="dark"] .guide-ai-card { background: #1a1a2e; border-color: #2d2d44; }
+        
+        /* Guide page dark mode overrides for inline styles */
+        [data-theme="dark"] .guide-ai-client-card-main { background: #1a1a2e; border-color: #2d2d44; }
+        [data-theme="dark"] .guide-client-card { background: #1a1a2e; border-color: #2d2d44; }
+        [data-theme="dark"] .guide-client-card:hover { background: #1e293b; }
+        [data-theme="dark"] .guide-client-card .name { color: #f1f5f9; }
+        [data-theme="dark"] .guide-client-card .desc { color: #94a3b8; }
+        [data-theme="dark"] .guide-client-card .time-badge { background: rgba(139, 92, 246, 0.2); border-color: rgba(139, 92, 246, 0.4); color: #a78bfa; }
+        [data-theme="dark"] .guide-client-card .arrow { color: #64748b; }
+        [data-theme="dark"] .guide-star-desc p { color: #94a3b8; }
+        [data-theme="dark"] .guide-star-desc span { color: #a78bfa; }
+        [data-theme="dark"] .guide-step-label { color: #f1f5f9; }
+        [data-theme="dark"] .guide-banner h1 { color: #f1f5f9; }
+        [data-theme="dark"] .guide-banner p { color: #94a3b8; }
+        [data-theme="dark"] .guide-card h2 { color: #f1f5f9; }
+        [data-theme="dark"] .guide-card p { color: #94a3b8; }
+        [data-theme="dark"] .guide-feature-box .title { color: #f1f5f9; }
+        [data-theme="dark"] .guide-feature-box .desc { color: #94a3b8; }
+        [data-theme="dark"] .guide-flow-box .title { color: #f1f5f9; }
+        [data-theme="dark"] .guide-flow-box .desc { color: #94a3b8; }
+        [data-theme="dark"] .guide-info-box .text { color: #f1f5f9; }
+        [data-theme="dark"] .guide-info-desc { color: #f1f5f9 !important; }
+        [data-theme="dark"] .guide-note-box .text { color: #f1f5f9; }
+        [data-theme="dark"] .guide-timeline-step .step-title { color: #f1f5f9; }
+        [data-theme="dark"] .guide-timeline-step .step-desc { color: #94a3b8; }
+        [data-theme="dark"] .guide-tool-card-simple .title { color: #f1f5f9; }
+        [data-theme="dark"] .guide-tool-card-simple .desc { color: #94a3b8; }
+        [data-theme="dark"] .guide-tools-stat-box .stat-num { color: #a78bfa; }
+        [data-theme="dark"] .guide-tools-stat-box .stat-label { color: #94a3b8; }
+        [data-theme="dark"] .guide-how-it-works-box h3 { color: #a78bfa; }
+        [data-theme="dark"] .guide-how-it-works-box p { color: #94a3b8; }
+        [data-theme="dark"] .guide-how-it-works-box .step-num-badge { background: #6d28d9; }
+        [data-theme="dark"] .guide-how-it-works-box .step-num-badge span { color: #fff; }
+        [data-theme="dark"] .guide-how-it-works-box .outer-circle { background: #1a1a2e; border-color: #6d28d9; }
+        [data-theme="dark"] .guide-how-it-works-box .outer-circle i { color: #a78bfa; }
+        
+        /* Additional Guide Cards Dark Mode */
+        [data-theme="dark"] .guide-example-card { background: #1a1a2e; border-color: #2d2d44; }
+        [data-theme="dark"] .guide-example-card h2 { color: #f1f5f9; }
+        [data-theme="dark"] .guide-example-card p { color: #94a3b8; }
+        [data-theme="dark"] .guide-command-item { background: #1a1a2e; border-color: #2d2d44; }
+        [data-theme="dark"] .guide-command-item:hover { background: #1e293b; border-color: #6d28d9; }
+        [data-theme="dark"] .guide-command-item .cmd-text { color: #f1f5f9; }
+        [data-theme="dark"] .guide-command-item .cmd-copy { color: #64748b; }
+        [data-theme="dark"] .guide-security-card { background: #1a1a2e; border-color: #2d2d44; }
+        [data-theme="dark"] .guide-security-card h2 { color: #f1f5f9; }
+        [data-theme="dark"] .guide-security-card p { color: #94a3b8; }
+        [data-theme="dark"] .guide-security-item { background: #1a1a2e; border-color: #2d2d44; }
+        [data-theme="dark"] .guide-security-item .sec-text { color: #f1f5f9; }
+        [data-theme="dark"] .guide-code-card { background: #1a1a2e; border-color: #2d2d44; }
+        [data-theme="dark"] .guide-code-card h2 { color: #f1f5f9; }
+        [data-theme="dark"] .guide-code-card p { color: #94a3b8; }
+        [data-theme="dark"] .guide-code-block { background: #0f0f1a; border-color: #2d2d44; }
+        [data-theme="dark"] .guide-code-block pre { color: #e2e8f0; }
+        [data-theme="dark"] .guide-banner-card { background: #1a1a2e; border-color: #2d2d44; }
+        [data-theme="dark"] .guide-banner-card h2 { color: #f1f5f9; }
+        [data-theme="dark"] .guide-banner-card p { color: #94a3b8; }
+        [data-theme="dark"] .guide-troubleshoot-card { background: #1a1a2e; border-color: #2d2d44; }
+        [data-theme="dark"] .guide-troubleshoot-card h2 { color: #f1f5f9; }
+        [data-theme="dark"] .guide-troubleshoot-card p { color: #94a3b8; }
+        [data-theme="dark"] .guide-accordion-item { background: #1a1a2e; border-color: #2d2d44; }
+        [data-theme="dark"] .guide-accordion-item:hover { background: #1e293b; border-color: #6d28d9; }
+        [data-theme="dark"] .guide-accordion-item .accordion-title { color: #f1f5f9; }
+        [data-theme="dark"] .guide-accordion-item .accordion-chevron { color: #64748b; }
+        [data-theme="dark"] .guide-accordion-item .accordion-content { background: #1a1a2e; border-color: #2d2d44; }
+        [data-theme="dark"] .guide-accordion-item .accordion-content p { color: #94a3b8; }
+        [data-theme="dark"] .guide-summary-card { background: #1a1a2e; border-color: #2d2d44; }
+        [data-theme="dark"] .guide-summary-card h2 { color: #f1f5f9; }
+        [data-theme="dark"] .guide-summary-card p { color: #94a3b8; }
+        [data-theme="dark"] .guide-summary-step .step-text { color: #f1f5f9; }
+        [data-theme="dark"] .guide-support-link { color: #94a3b8; }
+        [data-theme="dark"] .guide-support-link:hover { color: #a78bfa; }
+        [data-theme="dark"] .guide-support-link span { color: #a78bfa; }
+        [data-theme="dark"] .guide-code-snippet-card { background: #1a1a2e; border-color: #2d2d44; }
+        [data-theme="dark"] .guide-mcp-universal-card { background: #1a1a2e; border-color: #2d2d44; }
+        [data-theme="dark"] .guide-api-key-card { background: #1a1a2e; border-color: #2d2d44; }
+        [data-theme="dark"] .guide-ide-token-card { background: #1a1a2e; border-color: #2d2d44; }
+        [data-theme="dark"] .guide-modal-overlay { background: rgba(0,0,0,0.7); }
+        [data-theme="dark"] .guide-modal-content { background: #1a1a2e; }
+        [data-theme="dark"] .guide-modal-header { background: #1a1a2e; border-color: #2d2d44; }
+        [data-theme="dark"] .guide-warning-box { background: rgba(254, 243, 199, 0.1); border-color: rgba(252, 211, 77, 0.3); }
+        [data-theme="dark"] .guide-warning-box i { color: #f87171; }
+        [data-theme="dark"] .guide-warning-box p { color: #fca5a5; }
+        [data-theme="dark"] .guide-success-box { background: rgba(139, 92, 246, 0.15); border-color: rgba(139, 92, 246, 0.3); }
+        [data-theme="dark"] .guide-success-box p { color: #c4b5fd; }
+        [data-theme="dark"] .guide-final-banner { background: linear-gradient(135deg, rgba(139, 92, 246, 0.2) 0%, rgba(109, 40, 217, 0.3) 100%); border-color: rgba(139, 92, 246, 0.4); }
+        [data-theme="dark"] .guide-final-banner .banner-text p { color: #c4b5fd; }
+        [data-theme="dark"] .guide-final-banner .banner-btn { background: #6d28d9; }
+        [data-theme="dark"] .guide-final-banner .banner-btn:hover { background: #5b21b6; }
+        [data-theme="dark"] .guide-final-banner .banner-link { color: #a78bfa; }
+        [data-theme="dark"] .guide-final-banner .banner-link:hover { color: #c4b5fd; }
+        
         /* Layout */
         .app-wrapper { display: flex; min-height: 100vh; }
         
