@@ -44,6 +44,9 @@
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         html { font-size: 16px; -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
         body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; }
+        a { text-decoration: none !important; box-shadow: none !important; outline: none !important; }
+        a:hover { text-decoration: none !important; border-bottom: none !important; box-shadow: none !important; outline: none !important; }
+        a:focus { text-decoration: none !important; border-bottom: none !important; box-shadow: none !important; outline: none !important; }
 
         /* Navbar */
         /* Theme Toggle */
@@ -54,9 +57,11 @@
         /* Navbar */
         .navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: var(--bg-nav); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-color); padding: 0 2rem; }
         .nav-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 72px; gap: 2rem; }
-        .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text-primary); }
+        .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none !important; border-bottom: none !important; color: var(--text-primary); }
+        .nav-logo:hover { text-decoration: none !important; border-bottom: none !important; color: var(--text-primary); }
+        .nav-logo-text { font-weight: 700; font-size: 1.1rem; letter-spacing: -0.02em; text-decoration: none !important; border-bottom: none !important; }
+        .nav-logo-text:hover { text-decoration: none !important; border-bottom: none !important; }
         .nav-logo-icon { width: 40px; height: 40px; background: var(--gradient-primary); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-size: 20px; }
-        .nav-logo-text { font-weight: 700; font-size: 1.1rem; letter-spacing: -0.02em; }
         .nav-logo-text span { color: var(--accent-primary); }
         .nav-right { display: flex; align-items: center; gap: 1rem; }
         .nav-link { color: var(--text-secondary); text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: color var(--transition-fast); }
@@ -103,9 +108,9 @@
 
 
         /* Why Section */
-        .why-section { max-width: 1000px; margin: 0 auto; padding: 2.5rem 2rem; }
+        .why-section { max-width: 1000px; margin: 0 auto; padding: 2.5rem 2rem 0 2rem; }
         .why-header { text-align: center; margin-bottom: 3rem; }
-        .why-tag { display: inline-block; background: var(--accent-primary-muted); color: var(--accent-primary); padding: 6px 14px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 1rem; }
+        .why-tag { display: inline-block; background: var(--accent-primary-muted); color: #7c3aed; padding: 6px 14px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 1rem; }
         .why-title { font-size: 1.50rem; font-weight: 800; margin-bottom: 0.75rem; line-height: 1.2; }
         .why-subtitle { color: var(--text-secondary); font-size: 1rem; max-width: 600px; margin: 0 auto; }
         .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
@@ -128,10 +133,10 @@
         .why-card-subtitle { color: var(--text-secondary); font-size: 0.8rem; line-height: 1.4; }
 
         /* Works With Section */
-        .works-section { background: var(--bg-secondary); padding: 4rem 2rem; }
+        .works-section { padding: 4rem 2rem 0 2rem; }
         .works-container { max-width: 1000px; margin: 0 auto; text-align: center; }
         .works-header { margin-bottom: 2.5rem; }
-        .works-tag { display: inline-block; background: var(--accent-primary-muted); color: var(--accent-primary); padding: 6px 14px; border-radius: 20px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1rem; }
+        .works-tag { display: inline-block; background: var(--accent-primary-muted); color: #7c3aed; padding: 6px 14px; border-radius: 20px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1rem; }
         .works-title { font-size: 1.50rem; font-weight: 800; color: var(--text-primary); }
         .works-grid { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; }
         .works-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 0.875rem 0.5rem; display: flex; flex-direction: column; align-items: center; gap: 0.4rem; transition: all var(--transition-fast); width: 105px; flex-shrink: 0; }
@@ -147,7 +152,7 @@
         .works-name { font-size: 0.7rem; font-weight: 600; color: var(--text-primary); text-align: center; }
 
         /* How It Works Section */
-        .how-section { background: var(--bg-primary); padding: 4rem 2rem; }
+        .how-section { background: var(--bg-primary); padding: 4rem 2rem 0 2rem; }
         .how-container { max-width: 800px; margin: 0 auto; text-align: center; }
         .how-tag { display: inline-block; background: rgba(139, 92, 246, 0.1); color: #7c3aed; padding: 6px 14px; border-radius: 20px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.75rem; }
         .how-heading { font-size: 1.50rem; font-weight: 800; color: var(--text-primary); margin: 0 0 1.5rem 0; }
@@ -160,21 +165,26 @@
         .how-arrow { color: #7c3aed; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 
         /* Guide Section */
-        .guide-section { background: var(--bg-secondary); padding: 4rem 2rem; }
-        .guide-container { max-width: 900px; margin: 0 auto; text-align: center; }
-        .guide-title { font-size: 2rem; font-weight: 800; color: var(--text-primary); margin: 0 0 0.75rem 0; }
-        .guide-desc { font-size: 1rem; color: var(--text-secondary); margin: 0 0 1.5rem 0; line-height: 1.6; max-width: 600px; margin-left: auto; margin-right: auto; }
-        .guide-btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; background: var(--accent-primary); color: #fff; border-radius: 10px; font-size: 0.95rem; font-weight: 600; text-decoration: none; transition: all 0.2s; }
-        .guide-btn:hover { background: #6d28d9; transform: translateY(-1px); }
-        .guide-btn i { font-size: 1.1rem; }
+        .guide-section { padding: 2rem 2rem 1rem 2rem; overflow: visible; }
+        .guide-container { max-width: 900px; margin: 0 auto; overflow: visible; }
+        .guide-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 24px 28px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+        .guide-content { display: flex; align-items: center; gap: 16px; }
+        .guide-icon { width: 48px; height: 48px; background: var(--accent-primary); border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .guide-icon i { color: #fff; font-size: 20px; }
+        .guide-text { max-width: 600px; }
+        .guide-card-title { font-size: 18px; font-weight: 700; color: var(--text-primary); margin: 0 0 4px 0; }
+        .guide-card-desc { font-size: 13px; color: var(--text-secondary); margin: 0; line-height: 1.5; }
+        .guide-card-btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; background: transparent; color: #7c3aed; border: 2px solid #7c3aed; border-radius: 8px; font-size: 14px; font-weight: 600; text-decoration: none; transition: all 0.2s; white-space: nowrap; flex-shrink: 0; position: relative; z-index: 1; }
+        .guide-card-btn:hover { background: var(--accent-primary); color: #fff; }
 
         /* CTA Section */
-        .cta-section { background: linear-gradient(135deg, rgba(139, 92, 246, 0.08) 0%, rgba(139, 92, 246, 0.03) 100%); border-top: 1px solid rgba(139, 92, 246, 0.1); border-bottom: 1px solid rgba(139, 92, 246, 0.1); padding: 3rem 2rem; }
-        .cta-container { max-width: 900px; margin: 0 auto; display: flex; align-items: center; gap: 1.5rem; }
-        .cta-icon { width: 64px; height: 64px; background: var(--gradient-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 28px; }
-        .cta-content { flex: 1; }
-        .cta-title { font-size: 1.5rem; font-weight: 800; color: var(--text-primary); margin: 0 0 0.25rem 0; }
-        .cta-desc { font-size: 0.95rem; color: var(--text-secondary); margin: 0; line-height: 1.5; }
+        .cta-section { background: rgba(139, 92, 246, 0.08); border-radius: 16px; padding: 1rem; margin: 2rem 0; }
+        .cta-container { max-width: 900px; margin: 0 auto; display: flex; align-items: center; justify-content: center; gap: 2rem; padding: 1rem; }
+        .cta-rocket { width: 140px; height: auto; flex-shrink: 0; opacity: 0; transition: opacity 0.5s ease; }
+        .cta-rocket.loaded { opacity: 1; }
+        .cta-content { flex: 1; padding: 1rem; }
+        .cta-title { font-size: 1.25rem; font-weight: 800; color: var(--text-primary); margin: 0 0 0.25rem 0; }
+        .cta-desc { font-size: 0.875rem; color: var(--text-secondary); margin: 0; line-height: 1.5; }
         .cta-btn { background: #7c3aed; color: #fff; padding: 0.875rem 1.5rem; border-radius: 10px; font-size: 0.95rem; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; transition: all 0.2s; flex-shrink: 0; }
         .cta-btn:hover { background: #6d28d9; transform: translateY(-1px); }
 
@@ -199,7 +209,7 @@
     <!-- Navbar -->
     <nav class="navbar">
         <div class="nav-inner">
-            <a href="/" class="nav-logo">
+            <a href="/" class="nav-logo" style="text-decoration: none !important;">
                 <div class="nav-logo-icon"><i class="fas fa-bolt" style="color: #fbbf24;"></i></div>
                 <span class="nav-logo-text">Server<span>Avatar</span> MCP</span>
             </a>
@@ -255,7 +265,7 @@
         <div class="why-grid">
             <div class="why-card why-card-highlight">
                 <div class="why-icon icon-purple"><span><i class="fas fa-server" style="color: #7c3aed;"></i></span></div>
-                <h3 class="why-card-title">14+ server tools</h3>
+                <h3 class="why-card-title">80+ powerful tools</h3>
                 <p class="why-card-subtitle">Manage servers, sites, databases, SSL, logs, and more through MCP tools.</p>
             </div>
             <div class="why-card why-card-highlight">
@@ -360,21 +370,28 @@
     <!-- Guide Section -->
     <section class="guide-section">
         <div class="guide-container">
-            <h2 class="guide-title">📚 MCP Guide</h2>
-            <p class="guide-desc">Learn how to connect ServerAvatar MCP with ChatGPT, Claude, Cursor, and other AI clients. Step-by-step setup instructions included.</p>
-            <a href="{{ route('guide') }}" class="guide-btn">
-                <i class="fas fa-book-open"></i> View Complete Guide
-            </a>
+            <div class="guide-card">
+                <div class="guide-content">
+                    <div class="guide-icon"><i class="fas fa-comments"></i></div>
+                    <div class="guide-text">
+                        <h3 class="guide-card-title">MCP Guide</h3>
+                        <p class="guide-card-desc">Learn how to connect ServerAvatar MCP with ChatGPT, Claude, Cursor and other AI clients. Step-by-step setup instructions included.</p>
+                    </div>
+                </div>
+                <a href="{{ route('guide') }}" class="guide-card-btn">
+                    View Complete Guide <i class="fas fa-arrow-right" style="font-size: 12px;"></i>
+                </a>
+            </div>
         </div>
     </section>
 
     <!-- CTA Section -->
     <section class="cta-section">
         <div class="cta-container">
-            <div class="cta-icon"><span><i class="fas fa-bolt" style="color: #fbbf24;"></i></span></div>
+            <img src="/images/rocket-illustration.png" alt="Rocket" class="cta-rocket">
             <div class="cta-content">
-                <h2 class="cta-title">Ready to get started?</h2>
-                <p class="cta-desc">Connect your AI tools and automate your server management workflows.</p>
+                <h2 class="cta-title">Ready to transform server management?</h2>
+                <p class="cta-desc">Join thousands of developers and businesses using AI to manage their infrastructure.</p>
             </div>
             <a href="{{ route('register') }}" class="cta-btn">
                 Create Your Account <span style="margin-left: 6px;">→</span>
@@ -400,6 +417,17 @@
             if (saved) {
                 document.documentElement.setAttribute('data-theme', saved);
             }
+        })();
+        (function() {
+            const images = document.querySelectorAll('.cta-rocket');
+            images.forEach(img => {
+                if (img.complete) {
+                    img.classList.add('loaded');
+                } else {
+                    img.addEventListener('load', () => img.classList.add('loaded'));
+                    img.addEventListener('error', () => img.classList.add('loaded'));
+                }
+            });
         })();
     </script>
 </body>

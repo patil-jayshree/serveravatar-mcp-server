@@ -48,13 +48,16 @@
         body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; }
         a { color: var(--accent-primary); text-decoration: none; }
         a:hover { text-decoration: underline; }
+        .nav-logo:hover { text-decoration: none !important; }
 
         /* Navbar */
         .navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: var(--bg-nav); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-color); padding: 0 2rem; }
         .nav-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 72px; gap: 2rem; }
-        .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text-primary); }
+        .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none !important; color: var(--text-primary); }
+        .nav-logo:hover { text-decoration: none !important; border-bottom: none !important; }
         .nav-logo-icon { width: 40px; height: 40px; background: var(--gradient-primary); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-size: 20px; }
-        .nav-logo-text { font-weight: 700; font-size: 1.1rem; letter-spacing: -0.02em; }
+        .nav-logo-text { font-weight: 700; font-size: 1.1rem; letter-spacing: -0.02em; text-decoration: none !important; }
+        .nav-logo-text:hover { text-decoration: none !important; border-bottom: none !important; }
         .nav-logo-text span { color: var(--accent-primary); }
         .nav-links { display: flex; align-items: center; gap: 0.5rem; }
         .nav-link { padding: 8px 16px; border-radius: var(--radius-md); font-size: 0.9rem; font-weight: 500; color: var(--text-secondary); transition: all var(--transition-fast); }
