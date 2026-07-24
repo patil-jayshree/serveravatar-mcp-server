@@ -204,9 +204,12 @@
                 <span class="nav-logo-text">Server<span>Avatar</span> MCP</span>
             </a>
             <div class="nav-right">
+                <a href="{{ url('/') }}#features" class="btn btn-ghost">Feature</a>
+                <a href="{{ url('/') }}#integration" class="btn btn-ghost">Integration</a>
+                <a href="{{ route('guide') }}" class="btn btn-ghost">Guide</a>
+                <a href="{{ route('login') }}" class="btn btn-ghost">Login</a>
+                <a href="{{ route('register') }}" class="btn btn-primary">Register</a>
                 <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme"></button>
-                <a href="{{ route('login') }}" class="btn btn-ghost">LOGIN</a>
-                <a href="{{ route('register') }}" class="btn btn-primary">Get Started</a>
             </div>
         </div>
     </nav>
@@ -243,7 +246,7 @@
     </section>
 
     <!-- Why ServerAvatar MCP -->
-    <section class="why-section">
+    <section class="why-section" id="features">
         <div class="why-header">
             <span class="why-tag">WHY SERVERAVATAR MCP</span>
             <h2 class="why-title">Built for production AI workflows</h2>
@@ -284,7 +287,7 @@
     </section>
 
     <!-- Works With Section -->
-    <section class="works-section">
+    <section class="works-section" id="integration">
         <div class="works-container">
             <div class="works-header">
                 <span class="works-tag">WORKS WITH YOUR FAVORITE AI TOOLS</span>
