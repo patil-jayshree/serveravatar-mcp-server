@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\McpConnection;
 use Illuminate\Support\Facades\Request;
+use App\Providers\AppServiceProvider;
 
 class McpConnectionTracker
 {
@@ -12,6 +13,9 @@ class McpConnectionTracker
         if (!$clientName) {
             $clientName = self::detectClient(Request::userAgent());
         }
+
+        // Store the authenticated user for this request (used by SessionInitialized event)
+        self::$currentUser = $user;
 
         McpConnection::updateOrCreate(
             [
@@ -41,9 +45,23 @@ class McpConnectionTracker
         if (str_contains($userAgent, 'continue')) return 'Continue';
         if (str_contains($userAgent, 'cline')) return 'Cline';
         if (str_contains($userAgent, 'openai')) return 'ChatGPT';
+        if (str_contains($userAgent, 'copilot')) return 'VS Code';
+        if (str_contains($userAgent, 'github')) return 'VS Code';
+        if (str_contains($userAgent, 'microsoft')) return 'VS Code';
+        if (str_contains($userAgent, 'visual studio')) return 'VS Code';
 
         return 'MCP Client';
     }
+
+    /**
+     * Get the current authenticated user (set during trackActivity)
+     */
+    public static function getCurrentUser()
+    {
+        return self::$currentUser;
+    }
+
+    private static $currentUser = null;
 
     public static function getConnectedClients($user)
     {

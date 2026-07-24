@@ -146,7 +146,7 @@ class Activity extends Model
         if (strpos($name, 'chatgpt') !== false) return 'CG';
         if (strpos($name, 'claude') !== false) return 'CL';
         if (strpos($name, 'cursor') !== false) return 'CU';
-        if (strpos($name, 'vscode') !== false) return 'VS';
+        if (strpos($name, 'vscode') !== false || strpos($name, 'vs code') !== false) return 'VS';
         if (strpos($name, 'windsurf') !== false) return 'WS';
         if (strpos($name, 'perplexity') !== false) return 'PP';
         if (strpos($name, 'zed') !== false) return 'ZD';
@@ -168,7 +168,7 @@ class Activity extends Model
         if (strpos($name, 'cursor') !== false) {
             return ['light' => '/images/clients/cursor-light.png', 'dark' => '/images/clients/cursor-dark.png'];
         }
-        if (strpos($name, 'vscode') !== false) {
+        if (strpos($name, 'vscode') !== false || strpos($name, 'vs code') !== false) {
             return ['light' => '/images/clients/vscode.png', 'dark' => '/images/clients/vscode.png'];
         }
         if (strpos($name, 'windsurf') !== false) {
@@ -196,7 +196,7 @@ class Activity extends Model
         if (strpos($name, 'chatgpt') !== false) return '#10a37f';
         if (strpos($name, 'claude') !== false) return '#d97706';
         if (strpos($name, 'cursor') !== false) return '#22c55e';
-        if (strpos($name, 'vscode') !== false) return '#007acc';
+        if (strpos($name, 'vscode') !== false || strpos($name, 'vs code') !== false) return '#007acc';
         if (strpos($name, 'windsurf') !== false) return '#6b7280';
         if (strpos($name, 'perplexity') !== false) return '#6366f1';
         if (strpos($name, 'zed') !== false) return '#22c55e';
@@ -213,7 +213,7 @@ class Activity extends Model
         if (strpos($name, 'chatgpt') !== false) return 'AI Clients';
         if (strpos($name, 'claude') !== false) return 'AI Clients';
         if (strpos($name, 'cursor') !== false) return 'AI IDE';
-        if (strpos($name, 'vscode') !== false) return 'IDE';
+        if (strpos($name, 'vscode') !== false || strpos($name, 'vs code') !== false) return 'IDE';
         if (strpos($name, 'windsurf') !== false) return 'AI IDE';
         if (strpos($name, 'perplexity') !== false) return 'AI Clients';
         if (strpos($name, 'zed') !== false) return 'IDE';

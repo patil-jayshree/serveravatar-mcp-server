@@ -109,7 +109,7 @@
         </div>
         <!-- VS Code -->
         <div class="integration-card simple">
-            @if($connectedClients->where('client_name', 'VS Code')->count() > 0)
+            @if($connectedClients->where('client_name', 'VS Code')->count() > 0 || $connectedClients->where('client_name', 'Visual Studio Code')->count() > 0)
             <span class="badge badge-success badge-top-right">✓ Connected</span>
             @endif
             <div class="integration-logo" style="background: rgba(139, 92, 246, 0.12);">

@@ -53,34 +53,75 @@ class ClientsController extends Controller
             $html = '';
             if ($connectedClients->count() > 0) {
                 foreach ($connectedClients as $client) {
+                    $isActive = $client->last_activity_at && $client->last_activity_at->gt(now()->subMinutes(15));
+                    $clientName = e($client->client_name);
+                    
                     $html .= '<div class="clients-tr">';
                     $html .= '<div class="clients-td" style="flex: 2;">';
-                    $html .= '<div style="display: flex; align-items: center; gap: 0.75rem;">';
-                    $clientImages = [
-                        'Claude' => '/images/clients/claude.png',
-                        'Cursor' => '/images/clients/cursor-light.png',
-                        'VS Code' => '/images/clients/vscode.png',
-                        'ChatGPT' => '/images/clients/chatgpt-light.png',
-                        'Windsurf' => '/images/clients/windsurf-light.png',
-                        'Zed' => '/images/clients/zed.png',
-                        'Continue' => '/images/clients/continue.png',
-                    ];
-                    $imgSrc = $clientImages[$client->client_name] ?? '/images/clients/default.png';
-                    $html .= '<img src="' . e($imgSrc) . '" width="32" height="32" style="border-radius: 6px; object-fit: contain;" onerror="this.style.display=\'none\';" />';
-                    $html .= '<div>';
-                    $html .= '<div style="font-weight: 600; font-size: 0.875rem; color: var(--text-primary);">' . e($client->client_name) . '</div>';
-                    $html .= '<div style="font-size: 0.75rem; color: var(--text-secondary);">' . e($client->client_version ?? 'Unknown version') . '</div>';
-                    $html .= '</div></div></div>';
+                    $html .= '<div class="client-info">';
+                    $html .= '<div class="client-icon-wrap">';
                     
-                    $statusClass = $client->is_active ? 'status-active' : 'status-inactive';
-                    $statusText = $client->is_active ? 'Active' : 'Inactive';
-                    $html .= '<div class="clients-td" style="flex: 1;"><span class="client-status ' . $statusClass . '">' . $statusText . '</span></div>';
+                    // Client icon with proper fallbacks
+                    if ($client->client_name == "Claude" || $client->client_name == "Claude Desktop") {
+                        $html .= '<img src="/images/clients/claude.png" width="32" height="32" style="border-radius: 6px; object-fit: contain;" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'" />';
+                        $html .= '<span class="client-icon-fallback" style="display: none;"><i class="fas fa-robot"></i></span>';
+                    } elseif ($client->client_name == "Cursor") {
+                        $html .= '<img src="/images/clients/cursor-light.png" class="icon-light" width="32" height="32" style="border-radius: 6px; object-fit: contain;" onerror="this.style.display=\'none\';" />';
+                        $html .= '<img src="/images/clients/cursor-dark.png" class="icon-dark" width="32" height="32" style="border-radius: 6px; object-fit: contain;" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\';" />';
+                        $html .= '<span class="client-icon-fallback" style="display: none;">💚</span>';
+                    } elseif ($client->client_name == "VS Code" || $client->client_name == "VSCode" || $client->client_name == "Visual Studio Code") {
+                        $html .= '<img src="/images/clients/vscode.png" width="32" height="32" style="border-radius: 6px; object-fit: contain;" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'" />';
+                        $html .= '<span class="client-icon-fallback" style="display: none;">💙</span>';
+                    } elseif ($client->client_name == "ChatGPT") {
+                        $html .= '<img src="/images/clients/chatgpt-light.png" class="icon-light" width="32" height="32" style="border-radius: 6px; object-fit: contain;" onerror="this.style.display=\'none\';" />';
+                        $html .= '<img src="/images/clients/chatgpt-dark.png" class="icon-dark" width="32" height="32" style="border-radius: 6px; object-fit: contain;" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\';" />';
+                        $html .= '<span class="client-icon-fallback" style="display: none;">🤖</span>';
+                    } elseif ($client->client_name == "Windsurf") {
+                        $html .= '<img src="/images/clients/windsurf-light.png" class="icon-light" width="32" height="32" style="border-radius: 6px; object-fit: contain;" onerror="this.style.display=\'none\';" />';
+                        $html .= '<img src="/images/clients/windsurf-dark.png" class="icon-dark" width="32" height="32" style="border-radius: 6px; object-fit: contain;" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\';" />';
+                        $html .= '<span class="client-icon-fallback" style="display: none;">🌊</span>';
+                    } elseif ($client->client_name == "Zed") {
+                        $html .= '<img src="/images/clients/zed.png" width="32" height="32" style="border-radius: 6px; object-fit: contain;" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'" />';
+                        $html .= '<span class="client-icon-fallback" style="display: none;"><i class="fas fa-server"></i></span>';
+                    } elseif ($client->client_name == "Continue") {
+                        $html .= '<img src="/images/clients/continue.png" width="32" height="32" style="border-radius: 6px; object-fit: contain;" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'" />';
+                        $html .= '<span class="client-icon-fallback" style="display: none;">🔗</span>';
+                    } elseif ($client->client_name == "Cline") {
+                        $html .= '<img src="/images/clients/cline-light.png" class="icon-light" width="32" height="32" style="border-radius: 6px; object-fit: contain;" onerror="this.style.display=\'none\';" />';
+                        $html .= '<img src="/images/clients/cline-dark.png" class="icon-dark" width="32" height="32" style="border-radius: 6px; object-fit: contain;" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\';" />';
+                        $html .= '<span class="client-icon-fallback" style="display: none;"><i class="fas fa-server"></i></span>';
+                    } elseif ($client->client_name == "Gemini") {
+                        $html .= '<img src="/images/clients/gemini.png" width="32" height="32" style="border-radius: 6px; object-fit: contain;" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'" />';
+                        $html .= '<span class="client-icon-fallback" style="display: none;">🌟</span>';
+                    } else {
+                        $html .= '<img src="/images/clients/chatgpt-light.png" class="icon-light" width="32" height="32" style="border-radius: 6px; object-fit: contain;" onerror="this.style.display=\'none\';" />';
+                        $html .= '<img src="/images/clients/chatgpt-dark.png" class="icon-dark" width="32" height="32" style="border-radius: 6px; object-fit: contain;" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\';" />';
+                        $html .= '<span class="client-icon-fallback" style="display: none;"><i class="fas fa-laptop"></i></span>';
+                    }
+                    
+                    $html .= '</div>';
+                    $html .= '<span class="client-name">' . $clientName . '</span>';
+                    $html .= '</div>';
+                    $html .= '</div>';
+                    
+                    $html .= '<div class="clients-td" style="flex: 1;">';
+                    if ($isActive) {
+                        $html .= '<span class="badge badge-active">Active</span>';
+                    } else {
+                        $html .= '<span class="badge badge-inactive">Inactive</span>';
+                    }
+                    $html .= '</div>';
                     
                     $connectedAt = $client->created_at ? $client->created_at->format('M d, Y') : '-';
-                    $html .= '<div class="clients-td" style="flex: 1;"><span class="client-date">' . $connectedAt . '</span></div>';
+                    $connectedAtTime = $client->created_at ? $client->created_at->format('h:i A') : '';
+                    $html .= '<div class="clients-td" style="flex: 1;">';
+                    $html .= '<span class="client-date">' . $connectedAt . '<br><span style="color: var(--text-muted); font-size: 12px;">' . $connectedAtTime . '</span></span>';
+                    $html .= '</div>';
                     
-                    $lastActivity = $client->last_activity_at ? $client->last_activity_at->format('M d, Y') : '-';
-                    $html .= '<div class="clients-td" style="flex: 1;"><span class="client-date">' . $lastActivity . '</span></div>';
+                    $lastActivity = $client->last_activity_at ? $client->last_activity_at->diffForHumans() : 'N/A';
+                    $html .= '<div class="clients-td" style="flex: 1;">';
+                    $html .= '<span class="client-activity">' . $lastActivity . '</span>';
+                    $html .= '</div>';
                     
                     $html .= '</div>';
                 }

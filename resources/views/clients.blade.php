@@ -47,7 +47,7 @@ $csrf = csrf_token();
                         @elseif($client->client_name == "Cursor")
                             <img src="/images/clients/cursor-light.png" class="icon-light" width="32" height="32" style="border-radius: 6px; object-fit: contain;" onerror="this.style.display='none';" /><img src="/images/clients/cursor-dark.png" class="icon-dark" width="32" height="32" style="border-radius: 6px; object-fit: contain;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
                             <span class="client-icon-fallback" style="display: none;">💚</span>
-                        @elseif($client->client_name == "VS Code" || $client->client_name == "VSCode")
+                        @elseif($client->client_name == "VS Code" || $client->client_name == "VSCode" || $client->client_name == "Visual Studio Code")
                             <img src="/images/clients/vscode.png" width="32" height="32" style="border-radius: 6px; object-fit: contain;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
                             <span class="client-icon-fallback" style="display: none;">💙</span>
                         @elseif($client->client_name == "ChatGPT")
