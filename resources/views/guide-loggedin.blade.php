@@ -301,7 +301,7 @@ window.clientsData = {
 
 .guide-ai-client-card-main { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 32px; box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.03); flex: 1; min-width: 0; }
 
-.guide-example-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 32px; box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.03); }
+.guide-example-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 32px; box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.03); flex: 1; min-width: 0; }
 .guide-example-card h2 { font-size: 24px; font-weight: 700; margin: 0 0 6px 0; line-height: 1.2; }
 .guide-example-card h2 span { color: #7c3aed; }
 .guide-example-card p { font-size: 14px; color: #6b7280; line-height: 1.6; margin: 0; }
@@ -313,7 +313,7 @@ window.clientsData = {
 .guide-command-item .cmd-text { font-size: 13px; font-weight: 500; color: var(--text-primary); }
 .guide-command-item .cmd-copy { color: #9ca3af; font-size: 12px; }
 
-.guide-security-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 32px; box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.03); }
+.guide-security-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 32px; box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.03); flex: 1; min-width: 0; }
 .guide-security-card h2 { font-size: 24px; font-weight: 700; margin: 0 0 6px 0; line-height: 1.2; }
 .guide-security-card h2 span { color: #7c3aed; }
 .guide-security-card p { font-size: 14px; color: #6b7280; line-height: 1.6; margin: 0; }
