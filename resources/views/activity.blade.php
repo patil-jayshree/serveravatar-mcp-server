@@ -271,8 +271,8 @@ $csrf = csrf_token();
                 </td>
                 <td>
                     <div class="time-cell">
-                        <span class="time-relative" data-time="{{ $activity->created_at->toISOString() }}">{{ $activity->created_at->diffForHumans() }}</span>
-                        <span class="time-absolute">{{ $activity->created_at->format('M d, Y') }} • {{ $activity->created_at->format('h:i A') }}</span>
+                        <span class="time-relative" data-time="{{ $activity->created_at->timezone(auth()->user()->timezone)->toISOString() }}">@usertime($activity->created_at)</span>
+                        <span class="time-absolute">@usertimeabs($activity->created_at) • {{ $activity->created_at->timezone(auth()->user()->timezone)->format('h:i A') }}</span>
                     </div>
                 </td>
                 <td>

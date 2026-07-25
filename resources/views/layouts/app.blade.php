@@ -716,6 +716,7 @@
     <style>
         [x-cloak] { display: none !important; }
     </style>
+    @vite(['resources/js/app.js'])
     @yield('scripts')
 </body>
 </html>

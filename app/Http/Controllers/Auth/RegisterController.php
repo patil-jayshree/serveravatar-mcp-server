@@ -65,6 +65,9 @@ class RegisterController extends Controller
                 'name' => $validated['name'],
                 'email' => $validated['email'],
                 'password' => Hash::make($validated['password']),
+                'timezone' => $request->input('timezone', 'UTC'),
+                'country' => 'IN',
+                'region' => 'Gujarat',
             ]);
 
             Auth::login($user);

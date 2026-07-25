@@ -80,10 +80,10 @@ $csrf = csrf_token();
                 <span class="badge-active">Active</span>
             </div>
             <div class="clients-td" style="flex: 1;">
-                <span class="client-date">{{ $client->created_at->format('M d, Y') }}<br><span style="color: var(--text-muted); font-size: 12px;">{{ $client->created_at->format('h:i A') }}</span></span>
+                <span class="client-date">{{ $client->created_at->timezone(auth()->user()->timezone)->format('M d, Y') }}<br><span style="color: var(--text-muted); font-size: 12px;">{{ $client->created_at->timezone(auth()->user()->timezone)->format('h:i A') }}</span></span>
             </div>
             <div class="clients-td" style="flex: 1;">
-                <span class="client-activity">{{ $client->last_activity_at ? $client->last_activity_at->diffForHumans() : 'N/A' }}</span>
+                <span class="client-activity">{{ $client->last_activity_at ? $client->last_activity_at->timezone(auth()->user()->timezone)->diffForHumans() : 'N/A' }}</span>
             </div>
         </div>
         @endforeach

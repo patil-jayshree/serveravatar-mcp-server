@@ -112,13 +112,14 @@ class ClientsController extends Controller
                     }
                     $html .= '</div>';
                     
-                    $connectedAt = $client->created_at ? $client->created_at->format('M d, Y') : '-';
-                    $connectedAtTime = $client->created_at ? $client->created_at->format('h:i A') : '';
+                    $tz = $user->timezone ?? 'UTC';
+                    $connectedAt = $client->created_at ? $client->created_at->timezone($tz)->format('M d, Y') : '-';
+                    $connectedAtTime = $client->created_at ? $client->created_at->timezone($tz)->format('h:i A') : '';
                     $html .= '<div class="clients-td" style="flex: 1;">';
                     $html .= '<span class="client-date">' . $connectedAt . '<br><span style="color: var(--text-muted); font-size: 12px;">' . $connectedAtTime . '</span></span>';
                     $html .= '</div>';
                     
-                    $lastActivity = $client->last_activity_at ? $client->last_activity_at->diffForHumans() : 'N/A';
+                    $lastActivity = $client->last_activity_at ? $client->last_activity_at->timezone($tz)->diffForHumans() : 'N/A';
                     $html .= '<div class="clients-td" style="flex: 1;">';
                     $html .= '<span class="client-activity">' . $lastActivity . '</span>';
                     $html .= '</div>';

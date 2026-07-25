@@ -1,5 +1,10 @@
 <?php
 
+// Set temp directory BEFORE Laravel loads to prevent tempnam warnings
+$customTempDir = realpath(__DIR__ . '/../storage/tmp') ?: '/tmp';
+putenv('TMPDIR=' . $customTempDir);
+ini_set('sys_temp_dir', $customTempDir);
+
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 

@@ -17,7 +17,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        // Suppress tempnam warning from filesystem
+        error_reporting(E_ALL & ~E_WARNING);
     }
 
     /**
@@ -71,6 +72,24 @@ class AppServiceProvider extends ServiceProvider
                         ]);
                 }
             }
+        });
+
+        // Share timezone list to all views
+        $timezone_list = \App\Helpers\TimezoneHelper::getAll();
+        view()->share('timezoneList', $timezone_list);
+
+        // Set timezone for dates from authenticated user (affects format())
+        if (auth()->check() && auth()->user()->timezone) {
+            date_default_timezone_set(auth()->user()->timezone);
+        }
+
+        // Blade helper: convert any date to user's timezone
+        \Blade::directive('usertime', function ($date) {
+            return "<?php echo ($date)->timezone(config('app.timezone'))->diffForHumans(); ?>";
+        });
+
+        \Blade::directive('usertimeabs', function ($date) {
+            return "<?php echo ($date)->timezone(config('app.timezone'))->format('M d, Y'); ?>";
         });
     }
 

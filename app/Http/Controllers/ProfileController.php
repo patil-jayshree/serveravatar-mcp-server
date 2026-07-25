@@ -26,6 +26,9 @@ class ProfileController extends Controller
                 'id' => $user->id,
                 'name' => $user->name,
                 'email' => $user->email,
+                'timezone' => $user->timezone ?? 'UTC',
+                'country' => $user->country ?? '',
+                'region' => $user->region ?? '',
             ]);
         } catch (Exception $e) {
             return response()->json([
@@ -40,6 +43,9 @@ class ProfileController extends Controller
         try {
             $validated = $request->validate([
                 'name' => 'required|string|max:255',
+                'timezone' => 'required|string|timezone',
+                'country' => 'required|string|size:2',
+                'region' => 'required|string|max:255',
             ]);
 
             $user = auth()->user();

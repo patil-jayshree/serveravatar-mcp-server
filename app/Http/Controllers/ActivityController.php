@@ -152,6 +152,7 @@ class ActivityController extends Controller
 
             $html = '';
             foreach ($activities as $activity) {
+                $tz = $user->timezone ?? 'UTC';
                 $metadata = $activity->metadata ?? [];
                 $hasPayload = !empty($metadata['arguments']) || !empty($metadata['response']);
                 $clientInitials = $this->getClientInitials($activity->client_name);
@@ -170,9 +171,9 @@ class ActivityController extends Controller
                     'client_logo' => \App\Helpers\ClientLogoHelper::getLogo($activity->client_name),
                     'client_type' => $this->getClientType($activity->client_name),
                     'ip_address' => $activity->ip_address,
-                    'time_ago' => $activity->created_at->diffForHumans(),
-                    'formatted_date' => $activity->created_at->format('M j, Y'),
-                    'formatted_time' => $activity->created_at->format('h:i A'),
+                    'time_ago' => $activity->created_at->timezone($tz)->diffForHumans(),
+                    'formatted_date' => $activity->created_at->timezone($tz)->format('M j, Y'),
+                    'formatted_time' => $activity->created_at->timezone($tz)->format('h:i A'),
                     'metadata' => $metadata,
                 ]), ENT_QUOTES, 'UTF-8');
                 $html .= '<tr data-id="' . $activity->id . '" data-activity="' . $activityJson . '">';
@@ -211,8 +212,8 @@ class ActivityController extends Controller
                 // Time column
                 $html .= '<td>';
                 $html .= '<div class="time-cell">';
-                $html .= '<span class="time-relative">' . $activity->created_at->diffForHumans() . '</span>';
-                $html .= '<span class="time-absolute">' . $activity->created_at->format('M d, Y') . ' • ' . $activity->created_at->format('h:i A') . '</span>';
+                $html .= '<span class="time-relative">' . $activity->created_at->timezone($tz)->diffForHumans() . '</span>';
+                $html .= '<span class="time-absolute">' . $activity->created_at->timezone($tz)->format('M d, Y') . ' • ' . $activity->created_at->timezone($tz)->format('h:i A') . '</span>';
                 $html .= '</div>';
                 $html .= '</td>';
                 

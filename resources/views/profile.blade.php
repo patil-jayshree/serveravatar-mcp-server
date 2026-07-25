@@ -52,6 +52,7 @@ $updatedAt = $user->updated_at ? date('F d, Y', strtotime($user->updated_at)) : 
     @media (max-width: 640px) { .form-grid { grid-template-columns: 1fr; } }
     .form-group { }
     .form-label { display: block; font-size: 0.75rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.5px; }
+    .form-label .required { color: #ef4444; margin-left: 2px; }
     .input-wrap { position: relative; }
     .input-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 0.875rem; display: flex; align-items: center; }
     .form-input { width: 100%; padding: 0.625rem 0.75rem 0.625rem 2.25rem; background: var(--bg-input); border: 1px solid var(--border-color); border-radius: 8px; font-size: 0.875rem; color: var(--text-primary); transition: all 0.2s; box-sizing: border-box; }
@@ -200,7 +201,7 @@ $updatedAt = $user->updated_at ? date('F d, Y', strtotime($user->updated_at)) : 
                     @csrf
                     <div class="form-grid">
                         <div class="form-group">
-                            <label class="form-label">Full Name</label>
+                            <label class="form-label">Full Name <span class="required">*</span></label>
                             <div class="input-wrap">
                                 <span class="input-icon"><i class="fas fa-user"></i></span>
                                 <input type="text" id="nameInput" class="form-input" placeholder="Enter your name" required>
@@ -213,6 +214,36 @@ $updatedAt = $user->updated_at ? date('F d, Y', strtotime($user->updated_at)) : 
                                 <input type="email" id="emailInput" class="form-input" disabled placeholder="Email address">
                             </div>
                             <div class="form-hint">We'll never share your email with anyone else.</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Country <span class="required">*</span></label>
+                            <div class="input-wrap">
+                                <span class="input-icon"><i class="fas fa-globe"></i></span>
+                                <select id="countrySelect" class="form-input" style="padding-left: 2.25rem;">
+                                    <option value="" disabled selected>-- Select Country --</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Region <span class="required">*</span></label>
+                            <div class="input-wrap">
+                                <span class="input-icon"><i class="fas fa-map-marker-alt"></i></span>
+                                <select id="regionSelect" class="form-input" style="padding-left: 2.25rem;" disabled>
+                                    <option value="" disabled selected>-- Select Region --</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Timezone <span class="required">*</span></label>
+                            <div class="input-wrap">
+                                <span class="input-icon"><i class="fas fa-clock"></i></span>
+                                <select id="timezoneInput" class="form-input" style="padding-left: 2.25rem;">
+                                    <option value="" disabled selected>-- Select Timezone --</option>
+                                    @foreach($timezoneList as $tz => $label)
+                                        <option value="{{ $tz }}">{{ $label }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
                     </div>
                     <div style="border-top: 1px solid var(--border-color); margin: 2rem 0 1rem 0;"></div>
@@ -238,7 +269,7 @@ $updatedAt = $user->updated_at ? date('F d, Y', strtotime($user->updated_at)) : 
         <!-- Password Fields Row -->
         <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 1.5rem;">
             <div>
-                <label class="form-label">Current Password <span style="color: #ef4444;">*</span></label>
+                <label class="form-label">Current Password <span class="required">*</span></label>
                 <div class="field-wrap">
                     <input type="password" id="current_password" class="field-input" placeholder="Enter current password" style="padding-left: 0.875rem;">
                     <button type="button" class="eye-btn" onclick="togglePwd('current_password')">
@@ -247,7 +278,7 @@ $updatedAt = $user->updated_at ? date('F d, Y', strtotime($user->updated_at)) : 
                 </div>
             </div>
             <div>
-                <label class="form-label">New Password <span style="color: #ef4444;">*</span></label>
+                <label class="form-label">New Password <span class="required">*</span></label>
                 <div class="field-wrap">
                     <input type="password" id="new_password" class="field-input" placeholder="Enter new password" oninput="checkStrength(); checkRequirements();" style="padding-left: 0.875rem;">
                     <button type="button" class="eye-btn" onclick="togglePwd('new_password')">
@@ -266,7 +297,7 @@ $updatedAt = $user->updated_at ? date('F d, Y', strtotime($user->updated_at)) : 
                 </div>
             </div>
             <div>
-                <label class="form-label">Confirm Password <span style="color: #ef4444;">*</span></label>
+                <label class="form-label">Confirm Password <span class="required">*</span></label>
                 <div class="field-wrap">
                     <input type="password" id="confirm_password" class="field-input" placeholder="Confirm new password" oninput="checkPwordFields(); checkPasswordMatch();" style="padding-left: 0.875rem;">
                     <button type="button" class="eye-btn" onclick="togglePwd('confirm_password')">
@@ -485,19 +516,44 @@ fetch('/api/profile', {
 .then(function(d) {
     document.getElementById('nameInput').value = d.name || '';
     document.getElementById('emailInput').value = d.email || '';
+    if (d.timezone) { document.getElementById('timezoneInput').value = d.timezone; }
+
+    // Pre-select saved country and region
+    if (window.LocationSelector) {
+        LocationSelector.init('countrySelect', 'regionSelect', {
+            savedCountry: d.country || '',
+            savedRegion: d.region || '',
+        });
+    } else {
+        // Fallback: init after short delay in case Vite hasn't loaded yet
+        var tryInit = setInterval(function() {
+            if (window.LocationSelector) {
+                LocationSelector.init('countrySelect', 'regionSelect', {
+                    savedCountry: d.country || '',
+                    savedRegion: d.region || '',
+                });
+                clearInterval(tryInit);
+            }
+        }, 100);
+    }
 });
 
 // Save Profile
 function saveProfile() {
     var btn = document.getElementById('saveProfileBtn');
     var name = document.getElementById('nameInput').value.trim();
+    var timezone = document.getElementById('timezoneInput').value.trim();
+    var country = window.LocationSelector ? LocationSelector.getCountry() : '';
+    var region  = window.LocationSelector ? LocationSelector.getRegion()  : '';
     var token = document.querySelector('input[name="_token"]').value;
     if (!name) { showToast('Please enter your name', true); return; }
+    if (!country) { showToast('Please select a country', true); return; }
+    if (!region) { showToast('Please select a region', true); return; }
     btn.disabled = true;
     btn.innerHTML = '<i class="fas fa-spinner fa-spin" style="font-size: 0.875rem;"></i> Saving...';
     fetch('/api/profile', {
         method: 'PATCH',
-        body: JSON.stringify({ name: name }),
+        body: JSON.stringify({ name: name, timezone: timezone, country: country, region: region }),
         headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': token, 'Accept': 'application/json' }
     })
     .then(function(r) { return r.json(); })

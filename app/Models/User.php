@@ -22,6 +22,9 @@ class User extends Authenticatable
         'serveravatar_refresh_token',
         'serveravatar_token_expires_at',
         'api_key',
+        'timezone',
+        'country',
+        'region',
         'last_login_at',
     ];
 

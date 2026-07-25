@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\SetUserTimezone;
 use App\Http\Middleware\TrackMcpAnalytics;
 use App\Http\Middleware\ValidateMcpToken;
 use Illuminate\Foundation\Application;
@@ -19,6 +20,10 @@ return Application::configure(basePath: dirname(__DIR__))
             'track_mcp_analytics' => TrackMcpAnalytics::class,
         ]);
         
+        $middleware->api(prepend: [
+            SetUserTimezone::class,
+        ]);
+
         $middleware->statefulApi();
     })
     ->withExceptions(function (Exceptions $exceptions) {

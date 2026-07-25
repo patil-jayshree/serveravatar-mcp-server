@@ -5,6 +5,11 @@
         (function() {
             var t = localStorage.getItem('theme') || 'dark';
             document.documentElement.setAttribute('data-theme', t);
+
+            // Auto-detect browser timezone
+            var tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            var tzInput = document.getElementById('reg_timezone');
+            if (tzInput) tzInput.value = tz;
         })();
     </script>
     <meta charset="UTF-8">
@@ -105,6 +110,7 @@
                 </div>
                 <form method="post" action="{{ route('register') }}">
                     @csrf
+                    <input type="hidden" name="timezone" id="reg_timezone" value="UTC">
                     <div class="form-group">
                         <label class="form-label" for="name">Full Name <span class="required">*</span></label>
                         <input type="text" id="name" name="name" class="form-input" value="{{ old('name', '') }}" placeholder="John Doe" required autofocus>
