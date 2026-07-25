@@ -155,7 +155,7 @@ class ActivityController extends Controller
                 $metadata = $activity->metadata ?? [];
                 $hasPayload = !empty($metadata['arguments']) || !empty($metadata['response']);
                 $clientInitials = $this->getClientInitials($activity->client_name);
-                $clientColor = $this->getClientColor($activity->client_name);
+                $clientColor = \App\Helpers\ClientLogoHelper::getColor($activity->client_name);
                 
                 $activityJson = htmlspecialchars(json_encode([
                     'id' => $activity->id,
@@ -167,7 +167,7 @@ class ActivityController extends Controller
                     'client_name' => $activity->client_name,
                     'client_initials' => $clientInitials,
                     'client_color' => $clientColor,
-                    'client_logo' => $this->getClientLogo($activity->client_name),
+                    'client_logo' => \App\Helpers\ClientLogoHelper::getLogo($activity->client_name),
                     'client_type' => $this->getClientType($activity->client_name),
                     'ip_address' => $activity->ip_address,
                     'time_ago' => $activity->created_at->diffForHumans(),
@@ -193,7 +193,7 @@ class ActivityController extends Controller
                 // Client column
                 $html .= '<td>';
                 $html .= '<div class="client-cell">';
-                $logo = $this->getClientLogo($activity->client_name);
+                $logo = \App\Helpers\ClientLogoHelper::getLogo($activity->client_name);
                 if ($logo) {
                     $html .= '<div class="client-avatar"><img src="' . $logo['light'] . '" alt="" width="28" height="28" class="icon-light"><img src="' . $logo['dark'] . '" alt="" width="28" height="28" class="icon-dark"></div>';
                 } else {
