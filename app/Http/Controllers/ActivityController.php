@@ -368,7 +368,7 @@ class ActivityController extends Controller
         if (strpos($name, 'chatgpt') !== false) return 'AI Clients';
         if (strpos($name, 'claude') !== false) return 'AI Clients';
         if (strpos($name, 'cursor') !== false) return 'AI IDE';
-        if (strpos($name, 'vscode') !== false) return 'IDE';
+        if (strpos($name, 'vscode') !== false || strpos($name, 'vs code') !== false) return 'IDE';
         if (strpos($name, 'windsurf') !== false) return 'AI IDE';
         if (strpos($name, 'perplexity') !== false) return 'AI Clients';
         if (strpos($name, 'zed') !== false) return 'IDE';
