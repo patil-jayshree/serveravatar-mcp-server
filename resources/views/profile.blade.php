@@ -48,7 +48,7 @@ $updatedAt = $user->updated_at ? date('F d, Y', strtotime($user->updated_at)) : 
     .avatar-since { font-size: 0.75rem; color: var(--text-muted); }
 
     /* Form fields */
-    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.10rem 1.5rem; }
     @media (max-width: 640px) { .form-grid { grid-template-columns: 1fr; } }
     .form-group { }
     .form-label { display: block; font-size: 0.75rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.5px; }
@@ -219,7 +219,7 @@ $updatedAt = $user->updated_at ? date('F d, Y', strtotime($user->updated_at)) : 
                             <label class="form-label">Country <span class="required">*</span></label>
                             <div class="input-wrap">
                                 <span class="input-icon"><i class="fas fa-globe"></i></span>
-                                <select id="countrySelect" class="form-input" style="padding-left: 2.25rem;">
+                                <select id="countrySelect" class="form-input" style="padding-left: 2.25rem; padding-right: 2rem;">
                                     <option value="" disabled selected>-- Select Country --</option>
                                 </select>
                             </div>
@@ -228,16 +228,16 @@ $updatedAt = $user->updated_at ? date('F d, Y', strtotime($user->updated_at)) : 
                             <label class="form-label">Region <span class="required">*</span></label>
                             <div class="input-wrap">
                                 <span class="input-icon"><i class="fas fa-map-marker-alt"></i></span>
-                                <select id="regionSelect" class="form-input" style="padding-left: 2.25rem;" disabled>
+                                <select id="regionSelect" class="form-input" style="padding-left: 2.25rem; padding-right: 2rem;" disabled>
                                     <option value="" disabled selected>-- Select Region --</option>
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" style="grid-column: 1 / -1;">
                             <label class="form-label">Timezone <span class="required">*</span></label>
                             <div class="input-wrap">
                                 <span class="input-icon"><i class="fas fa-clock"></i></span>
-                                <select id="timezoneInput" class="form-input" style="padding-left: 2.25rem;">
+                                <select id="timezoneInput" class="form-input" style="padding-left: 2.25rem; padding-right: 2rem;">
                                     <option value="" disabled selected>-- Select Timezone --</option>
                                     @foreach($timezoneList as $tz => $label)
                                         <option value="{{ $tz }}">{{ $label }}</option>
@@ -518,24 +518,23 @@ fetch('/api/profile', {
     document.getElementById('emailInput').value = d.email || '';
     if (d.timezone) { document.getElementById('timezoneInput').value = d.timezone; }
 
-    // Pre-select saved country and region
-    if (window.LocationSelector) {
-        LocationSelector.init('countrySelect', 'regionSelect', {
-            savedCountry: d.country || '',
-            savedRegion: d.region || '',
-        });
-    } else {
-        // Fallback: init after short delay in case Vite hasn't loaded yet
-        var tryInit = setInterval(function() {
-            if (window.LocationSelector) {
+    // Pre-select saved country and region - wait for LocationSelector to load
+    function initLocation(country, region) {
+        if (window.LocationSelector) {
+            LocationSelector.init('countrySelect', 'regionSelect', {
+                savedCountry: country || '',
+                savedRegion: region || '',
+            });
+        } else {
+            window.addEventListener('LocationSelectorReady', function() {
                 LocationSelector.init('countrySelect', 'regionSelect', {
-                    savedCountry: d.country || '',
-                    savedRegion: d.region || '',
+                    savedCountry: country || '',
+                    savedRegion: region || '',
                 });
-                clearInterval(tryInit);
-            }
-        }, 100);
+            });
+        }
     }
+    initLocation(d.country, d.region);
 });
 
 // Save Profile
