@@ -718,5 +718,6 @@
     </style>
     @vite(['resources/js/app.js'])
     @yield('scripts')
+    @include('components.toast')
 </body>
 </html>
