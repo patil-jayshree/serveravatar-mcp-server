@@ -54,7 +54,13 @@ $csrf = csrf_token();
 .badge-primary { background: rgba(139, 92, 246, 0.12); color: #8b5cf6; }
 .badge-danger { background: rgba(239, 68, 68, 0.12); color: #ef4444; }
 .badge-cyan { background: rgba(6, 182, 212, 0.12); color: #06b6d4; }
+.badge-skyblue { background: rgba(46, 209, 201, 0.12); color: #2ed1c9; }
 .badge-secondary { background: rgba(148, 163, 184, 0.12); color: #64748b; }
+.badge-pink { background: rgba(236, 72, 153, 0.12); color: #ec4899; }
+.badge-yellow { background: rgba(234, 179, 8, 0.12); color: #eab308; }
+.badge-violet { background: rgba(168, 85, 247, 0.12); color: #a855f7; }
+.badge-lime { background: rgba(132, 204, 22, 0.12); color: #84cc16; }
+.badge-orange { background: rgba(249, 115, 22, 0.12); color: #f97316; }
 .client-cell { display: flex; align-items: center; gap: 10px; }
 .client-avatar { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; flex-shrink: 0; }
 .client-name { font-size: 0.85rem; font-weight: 600; color: var(--text-primary); }
@@ -87,6 +93,11 @@ $csrf = csrf_token();
 .panel-badge.badge-danger { background: rgba(239, 68, 68, 0.1); color: #ef4444; }
 .panel-badge.badge-primary { background: rgba(139, 92, 246, 0.1); color: #8b5cf6; }
 .panel-badge.badge-cyan { background: rgba(6, 182, 212, 0.1); color: #06b6d4; }
+.panel-badge.badge-pink { background: rgba(236, 72, 153, 0.1); color: #ec4899; }
+.panel-badge.badge-yellow { background: rgba(234, 179, 8, 0.1); color: #eab308; }
+.panel-badge.badge-violet { background: rgba(168, 85, 247, 0.1); color: #a855f7; }
+.panel-badge.badge-lime { background: rgba(132, 204, 22, 0.1); color: #84cc16; }
+.panel-badge.badge-orange { background: rgba(249, 115, 22, 0.1); color: #f97316; }
 .panel-header-content { display: flex; flex-direction: column; gap: 8px; }
 .panel-desc { font-size: 0.85rem; color: var(--text-primary); }
 .panel-close { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; background: transparent; border: none; border-radius: 8px; color: var(--text-muted); cursor: pointer; font-size: 1.25rem; transition: all 0.2s; }
@@ -204,6 +215,8 @@ $csrf = csrf_token();
             <div class="filter-dropdown-item" data-value="token_revoked" onclick="selectOption('event', 'token_revoked', 'Token Revoked', event)">Token Revoked</div>
             <div class="filter-dropdown-item" data-value="password_changed" onclick="selectOption('event', 'password_changed', 'Password Changed', event)">Password Changed</div>
             <div class="filter-dropdown-item" data-value="profile_updated" onclick="selectOption('event', 'profile_updated', 'Profile Updated', event)">Profile Updated</div>
+            <div class="filter-dropdown-item" data-value="email_change_requested" onclick="selectOption('event', 'email_change_requested', 'Email Change Requested', event)">Email Change Requested</div>
+            <div class="filter-dropdown-item" data-value="email_updated" onclick="selectOption('event', 'email_updated', 'Email Updated', event)">Email Updated</div>
         </div>
     </div>
     <div class="filter-select" onclick="toggleDropdown('client')" id="clientFilterWrapper">
@@ -242,7 +255,7 @@ $csrf = csrf_token();
             <tr data-id="{{ $activity->id }}" data-activity='@json($activity)'>
                 <td>
                     <div class="event-cell">
-                        <div class="event-icon" style="background: @if($activity->type === 'tool_executed'){{ ($activity->metadata['success'] ?? true) ? 'rgba(59, 130, 246, 0.1)' : 'rgba(239, 68, 68, 0.1)' }}@elseif($activity->type === 'client_connected')rgba(34, 197, 94, 0.1)@elseif($activity->type === 'api_key_saved')rgba(139, 92, 246, 0.1)@elseif($activity->type === 'api_key_updated')rgba(245, 158, 11, 0.1)@elseif($activity->type === 'profile_updated')rgba(6, 182, 212, 0.1)@elseif($activity->type === 'password_changed')rgba(99, 102, 241, 0.1)@elseif($activity->type === 'settings_updated')rgba(100, 116, 139, 0.1)@elseif($activity->type === 'token_created')rgba(34, 197, 94, 0.1)@elseif($activity->type === 'token_revoked')rgba(239, 68, 68, 0.1)@elseif($activity->type === 'email_change_requested')rgba(245, 158, 11, 0.1)@elseif($activity->type === 'email_updated')rgba(34, 197, 94, 0.1)@else{{ 'rgba(139, 92, 246, 0.1)' }}@endif;">
+                        <div class="event-icon" style="background: @if($activity->type === 'tool_executed'){{ ($activity->metadata['success'] ?? true) ? 'rgba(59, 130, 246, 0.10)' : 'rgba(239, 68, 68, 0.10)' }}@elseif($activity->type === 'client_connected')rgba(34, 197, 94, 0.10)@elseif($activity->type === 'api_key_saved')rgba(139, 92, 246, 0.10)@elseif($activity->type === 'api_key_updated')rgba(249, 115, 22, 0.10)@elseif($activity->type === 'profile_updated')rgba(46, 209, 201, 0.10)@elseif($activity->type === 'password_changed')rgba(234, 179, 8, 0.10)@elseif($activity->type === 'settings_updated')rgba(107, 114, 128, 0.10)@elseif($activity->type === 'token_created')rgba(6, 182, 212, 0.10)@elseif($activity->type === 'token_revoked')rgba(239, 68, 68, 0.10)@elseif($activity->type === 'email_change_requested')rgba(168, 85, 247, 0.10)@elseif($activity->type === 'email_updated')rgba(132, 204, 22, 0.10)@else{{ 'rgba(139, 92, 246, 0.10)' }}@endif;">
                             {!! $activity->icon !!}
                         </div>
                         <div class="event-info">
@@ -259,7 +272,7 @@ $csrf = csrf_token();
                                 <img src="{{ $activity->client_logo['dark'] }}" alt="" width="28" height="28" class="icon-dark">
                             </div>
                         @else
-                            <div class="client-avatar" style="background: @if($activity->type === 'tool_executed'){{ ($activity->metadata['success'] ?? true) ? 'rgba(59, 130, 246, 0.2)' : 'rgba(239, 68, 68, 0.2)' }}@elseif($activity->type === 'client_connected')rgba(34, 197, 94, 0.2)@elseif($activity->type === 'api_key_saved')rgba(139, 92, 246, 0.2)@elseif($activity->type === 'api_key_updated')rgba(245, 158, 11, 0.2)@elseif($activity->type === 'profile_updated')rgba(6, 182, 212, 0.2)@elseif($activity->type === 'password_changed')rgba(99, 102, 241, 0.2)@elseif($activity->type === 'settings_updated')rgba(100, 116, 139, 0.2)@elseif($activity->type === 'token_created')rgba(34, 197, 94, 0.2)@elseif($activity->type === 'token_revoked')rgba(239, 68, 68, 0.2)@elseif($activity->type === 'email_change_requested')rgba(245, 158, 11, 0.2)@elseif($activity->type === 'email_updated')rgba(34, 197, 94, 0.2)@else{{ $activity->client_color ? $activity->client_color . '33' : 'rgba(139, 92, 246, 0.2)' }}@endif;">
+                            <div class="client-avatar" style="background: @if($activity->type === 'tool_executed'){{ ($activity->metadata['success'] ?? true) ? 'rgba(59, 130, 246, 0.20)' : 'rgba(239, 68, 68, 0.20)' }}@elseif($activity->type === 'client_connected')rgba(34, 197, 94, 0.20)@elseif($activity->type === 'api_key_saved')rgba(139, 92, 246, 0.20)@elseif($activity->type === 'api_key_updated')rgba(249, 115, 22, 0.20)@elseif($activity->type === 'profile_updated')rgba(46, 209, 201, 0.20)@elseif($activity->type === 'password_changed')rgba(234, 179, 8, 0.20)@elseif($activity->type === 'settings_updated')rgba(107, 114, 128, 0.20)@elseif($activity->type === 'token_created')rgba(6, 182, 212, 0.20)@elseif($activity->type === 'token_revoked')rgba(239, 68, 68, 0.20)@elseif($activity->type === 'email_change_requested')rgba(168, 85, 247, 0.20)@elseif($activity->type === 'email_updated')rgba(132, 204, 22, 0.20)@else{{ $activity->client_color ? $activity->client_color . '33' : 'rgba(139, 92, 246, 0.20)' }}@endif;">
                                 {{ $activity->client_initials ?? 'SA' }}
                             </div>
                         @endif

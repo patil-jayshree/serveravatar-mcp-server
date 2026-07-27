@@ -412,17 +412,17 @@ class ActivityController extends Controller
 
         // Match colors from Activity model icon() method
         return match($activity->type) {
-            'client_connected' => 'rgba(34, 197, 94, 0.2)',      // green
-            'api_key_saved' => 'rgba(139, 92, 246, 0.2)',        // purple
-            'api_key_updated' => 'rgba(245, 158, 11, 0.2)',      // amber
-            'profile_updated' => 'rgba(6, 182, 212, 0.2)',       // cyan
-            'password_changed' => 'rgba(99, 102, 241, 0.2)',     // indigo
-            'settings_updated' => 'rgba(100, 116, 139, 0.2)',    // gray
-            'token_created' => 'rgba(34, 197, 94, 0.2)',         // green
-            'token_revoked' => 'rgba(239, 68, 68, 0.2)',         // red
-            'email_change_requested' => 'rgba(245, 158, 11, 0.2)', // amber/orange
-            'email_updated' => 'rgba(34, 197, 94, 0.2)',         // green
-            default => 'rgba(139, 92, 246, 0.2)',                // default purple
+            'client_connected' => 'rgba(34, 197, 94, 0.20)',      // Emerald Green
+            'api_key_saved' => 'rgba(139, 92, 246, 0.20)',        // Purple
+            'api_key_updated' => 'rgba(249, 115, 22, 0.20)',      // Orange
+            'profile_updated' => 'rgba(46, 209, 201, 0.2)',      // sky blue
+            'password_changed' => 'rgba(234, 179, 8, 0.20)',      // Yellow
+            'settings_updated' => 'rgba(107, 114, 128, 0.20)',   // Gray
+            'token_created' => 'rgba(6, 182, 212, 0.20)',         // Cyan
+            'token_revoked' => 'rgba(239, 68, 68, 0.20)',        // Red
+            'email_change_requested' => 'rgba(168, 85, 247, 0.20)', // Violet
+            'email_updated' => 'rgba(132, 204, 22, 0.20)',       // Lime
+            default => 'rgba(139, 92, 246, 0.2)',                 // default purple
         };
     }
 }

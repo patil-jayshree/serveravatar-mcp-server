@@ -63,14 +63,14 @@ class Activity extends Model
         return match($this->type) {
             self::TYPE_CLIENT_CONNECTED => '<i class="fa-solid fa-robot" style="color: #22c55e;"></i>',
             self::TYPE_API_KEY_SAVED => '<i class="fas fa-key" style="color: #8b5cf6;"></i>',
-            self::TYPE_API_KEY_UPDATED => '<i class="fas fa-key" style="color: #f59e0b;"></i>',
-            self::TYPE_PROFILE_UPDATED => '<i class="fas fa-user-pen" style="color: #06b6d4;"></i>',
-            self::TYPE_PASSWORD_CHANGED => '<i class="fas fa-lock" style="color: #6366f1;"></i>',
-            self::TYPE_SETTINGS_UPDATED => '<i class="fas fa-sliders" style="color: #64748b;"></i>',
-            self::TYPE_TOKEN_CREATED => '<i class="fas fa-key" style="color: #22c55e;"></i>',
+            self::TYPE_API_KEY_UPDATED => '<i class="fas fa-key" style="color: #f97316;"></i>',
+            self::TYPE_PROFILE_UPDATED => '<i class="fas fa-user-pen" style="color: #2ed1c9;"></i>',
+            self::TYPE_PASSWORD_CHANGED => '<i class="fas fa-lock" style="color: #eab308;"></i>',
+            self::TYPE_SETTINGS_UPDATED => '<i class="fas fa-sliders" style="color: #6b7280;"></i>',
+            self::TYPE_TOKEN_CREATED => '<i class="fas fa-key" style="color: #06b6d4;"></i>',
             self::TYPE_TOKEN_REVOKED => '<i class="fas fa-key" style="color: #ef4444;"></i>',
-            self::TYPE_EMAIL_CHANGE_REQUESTED => '<i class="fas fa-envelope" style="color: #f59e0b;"></i>',
-            self::TYPE_EMAIL_UPDATED => '<i class="fas fa-envelope-circle-check" style="color: #22c55e;"></i>',
+            self::TYPE_EMAIL_CHANGE_REQUESTED => '<i class="fas fa-envelope" style="color: #a855f7;"></i>',
+            self::TYPE_EMAIL_UPDATED => '<i class="fas fa-envelope-circle-check" style="color: #84cc16;"></i>',
             default => '<i class="fas fa-circle-info" style="color: #94a3b8;"></i>',
         };
     }
@@ -109,14 +109,14 @@ class Activity extends Model
         return match($this->type) {
             self::TYPE_CLIENT_CONNECTED => 'success',
             self::TYPE_API_KEY_SAVED => 'primary',
-            self::TYPE_API_KEY_UPDATED => 'warning',
-            self::TYPE_PROFILE_UPDATED => 'cyan',
-            self::TYPE_PASSWORD_CHANGED => 'primary',
+            self::TYPE_API_KEY_UPDATED => 'orange',
+            self::TYPE_PROFILE_UPDATED => 'skyblue',
+            self::TYPE_PASSWORD_CHANGED => 'yellow',
             self::TYPE_SETTINGS_UPDATED => 'secondary',
-            self::TYPE_TOKEN_CREATED => 'success',
+            self::TYPE_TOKEN_CREATED => 'cyan',
             self::TYPE_TOKEN_REVOKED => 'danger',
-            self::TYPE_EMAIL_CHANGE_REQUESTED => 'warning',
-            self::TYPE_EMAIL_UPDATED => 'success',
+            self::TYPE_EMAIL_CHANGE_REQUESTED => 'violet',
+            self::TYPE_EMAIL_UPDATED => 'lime',
             default => 'secondary',
         };
     }
@@ -208,10 +208,10 @@ class Activity extends Model
     {
         // Email activities are from web interface
         if ($this->type === self::TYPE_EMAIL_CHANGE_REQUESTED) {
-            return '#f59e0b';
+            return '#a855f7';
         }
         if ($this->type === self::TYPE_EMAIL_UPDATED) {
-            return '#22c55e';
+            return '#84cc16';
         }
         
         $name = strtolower($this->client_name ?? '');
