@@ -138,10 +138,14 @@
         .badge-success { background: rgba(22, 163, 74, 0.15); color: #16a34a; }
         .badge-info { background: rgba(59, 130, 246, 0.15); color: #3b82f6; }
         .badge-warning { background: rgba(245, 158, 11, 0.15); color: #d97706; }
-        .badge-danger { background: rgba(249, 115, 22, 0.15); color: #f97316; }
+        .badge-danger { background: rgba(239, 68, 68, 0.15); color: #ef4444; }
         .badge-secondary { background: rgba(148, 163, 184, 0.15); color: #64748b; }
         .badge-primary { background: rgba(139, 92, 246, 0.15); color: #8b5cf6; }
         .badge-cyan { background: rgba(6, 182, 212, 0.15); color: #06b6d4; }
+        .badge-orange { background: rgba(249, 115, 22, 0.15); color: #f97316; }
+        .badge-skyblue { background: rgba(46, 209, 201, 0.15); color: #2ed1c9; }
+        .badge-lime { background: rgba(132, 204, 22, 0.15); color: #84cc16; }
+        .badge-violet { background: rgba(168, 85, 247, 0.15); color: #a855f7; }
         .activity-empty { text-align: center; padding: 2rem; color: var(--text-secondary); }
         .activity-empty p { font-size: 0.875rem; margin-top: 0.5rem; }
 
