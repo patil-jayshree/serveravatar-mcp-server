@@ -531,6 +531,7 @@
         .refresh-btn .fa-sync-alt { font-size: 14px; color: var(--accent-primary); }
         .refresh-btn.loading .fa-sync-alt { animation: spin 0.6s linear infinite; }
         @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@keyframes skeleton-pulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 0.9; } }
         .clients-card { padding: 0; }
         .clients-header-row { display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.5rem; border-bottom: 1px solid var(--border-color); }
 
