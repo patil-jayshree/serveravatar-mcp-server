@@ -69,8 +69,8 @@
         .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 20px; border-radius: var(--radius-md); font-weight: 600; font-size: 0.9rem; border: none; cursor: pointer; transition: all var(--transition-fast); text-decoration: none; white-space: nowrap; }
         .btn-ghost { background: transparent; color: var(--text-secondary); }
         .btn-ghost:hover { background: var(--bg-tertiary); color: var(--text-primary); }
-        .btn-primary { background: var(--gradient-primary); color: white; box-shadow: 0 2px 8px rgba(79, 70, 229, 0.3); }
-        .btn-primary:hover { box-shadow: 0 4px 12px rgba(79, 70, 229, 0.4); transform: translateY(-1px); }
+        .btn-primary { background: var(--gradient-primary); color: white; box-shadow: 0 2px 8px rgba(79, 70, 229, 0.3); transition: all var(--transition-fast); }
+        .btn-primary:hover { box-shadow: 0 4px 20px rgba(99, 102, 241, 0.5); transform: translateY(-2px); }
 
         /* Hero */
         .hero { min-height: auto; display: flex; align-items: flex-start; justify-content: center; padding: 4rem 2rem 3rem; position: relative; overflow: hidden; box-sizing: border-box; }
@@ -95,14 +95,15 @@
         .star-14 { top: 85%; right: 20%; width: 16px; height: 16px; animation-delay: 1.8s; }
         @keyframes starPulse { 0%, 100% { opacity: 0.4; transform: scale(0.95); } 50% { opacity: 0.6; transform: scale(1); } }
         .hero-wrapper { max-width: 800px; text-align: center; position: relative; z-index: 1; padding-top: 5rem; }
-        .hero-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--accent-primary-muted); color: var(--accent-primary); padding: 6px 14px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; margin-bottom: 0.75rem; }
+        .hero-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--accent-primary-muted); color: var(--accent-primary); padding: 6px 14px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; margin-bottom: 0.75rem; opacity: 0; transform: translateY(20px); animation: heroFadeIn 0.8s ease forwards; }
         .hero-how-link { display: inline-block; color: var(--accent-primary); font-size: 0.85rem; font-weight: 600; text-decoration: none; margin-bottom: 1rem; transition: opacity 0.2s; }
         .hero-how-link:hover { opacity: 0.8; text-decoration: underline; }
-        .hero-title { font-size: 3.5rem; font-weight: 800; letter-spacing: -0.03em; line-height: 1.2; margin-bottom: 0.75rem; }
+        .hero-title { font-size: 3.5rem; font-weight: 800; letter-spacing: -0.03em; line-height: 1.2; margin-bottom: 0.75rem; opacity: 0; transform: translateY(20px); animation: heroFadeIn 0.8s ease 0.2s forwards; }
         .hero-title span { background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-        .hero-subtitle { color: var(--text-secondary); font-size: 1rem; margin-bottom: 1.5rem; line-height: 1.6; max-width: 560px; margin-left: auto; margin-right: auto; }
-        .hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 0; }
+        .hero-subtitle { color: var(--text-secondary); font-size: 1rem; margin-bottom: 1.5rem; line-height: 1.6; max-width: 560px; margin-left: auto; margin-right: auto; opacity: 0; transform: translateY(20px); animation: heroFadeIn 0.8s ease 0.4s forwards; }
+        .hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 0; opacity: 0; transform: translateY(20px); animation: heroFadeIn 0.8s ease 0.6s forwards; }
         .hero-buttons .btn { padding: 12px 28px; font-size: 0.95rem; }
+        @keyframes heroFadeIn { to { opacity: 1; transform: translateY(0); } }
         .btn-secondary { background: var(--bg-card); color: var(--text-primary); border: 1px solid var(--border-color); box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
         .btn-secondary:hover { background: var(--bg-card-hover); border-color: var(--border-color-hover); }
 
@@ -114,7 +115,8 @@
         .why-title { font-size: 1.50rem; font-weight: 800; margin-bottom: 0.75rem; line-height: 1.2; }
         .why-subtitle { color: var(--text-secondary); font-size: 1rem; max-width: 600px; margin: 0 auto; }
         .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
-        .why-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-xl); padding: 1.75rem; transition: all var(--transition-fast); }
+        .why-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-xl); padding: 1.75rem; transition: all var(--transition-fast); opacity: 0; transform: translateY(30px); }
+        .why-card.revealed { opacity: 1; transform: translateY(0); transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s ease, border-color 0.3s ease; }
         .why-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--border-color-hover); }
         .why-card-highlight { border: 2px solid rgba(139, 92, 246, 0.3); background: linear-gradient(to bottom, rgba(139, 92, 246, 0.03), var(--bg-card)); }
         .why-card-highlight:hover { border-color: rgba(139, 92, 246, 0.5); }
@@ -139,8 +141,9 @@
         .works-tag { display: inline-block; background: var(--accent-primary-muted); color: #7c3aed; padding: 6px 14px; border-radius: 20px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1rem; }
         .works-title { font-size: 1.50rem; font-weight: 800; color: var(--text-primary); }
         .works-grid { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; }
-        .works-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 0.875rem 0.5rem; display: flex; flex-direction: column; align-items: center; gap: 0.4rem; transition: all var(--transition-fast); width: 105px; flex-shrink: 0; }
-        .works-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); border-color: var(--border-color-hover); }
+        .works-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 0.875rem 0.5rem; display: flex; flex-direction: column; align-items: center; gap: 0.4rem; transition: all var(--transition-fast); width: 105px; flex-shrink: 0; opacity: 0; transform: translateY(15px); }
+        .works-card.revealed { opacity: 1; transform: translateY(0); transition: opacity 0.5s ease, transform 0.5s ease, box-shadow 0.3s ease; }
+        .works-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--border-color-hover); }
         .works-card-more { border-style: dashed; background: var(--bg-secondary); }
         .works-logo { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; }
         .works-logo img { width: 100%; height: 100%; object-fit: contain; }
@@ -157,7 +160,9 @@
         .how-tag { display: inline-block; background: rgba(139, 92, 246, 0.1); color: #7c3aed; padding: 6px 14px; border-radius: 20px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.75rem; }
         .how-heading { font-size: 1.50rem; font-weight: 800; color: var(--text-primary); margin: 0 0 1.5rem 0; }
         .how-grid { display: flex; align-items: center; justify-content: center; gap: 0.5rem; flex-wrap: wrap; }
-        .how-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 1.5rem 1rem; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; flex: 1; min-width: 180px; max-width: 220px; }
+        .how-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 1.5rem 1rem; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; flex: 1; min-width: 180px; max-width: 220px; opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease, box-shadow 0.3s ease; }
+        .how-card.revealed { opacity: 1; transform: translateY(0); }
+        .how-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-2px); }
         .how-icon { width: 48px; height: 48px; background: rgba(139, 92, 246, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 0.5rem; }
         .how-icon svg { width: 28px; height: 28px; }
         .how-title { font-size: 1rem; font-weight: 700; color: var(--text-primary); margin: 0; }
@@ -427,6 +432,36 @@
                     img.addEventListener('load', () => img.classList.add('loaded'));
                     img.addEventListener('error', () => img.classList.add('loaded'));
                 }
+            });
+        })();
+        
+        // Scroll Reveal Animation
+        (function() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        // Stagger the animation delay based on sibling index
+                        const parent = entry.target.parentElement;
+                        const siblings = Array.from(parent.children).filter(el => 
+                            el.classList.contains('why-card') || 
+                            el.classList.contains('how-card') || 
+                            el.classList.contains('works-card')
+                        );
+                        const siblingIndex = siblings.indexOf(entry.target);
+                        entry.target.style.transitionDelay = (siblingIndex * 0.08) + 's';
+                        entry.target.classList.add('revealed');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+            
+            document.querySelectorAll('.why-card, .how-card, .works-card').forEach(card => {
+                observer.observe(card);
             });
         })();
     </script>
