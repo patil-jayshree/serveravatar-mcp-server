@@ -3,6 +3,7 @@
 use App\Http\Middleware\SetUserTimezone;
 use App\Http\Middleware\TrackMcpAnalytics;
 use App\Http\Middleware\ValidateMcpToken;
+use App\Http\Middleware\McpRateLimiter;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -18,6 +19,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'validate_mcp_token' => ValidateMcpToken::class,
             'track_mcp_analytics' => TrackMcpAnalytics::class,
+            'mcp_rate_limit' => McpRateLimiter::class,
         ]);
         
         $middleware->api(prepend: [
