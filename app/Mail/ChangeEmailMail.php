@@ -34,7 +34,7 @@ class ChangeEmailMail extends Mailable
         $confirmUrl = $appUrl . '/email/change/' . $this->token;
 
         return new Content(
-            view: 'emails.change-email',
+            markdown: 'emails.change-email',
             with: [
                 'user' => $this->user,
                 'newEmail' => $this->newEmail,
