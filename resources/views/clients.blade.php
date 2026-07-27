@@ -8,7 +8,7 @@ $csrf = csrf_token();
 @endphp
 
 @section('styles')
-.clients-table-body { min-height: 100px; }
+.clients-table-body { }
 .clients-loading { display: flex; align-items: center; justify-content: center; min-height: 100px; color: var(--text-secondary); }
 .clients-loading i { font-size: 1.5rem; animation: spin 0.8s linear infinite; }
 @endsection

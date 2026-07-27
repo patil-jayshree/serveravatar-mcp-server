@@ -69,6 +69,21 @@ class TrackMcpAnalytics
                     $mcpError = true;
                     $errorMessage = $decoded['error']['message'];
                 }
+                // Check for simple error format: {"error": "message"} or {"error": {"message": "..."}}
+                elseif (isset($decoded['error'])) {
+                    $errorData = $decoded['error'];
+                    if (is_string($errorData)) {
+                        $mcpError = true;
+                        $errorMessage = $errorData;
+                    } elseif (is_array($errorData) && isset($errorData['message'])) {
+                        $mcpError = true;
+                        $errorMessage = $errorData['message'];
+                    } elseif (is_array($errorData) && isset($errorData['error'])) {
+                        // Handle {"error": {"error": "message"}} format
+                        $mcpError = true;
+                        $errorMessage = is_string($errorData['error']) ? $errorData['error'] : json_encode($errorData['error']);
+                    }
+                }
                 // Extract response data for success case
                 if (isset($decoded['result']['content'][0]['text'])) {
                     $responseText = $decoded['result']['content'][0]['text'];

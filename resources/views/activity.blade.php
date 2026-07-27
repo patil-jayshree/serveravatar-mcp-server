@@ -102,7 +102,11 @@ $csrf = csrf_token();
 .panel-desc { font-size: 0.85rem; color: var(--text-primary); }
 .panel-close { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; background: transparent; border: none; border-radius: 8px; color: var(--text-muted); cursor: pointer; font-size: 1.25rem; transition: all 0.2s; }
 .panel-close:hover { background: var(--bg-secondary); color: var(--text-primary); }
-.panel-body { padding: 12px 20px; flex: 1; overflow-y: auto; }
+.panel-body { padding: 12px 20px; flex: 1; overflow-y: auto; scrollbar-width: thin; scrollbar-color: var(--border-color) transparent; }
+.panel-body::-webkit-scrollbar { width: 6px; }
+.panel-body::-webkit-scrollbar-track { background: transparent; }
+.panel-body::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 3px; }
+.panel-body::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
 .panel-section { margin-bottom: 20px; }
 .panel-section:last-child { margin-bottom: 0; }
 .panel-section-title { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 10px; }
@@ -140,7 +144,11 @@ $csrf = csrf_token();
 .additional-info-value { font-size: 0.8rem; color: var(--text-primary); font-weight: 500; }
 .payload-code-wrapper { display: flex; gap: 12px; }
 .payload-line-numbers { font-family: 'SF Mono', Monaco, monospace; font-size: 0.75rem; line-height: 1.6; color: #555; text-align: right; user-select: none; min-width: 24px; }
-.payload-code { font-family: 'SF Mono', Monaco, monospace; font-size: 0.75rem; line-height: 1.6; color: #d4d4d4; white-space: pre-wrap; word-break: break-word; max-height: 400px; overflow-y: auto; flex: 1; }
+.payload-code { font-family: 'SF Mono', Monaco, monospace; font-size: 0.75rem; line-height: 1.6; color: #d4d4d4; white-space: pre-wrap; word-break: break-word; max-height: 400px; overflow-y: auto; flex: 1; scrollbar-width: thin; scrollbar-color: #444 transparent; }
+.payload-code::-webkit-scrollbar { width: 6px; }
+.payload-code::-webkit-scrollbar-track { background: transparent; }
+.payload-code::-webkit-scrollbar-thumb { background: #444; border-radius: 3px; }
+.payload-code::-webkit-scrollbar-thumb:hover { background: #555; }
 .payload-code .key { color: #9cdcfe; }
 .payload-code .string { color: #ce9178; }
 .payload-code .number { color: #b5cea8; }

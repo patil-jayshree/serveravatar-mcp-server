@@ -78,6 +78,18 @@
             </div>
         </div>
     </div>
+    <!-- Limitation Warning for Browser AI Clients -->
+    <div style="margin-top: 1rem; padding: 0.875rem 1rem; background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.25); border-radius: 10px;">
+        <div style="display: flex; align-items: flex-start; gap: 10px;">
+            <div style="width: 32px; height: 32px; min-width: 32px; background: rgba(245, 158, 11, 0.15); border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                <i class="fas fa-shield-halved" style="color: #fbbf24; font-size: 0.9rem;"></i>
+            </div>
+            <div>
+                <div style="font-size: 0.8rem; font-weight: 600; color: var(--text-primary); margin-bottom: 3px;">OpenAI Safety Restriction</div>
+                <p style="margin: 0; font-size: 0.75rem; color: var(--text-secondary); line-height: 1.5;">ChatGPT may block operations involving passwords, credentials, or sensitive data for security reasons. Use <strong>Claude</strong>, <strong>Cursor</strong> or <strong>any other AI client</strong> for full functionality.</p>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- IDE / Code Editors -->
