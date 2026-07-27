@@ -242,7 +242,7 @@ $csrf = csrf_token();
             <tr data-id="{{ $activity->id }}" data-activity='@json($activity)'>
                 <td>
                     <div class="event-cell">
-                        <div class="event-icon" style="background: rgba(139, 92, 246, 0.1);">
+                        <div class="event-icon" style="background: @if($activity->type === 'tool_executed'){{ ($activity->metadata['success'] ?? true) ? 'rgba(59, 130, 246, 0.1)' : 'rgba(239, 68, 68, 0.1)' }}@elseif($activity->type === 'client_connected')rgba(34, 197, 94, 0.1)@elseif($activity->type === 'api_key_saved')rgba(139, 92, 246, 0.1)@elseif($activity->type === 'api_key_updated')rgba(245, 158, 11, 0.1)@elseif($activity->type === 'profile_updated')rgba(6, 182, 212, 0.1)@elseif($activity->type === 'password_changed')rgba(99, 102, 241, 0.1)@elseif($activity->type === 'settings_updated')rgba(100, 116, 139, 0.1)@elseif($activity->type === 'token_created')rgba(34, 197, 94, 0.1)@elseif($activity->type === 'token_revoked')rgba(239, 68, 68, 0.1)@elseif($activity->type === 'email_change_requested')rgba(245, 158, 11, 0.1)@elseif($activity->type === 'email_updated')rgba(34, 197, 94, 0.1)@else{{ 'rgba(139, 92, 246, 0.1)' }}@endif;">
                             {!! $activity->icon !!}
                         </div>
                         <div class="event-info">
@@ -259,13 +259,13 @@ $csrf = csrf_token();
                                 <img src="{{ $activity->client_logo['dark'] }}" alt="" width="28" height="28" class="icon-dark">
                             </div>
                         @else
-                            <div class="client-avatar" style="background: @if($activity->type === 'tool_executed'){{ ($activity->metadata['success'] ?? true) ? 'rgba(59, 130, 246, 0.2)' : 'rgba(239, 68, 68, 0.2)' }}@elseif($activity->type === 'client_connected')rgba(34, 197, 94, 0.2)@elseif($activity->type === 'api_key_saved')rgba(139, 92, 246, 0.2)@elseif($activity->type === 'api_key_updated')rgba(245, 158, 11, 0.2)@elseif($activity->type === 'profile_updated')rgba(6, 182, 212, 0.2)@elseif($activity->type === 'password_changed')rgba(99, 102, 241, 0.2)@elseif($activity->type === 'settings_updated')rgba(100, 116, 139, 0.2)@elseif($activity->type === 'token_created')rgba(34, 197, 94, 0.2)@elseif($activity->type === 'token_revoked')rgba(239, 68, 68, 0.2)@else{{ $activity->client_color ?? 'rgba(139, 92, 246, 0.2)' }}@endif;">
+                            <div class="client-avatar" style="background: @if($activity->type === 'tool_executed'){{ ($activity->metadata['success'] ?? true) ? 'rgba(59, 130, 246, 0.2)' : 'rgba(239, 68, 68, 0.2)' }}@elseif($activity->type === 'client_connected')rgba(34, 197, 94, 0.2)@elseif($activity->type === 'api_key_saved')rgba(139, 92, 246, 0.2)@elseif($activity->type === 'api_key_updated')rgba(245, 158, 11, 0.2)@elseif($activity->type === 'profile_updated')rgba(6, 182, 212, 0.2)@elseif($activity->type === 'password_changed')rgba(99, 102, 241, 0.2)@elseif($activity->type === 'settings_updated')rgba(100, 116, 139, 0.2)@elseif($activity->type === 'token_created')rgba(34, 197, 94, 0.2)@elseif($activity->type === 'token_revoked')rgba(239, 68, 68, 0.2)@elseif($activity->type === 'email_change_requested')rgba(245, 158, 11, 0.2)@elseif($activity->type === 'email_updated')rgba(34, 197, 94, 0.2)@else{{ $activity->client_color ? $activity->client_color . '33' : 'rgba(139, 92, 246, 0.2)' }}@endif;">
                                 {{ $activity->client_initials ?? 'SA' }}
                             </div>
                         @endif
                         <div>
-                            <div class="client-name">{{ $activity->client_name ?? 'System' }}</div>
-                            <div class="client-type">{{ $activity->client_type ?? 'AI Client' }}</div>
+                            <div class="client-name">{{ $activity->client_name ?? ($activity->type === 'email_change_requested' || $activity->type === 'email_updated' ? 'MCP Client' : 'System') }}</div>
+                            <div class="client-type">{{ $activity->client_type ?? ($activity->type === 'email_change_requested' || $activity->type === 'email_updated' ? 'Account' : 'AI Client') }}</div>
                         </div>
                     </div>
                 </td>

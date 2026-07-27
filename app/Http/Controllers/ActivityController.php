@@ -155,8 +155,13 @@ class ActivityController extends Controller
                 $tz = $user->timezone ?? 'UTC';
                 $metadata = $activity->metadata ?? [];
                 $hasPayload = !empty($metadata['arguments']) || !empty($metadata['response']);
-                $clientInitials = $this->getClientInitials($activity->client_name);
-                $clientColor = \App\Helpers\ClientLogoHelper::getColor($activity->client_name);
+                
+                // For email activities, use activity-specific helpers
+                $isEmailActivity = in_array($activity->type, ['email_change_requested', 'email_updated']);
+                $clientInitials = $isEmailActivity ? 'MC' : $this->getClientInitials($activity->client_name);
+                $clientColor = $isEmailActivity ? '#7c3aed' : \App\Helpers\ClientLogoHelper::getColor($activity->client_name);
+                $clientName = $isEmailActivity ? 'MCP Client' : ($activity->client_name ?? 'System');
+                $clientType = $this->getActivityClientType($activity);
                 
                 $activityJson = htmlspecialchars(json_encode([
                     'id' => $activity->id,
@@ -165,11 +170,11 @@ class ActivityController extends Controller
                     'badge' => $activity->badge,
                     'color' => $activity->color,
                     'icon' => $activity->icon,
-                    'client_name' => $activity->client_name,
+                    'client_name' => $clientName,
                     'client_initials' => $clientInitials,
                     'client_color' => $clientColor,
-                    'client_logo' => \App\Helpers\ClientLogoHelper::getLogo($activity->client_name),
-                    'client_type' => $this->getClientType($activity->client_name),
+                    'client_logo' => $isEmailActivity ? null : \App\Helpers\ClientLogoHelper::getLogo($activity->client_name),
+                    'client_type' => $clientType,
                     'ip_address' => $activity->ip_address,
                     'time_ago' => $activity->created_at->timezone($tz)->diffForHumans(),
                     'formatted_date' => $activity->created_at->timezone($tz)->format('M j, Y'),
@@ -194,7 +199,7 @@ class ActivityController extends Controller
                 // Client column
                 $html .= '<td>';
                 $html .= '<div class="client-cell">';
-                $logo = \App\Helpers\ClientLogoHelper::getLogo($activity->client_name);
+                $logo = $isEmailActivity ? null : \App\Helpers\ClientLogoHelper::getLogo($activity->client_name);
                 if ($logo) {
                     $html .= '<div class="client-avatar"><img src="' . $logo['light'] . '" alt="" width="28" height="28" class="icon-light"><img src="' . $logo['dark'] . '" alt="" width="28" height="28" class="icon-dark"></div>';
                 } else {
@@ -203,8 +208,8 @@ class ActivityController extends Controller
                     $html .= '<div class="client-avatar" style="background: ' . $bgColor . ';">' . $clientInitials . '</div>';
                 }
                 $html .= '<div>';
-                $html .= '<div class="client-name">' . e($activity->client_name ?? 'System') . '</div>';
-                $html .= '<div class="client-type">' . $this->getClientType($activity->client_name) . '</div>';
+                $html .= '<div class="client-name">' . e($clientName) . '</div>';
+                $html .= '<div class="client-type">' . e($clientType) . '</div>';
                 $html .= '</div>';
                 $html .= '</div>';
                 $html .= '</td>';
@@ -311,6 +316,15 @@ class ActivityController extends Controller
         return strtoupper(substr($name, 0, 2));
     }
     
+    private function getActivityClientInitials($activity)
+    {
+        // Email activities are from web interface
+        if (in_array($activity->type, ['email_change_requested', 'email_updated'])) {
+            return 'MC';
+        }
+        return $this->getClientInitials($activity->client_name);
+    }
+    
     private function getClientColor($name)
     {
         if (!$name) return '#8b5cf6';
@@ -378,6 +392,15 @@ class ActivityController extends Controller
         if (strpos($name, 'mcp client') !== false) return 'Web Application';
         return 'AI Client';
     }
+    
+    private function getActivityClientType($activity)
+    {
+        // Email activities are from web interface
+        if (in_array($activity->type, ['email_change_requested', 'email_updated'])) {
+            return 'Account';
+        }
+        return $this->getClientType($activity->client_name);
+    }
 
     private function getActivityIconColor($activity)
     {
@@ -397,6 +420,8 @@ class ActivityController extends Controller
             'settings_updated' => 'rgba(100, 116, 139, 0.2)',    // gray
             'token_created' => 'rgba(34, 197, 94, 0.2)',         // green
             'token_revoked' => 'rgba(239, 68, 68, 0.2)',         // red
+            'email_change_requested' => 'rgba(245, 158, 11, 0.2)', // amber/orange
+            'email_updated' => 'rgba(34, 197, 94, 0.2)',         // green
             default => 'rgba(139, 92, 246, 0.2)',                // default purple
         };
     }

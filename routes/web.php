@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\{LoginController, RegisterController, ForgotPasswordController, ResetPasswordController};
-use App\Http\Controllers\{DashboardController, ActivityController, ToolsController, ClientsController, ProfileController};
+use App\Http\Controllers\{DashboardController, ActivityController, ToolsController, ClientsController, ProfileController, ChangeEmailController};
 use App\Http\Controllers\Api\McpTokenController;
 use Illuminate\Support\Facades\Route;
 
@@ -86,6 +86,9 @@ Route::middleware('auth')->group(function () {
             Route::patch('/profile/password', 'updatePassword')->name('profile.password');
             Route::delete('/account', 'deleteAccount')->name('account.delete');
         });
+
+    // Email change confirmation (public - from email link)
+    Route::get('/email/change/{token}', [ChangeEmailController::class, 'confirmChange'])->name('email.change');
 
     // MCP Token management for IDE clients
     Route::prefix('mcp-tokens')

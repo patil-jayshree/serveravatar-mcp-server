@@ -256,6 +256,64 @@ $updatedAt = $user->updated_at ? date('F d, Y', strtotime($user->updated_at)) : 
         </div>
     </div>
 
+    <!-- Change Email Card -->
+    <div class="card">
+        <div class="card-header">
+            <div class="card-icon purple"><i class="fas fa-envelope"></i></div>
+            <div>
+                <div class="card-title">Change Email</div>
+                <div class="card-desc">Update your email address for login and notifications</div>
+            </div>
+        </div>
+        
+        <form id="emailChangeForm">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label class="form-label">Current Email</label>
+                    <div class="input-wrap">
+                        <span class="input-icon"><i class="fas fa-envelope"></i></span>
+                        <input type="email" id="currentEmailDisplay" class="form-input" style="padding-left: 2.25rem; padding-right: 2rem;" value="" readonly>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">New Email <span class="required">*</span></label>
+                    <div class="input-wrap">
+                        <span class="input-icon"><i class="fas fa-paper-plane"></i></span>
+                        <input type="email" id="newEmailInput" class="form-input" style="padding-left: 2.25rem; padding-right: 2rem;" placeholder="Enter new email address">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" style="margin-top: 0.75rem;">
+                <label class="form-label">Current Password <span class="required">*</span></label>
+                <div style="position: relative; max-width: 320px;">
+                    <span class="input-icon" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); z-index: 1; pointer-events: none;"><i class="fas fa-lock"></i></span>
+                    <input type="password" id="emailChangePassword" class="form-input" placeholder="Enter current password to confirm" style="padding-left: 2.25rem; padding-right: 2rem;">
+                    <button type="button" class="eye-btn" onclick="togglePwd('emailChangePassword')" style="right: 8px;">
+                        <i class="fas fa-eye" id="emailChangePassword_eye"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- Email Change Info -->
+            <div style="background: rgba(124,92,252,0.1); border: 1px solid rgba(124,92,252,0.2); border-radius: 8px; padding: 12px 16px; margin: 1.5rem 0; display: flex; align-items: center; gap: 12px;">
+                <div style="width: 32px; height: 32px; flex-shrink: 0;">
+                    <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M22 4L38 12V28C38 34 30 40 22 42C14 40 6 34 6 28V12L22 4Z" fill="#7c3aed" fill-opacity="0.15" stroke="#7c3aed" stroke-width="2" stroke-linejoin="round"/>
+                        <path d="M16 22L20 26L28 18" stroke="#7c3aed" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <div>
+                    <div style="font-size: 0.8rem; font-weight: 600; color: var(--text-primary);">We'll send a verification link to your new email address.</div>
+                    <div style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 2px;">You must verify it before the change is applied.</div>
+                </div>
+            </div>
+            <div style="border-top: 1px solid var(--border-color); margin: 0 0 1rem 0;"></div>
+            <div class="btn-group">
+                <button type="button" class="btn btn-outline" onclick="cancelEmailChange()">Cancel</button>
+                <button type="button" class="btn btn-primary" id="changeEmailBtn" onclick="requestEmailChange()">Send Verification</button>
+            </div>
+        </form>
+    </div>
+
     <!-- Change Password Card -->
     <div class="card">
         <div class="card-header">
@@ -504,10 +562,79 @@ $updatedAt = $user->updated_at ? date('F d, Y', strtotime($user->updated_at)) : 
     </div>
 </div>
 
+<!-- Email Verification Sent Modal -->
+<div class="modal-overlay" id="emailVerifyModal">
+    <div class="modal-box" style="overflow: visible;">
+        <div style="padding: 2rem 1.5rem 1.5rem 1.5rem; text-align: center;">
+            <div style="position: relative; width: 80px; height: 80px; margin: 0 auto 1.25rem auto;">
+                <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%); border-radius: 16px; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px rgba(124,92,252,0.3);">
+                    <i class="fas fa-envelope" style="color: white; font-size: 2rem;"></i>
+                </div>
+                <div style="position: absolute; bottom: -6px; right: -6px; width: 28px; height: 28px; background: #22c55e; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 3px solid white;">
+                    <i class="fas fa-check" style="color: white; font-size: 14px;"></i>
+                </div>
+            </div>
+            <div style="font-size: 1.125rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.75rem;">Verification email sent!</div>
+            <p class="modal-intro" style="margin-bottom: 0.5rem;">We've sent a verification link to</p>
+            <p style="font-size: 1rem; font-weight: 600; color: #7c3aed; margin-bottom: 0.75rem;" id="verifyEmailDisplay"></p>
+            <p class="modal-intro">Please check your inbox and click the link to verify your new email address.</p>
+        </div>
+        <div class="modal-ftr" style="justify-content: center; padding: 1rem 1.5rem; flex-direction: column; align-items: center; gap: 0.75rem;">
+            <button type="button" class="btn-save" onclick="closeEmailVerifyModal()">Got it</button>
+            <p style="font-size: 0.875rem; color: var(--text-secondary); margin: 0;">Didn't receive the email? Check your spam folder.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Email Updated Successfully Modal -->
+<div class="modal-overlay" id="emailSuccessModal">
+    <div class="modal-box" style="overflow: visible;">
+        <div style="padding: 2rem 1.5rem 1.5rem 1.5rem; text-align: center;">
+            <div style="position: relative; width: 80px; height: 80px; margin: 0 auto 1.25rem auto;">
+                <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px rgba(34,197,94,0.3);">
+                    <i class="fas fa-check" style="color: white; font-size: 2.5rem;"></i>
+                </div>
+            </div>
+            <div style="font-size: 1.25rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.5rem;">Email updated successfully!</div>
+            <p class="modal-intro" style="margin-bottom: 1.25rem;">Your email address has been changed and verified.</p>
+            
+            <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 10px; padding: 1rem 1.25rem; text-align: left;">
+                <div style="display: flex; align-items: center; padding: 0.6rem 0; border-bottom: 1px solid var(--border-color);">
+                    <span style="font-size: 0.75rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; min-width: 100px;">Old Email</span>
+                    <span style="font-size: 0.875rem; color: var(--text-primary); margin-left: 1rem;" id="oldEmailDisplay"></span>
+                </div>
+                <div style="display: flex; align-items: center; padding: 0.6rem 0; border-bottom: 1px solid var(--border-color);">
+                    <span style="font-size: 0.75rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; min-width: 100px;">New Email</span>
+                    <span style="font-size: 0.875rem; color: var(--text-primary); margin-left: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                        <span id="newEmailDisplay"></span>
+                        <span style="background: #22c55e; color: white; font-size: 0.625rem; font-weight: 600; padding: 2px 6px; border-radius: 4px;">Verified</span>
+                    </span>
+                </div>
+                <div style="display: flex; align-items: center; padding: 0.6rem 0;">
+                    <span style="font-size: 0.75rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; min-width: 100px;">Updated On</span>
+                    <span style="font-size: 0.875rem; color: var(--text-primary); margin-left: 1rem;" id="updatedOnDisplay"></span>
+                </div>
+            </div>
+        </div>
+        <div class="modal-ftr" style="justify-content: center; padding: 1rem 1.5rem 1.5rem 1.5rem; border-top: 1px solid var(--border-color);">
+            <a href="/account" class="btn-save" style="text-decoration: none; display: inline-block; text-align: center;">Back to Profile</a>
+        </div>
+    </div>
+</div>
+
 @endsection
 
 @section('scripts')
 <script>
+@if(session('email_updated'))
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('oldEmailDisplay').textContent = '{{ session('old_email') }}';
+    document.getElementById('newEmailDisplay').textContent = '{{ session('new_email') }}';
+    document.getElementById('updatedOnDisplay').textContent = '{{ session('updated_at') }}';
+    document.getElementById('emailSuccessModal').style.display = 'flex';
+});
+@endif
+
 // Fetch profile
 fetch('/api/profile', {
     headers: { 'Accept': 'application/json', 'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value }
@@ -516,6 +643,7 @@ fetch('/api/profile', {
 .then(function(d) {
     document.getElementById('nameInput').value = d.name || '';
     document.getElementById('emailInput').value = d.email || '';
+    document.getElementById('currentEmailDisplay').value = d.email || '';
     if (d.timezone) { document.getElementById('timezoneInput').value = d.timezone; }
 
     // Pre-select saved country and region - wait for LocationSelector to load
@@ -572,6 +700,53 @@ function togglePwd(id) {
     var eye = document.getElementById(id + '_eye');
     if (inp.type === 'password') { inp.type = 'text'; eye.className = 'fas fa-eye-slash'; }
     else { inp.type = 'password'; eye.className = 'fas fa-eye'; }
+}
+
+// Email change
+function requestEmailChange() {
+    var btn = document.getElementById('changeEmailBtn');
+    var newEmail = document.getElementById('newEmailInput').value.trim();
+    var password = document.getElementById('emailChangePassword').value;
+    var token = document.querySelector('input[name="_token"]').value;
+
+    if (!newEmail) { showToast('Please enter a new email address', true); return; }
+    if (!password) { showToast('Please enter your current password to confirm', true); return; }
+    if (!validateEmail(newEmail)) { showToast('Please enter a valid email address', true); return; }
+
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin" style="font-size: 0.875rem;"></i> Sending...';
+
+    fetch('/api/email/change', {
+        method: 'POST',
+        body: JSON.stringify({ new_email: newEmail, password: password }),
+        headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': token, 'Accept': 'application/json' }
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(d) {
+        btn.disabled = false;
+        btn.innerHTML = 'Send Verification';
+        if (d.error) { showToast(d.error, true); }
+        else {
+            document.getElementById('verifyEmailDisplay').textContent = newEmail;
+            document.getElementById('emailVerifyModal').style.display = 'flex';
+            document.getElementById('newEmailInput').value = '';
+            document.getElementById('emailChangePassword').value = '';
+        }
+    })
+    .catch(function() {
+        btn.disabled = false;
+        btn.innerHTML = 'Send Verification';
+        showToast('Something went wrong. Please try again.', true);
+    });
+}
+
+function cancelEmailChange() {
+    document.getElementById('newEmailInput').value = '';
+    document.getElementById('emailChangePassword').value = '';
+}
+
+function validateEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
 // Password strength
@@ -845,6 +1020,7 @@ document.getElementById('apiKeyForm').addEventListener('submit', function(e) {
 // Delete Modal
 function openDeleteModal() { document.getElementById('deleteModal').style.display = 'flex'; document.getElementById('deleteConfirmInput').value = ''; var b = document.getElementById('confirmDeleteBtn'); b.disabled = true; b.style.opacity = '0.5'; }
 function closeDeleteModal() { document.getElementById('deleteModal').style.display = 'none'; }
+function closeEmailVerifyModal() { document.getElementById('emailVerifyModal').style.display = 'none'; }
 function toggleDelBtn() { var v = document.getElementById('deleteConfirmInput').value; var b = document.getElementById('confirmDeleteBtn'); if (v === 'DELETE') { b.disabled = false; b.style.opacity = '1'; } else { b.disabled = true; b.style.opacity = '0.5'; } }
 function confirmDelete() {
     var btn = document.getElementById('confirmDeleteBtn');

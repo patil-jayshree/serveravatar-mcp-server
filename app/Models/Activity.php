@@ -33,6 +33,8 @@ class Activity extends Model
     const TYPE_SETTINGS_UPDATED = 'settings_updated';
     const TYPE_TOKEN_CREATED = 'token_created';
     const TYPE_TOKEN_REVOKED = 'token_revoked';
+    const TYPE_EMAIL_CHANGE_REQUESTED = 'email_change_requested';
+    const TYPE_EMAIL_UPDATED = 'email_updated';
 
     public function user(): BelongsTo
     {
@@ -67,6 +69,8 @@ class Activity extends Model
             self::TYPE_SETTINGS_UPDATED => '<i class="fas fa-sliders" style="color: #64748b;"></i>',
             self::TYPE_TOKEN_CREATED => '<i class="fas fa-key" style="color: #22c55e;"></i>',
             self::TYPE_TOKEN_REVOKED => '<i class="fas fa-key" style="color: #ef4444;"></i>',
+            self::TYPE_EMAIL_CHANGE_REQUESTED => '<i class="fas fa-envelope" style="color: #f59e0b;"></i>',
+            self::TYPE_EMAIL_UPDATED => '<i class="fas fa-envelope-circle-check" style="color: #22c55e;"></i>',
             default => '<i class="fas fa-circle-info" style="color: #94a3b8;"></i>',
         };
     }
@@ -88,6 +92,8 @@ class Activity extends Model
             self::TYPE_SETTINGS_UPDATED => 'UPDATED',
             self::TYPE_TOKEN_CREATED => 'CREATED',
             self::TYPE_TOKEN_REVOKED => 'REVOKED',
+            self::TYPE_EMAIL_CHANGE_REQUESTED => 'REQUESTED',
+            self::TYPE_EMAIL_UPDATED => 'VERIFIED',
             default => 'INFO',
         };
     }
@@ -109,6 +115,8 @@ class Activity extends Model
             self::TYPE_SETTINGS_UPDATED => 'secondary',
             self::TYPE_TOKEN_CREATED => 'success',
             self::TYPE_TOKEN_REVOKED => 'danger',
+            self::TYPE_EMAIL_CHANGE_REQUESTED => 'warning',
+            self::TYPE_EMAIL_UPDATED => 'success',
             default => 'secondary',
         };
     }
@@ -125,6 +133,8 @@ class Activity extends Model
             self::TYPE_SETTINGS_UPDATED => 'Settings Updated',
             self::TYPE_TOKEN_CREATED => 'Token Created',
             self::TYPE_TOKEN_REVOKED => 'Token Revoked',
+            self::TYPE_EMAIL_CHANGE_REQUESTED => 'Email Change Requested.',
+            self::TYPE_EMAIL_UPDATED => 'Email Updated.',
             default => 'Activity',
         };
     }
@@ -141,6 +151,11 @@ class Activity extends Model
     
     public function getClientInitialsAttribute(): string
     {
+        // Email activities are from web interface
+        if ($this->type === self::TYPE_EMAIL_CHANGE_REQUESTED || $this->type === self::TYPE_EMAIL_UPDATED) {
+            return 'MC';
+        }
+        
         $name = strtolower($this->client_name ?? '');
         if (!$name) return 'SA';
         if (strpos($name, 'chatgpt') !== false) return 'CG';
@@ -191,6 +206,14 @@ class Activity extends Model
     
     public function getClientColorAttribute(): string
     {
+        // Email activities are from web interface
+        if ($this->type === self::TYPE_EMAIL_CHANGE_REQUESTED) {
+            return '#f59e0b';
+        }
+        if ($this->type === self::TYPE_EMAIL_UPDATED) {
+            return '#22c55e';
+        }
+        
         $name = strtolower($this->client_name ?? '');
         if (!$name) return '#8b5cf6';
         if (strpos($name, 'chatgpt') !== false) return '#10a37f';
@@ -208,6 +231,16 @@ class Activity extends Model
 
     public function getClientTypeAttribute(): string
     {
+        // Email activities are from web interface
+        if ($this->type === self::TYPE_EMAIL_CHANGE_REQUESTED || $this->type === self::TYPE_EMAIL_UPDATED) {
+            return 'Account';
+        }
+        
+        // Profile and password updates are account activities
+        if ($this->type === self::TYPE_PROFILE_UPDATED || $this->type === self::TYPE_PASSWORD_CHANGED) {
+            return 'Account';
+        }
+        
         $name = strtolower($this->client_name ?? '');
         if (!$name) return 'AI Client';
         if (strpos($name, 'chatgpt') !== false) return 'AI Clients';
