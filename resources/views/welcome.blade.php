@@ -69,7 +69,7 @@
         .nav-menu-btn { display: none; background: none; border: none; cursor: pointer; padding: 8px; color: var(--text-primary); font-size: 1.25rem; }
         
         /* Navigation Drawer */
-        .nav-overlay { display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.5); z-index: 998; opacity: 0; transition: opacity 0.3s ease; }
+        .nav-overlay { display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.5); z-index: 998; opacity: 0; transition: opacity 0.3s ease; backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
         .nav-overlay.active { display: block; opacity: 1; }
         .nav-drawer { position: fixed; top: 0; right: 0; width: 280px; max-width: 80%; height: 100vh; background: var(--bg-card); z-index: 999; transform: translateX(100%); transition: transform 0.3s ease; display: flex; flex-direction: column; }
         .nav-drawer.active { transform: translateX(0); }
@@ -435,8 +435,9 @@
             <a href="{{ route('register') }}" class="btn btn-primary" onclick="closeNavDrawer()">
                 <i class="fas fa-rocket"></i> Get Started
             </a>
-            <button class="btn btn-ghost" onclick="toggleTheme(); closeNavDrawer();" style="width: 100%; justify-content: center;">
-                <i class="fas fa-adjust"></i> Toggle Theme
+            <button class="btn btn-ghost" onclick="toggleTheme(); closeNavDrawer();" style="width: 100%; justify-content: center; gap: 10px;">
+                <i id="drawerThemeIcon" style="font-size: 1.1rem;"></i>
+                <span id="drawerThemeText">Toggle Theme</span>
             </button>
         </div>
     </div>
@@ -628,6 +629,20 @@
             const theme = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
             html.setAttribute('data-theme', theme);
             localStorage.setItem('theme', theme);
+            updateDrawerThemeIcon();
+        }
+        
+        function updateDrawerThemeIcon() {
+            const theme = document.documentElement.getAttribute('data-theme');
+            const icon = document.getElementById('drawerThemeIcon');
+            const text = document.getElementById('drawerThemeText');
+            if (theme === 'dark') {
+                icon.textContent = '🌙';
+                text.textContent = 'Dark Mode';
+            } else {
+                icon.textContent = '☀️';
+                text.textContent = 'Light Mode';
+            }
         }
         
         // Navigation Drawer Functions
@@ -654,6 +669,7 @@
             if (saved) {
                 document.documentElement.setAttribute('data-theme', saved);
             }
+            updateDrawerThemeIcon();
         })();
         (function() {
             const images = document.querySelectorAll('.cta-rocket');

@@ -44,8 +44,9 @@
             --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.5); --shadow-glow: 0 0 40px rgba(99, 102, 241, 0.15);
         }
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        html { font-size: 16px; -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
-        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; }
+        html, body { overflow-x: hidden; width: 100%; }
+        html { font-size: 16px; -webkit-font-smoothing: antialiased; scroll-behavior: smooth; overflow-x: hidden; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; overflow-x: hidden; }
         a { color: var(--accent-primary); text-decoration: none; }
         a:hover { text-decoration: underline; }
         .nav-logo:hover { text-decoration: none !important; }
@@ -62,9 +63,11 @@
         .nav-links { display: flex; align-items: center; gap: 0.5rem; }
         .nav-link { padding: 8px 16px; border-radius: var(--radius-md); font-size: 0.9rem; font-weight: 500; color: var(--text-secondary); transition: all var(--transition-fast); }
         .nav-link:hover { color: var(--text-primary); background: var(--bg-secondary); text-decoration: none; }
-        .nav-link.active { color: var(--accent-primary); background: var(--accent-primary-muted); }
-        .nav-btn { padding: 10px 20px; background: var(--accent-primary); color: #fff; border-radius: var(--radius-md); font-size: 0.9rem; font-weight: 600; transition: all var(--transition-fast); }
-        .nav-btn:hover { background: var(--accent-primary-hover); text-decoration: none; }
+        .nav-link.active { color: #7c3aed !important; font-weight: 600; }
+        .nav-btn { padding: 10px 20px; background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%) !important; color: #fff !important; border-radius: var(--radius-md); font-size: 0.9rem; font-weight: 600; transition: all var(--transition-fast); }
+        .nav-btn:visited { color: #fff !important; }
+        .nav-btn:active { color: #fff !important; }
+        .nav-btn:hover { background: linear-gradient(135deg, #6d28d9 0%, #8b5cf6 100%) !important; text-decoration: none; }
         .theme-toggle { width: 48px; height: 28px; background: var(--bg-tertiary); border: 1px solid var(--border-color); border-radius: 20px; cursor: pointer; position: relative; transition: all var(--transition-normal); flex-shrink: 0; }
         .theme-toggle::before { content: '🌙'; position: absolute; left: 4px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; border-radius: 50%; background: var(--bg-card); display: flex; align-items: center; justify-content: center; font-size: 12px; transition: all var(--transition-normal); }
         [data-theme="light"] .theme-toggle::before { content: '☀️'; left: calc(100% - 24px); }
@@ -324,22 +327,154 @@
         [data-theme="dark"] .icon-dark { display: block; }
         [data-theme="dark"] .icon-light { display: none; }
 
-        /* Responsive */
-        @media (max-width: 1100px) {
-            .cards-row, .cards-row-full { flex-direction: column; }
-            .feature-grid { grid-template-columns: repeat(2, 1fr); }
-            .tools-grid { grid-template-columns: repeat(2, 1fr); }
-            .guide-tools-stat { flex-wrap: wrap; }
-            .guide-final-banner { padding: 20px; }
-            .guide-final-banner .banner-text { width: 100%; }
-            [style*="grid-template-columns:repeat(4,1fr)"] { grid-template-columns: repeat(2, 1fr) !important; }
+        /* ========== RESPONSIVE STYLES ========== */
+
+        /* Mobile Only: 360px to 767px */
+        @media (min-width: 360px) and (max-width: 767px) {
+            .container { padding: 0 1rem; }
+            .nav-links { display: none; }
+            .nav-menu-btn { display: flex !important; }
+            .nav-inner { padding: 0 1rem; height: 64px; }
+            
+            /* Guide Banner / Hero Section - Mobile */
+            .guide-banner { flex-direction: column !important; padding: 20px !important; gap: 20px !important; text-align: center; }
+            .guide-banner > div:first-child { width: 100% !important; }
+            .guide-banner h2 { font-size: 20px !important; }
+            .guide-banner .guide-clients-list { display: flex !important; flex-wrap: wrap !important; justify-content: center !important; gap: 8px 12px !important; }
+            .guide-banner .guide-buttons { display: flex !important; flex-direction: row !important; flex-wrap: wrap !important; gap: 12px !important; width: 100% !important; justify-content: center !important; }
+            .guide-banner .guide-buttons a { width: auto !important; min-width: 160px !important; justify-content: center !important; }
+            .guide-banner img { width: 100% !important; max-width: 280px !important; margin: 0 auto; padding-left: 0 !important; padding-top: 16px !important; display: none !important; }
+            .guide-banner .guide-badge { display: block !important; text-align: center !important; }
+            .guide-banner .guide-title { text-align: center !important; }
+            .guide-banner .guide-desc { text-align: center !important; }
+            
+            /* Steps Section */
+            [style*="display:flex;align-items:flex-start;justify-content:space-between"] { flex-direction: column !important; gap: 20px !important; }
+            [style*="display:flex;align-items:center;padding-top:16px;flex-shrink:0"] { display: none !important; }
+            [style*="display:flex;align-items:flex-start;gap:16px;flex:1"] { width: 100% !important; }
+            
+            /* Feature Cards */
+            [style*="display:grid;grid-template-columns:repeat(4,1fr)"] { grid-template-columns: 1fr !important; }
+            
+            /* Example Buttons */
+            [style*="display:grid;grid-template-columns:repeat(5,1fr)"] { grid-template-columns: 1fr !important; }
+            
+            /* Clients Grid */
+            [style*="display:grid;grid-template-columns:repeat(5,1fr)"] { grid-template-columns: 1fr !important; }
+            
+            /* Tools Grid */
+            [style*="display:grid;grid-template-columns:repeat(4,1fr)"] { grid-template-columns: 1fr !important; }
+            
+            /* Security Features */
+            [style*="display:grid;grid-template-columns:repeat(3,1fr)"] { grid-template-columns: 1fr !important; gap: 20px !important; }
+            
+            /* CTA Section */
+            [style*="display:flex;align-items:center;justify-content:space-between"] { flex-direction: column !important; text-align: center; }
+            [style*="display:flex;align-items:center;gap:24px;flex:1"] { flex-direction: column !important; }
+            [style*="display:inline-flex;align-items:center;gap:8px;background:var(--accent-primary)"] { width: 100% !important; justify-content: center; }
+            
+            /* Modal */
+            .guide-modal-sidebar { display: none; }
+            .guide-modal-body { flex-direction: column; }
+            .guide-modal-content { width: 95%; max-height: 95vh; }
         }
-        @media (max-width: 600px) {
-            .feature-grid { grid-template-columns: 1fr; }
-            .tools-grid { grid-template-columns: 1fr; }
-            .guide-banner { flex-direction: column; }
-            .guide-banner img { width: 100%; padding-left: 0; padding-top: 16px; }
+
+        /* Tablet (Portrait): 768px to 834px */
+        @media (min-width: 768px) and (max-width: 834px) {
+            .container { padding: 0 1.5rem; }
+            .nav-links { display: none; }
+            .nav-menu-btn { display: flex !important; }
+            .nav-inner { padding: 0 1.5rem; }
+            
+            /* Grids */
+            [style*="display:grid;grid-template-columns:repeat(4,1fr)"] { grid-template-columns: repeat(2, 1fr) !important; }
+            [style*="display:grid;grid-template-columns:repeat(5,1fr)"] { grid-template-columns: repeat(2, 1fr) !important; }
+            [style*="display:grid;grid-template-columns:repeat(3,1fr)"] { grid-template-columns: repeat(2, 1fr) !important; }
+            
+            /* Steps */
+            [style*="display:flex;align-items:flex-start;justify-content:space-between"] { flex-wrap: wrap !important; gap: 16px !important; justify-content: center !important; }
+            [style*="display:flex;align-items:center;padding-top:16px;flex-shrink:0"] { display: none !important; }
+            [style*="display:flex;align-items:flex-start;gap:16px;flex:1"] { flex: 0 0 calc(50% - 8px) !important; max-width: calc(50% - 8px) !important; }
+            
+            /* Banner */
+            .guide-banner { flex-direction: column !important; padding: 24px !important; gap: 20px !important; text-align: center; }
+            .guide-banner > div:first-child { width: 100% !important; }
+            .guide-banner .guide-badge { text-align: center !important; }
+            .guide-banner .guide-title { text-align: center !important; }
+            .guide-banner .guide-desc { text-align: center !important; }
+            .guide-banner .guide-clients-list { justify-content: center !important; }
+            .guide-banner .guide-buttons { flex-direction: row !important; justify-content: center !important; }
+            .guide-banner .guide-buttons a { width: auto !important; min-width: 140px !important; }
+            .guide-banner img { display: none !important; }
+            
+            /* CTA */
+            [style*="display:flex;align-items:center;justify-content:space-between"] { flex-wrap: wrap; gap: 20px; }
+            
+            /* Modal */
+            .guide-modal-sidebar { width: 180px; }
         }
+
+        /* Mobile Only: 360px to 480px */
+        @media (min-width: 360px) and (max-width: 480px) {
+            .guide-banner img { display: none !important; }
+        }
+
+        /* Laptop/Tablet (Landscape): 1024px to 1280px */
+        @media (min-width: 1024px) and (max-width: 1280px) {
+            .container { max-width: 100%; padding: 0 1.5rem; }
+            .nav-inner { max-width: 100%; }
+            
+            /* Grids */
+            [style*="display:grid;grid-template-columns:repeat(4,1fr)"] { grid-template-columns: repeat(2, 1fr) !important; }
+            [style*="display:grid;grid-template-columns:repeat(5,1fr)"] { grid-template-columns: repeat(3, 1fr) !important; }
+            
+            /* Steps */
+            [style*="display:flex;align-items:flex-start;justify-content:space-between"] { gap: 12px; }
+            
+            /* Banner */
+            .guide-banner { padding: 28px !important; }
+            .guide-banner img { width: 360px !important; }
+        }
+
+        /* Desktop: 1280px to 1920px */
+        @media (min-width: 1280px) and (max-width: 1920px) {
+            .container { max-width: 1200px; }
+            .nav-inner { max-width: 1200px; }
+        }
+
+        /* Large Desktop: 1440px, 1536px and up */
+        @media (min-width: 1440px) {
+            .container { max-width: 1400px; padding: 0 2rem; }
+            .nav-inner { max-width: 1400px; }
+            .guide-banner { padding: 40px !important; }
+            .guide-banner img { width: 400px !important; }
+            [style*="display:grid;grid-template-columns:repeat(4,1fr)"] { grid-template-columns: repeat(4, 1fr) !important; }
+            [style*="display:grid;grid-template-columns:repeat(5,1fr)"] { grid-template-columns: repeat(5, 1fr) !important; }
+        }
+
+        /* Mobile Menu Button */
+        .nav-menu-btn { display: none; flex-shrink: 0; width: 40px; height: 40px; align-items: center; justify-content: center; background: var(--bg-tertiary); border: 1px solid var(--border-color); border-radius: var(--radius-sm); color: var(--text-primary); cursor: pointer; font-size: 1.1rem; }
+        
+        /* Navigation Drawer */
+        .nav-overlay { display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.5); z-index: 998; opacity: 0; transition: opacity 0.3s ease; backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
+        .nav-overlay.active { display: block; opacity: 1; }
+        .nav-drawer { position: fixed; top: 0; right: 0; width: 280px; max-width: 80%; height: 100vh; background: var(--bg-card); z-index: 999; transform: translateX(100%); transition: transform 0.3s ease; display: flex; flex-direction: column; }
+        .nav-drawer.active { transform: translateX(0); }
+        .nav-drawer-header { display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.25rem; border-bottom: 1px solid var(--border-color); }
+        .nav-drawer-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text-primary); font-weight: 700; font-size: 1rem; }
+        .nav-drawer-logo:hover { color: var(--text-primary); }
+        .nav-drawer-close { background: none; border: none; cursor: pointer; padding: 8px; color: var(--text-secondary); font-size: 1.5rem; }
+        .nav-drawer-close:hover { color: var(--text-primary); }
+        .nav-drawer-links { flex: 1; padding: 1rem 0; overflow-y: auto; }
+        .nav-drawer-link { display: flex; align-items: center; gap: 12px; padding: 0.875rem 1.25rem; color: var(--text-secondary); text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: all 0.2s; border-left: 3px solid transparent; }
+        .nav-drawer-link:hover { background: var(--bg-secondary); color: var(--text-primary); border-left-color: var(--accent-primary); }
+        .nav-drawer-link.active { background: var(--accent-primary-muted); color: var(--accent-primary); border-left-color: var(--accent-primary); }
+        .nav-drawer-link i { width: 20px; text-align: center; }
+        .nav-drawer-footer { padding: 1rem 1.25rem; border-top: 1px solid var(--border-color); }
+        .nav-drawer-footer .nav-btn { width: 100%; justify-content: center; margin-bottom: 0.5rem; display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; background: var(--accent-primary); color: #fff; border-radius: var(--radius-md); font-size: 0.9rem; font-weight: 600; text-decoration: none; }
+        .nav-drawer-footer .nav-btn:hover { background: var(--accent-primary-hover); }
+        .nav-drawer-footer .theme-btn { width: 100%; justify-content: center; margin-top: 0.5rem; padding: 10px 20px; background: transparent; border: 1px solid var(--border-color); color: var(--text-secondary); border-radius: var(--radius-md); font-size: 0.9rem; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 8px; }
+        .nav-drawer-footer .theme-btn:hover { background: var(--bg-secondary); color: var(--text-primary); }
     </style>
 </head>
 <body>
@@ -358,8 +493,50 @@
                 <a href="{{ route('register') }}" class="nav-btn">Register</a>
                 <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme"></button>
             </div>
+            <button class="nav-menu-btn" onclick="openNavDrawer()" title="Open menu">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
     </nav>
+
+    <!-- Navigation Drawer Overlay -->
+    <div class="nav-overlay" id="navOverlay" onclick="closeNavDrawer()"></div>
+
+    <!-- Navigation Drawer -->
+    <div class="nav-drawer" id="navDrawer">
+        <div class="nav-drawer-header">
+            <a href="/" class="nav-drawer-logo" onclick="closeNavDrawer()">
+                <div class="nav-logo-icon" style="width: 32px; height: 32px;">⚡</div>
+                <span>Server<span style="color: var(--accent-primary);">Avatar</span> MCP</span>
+            </a>
+            <button class="nav-drawer-close" onclick="closeNavDrawer()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="nav-drawer-links">
+            <a href="{{ url('/') }}#features" class="nav-drawer-link" onclick="closeNavDrawer()">
+                <i class="fas fa-star"></i> Features
+            </a>
+            <a href="{{ url('/') }}#integration" class="nav-drawer-link" onclick="closeNavDrawer()">
+                <i class="fas fa-plug"></i> Integration
+            </a>
+            <a href="{{ route('guide') }}" class="nav-drawer-link active" onclick="closeNavDrawer()">
+                <i class="fas fa-book"></i> Guide
+            </a>
+            <a href="{{ route('login') }}" class="nav-drawer-link" onclick="closeNavDrawer()">
+                <i class="fas fa-sign-in-alt"></i> Login
+            </a>
+        </div>
+        <div class="nav-drawer-footer">
+            <a href="{{ route('register') }}" class="nav-btn" onclick="closeNavDrawer()">
+                <i class="fas fa-rocket"></i> Get Started
+            </a>
+            <button class="theme-btn" onclick="toggleTheme(); closeNavDrawer();" style="gap: 12px;">
+                <i id="drawerThemeIcon" style="font-size: 1.1rem; width: 20px; text-align: center;"></i>
+                <span id="drawerThemeText">Toggle Theme</span>
+            </button>
+        </div>
+    </div>
 
     <!-- Main Content -->
     <main class="main">
@@ -371,23 +548,22 @@
                     <!-- Left Side: Content -->
                     <div style="flex:1.5;min-width:0;">
                         <!-- MCP GUIDE Badge -->
-                        <div style="margin-bottom:16px;">
+                        <div class="guide-badge" style="margin-bottom:16px;">
                             <span style="display:inline-block;font-size:11px;font-weight:700;color:var(--accent-primary);letter-spacing:1px;padding:5px 14px;background:var(--accent-primary-muted);border-radius:20px;border:1px solid var(--accent-primary);">MCP GUIDE</span>
                         </div>
                         
                         <!-- Title -->
-                        <div style="margin-bottom:16px;">
-                            <h2 style="font-size:28px;font-weight:800;color:var(--text-primary);line-height:1.3;margin:0;">Connect ServerAvatar MCP with your favorite AI clients</h2>
-                            <h2 style="font-size:28px;font-weight:800;color:var(--accent-primary);line-height:1.3;margin:0;">in minutes.</h2>
+                        <div class="guide-title" style="margin-bottom:16px;">
+                            <h2 style="font-size:28px;font-weight:800;color:var(--text-primary);line-height:1.3;margin:0;">Connect ServerAvatar MCP with your favorite AI clients <span style="background: linear-gradient(135deg, #7c3aed 0%, #a78bfa 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">in minutes.</span></h2>
                         </div>
                         
                         <!-- Description -->
-                        <div style="margin-bottom:20px;">
+                        <div class="guide-desc" style="margin-bottom:20px;">
                             <p style="font-size:14px;color:var(--text-secondary);line-height:1.6;margin:0;">ServerAvatar MCP lets you manage your infrastructure, applications, and servers using natural language through AI assistants.</p>
                         </div>
                         
                         <!-- AI Clients List -->
-                        <div style="display:flex;align-items:center;gap:20px;margin-bottom:24px;">
+                        <div class="guide-clients-list" style="display:flex;align-items:center;gap:20px;margin-bottom:24px;">
                             <div style="display:flex;align-items:center;gap:6px;">
                                 <i class="fas fa-check-circle" style="color:var(--accent-primary);font-size:14px;"></i>
                                 <span style="font-size:13px;color:var(--text-primary);font-weight:500;">ChatGPT</span>
@@ -411,7 +587,7 @@
                         </div>
                         
                         <!-- Buttons -->
-                        <div style="display:flex;align-items:center;gap:16px;">
+                        <div class="guide-buttons" style="display:flex;align-items:center;gap:16px;">
                             <a href="{{ url('/register') }}" style="display:inline-flex;align-items:center;gap:8px;padding:12px 28px;background:var(--accent-primary);color:#fff;font-size:14px;font-weight:600;border-radius:8px;text-decoration:none;transition:all 200ms;">
                                 Get Started Free <i class="fas fa-arrow-right" style="font-size:12px;"></i>
                             </a>
@@ -422,7 +598,7 @@
                     </div>
                     
                     <!-- Right Side: Illustration -->
-                    <div style="flex-shrink:0;width:480px;">
+                    <div style="flex-shrink:0;max-width:480px;width:100%;">
                         <img src="/images/mcp-guide-illustration.png" alt="MCP Guide" style="width:100%;height:auto;object-fit:contain;" loading="lazy">
                     </div>
                 </div>
@@ -889,13 +1065,48 @@
             if (saved) {
                 document.documentElement.setAttribute('data-theme', saved);
             }
+            updateDrawerThemeIcon();
         })();
         function toggleTheme() {
             const html = document.documentElement;
             const theme = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
             html.setAttribute('data-theme', theme);
             localStorage.setItem('theme', theme);
+            updateDrawerThemeIcon();
         }
+        
+        function updateDrawerThemeIcon() {
+            const theme = document.documentElement.getAttribute('data-theme');
+            const icon = document.getElementById('drawerThemeIcon');
+            const text = document.getElementById('drawerThemeText');
+            if (theme === 'dark') {
+                icon.textContent = '🌙';
+                text.textContent = 'Dark Mode';
+            } else {
+                icon.textContent = '☀️';
+                text.textContent = 'Light Mode';
+            }
+        }
+        
+        // Navigation Drawer Functions
+        function openNavDrawer() {
+            document.getElementById('navDrawer').classList.add('active');
+            document.getElementById('navOverlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeNavDrawer() {
+            document.getElementById('navDrawer').classList.remove('active');
+            document.getElementById('navOverlay').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        
+        // Close drawer on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeNavDrawer();
+            }
+        });
 
         // Client Data
         const clients = {

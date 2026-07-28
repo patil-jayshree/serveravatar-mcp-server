@@ -175,6 +175,7 @@
         @media (max-width: 768px) {
             .navbar { padding: 0 1rem; }
             .nav-links { display: none; }
+            .nav-menu-btn { display: flex !important; align-items: center; justify-content: center; }
             .container { padding: 1rem; }
             .page-title { font-size: 1.5rem; }
             .info-grid { grid-template-columns: 1fr; }
@@ -185,6 +186,35 @@
             .integration-more-tags { flex-wrap: wrap; }
             .mcp-url-box { flex-direction: column; align-items: stretch; }
         }
+        
+        /* Navigation Drawer */
+        .nav-menu-btn { display: none; background: none; border: none; cursor: pointer; padding: 8px; color: var(--text-primary); font-size: 1.25rem; border-radius: var(--radius-sm); }
+        .nav-menu-btn:hover { background: var(--bg-tertiary); }
+        .nav-overlay { display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.5); z-index: 1001; opacity: 0; transition: opacity 0.3s ease; backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
+        .nav-overlay.active { display: block; opacity: 1; }
+        .nav-drawer { position: fixed; top: 0; right: 0; width: 280px; max-width: 80%; height: 100vh; background: var(--bg-card); z-index: 1002; transform: translateX(100%); transition: transform 0.3s ease; display: flex; flex-direction: column; border-left: 1px solid var(--border-color); }
+        .nav-drawer.active { transform: translateX(0); }
+        .nav-drawer-header { display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.25rem; border-bottom: 1px solid var(--border-color); }
+        .nav-drawer-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text-primary); font-weight: 700; font-size: 1rem; }
+        .nav-drawer-logo:hover { color: var(--text-primary); }
+        .nav-drawer-close { background: none; border: none; cursor: pointer; padding: 8px; color: var(--text-secondary); font-size: 1.5rem; line-height: 1; }
+        .nav-drawer-close:hover { color: var(--text-primary); }
+        .nav-drawer-links { flex: 1; padding: 1rem 0; overflow-y: auto; }
+        .nav-drawer-link { display: flex; align-items: center; gap: 12px; padding: 0.875rem 1.25rem; color: var(--text-secondary); text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: all 0.2s; border-left: 3px solid transparent; }
+        .nav-drawer-link:hover { background: var(--bg-tertiary); color: var(--text-primary); border-left-color: var(--accent-primary); }
+        .nav-drawer-link.active { background: var(--accent-primary-muted); color: var(--accent-primary); border-left-color: var(--accent-primary); }
+        .nav-drawer-link i { width: 20px; text-align: center; }
+        .nav-drawer-footer { padding: 1rem 1.25rem; border-top: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 8px; }
+        .nav-drawer-profile { display: flex; align-items: center; gap: 12px; padding: 0.75rem; background: var(--bg-tertiary); border-radius: var(--radius-md); }
+        .nav-drawer-avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--gradient-primary); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700; color: white; }
+        .nav-drawer-user-info { flex: 1; min-width: 0; }
+        .nav-drawer-user-name { font-weight: 600; font-size: 0.875rem; color: var(--text-primary); }
+        .nav-drawer-user-email { font-size: 0.75rem; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .nav-drawer-menu-item { display: flex; align-items: center; gap: 10px; padding: 0.625rem 0.75rem; color: var(--text-secondary); font-size: 0.875rem; text-decoration: none; transition: all 0.2s; border-radius: var(--radius-sm); }
+        .nav-drawer-menu-item:hover { background: var(--bg-tertiary); color: var(--text-primary); }
+        .nav-drawer-menu-item.danger { color: var(--accent-danger); }
+        .nav-drawer-menu-item.danger:hover { background: var(--accent-danger-muted); }
+        .nav-drawer-divider { height: 1px; background: var(--border-color); margin: 4px 0; }
     </style>
 </head>
 <body>
@@ -204,9 +234,82 @@
                 @if(auth()->check())
                     @include('components.profile-dropdown')
                 @endif
+                <button class="nav-menu-btn" onclick="openNavDrawer()" title="Open menu" style="display: none;">
+                    <i class="fas fa-bars"></i>
+                </button>
             </div>
         </div>
     </nav>
+
+    <!-- Navigation Drawer Overlay -->
+    <div class="nav-overlay" id="navOverlay" onclick="closeNavDrawer()"></div>
+
+    <!-- Navigation Drawer -->
+    <div class="nav-drawer" id="navDrawer">
+        <div class="nav-drawer-header">
+            <a href="/" class="nav-drawer-logo">
+                <div class="nav-logo"><i class="fas fa-bolt" style="color: #fbbf24;"></i></div>
+                <span class="nav-title">Server<span>Avatar</span> MCP</span>
+            </a>
+            <button class="nav-drawer-close" onclick="closeNavDrawer()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        @if(auth()->check())
+        <div class="nav-drawer-links">
+            <a href="/dashboard" class="nav-drawer-link {{ request()->is('dashboard') ? 'active' : '' }}" onclick="closeNavDrawer()">
+                <i class="fas fa-home"></i> Dashboard
+            </a>
+            <a href="/tools" class="nav-drawer-link {{ request()->is('tools') ? 'active' : '' }}" onclick="closeNavDrawer()">
+                <i class="fas fa-tools"></i> Tools
+            </a>
+            <a href="/activity" class="nav-drawer-link {{ request()->is('activity') ? 'active' : '' }}" onclick="closeNavDrawer()">
+                <i class="fas fa-activity"></i> Activity
+            </a>
+            <a href="/mcp-server" class="nav-drawer-link {{ request()->is('mcp-server') ? 'active' : '' }}" onclick="closeNavDrawer()">
+                <i class="fas fa-server"></i> MCP Server
+            </a>
+            <a href="/profile" class="nav-drawer-link {{ request()->is('profile') ? 'active' : '' }}" onclick="closeNavDrawer()">
+                <i class="fas fa-user"></i> Profile
+            </a>
+        </div>
+        <div class="nav-drawer-footer">
+            <div class="nav-drawer-profile">
+                <div class="nav-drawer-avatar">{{ substr(auth()->user()->name ?? 'U', 0, 1) }}</div>
+                <div class="nav-drawer-user-info">
+                    <div class="nav-drawer-user-name">{{ auth()->user()->name ?? 'User' }}</div>
+                    <div class="nav-drawer-user-email">{{ auth()->user()->email ?? '' }}</div>
+                </div>
+            </div>
+            <a href="/profile" class="nav-drawer-menu-item" onclick="closeNavDrawer()">
+                <i class="fas fa-cog"></i> Settings
+            </a>
+            <form method="POST" action="{{ route('logout') }}" style="margin: 0;">
+                @csrf
+                <button type="submit" class="nav-drawer-menu-item danger" style="width: 100%; border: none; background: none; cursor: pointer; text-align: left; font-family: inherit;">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </form>
+        </div>
+        @else
+        <div class="nav-drawer-links">
+            <a href="/" class="nav-drawer-link" onclick="closeNavDrawer()">
+                <i class="fas fa-home"></i> Home
+            </a>
+            <a href="{{ route('guide') }}" class="nav-drawer-link" onclick="closeNavDrawer()">
+                <i class="fas fa-book"></i> Guide
+            </a>
+        </div>
+        <div class="nav-drawer-footer">
+            <a href="{{ route('login') }}" class="nav-drawer-menu-item" onclick="closeNavDrawer()">
+                <i class="fas fa-sign-in-alt"></i> Login
+            </a>
+            <a href="{{ route('register') }}" class="nav-drawer-menu-item" onclick="closeNavDrawer()" style="background: var(--accent-primary); color: white;">
+                <i class="fas fa-rocket"></i> Get Started
+            </a>
+        </div>
+        @endif
+    </div>
 
     <main class="main-content">
         <div class="container {{ (isset($narrow) && $narrow) ? 'narrow' : '' }}">
@@ -226,6 +329,27 @@
         function setTheme(t) { document.documentElement.setAttribute('data-theme', t); localStorage.setItem('theme', t); }
         function toggleTheme() { setTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'); }
         (function() { const s = localStorage.getItem('theme'); if (s) setTheme(s); })();
+        
+        // Navigation Drawer Functions
+        function openNavDrawer() {
+            document.getElementById('navDrawer').classList.add('active');
+            document.getElementById('navOverlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeNavDrawer() {
+            document.getElementById('navDrawer').classList.remove('active');
+            document.getElementById('navOverlay').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        
+        // Close drawer on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeNavDrawer();
+            }
+        });
+        
         function toggleProfileMenu() {
             var menu = document.getElementById('profileMenu');
             menu.classList.toggle('show');
