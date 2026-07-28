@@ -172,9 +172,12 @@
                 </div>
             </div>
             <div id="tokensList">
-                <div style="text-align: center; padding: 2rem; color: var(--text-secondary); font-size: 0.875rem;">
-                    <i class="fas fa-key" style="font-size: 1.5rem; margin-bottom: 0.5rem; opacity: 0.5;"></i>
-                    <p style="margin: 0;">No tokens yet. Generate one above to get started.</p>
+                <div style="text-align: center; padding: 2.5rem 2rem; background: var(--bg-card); border: 1px dashed var(--border-color); border-radius: var(--radius-md); margin-top: 0.5rem;">
+                    <div style="width: 56px; height: 56px; background: var(--accent-primary-muted); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">
+                        <i class="fas fa-key" style="font-size: 1.5rem; color: var(--accent-primary);"></i>
+                    </div>
+                    <h3 style="font-size: 1rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.5rem;">No tokens yet</h3>
+                    <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0;">Generate one above to get started</p>
                 </div>
             </div>
         </div>
@@ -264,9 +267,12 @@ async function loadTokens() {
         
         if (!data.tokens || data.tokens.length === 0) {
             tokensList.innerHTML = `
-                <div style="text-align: center; padding: 2rem; color: var(--text-secondary); font-size: 0.875rem;">
-                    <i class="fas fa-key" style="font-size: 1.5rem; margin-bottom: 0.5rem; opacity: 0.5;"></i>
-                    <p style="margin: 0;">No tokens yet. Generate one above to get started.</p>
+                <div style="text-align: center; padding: 2.5rem 2rem; background: var(--bg-card); border: 1px dashed var(--border-color); border-radius: var(--radius-md); margin-top: 0.5rem;">
+                    <div style="width: 56px; height: 56px; background: var(--accent-primary-muted); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">
+                        <i class="fas fa-key" style="font-size: 1.5rem; color: var(--accent-primary);"></i>
+                    </div>
+                    <h3 style="font-size: 1rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.5rem;">No tokens yet</h3>
+                    <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0;">Generate one above to get started</p>
                 </div>
             `;
             return;

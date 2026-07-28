@@ -146,8 +146,13 @@
         .badge-skyblue { background: rgba(46, 209, 201, 0.15); color: #2ed1c9; }
         .badge-lime { background: rgba(132, 204, 22, 0.15); color: #84cc16; }
         .badge-violet { background: rgba(168, 85, 247, 0.15); color: #a855f7; }
-        .activity-empty { text-align: center; padding: 2rem; color: var(--text-secondary); }
-        .activity-empty p { font-size: 0.875rem; margin-top: 0.5rem; }
+        .activity-empty { text-align: center; padding: 2.5rem 2rem; color: var(--text-secondary); background: var(--bg-secondary); border: 1px dashed var(--border-color); border-radius: var(--radius-md); margin-top: 0.5rem; }
+        .activity-empty-icon { width: 56px; height: 56px; background: var(--accent-primary-muted); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; }
+        .activity-empty-icon i { font-size: 1.5rem; color: var(--accent-primary); }
+        .activity-empty h3 { font-size: 1rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.5rem; }
+        .activity-empty p { font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1rem; }
+        .activity-empty .btn-empty { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; background: var(--accent-primary); color: #fff; border-radius: var(--radius-md); font-size: 0.875rem; font-weight: 600; text-decoration: none; transition: all 0.2s; }
+        .activity-empty .btn-empty:hover { background: var(--accent-primary-hover); transform: translateY(-1px); }
 
         /* Quick Setup Section */
         .quick-setup-section { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 1.5rem; margin-bottom: 1rem; opacity: 0; transform: translateY(15px); animation: dashFadeIn 0.5s ease 0.7s forwards; }
@@ -833,8 +838,12 @@
     </div>
     @else
     <div class="activity-empty">
-        <i class="fas fa-clock" style="font-size: 2rem; color: var(--accent-primary); margin-bottom: 0.5rem;"></i>
-        <p>No activity yet. Connect an AI client to get started.</p>
+        <div class="activity-empty-icon">
+            <i class="fas fa-clock"></i>
+        </div>
+        <h3>No activity yet</h3>
+        <p>Connect an AI client to get started</p>
+        <a href="{{ route('guide') }}" class="btn-empty"><i class="fas fa-link"></i> Setup Guide</a>
     </div>
     @endif
 </div>

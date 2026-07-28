@@ -80,8 +80,8 @@
             --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
         }
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        html { font-size: 16px; -webkit-font-smoothing: antialiased; }
-        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; min-height: 100vh; }
+        html { font-size: 16px; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg-primary); color: var(--text-primary); line-height: 1.6; min-height: 100vh; overflow-x: hidden; }
         .icon-light, .icon-dark { display: block; vertical-align: middle; }
         [data-theme="light"] .icon-light { display: block !important; }
         [data-theme="light"] .icon-dark { display: none !important; }

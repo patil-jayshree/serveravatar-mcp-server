@@ -89,8 +89,16 @@ class DashboardController extends Controller
             }
 
             return response()->json(['success' => true, 'message' => 'API key saved successfully.']);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->errors() ? array_values($e->errors())[0][0] : 'Validation failed.',
+            ], 422);
         } catch (Exception $e) {
-            $statusCode = method_exists($e, 'status') ? $e->status() : 500;
+            $statusCode = 500;
+            if (method_exists($e, 'getStatusCode')) {
+                $statusCode = $e->getStatusCode();
+            }
             return response()->json([
                 'status' => 'error',
                 'message' => 'Failed to save API key. Please try again.',
