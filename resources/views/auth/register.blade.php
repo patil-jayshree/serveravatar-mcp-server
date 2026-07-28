@@ -214,7 +214,10 @@
                 return;
             }
             validationEl.style.display = 'flex';
-            if (password.length < 8) {
+            if (/\s/.test(password)) {
+                validationEl.className = 'password-validation error';
+                validationEl.innerHTML = '<i class="fas fa-exclamation-circle"></i> Password must not contain any spaces';
+            } else if (password.length < 8) {
                 validationEl.className = 'password-validation error';
                 validationEl.innerHTML = '<i class="fas fa-exclamation-circle"></i> Password must be at least 8 characters';
             } else if (!/[A-Z]/.test(password)) {

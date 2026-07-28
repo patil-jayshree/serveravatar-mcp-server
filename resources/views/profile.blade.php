@@ -758,11 +758,6 @@ function checkStrength() {
     var seg4 = document.getElementById('seg4');
     var text = document.getElementById('strengthText');
     var strength = 0;
-    if (pw.length >= 8) strength++;
-    if (/[A-Z]/.test(pw)) strength++;
-    if (/[a-z]/.test(pw)) strength++;
-    if (/[0-9]/.test(pw)) strength++;
-    if (/[@$!%*?&]/.test(pw)) strength++;
     
     // Reset
     seg1.style.background = 'var(--border-color)';
@@ -772,6 +767,20 @@ function checkStrength() {
     text.style.color = 'var(--text-muted)';
     
     if (pw.length === 0) { text.textContent = ''; return; }
+    
+    // Check for spaces first
+    if (/\s/.test(pw)) {
+        seg1.style.background = '#ef4444';
+        text.textContent = 'Invalid - No spaces allowed';
+        text.style.color = '#ef4444';
+        return;
+    }
+    
+    if (pw.length >= 8) strength++;
+    if (/[A-Z]/.test(pw)) strength++;
+    if (/[a-z]/.test(pw)) strength++;
+    if (/[0-9]/.test(pw)) strength++;
+    if (/[@$!%*?&]/.test(pw)) strength++;
     
     if (strength <= 2) {
         seg1.style.background = '#ef4444';

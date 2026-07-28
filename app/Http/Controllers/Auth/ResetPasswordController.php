@@ -33,7 +33,20 @@ class ResetPasswordController extends Controller
             $validator = Validator::make($request->all(), [
                 'token' => 'required',
                 'email' => 'required|email',
-                'password' => 'required|min:8|confirmed',
+                'password' => [
+                    'required',
+                    'string',
+                    'min:8',
+                    'confirmed',
+                    'not_regex:/\s/',
+                    'regex:/[A-Z]/',
+                    'regex:/[a-z]/',
+                    'regex:/[0-9]/',
+                    'regex:/[@$!%*?&]/',
+                ],
+            ], [
+                'password.not_regex' => 'Password must not contain any spaces',
+                'password.regex' => 'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character',
             ]);
 
             if ($validator->fails()) {

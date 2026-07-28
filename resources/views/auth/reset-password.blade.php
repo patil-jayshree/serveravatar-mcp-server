@@ -114,6 +114,9 @@
         /* Password strength */
         .password-hint { display: flex; align-items: center; gap: 6px; color: var(--text-muted); font-size: 0.8rem; margin-top: 0.5rem; }
         .password-hint svg { width: 14px; height: 14px; }
+        .password-validation { font-size: 0.8rem; margin-top: 6px; display: flex; align-items: center; gap: 6px; }
+        .password-validation.error { color: var(--accent-danger); }
+        .password-validation.success { color: var(--accent-success); }
     </style>
 </head>
 <body>
@@ -188,15 +191,17 @@
                                 class="form-input @error('password') is-invalid @enderror"
                                 placeholder="Min. 8 characters"
                                 required
+                                oninput="validatePassword()"
                             >
                             <span class="input-icon-right" onclick="togglePassword('password', this)" style="cursor: pointer;">
                                 <i class="fas fa-eye eye-open" style="font-size: 15px;"></i>
                                 <i class="fas fa-eye-slash eye-closed" style="font-size: 15px; display: none;"></i>
                             </span>
                         </div>
+                        <div class="password-validation" id="passwordValidation" style="display: none;"></div>
                         <div class="password-hint">
                             <i class="fas fa-info-circle" style="font-size: 16px;"></i>
-                            Minimum 8 characters
+                            Must be 8+ characters with uppercase, lowercase, number & special character
                         </div>
                     </div>
 
@@ -279,6 +284,39 @@
                 input.type = 'password';
                 eyeOpen.style.display = 'block';
                 eyeClosed.style.display = 'none';
+            }
+        }
+
+        // Real-time password validation
+        function validatePassword() {
+            const password = document.getElementById('password').value;
+            const validationEl = document.getElementById('passwordValidation');
+            if (password.length === 0) {
+                validationEl.style.display = 'none';
+                return;
+            }
+            validationEl.style.display = 'flex';
+            if (/\s/.test(password)) {
+                validationEl.className = 'password-validation error';
+                validationEl.innerHTML = '<i class="fas fa-exclamation-circle"></i> Password must not contain any spaces';
+            } else if (password.length < 8) {
+                validationEl.className = 'password-validation error';
+                validationEl.innerHTML = '<i class="fas fa-exclamation-circle"></i> Password must be at least 8 characters';
+            } else if (!/[A-Z]/.test(password)) {
+                validationEl.className = 'password-validation error';
+                validationEl.innerHTML = '<i class="fas fa-exclamation-circle"></i> Password must contain at least one uppercase letter';
+            } else if (!/[a-z]/.test(password)) {
+                validationEl.className = 'password-validation error';
+                validationEl.innerHTML = '<i class="fas fa-exclamation-circle"></i> Password must contain at least one lowercase letter';
+            } else if (!/[0-9]/.test(password)) {
+                validationEl.className = 'password-validation error';
+                validationEl.innerHTML = '<i class="fas fa-exclamation-circle"></i> Password must contain at least one number';
+            } else if (!/[@$!%*?&]/.test(password)) {
+                validationEl.className = 'password-validation error';
+                validationEl.innerHTML = '<i class="fas fa-exclamation-circle"></i> Password must contain at least one special character (@$!%*?&)';
+            } else {
+                validationEl.className = 'password-validation success';
+                validationEl.innerHTML = '<i class="fas fa-check-circle"></i> Password meets all requirements';
             }
         }
     </script>

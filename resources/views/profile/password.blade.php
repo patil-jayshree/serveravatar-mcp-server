@@ -36,6 +36,9 @@
     .info-box ul { margin: 0; padding-left: 1.25rem; }
     .info-box li { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.25rem; }
     .info-box li:last-child { margin-bottom: 0; }
+    .password-validation { font-size: 0.8rem; margin-top: 6px; display: flex; align-items: center; gap: 6px; }
+    .password-validation.error { color: var(--accent-danger); }
+    .password-validation.success { color: var(--accent-success); }
     @media (max-width: 768px) {
         .settings-tabs { flex-wrap: wrap; }
     }
@@ -98,11 +101,12 @@
                 <div class="form-group">
                     <label class="form-label">New Password <span style="color: var(--accent-danger);">*</span></label>
                     <div class="input-wrap">
-                        <input type="password" name="password" id="password" class="form-input" placeholder="Enter new password" required>
+                        <input type="password" name="password" id="password" class="form-input" placeholder="Enter new password" required oninput="validatePassword()">
                         <button type="button" class="eye-btn" onclick="togglePassword('password')">
                             <i class="fas fa-eye" style="font-size: 15px;"></i>
                         </button>
                     </div>
+                    <div class="password-validation" id="passwordValidation" style="display: none;"></div>
                 </div>
                 <div class="form-group">
                     <label class="form-label">Confirm New Password <span style="color: var(--accent-danger);">*</span></label>
@@ -129,6 +133,37 @@ function togglePassword(id) {
     var eye = btn.querySelector('i');
     if (input.type === 'password') { input.type = 'text'; eye.className = 'fas fa-eye-slash'; }
     else { input.type = 'password'; eye.className = 'fas fa-eye'; }
+}
+function validatePassword() {
+    var password = document.getElementById('password').value;
+    var validationEl = document.getElementById('passwordValidation');
+    if (password.length === 0) {
+        validationEl.style.display = 'none';
+        return;
+    }
+    validationEl.style.display = 'flex';
+    if (/\s/.test(password)) {
+        validationEl.className = 'password-validation error';
+        validationEl.innerHTML = '<i class="fas fa-exclamation-circle"></i> Password must not contain any spaces';
+    } else if (password.length < 8) {
+        validationEl.className = 'password-validation error';
+        validationEl.innerHTML = '<i class="fas fa-exclamation-circle"></i> Password must be at least 8 characters';
+    } else if (!/[A-Z]/.test(password)) {
+        validationEl.className = 'password-validation error';
+        validationEl.innerHTML = '<i class="fas fa-exclamation-circle"></i> Password must contain at least one uppercase letter';
+    } else if (!/[a-z]/.test(password)) {
+        validationEl.className = 'password-validation error';
+        validationEl.innerHTML = '<i class="fas fa-exclamation-circle"></i> Password must contain at least one lowercase letter';
+    } else if (!/[0-9]/.test(password)) {
+        validationEl.className = 'password-validation error';
+        validationEl.innerHTML = '<i class="fas fa-exclamation-circle"></i> Password must contain at least one number';
+    } else if (!/[@$!%*?&]/.test(password)) {
+        validationEl.className = 'password-validation error';
+        validationEl.innerHTML = '<i class="fas fa-exclamation-circle"></i> Password must contain at least one special character (@$!%*?&)';
+    } else {
+        validationEl.className = 'password-validation success';
+        validationEl.innerHTML = '<i class="fas fa-check-circle"></i> Password meets all requirements';
+    }
 }
 
 function updatePassword(doLogout) {
