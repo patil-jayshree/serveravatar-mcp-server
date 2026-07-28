@@ -70,6 +70,9 @@
         .form-input { width: 100%; padding: 12px 16px; background: var(--bg-input); border: 1px solid var(--border-color); border-radius: var(--radius-md); color: var(--text-primary); font-size: 0.95rem; font-family: inherit; transition: all var(--transition-fast); }
         .form-input:focus { outline: none; border-color: var(--accent-primary); box-shadow: 0 0 0 3px var(--accent-primary-muted); }
         .password-hint { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.5rem; }
+        .password-validation { font-size: 0.8rem; margin-top: 6px; display: flex; align-items: center; gap: 6px; }
+        .password-validation.error { color: var(--accent-danger); }
+        .password-validation.success { color: var(--accent-success); }
         .form-input::placeholder { color: var(--text-muted); }
         .btn-primary { background: var(--gradient-primary); color: white; border: none; padding: 14px 24px; border-radius: var(--radius-md); font-weight: 700; font-size: 0.95rem; width: 100%; cursor: pointer; transition: all var(--transition-fast); box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3); display: flex; align-items: center; justify-content: center; gap: 8px; }
         .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4); }
@@ -122,18 +125,19 @@
                     <div class="form-group">
                         <label class="form-label" for="password">Password <span class="required">*</span></label>
                         <div style="position: relative;">
-                            <input type="password" id="password" name="password" class="form-input" placeholder="Create a strong password" required minlength="8" style="padding-right: 44px;">
+                            <input type="password" id="password" name="password" class="form-input" placeholder="Create a strong password" required minlength="8" style="padding-right: 44px;" oninput="validatePassword()">
                             <button type="button" onclick="toggleRegisterPassword()" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: var(--text-muted); padding: 0; display: flex; align-items: center;">
                                 <i class="fas fa-eye eye-icon-register" style="font-size: 15px;"></i>
                                 <i class="fas fa-eye-slash eye-off-icon-register" style="font-size: 15px; display: none;"></i>
                             </button>
                         </div>
+                        <div class="password-validation" id="passwordValidation" style="display: none;"></div>
                         <p class="password-hint">Must be 8+ characters and contain: uppercase, lowercase, number & special character (@$!%*?&)</p>
                     </div>
                     <div class="form-group">
                         <label class="form-label" for="password_confirmation">Confirm Password <span class="required">*</span></label>
                         <div style="position: relative;">
-                            <input type="password" id="password_confirmation" name="password_confirmation" class="form-input" placeholder="Repeat your password" required style="padding-right: 44px;">
+                            <input type="password" id="password_confirmation" name="password_confirmation" class="form-input" placeholder="Repeat your password" required style="padding-right: 44px;" onpaste="return false">
                             <button type="button" onclick="toggleRegisterConfirmPassword()" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: var(--text-muted); padding: 0; display: flex; align-items: center;">
                                 <i class="fas fa-eye eye-icon-confirm" style="font-size: 15px;"></i>
                                 <i class="fas fa-eye-slash eye-off-icon-confirm" style="font-size: 15px; display: none;"></i>
@@ -201,6 +205,34 @@
             const theme = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
             html.setAttribute('data-theme', theme);
             localStorage.setItem('theme', theme);
+        }
+        function validatePassword() {
+            const password = document.getElementById('password').value;
+            const validationEl = document.getElementById('passwordValidation');
+            if (password.length === 0) {
+                validationEl.style.display = 'none';
+                return;
+            }
+            validationEl.style.display = 'flex';
+            if (password.length < 8) {
+                validationEl.className = 'password-validation error';
+                validationEl.innerHTML = '<i class="fas fa-exclamation-circle"></i> Password must be at least 8 characters';
+            } else if (!/[A-Z]/.test(password)) {
+                validationEl.className = 'password-validation error';
+                validationEl.innerHTML = '<i class="fas fa-exclamation-circle"></i> Password must contain at least one uppercase letter';
+            } else if (!/[a-z]/.test(password)) {
+                validationEl.className = 'password-validation error';
+                validationEl.innerHTML = '<i class="fas fa-exclamation-circle"></i> Password must contain at least one lowercase letter';
+            } else if (!/[0-9]/.test(password)) {
+                validationEl.className = 'password-validation error';
+                validationEl.innerHTML = '<i class="fas fa-exclamation-circle"></i> Password must contain at least one number';
+            } else if (!/[@$!%*?&]/.test(password)) {
+                validationEl.className = 'password-validation error';
+                validationEl.innerHTML = '<i class="fas fa-exclamation-circle"></i> Password must contain at least one special character (@$!%*?&)';
+            } else {
+                validationEl.className = 'password-validation success';
+                validationEl.innerHTML = '<i class="fas fa-check-circle"></i> Password meets all requirements';
+            }
         }
         (function() {
             const saved = localStorage.getItem('theme');
