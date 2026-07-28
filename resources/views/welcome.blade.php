@@ -64,6 +64,27 @@
         .nav-logo-icon { width: 40px; height: 40px; background: var(--gradient-primary); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-size: 20px; }
         .nav-logo-text span { color: var(--accent-primary); }
         .nav-right { display: flex; align-items: center; gap: 1rem; }
+        
+        /* Mobile Menu Button */
+        .nav-menu-btn { display: none; background: none; border: none; cursor: pointer; padding: 8px; color: var(--text-primary); font-size: 1.25rem; }
+        
+        /* Navigation Drawer */
+        .nav-overlay { display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.5); z-index: 998; opacity: 0; transition: opacity 0.3s ease; }
+        .nav-overlay.active { display: block; opacity: 1; }
+        .nav-drawer { position: fixed; top: 0; right: 0; width: 280px; max-width: 80%; height: 100vh; background: var(--bg-card); z-index: 999; transform: translateX(100%); transition: transform 0.3s ease; display: flex; flex-direction: column; }
+        .nav-drawer.active { transform: translateX(0); }
+        .nav-drawer-header { display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.25rem; border-bottom: 1px solid var(--border-color); }
+        .nav-drawer-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--text-primary); font-weight: 700; font-size: 1rem; }
+        .nav-drawer-logo:hover { color: var(--text-primary); }
+        .nav-drawer-close { background: none; border: none; cursor: pointer; padding: 8px; color: var(--text-secondary); font-size: 1.5rem; }
+        .nav-drawer-close:hover { color: var(--text-primary); }
+        .nav-drawer-links { flex: 1; padding: 1rem 0; overflow-y: auto; }
+        .nav-drawer-link { display: flex; align-items: center; gap: 12px; padding: 0.875rem 1.25rem; color: var(--text-secondary); text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: all 0.2s; border-left: 3px solid transparent; }
+        .nav-drawer-link:hover { background: var(--bg-secondary); color: var(--text-primary); border-left-color: var(--accent-primary); }
+        .nav-drawer-link i { width: 20px; text-align: center; }
+        .nav-drawer-footer { padding: 1rem 1.25rem; border-top: 1px solid var(--border-color); }
+        .nav-drawer-footer .btn { width: 100%; justify-content: center; margin-bottom: 0.5rem; }
+        .nav-drawer-footer .btn:last-child { margin-bottom: 0; }
         .nav-link { color: var(--text-secondary); text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: color var(--transition-fast); }
         .nav-link:hover { color: var(--text-primary); }
         .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 20px; border-radius: var(--radius-md); font-weight: 600; font-size: 0.9rem; border: none; cursor: pointer; transition: all var(--transition-fast); text-decoration: none; white-space: nowrap; }
@@ -200,13 +221,160 @@
         .footer a { color: var(--accent-primary); text-decoration: none; font-weight: 600; }
         .footer a:hover { text-decoration: underline; }
 
-        @media (max-width: 768px) {
+        /* ========== RESPONSIVE STYLES ========== */
+
+        /* Mobile: 360px to 430px */
+        @media (min-width: 360px) and (max-width: 430px) {
+            .nav-inner { padding: 0 1rem; height: 64px; }
+            .nav-logo-icon { width: 36px; height: 36px; }
+            .nav-logo-text { font-size: 1rem; }
             .nav-right { display: none; }
-            .hero-title { font-size: 2.25rem; }
+            .nav-menu-btn { display: flex; align-items: center; justify-content: center; }
+            
+            .hero { padding: 3.5rem 1rem 2rem; }
+            .hero-wrapper { padding-top: 3rem; }
+            .hero-title { font-size: 1.75rem; }
+            .hero-subtitle { font-size: 0.9rem; max-width: 100%; }
+            .hero-buttons { flex-direction: column; align-items: center; gap: 0.75rem; }
+            .hero-buttons .btn { width: 100%; max-width: 280px; justify-content: center; }
+            
+            .why-section { padding: 2rem 1rem 0; }
+            .why-header { margin-bottom: 2rem; }
+            .why-title { font-size: 1.25rem; }
+            .why-subtitle { font-size: 0.9rem; }
+            .why-grid { grid-template-columns: 1fr; gap: 1rem; }
+            .why-card { padding: 1.25rem; }
+            .why-icon { width: 40px; height: 40px; }
+            .why-icon span { font-size: 1.25rem; }
+            
+            .works-section { padding: 2.5rem 1rem 0; }
+            .works-title { font-size: 1.25rem; }
+            .works-grid { gap: 0.5rem; }
+            .works-card { width: 80px; padding: 0.75rem 0.25rem; }
+            .works-logo { width: 28px; height: 28px; }
+            .works-name { font-size: 0.6rem; }
+            
+            .how-section { padding: 2.5rem 1rem 0; }
+            .how-heading { font-size: 1.25rem; }
+            .how-grid { flex-direction: column; gap: 1rem; }
+            .how-card { min-width: 100%; max-width: 100%; padding: 1.25rem; }
+            .how-arrow { transform: rotate(90deg); }
+            
+            .guide-section { padding: 2rem 1rem 1rem; }
+            .guide-card { flex-direction: column; padding: 1.25rem; gap: 1rem; }
+            .guide-content { flex-direction: column; text-align: center; }
+            .guide-card-btn { width: 100%; justify-content: center; }
+            
+            .cta-section { margin: 1.5rem 1rem; padding: 0.75rem; }
+            .cta-container { flex-direction: column; text-align: center; padding: 0.5rem; gap: 1rem; }
+            .cta-rocket { width: 100px; }
+            .cta-title { font-size: 1.1rem; }
+            .cta-btn { width: 100%; justify-content: center; }
+            
+            .footer { padding: 1rem; font-size: 11px; }
+        }
+
+        /* Tablet (Portrait): 768px to 834px */
+        @media (min-width: 768px) and (max-width: 834px) {
+            .nav-right { display: none; }
+            .nav-menu-btn { display: flex; align-items: center; justify-content: center; }
+            
+            .hero { padding: 4rem 2rem 3rem; }
+            .hero-title { font-size: 2.5rem; }
             .hero-subtitle { font-size: 1rem; }
-            .features-grid { grid-template-columns: 1fr; }
-            .hero-buttons { flex-direction: column; align-items: center; }
-            .works-grid { flex-wrap: wrap; }
+            .hero-buttons { gap: 0.75rem; }
+            
+            .why-section { padding: 2.5rem 1.5rem 0; }
+            .why-grid { grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+            .why-card { padding: 1.5rem; }
+            
+            .works-section { padding: 3rem 1.5rem 0; }
+            .works-card { width: 90px; }
+            
+            .how-section { padding: 3rem 1.5rem 0; }
+            .how-grid { gap: 0.75rem; }
+            .how-card { min-width: 160px; padding: 1.25rem; }
+            
+            .guide-section { padding: 2.5rem 1.5rem 1rem; }
+            .guide-card { padding: 1.5rem; gap: 1.5rem; }
+            
+            .cta-section { margin: 2rem 1.5rem; }
+            .cta-container { gap: 1.5rem; }
+            .cta-rocket { width: 120px; }
+        }
+
+        /* Laptop/Tablet (Landscape): 1024px to 1280px */
+        @media (min-width: 1024px) and (max-width: 1280px) {
+            .nav-inner { max-width: 1000px; }
+            
+            .hero-wrapper { max-width: 700px; }
+            .hero-title { font-size: 3rem; }
+            
+            .why-section { max-width: 900px; padding: 2.5rem 1.5rem 0; }
+            .why-grid { gap: 1.25rem; }
+            
+            .works-section { padding: 3rem 1.5rem 0; }
+            .works-container { max-width: 900px; }
+            
+            .how-section { padding: 3rem 1.5rem 0; }
+            .how-container { max-width: 750px; }
+            
+            .guide-section { padding: 2.5rem 1.5rem 1rem; }
+            .guide-container { max-width: 850px; }
+            
+            .cta-section { margin: 2rem 1.5rem; }
+            .cta-container { max-width: 850px; }
+        }
+
+        /* Desktop: 1280px to 1920px */
+        @media (min-width: 1280px) and (max-width: 1920px) {
+            .nav-inner { max-width: 1200px; }
+            .hero-wrapper { max-width: 800px; }
+            .why-section { max-width: 1000px; }
+            .works-section { padding: 4rem 2rem 0; }
+            .works-container { max-width: 1000px; }
+            .how-container { max-width: 800px; }
+            .guide-container { max-width: 900px; }
+            .cta-container { max-width: 900px; }
+        }
+
+        /* Large Desktop: 1440px, 1536px and up */
+        @media (min-width: 1440px) {
+            .nav-inner { max-width: 1400px; padding: 0 2rem; }
+            .hero-wrapper { max-width: 900px; }
+            .hero-title { font-size: 4rem; }
+            .hero-subtitle { font-size: 1.15rem; max-width: 650px; }
+            
+            .why-section { max-width: 1200px; }
+            .why-grid { gap: 2rem; }
+            .why-card { padding: 2rem; }
+            .why-title { font-size: 1.75rem; }
+            
+            .works-section { padding: 4.5rem 2rem 0; }
+            .works-container { max-width: 1100px; }
+            .works-card { width: 110px; padding: 1rem 0.5rem; }
+            
+            .how-section { padding: 4.5rem 2rem 0; }
+            .how-container { max-width: 900px; }
+            .how-card { max-width: 250px; padding: 1.75rem 1.25rem; }
+            
+            .guide-section { padding: 3rem 2rem 1.5rem; }
+            .guide-container { max-width: 1000px; }
+            .guide-card { padding: 2rem; }
+            
+            .cta-section { margin: 2.5rem 0; }
+            .cta-container { max-width: 1000px; padding: 1.5rem; }
+            .cta-rocket { width: 160px; }
+            .cta-title { font-size: 1.4rem; }
+        }
+
+        /* Fallback for screens below 360px */
+        @media (max-width: 359px) {
+            .nav-logo-text span { display: none; }
+            .hero-title { font-size: 1.5rem; }
+            .hero-buttons { flex-direction: column; }
+            .why-grid { grid-template-columns: 1fr; }
+            .cta-container { flex-direction: column; }
         }
     </style>
 </head>
@@ -226,8 +394,52 @@
                 <a href="{{ route('register') }}" class="btn btn-primary">Register</a>
                 <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme"></button>
             </div>
+            <button class="nav-menu-btn" onclick="openNavDrawer()" title="Open menu">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
     </nav>
+
+    <!-- Navigation Drawer Overlay -->
+    <div class="nav-overlay" id="navOverlay" onclick="closeNavDrawer()"></div>
+
+    <!-- Navigation Drawer -->
+    <div class="nav-drawer" id="navDrawer">
+        <div class="nav-drawer-header">
+            <a href="/" class="nav-drawer-logo" onclick="closeNavDrawer()">
+                <div class="nav-logo-icon" style="width: 32px; height: 32px;"><i class="fas fa-bolt" style="color: #fbbf24; font-size: 14px;"></i></div>
+                <span>Server<span style="color: var(--accent-primary);">Avatar</span> MCP</span>
+            </a>
+            <button class="nav-drawer-close" onclick="closeNavDrawer()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="nav-drawer-links">
+            <a href="{{ url('/') }}#features" class="nav-drawer-link" onclick="closeNavDrawer()">
+                <i class="fas fa-star"></i> Features
+            </a>
+            <a href="{{ url('/') }}#integration" class="nav-drawer-link" onclick="closeNavDrawer()">
+                <i class="fas fa-plug"></i> Integration
+            </a>
+            <a href="{{ url('/') }}#how-it-works" class="nav-drawer-link" onclick="closeNavDrawer()">
+                <i class="fas fa-cogs"></i> How It Works
+            </a>
+            <a href="{{ route('guide') }}" class="nav-drawer-link" onclick="closeNavDrawer()">
+                <i class="fas fa-book"></i> Guide
+            </a>
+            <a href="{{ route('login') }}" class="nav-drawer-link" onclick="closeNavDrawer()">
+                <i class="fas fa-sign-in-alt"></i> Login
+            </a>
+        </div>
+        <div class="nav-drawer-footer">
+            <a href="{{ route('register') }}" class="btn btn-primary" onclick="closeNavDrawer()">
+                <i class="fas fa-rocket"></i> Get Started
+            </a>
+            <button class="btn btn-ghost" onclick="toggleTheme(); closeNavDrawer();" style="width: 100%; justify-content: center;">
+                <i class="fas fa-adjust"></i> Toggle Theme
+            </button>
+        </div>
+    </div>
 
     <!-- Hero -->
     <section class="hero">
@@ -417,6 +629,26 @@
             html.setAttribute('data-theme', theme);
             localStorage.setItem('theme', theme);
         }
+        
+        // Navigation Drawer Functions
+        function openNavDrawer() {
+            document.getElementById('navDrawer').classList.add('active');
+            document.getElementById('navOverlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeNavDrawer() {
+            document.getElementById('navDrawer').classList.remove('active');
+            document.getElementById('navOverlay').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        
+        // Close drawer on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeNavDrawer();
+            }
+        });
         (function() {
             const saved = localStorage.getItem('theme');
             if (saved) {
