@@ -37,7 +37,6 @@ $perPage = $perPage ?? 10;
             <input type="text" name="q" class="search-input" placeholder="Search tools..." id="searchInput" value="{{ $searchQuery }}" autocomplete="off" style="padding-left: 32px; padding-right: 34px;">
             <a href="javascript:void(0)" id="clearSearchBtn" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 16px; text-decoration: none; display: {{ empty($searchQuery) ? 'none' : 'flex' }}; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 50%; background: var(--border-color); transition: all 0.2s;" title="Clear search" onmouseover="this.style.background='var(--text-muted)'; this.style.color='var(--bg-primary)'" onmouseout="this.style.background='var(--border-color)'; this.style.color='var(--text-muted)'">×</a>
         </div>
-        <button type="button" onclick="performSearch()" class="btn-card-action" style="display: inline-block; padding: 11px 16px; background: var(--accent-primary); color: white; border-radius: var(--radius-md); font-size: 14px; font-weight: 600; border: none; cursor: pointer; white-space: nowrap; height: 44px;">Search</button>
     </form>
     
     <form onsubmit="return false;" id="filterForm" style="display: flex; align-items: center; gap: 0.5rem;">
@@ -268,22 +267,41 @@ function clearSearch() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Auto-submit search on Enter
     var searchInput = document.getElementById('searchInput');
     var clearBtn = document.getElementById('clearSearchBtn');
+    var searchTimeout = null;
     
     if (searchInput) {
-        searchInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                performSearch();
-            }
-        });
-        
-        // Show/hide clear button as user types
+        // Instant search - triggers after 3 seconds of no typing
         searchInput.addEventListener('input', function() {
             if (clearBtn) {
                 clearBtn.style.display = searchInput.value.length > 0 ? 'flex' : 'none';
+            }
+            
+            // Clear previous timeout
+            if (searchTimeout) {
+                clearTimeout(searchTimeout);
+            }
+            
+            // If 2+ chars typed, search immediately
+            if (searchInput.value.length >= 2) {
+                performSearch();
+            } else {
+                // For single char, wait 1 second
+                searchTimeout = setTimeout(function() {
+                    performSearch();
+                }, 1000);
+            }
+        });
+        
+        // Still allow Enter key for immediate search
+        searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                if (searchTimeout) {
+                    clearTimeout(searchTimeout);
+                }
+                performSearch();
             }
         });
     }
@@ -292,6 +310,9 @@ document.addEventListener('DOMContentLoaded', function() {
     if (clearBtn) {
         clearBtn.addEventListener('click', function(e) {
             e.preventDefault();
+            if (searchTimeout) {
+                clearTimeout(searchTimeout);
+            }
             clearSearch();
         });
     }

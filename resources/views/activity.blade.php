@@ -192,9 +192,6 @@ $csrf = csrf_token();
         <input type="text" id="searchInput" placeholder="Search events, clients or IP..." value="{{ $searchQuery ?? '' }}" onkeyup="handleSearch(event)" oninput="toggleClearBtn()">
         <i class="fas fa-times clear-search" onclick="clearSearch()"></i>
     </div>
-    <button type="button" onclick="handleSearchClick()" class="btn-card-action" style="display: inline-block; padding: 11px 16px; background: var(--accent-primary); color: white; border-radius: var(--radius-md); font-size: 14px; font-weight: 600; border: none; cursor: pointer; white-space: nowrap; height: 44px;">
-        Search
-    </button>
     <div class="filter-select" onclick="toggleDropdown('time')" id="timeFilterWrapper">
         <i class="fas fa-calendar"></i>
         <span id="timeFilterLabel">{{ $timeFilter == 'today' ? 'Today' : ($timeFilter == '7days' ? 'Last 7 Days' : ($timeFilter == '30days' ? 'Last 30 Days' : ($timeFilter == '90days' ? 'Last 90 Days' : 'All Time'))) }}</span>
@@ -508,16 +505,31 @@ function updatePagination(data) {
     paginationBar.innerHTML += btns;
 }
 
-function handleSearch(e) {
-    if (e.key === 'Enter') {
-        currentFilters.search = e.target.value;
-        loadActivities(1);
-    }
-}
+var searchTimeout = null;
 
-function handleSearchClick() {
-    currentFilters.search = document.getElementById('searchInput').value;
-    loadActivities(1);
+function handleSearch(e) {
+    // Clear previous timeout
+    if (searchTimeout) {
+        clearTimeout(searchTimeout);
+    }
+    
+    var inputVal = e.target.value;
+    
+    // If 2+ chars typed, search immediately
+    if (inputVal.length >= 2) {
+        currentFilters.search = inputVal;
+        loadActivities(1);
+    } else if (inputVal.length === 0) {
+        // Empty search, clear
+        currentFilters.search = '';
+        loadActivities(1);
+    } else {
+        // For single char, wait 1 second
+        searchTimeout = setTimeout(function() {
+            currentFilters.search = inputVal;
+            loadActivities(1);
+        }, 1000);
+    }
 }
 
 // Custom Dropdown Functions
