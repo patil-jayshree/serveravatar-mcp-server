@@ -107,7 +107,7 @@
                     })
                     .then(function(response) { return response.json(); })
                     .then(function(data) {
-                        if (data.success || data.message || data.status) {
+                        if (data.success) {
                             closeApiKeyModal();
                             var toast = document.getElementById('toast') || createToast();
                             toast.innerHTML = '<span class="toast-icon"><i class="fas fa-check"></i></span><span class="toast-message">API Key updated successfully!</span>';
@@ -115,13 +115,13 @@
                             setTimeout(function() { toast.classList.remove('show'); location.reload(); }, 1500);
                         } else {
                             var toast = document.getElementById('toast') || createToastError();
-                            toast.innerHTML = '<span class="toast-icon"><i class="fas fa-times"></i></span><span class="toast-message">' + (data.error || 'Error updating API key') + '</span>';
+                            toast.innerHTML = '<span class="toast-icon"><i class="fas fa-times"></i></span><span class="toast-message">' + (data.message || 'Error updating API key') + '</span>';
                             toast.style.background = 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)';
                             toast.style.boxShadow = '0 8px 30px rgba(239,68,68,0.4)';
                             toast.classList.add('show');
                             setTimeout(function() { toast.classList.remove('show'); }, 3000);
                             submitBtn.disabled = false;
-                            submitBtn.textContent = 'Save API Key';
+                            submitBtn.textContent = '{{ isset($hasApiKey) && $hasApiKey ? "Update API Key" : "Add API Key" }}';
                         }
                     })
                     .catch(function(error) {

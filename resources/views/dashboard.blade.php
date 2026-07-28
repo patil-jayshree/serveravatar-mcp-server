@@ -886,57 +886,6 @@
                 </div>
             </div>
 
-            <!-- API Key Update Modal -->
-            <div id="apiKeyModal" class="modal-overlay">
-                <div class="modal-content api-modal">
-                    <div class="modal-header">
-                        <div class="modal-title-row">
-                            <span class="modal-icon"><i class="fas fa-key" style="color: var(--accent-primary);"></i></span>
-                            <h3>Update API Key</h3>
-                        </div>
-                        <button class="modal-close" onclick="closeApiKeyModal()">&times;</button>
-                    </div>
-                    <form id="apiKeyForm" onsubmit="saveApiKey(event)">
-                        <div class="modal-body">
-                            <p class="modal-intro">Enter your new ServerAvatar API key below.</p>
-                            <label class="modal-label">New API Key <span class="required-star">*</span></label>
-                            <div class="input-password-wrap">
-                                <input type="password" id="apiKeyInput" name="api_key" placeholder="Enter your API key" required>
-                                <button type="button" class="toggle-password" onclick="togglePasswordVisibility()">
-                                    <svg class="eye-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                                        <circle cx="12" cy="12" r="3"></circle>
-                                    </svg>
-                                    <svg class="eye-off-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;">
-                                        <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
-                                        <line x1="1" y1="1" x2="23" y2="23"></line>
-                                    </svg>
-                                </button>
-                            </div>
-                            <div class="security-tips">
-                                <div class="tips-title">Security Best Practices</div>
-                                <ul class="tips-list">
-                                    <li>Never share your API key with anyone</li>
-                                    <li>Store it securely in environment variables</li>
-                                    <li>Rotate your key periodically</li>
-                                    
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn-modal-cancel" onclick="closeApiKeyModal()">Cancel</button>
-                            <button type="submit" class="btn-modal-save">Save API Key</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-            <!-- Toast Notification -->
-            <div id="toast" class="toast">
-                <span class="toast-icon"><i class="fas fa-check"></i></span>
-                <span class="toast-message">API Key updated successfully!</span>
-            </div>
-
             <div class="card">
                 <div class="section-header">
                     <div class="section-icon" style="background: rgba(139, 92, 246, 0.12);"><i class="fas fa-globe" style="color: var(--accent-primary);"></i></div>
@@ -1113,7 +1062,91 @@
         };
 
         // Close modal on overlay click
-        
+        function openApiKeyModal() {
+            var modal = document.getElementById('apiKeyModal');
+            var input = document.getElementById('apiKeyInput');
+            if (modal) { modal.style.display = 'flex'; }
+            if (input) { input.focus(); }
+        }
+
+        function closeApiKeyModal() {
+            var modal = document.getElementById('apiKeyModal');
+            var input = document.getElementById('apiKeyInput');
+            if (modal) { modal.style.display = 'none'; }
+            if (input) {
+                input.value = '';
+                input.type = 'password';
+                var eyeIcon = modal ? modal.querySelector('.eye-icon') : null;
+                var eyeOffIcon = modal ? modal.querySelector('.eye-off-icon') : null;
+                if (eyeIcon) eyeIcon.style.display = 'block';
+                if (eyeOffIcon) eyeOffIcon.style.display = 'none';
+            }
+        }
+
+        function togglePasswordVisibility() {
+            var modal = document.getElementById('apiKeyModal');
+            var input = document.getElementById('apiKeyInput');
+            var eyeIcon = modal ? modal.querySelector('.eye-icon') : null;
+            var eyeOffIcon = modal ? modal.querySelector('.eye-off-icon') : null;
+            if (input.type === 'password') {
+                input.type = 'text';
+                if (eyeIcon) eyeIcon.style.display = 'none';
+                if (eyeOffIcon) eyeOffIcon.style.display = 'block';
+            } else {
+                input.type = 'password';
+                if (eyeIcon) eyeIcon.style.display = 'block';
+                if (eyeOffIcon) eyeOffIcon.style.display = 'none';
+            }
+        }
+
+        function saveApiKey(e) {
+            e.preventDefault();
+            var form = document.getElementById('apiKeyForm');
+            var formData = new FormData(form);
+            var submitBtn = form.querySelector('.btn-modal-save');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Saving...';
+
+            fetch('{{ route('dashboard.api-key') }}', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRF-TOKEN': formData.get('_token'),
+                    'Accept': 'application/json'
+                }
+            })
+            .then(function(response) { return response.json(); })
+            .then(function(data) {
+                if (data.success) {
+                    closeApiKeyModal();
+                    var toast = document.getElementById('toast');
+                    toast.innerHTML = '<span class="toast-icon"><i class="fas fa-check"></i></span><span class="toast-message">API Key updated successfully!</span>';
+                    toast.style.background = 'linear-gradient(135deg, #22c55e 0%, #16a34a 100%)';
+                    toast.style.boxShadow = '0 8px 30px rgba(34,197,94,0.4)';
+                    toast.classList.add('show');
+                    setTimeout(function() { toast.classList.remove('show'); location.reload(); }, 1500);
+                } else {
+                    var toast = document.getElementById('toast');
+                    toast.innerHTML = '<span class="toast-icon"><i class="fas fa-times"></i></span><span class="toast-message">' + (data.message || 'Error updating API key') + '</span>';
+                    toast.style.background = 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)';
+                    toast.style.boxShadow = '0 8px 30px rgba(239,68,68,0.4)';
+                    toast.classList.add('show');
+                    setTimeout(function() { toast.classList.remove('show'); }, 3000);
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Save API Key';
+                }
+            })
+            .catch(function(error) {
+                var toast = document.getElementById('toast');
+                toast.innerHTML = '<span class="toast-icon"><i class="fas fa-times"></i></span><span class="toast-message">Error updating API key</span>';
+                toast.style.background = 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)';
+                toast.style.boxShadow = '0 8px 30px rgba(239,68,68,0.4)';
+                toast.classList.add('show');
+                setTimeout(function() { toast.classList.remove('show'); }, 3000);
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Save API Key';
+            });
+        }
     </script>
 
 @endsection
