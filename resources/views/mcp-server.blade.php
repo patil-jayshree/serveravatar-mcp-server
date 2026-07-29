@@ -3,6 +3,71 @@
 @section('title', 'MCP Server - ServerAvatar MCP')
 @section('breadcrumb', 'MCP Server')
 
+@section('styles')
+/* ========== RESPONSIVE STYLES - MCP SERVER PAGE ========== */
+
+/* Mobile: 360px to 767px */
+@media (max-width: 767px) {
+    .page-header { margin-bottom: 1.25rem; }
+    .page-title { font-size: 1.5rem !important; }
+    .page-subtitle { font-size: 0.875rem !important; }
+    
+    /* MCP Server URL Card - stack URL and button */
+    .mcp-url-row { flex-direction: column !important; gap: 10px !important; }
+    .mcp-url-row > div:first-child { width: 100% !important; flex: none !important; }
+    .mcp-url-row > div:first-child span { font-size: 12px !important; word-break: break-all !important; }
+    .mcp-url-row .btn-card-action { width: 100% !important; justify-content: center; }
+    
+    /* IDE Tokens Header - stack */
+    .ide-tokens-header { flex-direction: column !important; gap: 1rem !important; align-items: flex-start !important; }
+    .ide-tokens-header > div:last-child { width: 100% !important; }
+    
+    /* Token Generation - stack input and button */
+    .token-gen-row { flex-direction: column !important; gap: 10px !important; align-items: center !important; }
+    .token-gen-row > div:first-child { width: 100% !important; }
+    .token-gen-row .btn-card-action { justify-content: center !important; display: flex !important; }
+    
+    /* Stats Row - 1 card per row on mobile */
+    .stats-grid { grid-template-columns: 1fr !important; gap: 0.75rem !important; overflow-x: hidden !important; width: 100% !important; box-sizing: border-box !important; }
+    .stats-grid > div { width: 100% !important; min-width: 0 !important; overflow: hidden !important; }
+    
+    /* Tokens List - horizontal scroll on mobile */
+    .tokens-list-wrapper { overflow-x: auto !important; padding-bottom: 8px !important; -webkit-overflow-scrolling: touch !important; }
+    .tokens-list-wrapper > div { min-width: max-content !important; }
+    .tokens-list-wrapper .token-item { gap: 20px !important; }
+    
+    /* Endpoint Info - stack to 1 column */
+    .endpoint-grid { grid-template-columns: 1fr !important; gap: 0.75rem !important; }
+    
+    /* Help Section - stack */
+    .help-section { flex-direction: column !important; gap: 1rem !important; text-align: center; }
+    .help-section > div:first-child { flex-direction: column !important; align-items: center !important; }
+    .help-section .btn-card-action { width: 100% !important; justify-content: center; }
+}
+
+/* Tablet: 768px to 834px */
+@media (min-width: 768px) and (max-width: 834px) {
+    .stats-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 1rem !important; }
+    .endpoint-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 1rem !important; }
+}
+
+/* Laptop: 1024px to 1280px */
+@media (min-width: 1024px) and (max-width: 1280px) {
+    .stats-grid { grid-template-columns: repeat(2, 1fr) !important; }
+    .card[style*="padding: 2rem"] { padding: 1.5rem !important; }
+}
+
+/* Desktop: 1281px to 1439px */
+@media (min-width: 1281px) and (max-width: 1439px) {
+    .stats-grid { grid-template-columns: repeat(4, 1fr) !important; }
+}
+
+/* Large Desktop: 1440px+ */
+@media (min-width: 1440px) {
+    .stats-grid { grid-template-columns: repeat(4, 1fr) !important; }
+}
+@endsection
+
 @section('content')
 <!-- Page Header -->
 <div class="page-header">
@@ -30,7 +95,7 @@
                 <div class="section-desc">Use this endpoint to connect any MCP-compatible AI client</div>
             </div>
         </div>
-        <div style="display: flex; align-items: center; gap: 12px;">
+        <div class="mcp-url-row" style="display: flex; align-items: center; gap: 12px;">
             <div style="flex: 1; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 12px 16px; display: flex; align-items: center; gap: 12px;">
                 <i class="fas fa-link" style="color: var(--accent-primary);"></i>
                 <span style="font-family: monospace; font-size: 14px; color: var(--text-primary);">https://mcp.178.105.137.4.nip.io/mcp/serveravatar</span>
@@ -44,7 +109,7 @@
     <!-- IDE Access Tokens -->
     <div class="card" style="padding: 2rem;">
         <!-- Header -->
-        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem;">
+        <div class="ide-tokens-header" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem;">
             <div style="display: flex; align-items: center; gap: 1rem;">
                 <div style="width: 48px; height: 48px; border-radius: 12px; background: rgba(124, 92, 246, 0.1); display: flex; align-items: center; justify-content: center;">
                     <i class="fas fa-key" style="color: #7c3aed; font-size: 1.2rem;"></i>
@@ -64,7 +129,7 @@
             <div style="display: flex; gap: 1rem; align-items: flex-start;">
                 <div style="flex: 1;">
                     <label for="tokenName" style="display: block; font-size: 0.8rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 0.5rem;">Token Name</label>
-                    <div style="display: flex; gap: 1rem; align-items: flex-end;">
+                    <div class="token-gen-row" style="display: flex; gap: 1rem; align-items: flex-end;">
                         <div style="flex: 1; position: relative;">
                             <i class="fas fa-key" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 0.85rem; pointer-events: none;"></i>
                             <input type="text" id="tokenName" placeholder="e.g., Cursor Development, Windsurf, VS Code" 
@@ -113,7 +178,7 @@
 
         <!-- Stats Row -->
         <div id="statsRow" style="margin-bottom: 1.5rem;">
-            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;">
+            <div class="stats-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;">
                 <div style="background: var(--bg-primary); border: 1px solid var(--border-color); border-radius: 12px; padding: 1rem 1.25rem; display: flex; align-items: center; gap: 0.875rem;">
                     <div style="width: 36px; height: 36px; border-radius: 8px; background: rgba(124, 92, 246, 0.1); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
                         <i class="fas fa-key" style="color: #7c3aed; font-size: 0.85rem;"></i>
@@ -171,7 +236,7 @@
                     </div>
                 </div>
             </div>
-            <div id="tokensList">
+            <div id="tokensList" class="tokens-list-wrapper">
                 <div style="text-align: center; padding: 2.5rem 2rem; background: var(--bg-card); border: 1px dashed var(--border-color); border-radius: var(--radius-md); margin-top: 0.5rem;">
                     <div style="width: 56px; height: 56px; background: var(--accent-primary-muted); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">
                         <i class="fas fa-key" style="font-size: 1.5rem; color: var(--accent-primary);"></i>
@@ -191,7 +256,7 @@
                 <div class="section-title">Endpoint Information</div>
             </div>
         </div>
-        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+        <div class="endpoint-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
             <div style="display: flex; flex-direction: column; gap: 0.25rem;">
                 <span style="font-size: 0.75rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em;">Transport</span>
                 <span style="font-size: 0.9rem; color: var(--text-primary); font-weight: 500;">HTTP</span>
@@ -212,7 +277,7 @@
     </div>
 
     <!-- Help Section -->
-    <div class="card" style="padding: 1.25rem 1.5rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem;">
+    <div class="card help-section" style="padding: 1.25rem 1.5rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem;">
         <div style="display: flex; align-items: center; gap: 0.75rem;">
             <div class="section-icon" style="background: rgba(139, 92, 246, 0.12); width: 36px; height: 36px;"><i class="fas fa-circle-question" style="color: var(--accent-primary); font-size: 1rem;"></i></div>
             <div>
@@ -306,7 +371,7 @@ async function loadTokens() {
         }
         
         tokensList.innerHTML = sortedTokens.map(token => `
-            <div style="display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1rem; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-md); margin-bottom: 0.5rem;">
+            <div class="token-item" style="display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1rem; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-md); margin-bottom: 0.5rem;">
                 <div style="flex: 1;">
                     <div style="font-size: 0.9rem; font-weight: 600; color: var(--text-primary);">${escapeHtml(token.name.replace('mcp:', ''))}</div>
                     <div style="font-size: 0.75rem; color: var(--text-secondary); display: flex; align-items: center; gap: 12px;">
