@@ -648,6 +648,11 @@ window.clientsData = {
     /* Cards */
     .guide-card { padding: 28px !important; }
     .guide-card h2 { font-size: 22px !important; }
+    
+    /* How it works section */
+    .guide-how-it-works-box { gap: 16px !important; padding: 16px !important; }
+    .guide-how-it-works-box > div[style*="display:flex"][style*="gap:20px"] { gap: 16px !important; }
+    .guide-how-it-works-box > div[style*="display:flex"][style*="gap:20px"] > div:last-child { overflow-x: auto !important; padding: 8px 0 !important; }
 }
 </style>
 
