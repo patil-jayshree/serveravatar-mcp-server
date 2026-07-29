@@ -657,6 +657,10 @@ window.clientsData = {
     .guide-how-it-works-box { gap: 12px !important; padding: 12px !important; overflow-x: hidden !important; box-sizing: border-box !important; }
     .guide-how-it-works-box > div[style*="display:flex"][style*="gap:20px"] { gap: 12px !important; overflow-x: hidden !important; flex-wrap: wrap !important; }
     .guide-how-it-works-box > div[style*="display:flex"][style*="gap:20px"] > div:last-child { overflow-x: auto !important; padding: 8px 0 !important; }
+    
+    /* Flow boxes (AI Client, MCP Server, Real World) - centered with margin */
+    div[style*="display:flex"][style*="flex-direction:column"] { padding-left: 20px !important; padding-right: 20px !important; box-sizing: border-box !important; }
+    .guide-flow-box { margin-left: auto !important; margin-right: auto !important; max-width: 600px !important; }
 }
 </style>
 
