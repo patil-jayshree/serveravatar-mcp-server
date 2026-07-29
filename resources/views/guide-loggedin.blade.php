@@ -580,6 +580,11 @@ window.clientsData = {
     .guide-client-card .desc { font-size: 11px !important; }
     .guide-client-card .time-badge { font-size: 10px !important; padding: 2px 8px !important; white-space: nowrap !important; }
     
+    /* Example commands - single row with horizontal scroll on mobile */
+    .guide-example-card > div[style*="grid-template-columns:repeat(2,1fr)"] { display: flex !important; flex-wrap: nowrap !important; overflow-x: auto !important; gap: 8px !important; padding-bottom: 8px !important; }
+    .guide-example-card .guide-command-item { min-width: 160px !important; flex-shrink: 0 !important; padding: 10px 12px !important; }
+    .guide-example-card .guide-command-item .cmd-text { font-size: 11px !important; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important; max-width: 100px !important; }
+    
     /* Page content */
     .page-content { padding: 16px !important; }
 }
