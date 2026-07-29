@@ -25,7 +25,7 @@ $updatedAt = $user->updated_at ? date('F d, Y', strtotime($user->updated_at)) : 
 
     /* Cards */
     .card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 1.75rem; margin-bottom: 1.75rem; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
-    .card-header { display: flex; align-items: center; gap: 0.75rem; margin: -1.75rem -1.75rem 1.5rem -1.75rem; padding: 1rem 1.75rem; border-bottom: 1px solid var(--border-color); }
+    .card-header { display: flex; align-items: center; gap: 0.75rem; margin: -1.75rem -1.75rem 1.5rem -1.75rem; padding: 1rem 1.75rem; border-bottom: 1px solid var(--border-color); flex-wrap: nowrap; }
     .card-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
     .card-icon.purple { background: rgba(124,92,252,0.15); color: #7c3aed; }
     .card-icon.lock { background: rgba(124,92,252,0.15); color: #7c3aed; }
@@ -166,6 +166,155 @@ $updatedAt = $user->updated_at ? date('F d, Y', strtotime($user->updated_at)) : 
         .danger-content { flex-direction: column; align-items: flex-start; }
         .card { padding: 1.25rem; }
     }
+
+/* ========== RESPONSIVE STYLES - PROFILE/ACCOUNT PAGE ========== */
+
+/* Mobile: 360px to 767px */
+@media (max-width: 767px) {
+    .page-title { font-size: 1.25rem !important; }
+    .page-subtitle { font-size: 0.8rem !important; }
+    
+    /* Cards */
+    .card { padding: 1rem !important; margin-bottom: 1rem !important; border-radius: 12px !important; }
+    .card-header { margin: -1rem -1rem 1rem -1rem !important; padding: 0.875rem 1rem !important; flex-wrap: nowrap !important; gap: 0.5rem !important; }
+    .card-icon { width: 36px !important; height: 36px !important; }
+    .card-title { font-size: 0.9rem !important; }
+    .card-desc { font-size: 0.75rem !important; }
+    
+    /* Profile Grid */
+    .profile-grid { grid-template-columns: 1fr !important; gap: 1rem !important; }
+    .avatar-card { padding: 1rem !important; }
+    .avatar-circle { width: 60px !important; height: 60px !important; font-size: 1.5rem !important; }
+    .avatar-name { font-size: 0.9rem !important; }
+    
+    /* Form Grid */
+    .form-grid { grid-template-columns: 1fr !important; gap: 0.75rem !important; }
+    .form-group { margin-bottom: 0.5rem !important; }
+    .form-label { font-size: 0.7rem !important; }
+    .form-input { font-size: 0.8rem !important; padding: 0.5rem 0.625rem 0.5rem 2rem !important; }
+    .form-hint { font-size: 0.7rem !important; }
+    .btn-group { flex-direction: column-reverse !important; gap: 0.5rem !important; }
+    .btn { width: 100% !important; justify-content: center !important; font-size: 0.8rem !important; padding: 0.5rem 1rem !important; }
+    
+    /* Password Grid - Password Fields Row (inline style) */
+    [style*="grid-template-columns: repeat(3, 1fr)"] { grid-template-columns: 1fr !important; gap: 1rem !important; margin-bottom: 1rem !important; }
+    .field-wrap { position: relative !important; }
+    .field-input { width: 100% !important; font-size: 0.8rem !important; padding: 0.6rem 2.5rem 0.6rem 0.75rem !important; box-sizing: border-box !important; }
+    .eye-btn { position: absolute !important; right: 8px !important; top: 50% !important; transform: translateY(-50%) !important; padding: 4px 6px !important; }
+    .strength-segment { width: 24px !important; }
+    #passwordRequirements { padding: 10px 12px !important; font-size: 0.7rem !important; }
+    #passwordRequirements > div:first-child { font-size: 0.65rem !important; }
+    #passwordRequirements [style*="flex-wrap: wrap"] { gap: 4px 12px !important; }
+    #passwordRequirements [style*="gap: 6px"] i,
+    #passwordRequirements [style*="gap: 6px"] span { font-size: 0.65rem !important; }
+    
+    /* API Section */
+    .api-info-grid { grid-template-columns: 1fr !important; gap: 0.75rem !important; }
+    .api-info-item { padding: 0.75rem !important; }
+    .api-info-label { font-size: 0.65rem !important; }
+    .api-info-value { font-size: 0.8rem !important; }
+    
+    /* API Key Display */
+    .api-key-display { flex-direction: column !important; align-items: flex-start !important; padding: 1rem !important; gap: 0.75rem !important; }
+    .api-key-icon { width: 32px !important; height: 32px !important; }
+    .api-key-content { width: 100% !important; }
+    .api-key-value { font-size: 0.8rem !important; }
+    .api-key-actions { width: 100% !important; flex-wrap: wrap !important; gap: 0.5rem !important; }
+    
+    /* API Access Section - Mobile */
+    [style*="background: rgba(124,92,252,0.08)"] { padding: 1rem !important; }
+    [style*="justify-content: space-between"] { flex-direction: column !important; align-items: stretch !important; gap: 0.75rem !important; }
+    [style*="display: flex"][style*="align-items: center"][style*="gap: 1rem"]:not([style*="flex-wrap"]) { flex-direction: column !important; align-items: stretch !important; gap: 0.5rem !important; width: 100% !important; }
+    [style*="width: 1px; height: 36px"] { display: none !important; }
+    [style*="white-space: nowrap"] { width: 100% !important; justify-content: center !important; white-space: normal !important; word-break: break-all !important; overflow-wrap: break-word !important; }
+    [style*="flex-direction: column"][style*="gap: 0.75rem"] button { width: 100% !important; justify-content: center !important; }
+    #apiKeyDisplay { max-width: 100% !important; overflow: hidden !important; text-overflow: ellipsis !important; white-space: nowrap !important; }
+    #apiKeyDisplay.visible { white-space: normal !important; word-break: break-all !important; }
+    
+    /* Email Success Modal - Mobile */
+    #emailSuccessModal .modal-box { width: 95% !important; max-width: 95% !important; margin: 1rem !important; overflow: visible !important; }
+    #emailSuccessModal [style*="padding: 2rem 1.5rem"] { padding: 1.5rem 1rem !important; }
+    #emailSuccessModal [style*="width: 80px"][style*="height: 80px"] { width: 60px !important; height: 60px !important; }
+    #emailSuccessModal [style*="font-size: 2.5rem"] { font-size: 1.75rem !important; }
+    #emailSuccessModal [style*="font-size: 1.25rem"] { font-size: 1rem !important; }
+    #emailSuccessModal [style*="background: var(--bg-secondary)"] { padding: 0.75rem !important; }
+    #emailSuccessModal [style*="display: flex"][style*="align-items: center"][style*="padding: 0.6rem 0"] { flex-direction: column !important; align-items: flex-start !important; gap: 0.25rem !important; padding: 0.5rem 0 !important; }
+    #emailSuccessModal [style*="min-width: 100px"] { min-width: unset !important; font-size: 0.65rem !important; }
+    #emailSuccessModal [style*="margin-left: 1rem"] { margin-left: 0 !important; font-size: 0.8rem !important; }
+    #emailSuccessModal .modal-ftr { padding: 1rem !important; flex-direction: column !important; gap: 0.5rem !important; }
+    #emailSuccessModal .modal-ftr .btn-save { width: 100% !important; justify-content: center !important; }
+    .api-key-modal-box { width: 95% !important; max-width: 95% !important; margin: 1rem auto !important; }
+    .api-key-modal .modal-hdr { padding: 1rem !important; }
+    .api-key-modal .modal-body { padding: 1rem !important; }
+    .api-key-modal .modal-ftr { padding: 0.75rem 1rem !important; flex-direction: column !important; gap: 0.5rem !important; }
+    .api-key-modal .modal-ftr .btn { width: 100% !important; justify-content: center !important; }
+    .btn-sm { flex: 1 !important; justify-content: center !important; min-width: 80px !important; font-size: 0.75rem !important; padding: 0.4rem 0.75rem !important; }
+    
+    /* Danger Zone */
+    .danger-content { flex-direction: column !important; align-items: flex-start !important; gap: 1rem !important; }
+    .danger-text { min-width: unset !important; }
+    .btn-danger { width: 100% !important; justify-content: center !important; font-size: 0.8rem !important; }
+    
+    /* Email Change */
+    .email-change-info { flex-direction: column !important; gap: 0.75rem !important; text-align: center !important; }
+    
+    /* Modals */
+    .modal-box { width: 95% !important; max-width: 95% !important; margin: 1rem !important; }
+    .modal-hdr { padding: 1rem !important; }
+    .modal-body { padding: 1rem !important; }
+    .modal-ftr { padding: 0.75rem 1rem !important; flex-direction: column !important; gap: 0.5rem !important; }
+    .modal-ftr .btn-cancel,
+    .modal-ftr .btn-save { width: 100% !important; justify-content: center !important; }
+    .sec-tips { padding: 0.75rem !important; }
+    .delete-warn-box { padding: 0.75rem !important; }
+    
+    /* Toast */
+    #toast { top: 1rem !important; right: 1rem !important; left: 1rem !important; max-width: unset !important; }
+}
+
+/* Tablet: 768px to 834px */
+@media (min-width: 768px) and (max-width: 834px) {
+    .card { padding: 1.25rem !important; }
+    .profile-grid { gap: 1.25rem !important; }
+    .form-grid { gap: 0.75rem 1rem !important; }
+    .pword-grid { grid-template-columns: 1fr 1fr !important; }
+    .api-info-grid { grid-template-columns: repeat(2, 1fr) !important; }
+    
+    /* Tablet: API Key Section - separate lines for Created and Last Updated */
+    @media (min-width: 768px) and (max-width: 834px) {
+        [style*="background: rgba(124,92,252,0.08)"] { padding: 1rem !important; }
+        [style*="justify-content: space-between"] { flex-direction: row !important; align-items: center !important; gap: 0.75rem !important; }
+        [style*="display: flex"][style*="align-items: center"][style*="gap: 1rem"]:not([style*="flex-wrap"]) { flex-direction: column !important; flex-wrap: wrap !important; gap: 0.5rem !important; align-items: flex-start !important; width: 100% !important; }
+        [style*="width: 1px; height: 36px"] { display: none !important; }
+        [style*="display: flex"][style*="align-items: center"][style*="gap: 0.5rem"] { flex: unset !important; min-width: unset !important; justify-content: flex-start !important; width: auto !important; }
+        [style*="white-space: nowrap"] { white-space: normal !important; justify-content: flex-start !important; width: auto !important; }
+    }
+}
+
+/* Laptop: 1024px to 1280px */
+@media (min-width: 1024px) and (max-width: 1280px) {
+    .pword-grid { gap: 1rem !important; }
+    /* Profile Information - Stack avatar and form below card header */
+    .profile-grid { grid-template-columns: 1fr !important; gap: 1rem !important; }
+    .avatar-card { padding: 1rem !important; }
+    [style*="display: flex"][style*="flex-direction: column"][style*="justify-content: center"] { height: auto !important; }
+    [style*="background: rgba(124,92,252,0.08)"] { padding: 1rem !important; }
+    [style*="justify-content: space-between"] { flex-direction: row !important; align-items: center !important; gap: 0.75rem !important; }
+    [style*="display: flex"][style*="align-items: center"][style*="gap: 1rem"]:not([style*="flex-wrap"]) { flex-direction: column !important; flex-wrap: wrap !important; gap: 0.5rem !important; align-items: flex-start !important; width: 100% !important; }
+    [style*="width: 1px; height: 36px"] { display: none !important; }
+    [style*="display: flex"][style*="align-items: center"][style*="gap: 0.5rem"] { flex: unset !important; min-width: unset !important; justify-content: flex-start !important; width: auto !important; }
+    [style*="white-space: nowrap"] { white-space: normal !important; justify-content: flex-start !important; width: auto !important; }
+}
+
+/* Desktop: 1281px to 1439px */
+@media (min-width: 1281px) and (max-width: 1439px) {
+    /* Full layout */
+}
+
+/* Large Desktop: 1440px+ */
+@media (min-width: 1440px) {
+    /* Full layout */
+}
 </style>
 @endsection
 
