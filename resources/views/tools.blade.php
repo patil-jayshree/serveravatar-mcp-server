@@ -19,6 +19,68 @@ $perPage = $perPage ?? 10;
 .table-body { min-height: 150px; }
 .tools-loading { display: flex; align-items: center; justify-content: center; min-height: 150px; color: var(--text-secondary); }
 .tools-loading i { font-size: 1.5rem; animation: spin 0.8s linear infinite; }
+
+/* ========== RESPONSIVE STYLES - TOOLS PAGE ========== */
+
+/* Mobile: 360px to 767px */
+@media (max-width: 767px) {
+    .page-header { margin-bottom: 1rem; }
+    .page-title { font-size: 1.25rem !important; flex-wrap: wrap !important; gap: 6px !important; }
+    .tools-count-badge { font-size: 0.7rem !important; padding: 2px 8px !important; }
+    .page-subtitle { font-size: 0.8rem !important; }
+    
+    /* Tools Controls - stack on mobile */
+    .tools-controls { flex-direction: column !important; gap: 0.75rem !important; align-items: stretch !important; flex-wrap: wrap !important; }
+    #searchForm { width: 100% !important; }
+    #filterForm { width: 100% !important; gap: 0.5rem !important; }
+    .search-box { max-width: 100% !important; }
+    .search-input { width: 100% !important; font-size: 13px !important; }
+    #categorySelect { flex: 1 !important; min-width: unset !important; max-width: none !important; height: 44px !important; padding: 11px 32px 11px 32px !important; }
+    .refresh-btn { width: 44px !important; height: 44px !important; display: inline-flex !important; justify-content: center !important; flex-shrink: 0 !important; }
+    
+    /* Tools Table - horizontal scroll */
+    .tools-table-wrap { overflow-x: auto !important; -webkit-overflow-scrolling: touch !important; padding-bottom: 8px !important; }
+    .tools-table { min-width: 600px !important; }
+    .table-header { font-size: 11px !important; padding: 10px 12px !important; }
+    .th-text, .th-text-center { font-size: 11px !important; }
+    .table-row { padding: 10px 12px !important; font-size: 12px !important; }
+    .tool-name-cell { gap: 8px !important; }
+    .tool-name-cell > span:first-child { width: 28px !important; height: 28px !important; font-size: 12px !important; }
+    .tool-name-text { font-size: 12px !important; }
+    .category-badge { font-size: 9px !important; padding: 2px 6px !important; }
+    .tool-desc-cell { font-size: 11px !important; }
+    .tool-desc-cell .desc-text { overflow: hidden !important; text-overflow: ellipsis !important; white-space: nowrap !important; display: inline-block !important; max-width: 200px !important; }
+    .tool-desc-cell { display: none !important; }
+    .th-desc { display: none !important; }
+    .status-badge { font-size: 9px !important; padding: 2px 6px !important; }
+    
+    /* Pagination - smaller */
+    .pagination { flex-direction: column !important; gap: 0.75rem !important; align-items: center !important; padding: 12px !important; }
+    .pagination-info { font-size: 11px !important; text-align: center !important; }
+    .pagination-buttons { flex-wrap: wrap !important; justify-content: center !important; gap: 6px !important; }
+    .page-btn { padding: 6px 10px !important; font-size: 11px !important; }
+}
+
+/* Tablet: 768px to 834px */
+@media (min-width: 768px) and (max-width: 834px) {
+    .tools-table-wrap { overflow-x: auto !important; }
+    .tools-table { min-width: 600px !important; }
+}
+
+/* Laptop: 1024px to 1280px */
+@media (min-width: 1024px) and (max-width: 1280px) {
+    .tools-table-wrap { overflow-x: auto !important; }
+}
+
+/* Desktop: 1281px to 1439px */
+@media (min-width: 1281px) and (max-width: 1439px) {
+    .tools-table { min-width: 100% !important; }
+}
+
+/* Large Desktop: 1440px+ */
+@media (min-width: 1440px) {
+    .tools-table { min-width: 100% !important; }
+}
 @endsection
 
 @section('content')
@@ -40,9 +102,9 @@ $perPage = $perPage ?? 10;
     </form>
     
     <form onsubmit="return false;" id="filterForm" style="display: flex; align-items: center; gap: 0.5rem;">
-        <div style="position: relative; display: flex; align-items: center;">
+        <div style="position: relative; display: flex; align-items: center; flex: 1;">
             <i class="fas fa-filter" style="position: absolute; left: 12px; color: var(--accent-primary); font-size: 12px; z-index: 1;"></i>
-            <select name="category" id="categorySelect" autocomplete="off" onchange="performFilter()" style="padding: 11px 36px 11px 32px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); color: var(--text-primary); font-size: 13px; font-weight: 500; cursor: pointer; appearance: none; -webkit-appearance: none; min-width: 160px; height: 44px;">
+            <select name="category" id="categorySelect" autocomplete="off" onchange="performFilter()" style="padding: 11px 36px 11px 32px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); color: var(--text-primary); font-size: 13px; font-weight: 500; cursor: pointer; appearance: none; -webkit-appearance: none; min-width: 160px; height: 44px; width: 100%;">
                 <option value="" {{ empty($selectedCategory) ? 'selected' : '' }}>All Categories</option>
                 @foreach($categories as $cat)
                 @php
@@ -53,11 +115,10 @@ $perPage = $perPage ?? 10;
             </select>
             <i class="fas fa-chevron-down" style="position: absolute; right: 10px; color: var(--text-muted); font-size: 10px; pointer-events: none;"></i>
         </div>
+        <button onclick="loadTools(1)" class="refresh-btn" title="Refresh" id="refreshBtn">
+            <i class="fas fa-sync-alt"></i>
+        </button>
     </form>
-    
-    <button onclick="loadTools(1)" class="refresh-btn" title="Refresh" id="refreshBtn">
-        <i class="fas fa-sync-alt"></i>
-    </button>
 </div>
 
 <!-- Tools Table -->
@@ -67,7 +128,7 @@ $perPage = $perPage ?? 10;
             <div class="table-header">
                 <div><span class="th-text">Tool Name</span></div>
                 <div><span class="th-text">Category</span></div>
-                <div><span class="th-text">Description</span></div>
+                <div class="th-desc"><span class="th-text">Description</span></div>
                 <div style="justify-content: center;"><span class="th-text-center">Status</span></div>
             </div>
             <div class="table-body" id="toolsTableBody">
@@ -88,7 +149,7 @@ $perPage = $perPage ?? 10;
                     <div>
                         <span class="category-badge" style="display: inline-flex; align-items: center; gap: 4px; background: var(--accent-primary-muted); color: var(--accent-primary); padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 600;">{{ $tool['category_badge'] }}</span>
                     </div>
-                    <div class="tool-desc-cell"><span title="{{ $tool['description'] }}">{{ $tool['description'] }}</span></div>
+                    <div class="tool-desc-cell"><span title="{{ $tool['description'] }}" class="desc-text">{{ $tool['description'] }}</span></div>
                     <div class="tool-status-cell">
                         <span class="status-badge">
                             <span class="status-dot"></span>
