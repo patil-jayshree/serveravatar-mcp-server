@@ -555,6 +555,13 @@ window.clientsData = {
     .guide-tools-stat-box .stat-num { font-size: 16px !important; }
     .guide-tools-stat-box .stat-label { font-size: 10px !important; }
     
+    /* Tools stats - keep in one row on mobile */
+    .guide-tools-banner-box > div[style*="display:flex"][style*="gap:20px"] { flex-wrap: nowrap !important; gap: 10px !important; overflow-x: auto !important; }
+    .guide-tools-banner-box > div[style*="display:flex"][style*="gap:20px"] .guide-tools-stat-box { min-width: auto !important; flex-shrink: 0 !important; }
+    .guide-tools-banner-box > div[style*="display:flex"][style*="gap:20px"] .guide-tools-stat-box .stat-icon { width: 28px !important; height: 28px !important; min-width: 28px !important; }
+    .guide-tools-banner-box > div[style*="display:flex"][style*="gap:20px"] .guide-tools-stat-box .stat-num { font-size: 14px !important; }
+    .guide-tools-banner-box > div[style*="display:flex"][style*="gap:20px"] .guide-tools-stat-box .stat-label { font-size: 9px !important; }
+    
     /* Page content */
     .page-content { padding: 16px !important; }
 }
