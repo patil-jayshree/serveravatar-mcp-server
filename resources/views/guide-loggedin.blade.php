@@ -514,7 +514,7 @@ window.clientsData = {
     .guide-banner > div:first-child { padding-top: 0 !important; padding-left: 0 !important; width: 100% !important; }
     .guide-banner h1 { font-size: 20px !important; margin-bottom: 8px !important; }
     .guide-banner p { font-size: 13px !important; max-width: 100% !important; }
-    .guide-banner img { width: 200px !important; height: 150px !important; padding-left: 0 !important; margin-top: 16px !important; }
+    .guide-banner img { display: none !important; }
     
     /* Two card rows - stack vertically */
     div[style*="display:flex"][style*="gap:24px"] { 
