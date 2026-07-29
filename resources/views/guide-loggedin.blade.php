@@ -562,6 +562,13 @@ window.clientsData = {
     .guide-tools-banner-box > div[style*="display:flex"][style*="gap:20px"] .guide-tools-stat-box .stat-num { font-size: 14px !important; }
     .guide-tools-banner-box > div[style*="display:flex"][style*="gap:20px"] .guide-tools-stat-box .stat-label { font-size: 9px !important; }
     
+    /* How it works - title row + steps row on mobile */
+    .guide-how-it-works-box > div[style*="display:flex"][style*="gap:20px"] { flex-direction: column !important; gap: 16px !important; }
+    .guide-how-it-works-box > div[style*="display:flex"][style*="gap:20px"] > div { flex: none !important; width: 100% !important; }
+    .guide-how-it-works-box > div[style*="display:flex"][style*="gap:20px"] > div:first-child { text-align: center !important; }
+    .guide-how-it-works-box > div[style*="display:flex"][style*="gap:20px"] > div:first-child > div { justify-content: center !important; }
+    .guide-how-it-works-box > div[style*="display:flex"][style*="gap:20px"] > div:last-child { overflow-x: auto !important; }
+    
     /* Page content */
     .page-content { padding: 16px !important; }
 }
