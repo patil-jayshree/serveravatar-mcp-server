@@ -607,6 +607,12 @@ window.clientsData = {
     
     /* Page content */
     .page-content { padding: 16px !important; }
+    
+    /* Modal - mobile fix */
+    .guide-modal-content { width: calc(100vw - 32px) !important; max-width: calc(100vw - 32px) !important; max-height: 85vh !important; }
+    .guide-modal-header { padding: 16px !important; flex-wrap: wrap !important; }
+    .guide-modal-sidebar { display: none !important; }
+    .guide-modal-content > div:last-child { padding: 16px !important; max-height: calc(85vh - 100px) !important; }
 }
 
 /* Mobile Small: 360px to 480px */
