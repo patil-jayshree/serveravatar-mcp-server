@@ -664,11 +664,11 @@ window.clientsData = {
     
     /* Section 6 How it works - title row + steps row */
     .guide-how-it-works-box { flex-direction: column !important; gap: 16px !important; padding: 16px !important; }
-    .guide-how-it-works-box > div[style*="display:flex"][style*="gap:20px"] { flex-direction: column !important; gap: 16px !important; }
+    .guide-how-it-works-box > div[style*="display:flex"][style*="gap:20px"] { flex-direction: column !important; gap: 16px !important; align-items: center !important; }
     .guide-how-it-works-box > div[style*="display:flex"][style*="gap:20px"] > div { flex: none !important; width: 100% !important; }
-    .guide-how-it-works-box > div[style*="display:flex"][style*="gap:20px"] > div:first-child { text-align: center !important; }
+    .guide-how-it-works-box > div[style*="display:flex"][style*="gap:20px"] > div:first-child { text-align: center !important; display: flex !important; justify-content: center !important; }
     .guide-how-it-works-box > div[style*="display:flex"][style*="gap:20px"] > div:first-child > div { justify-content: center !important; }
-    .guide-how-it-works-box > div[style*="display:flex"][style*="gap:20px"] > div:last-child { overflow-x: auto !important; padding: 8px 0 !important; justify-content: flex-start !important; }
+    .guide-how-it-works-box > div[style*="display:flex"][style*="gap:20px"] > div:last-child { overflow-x: auto !important; padding: 8px 0 !important; justify-content: center !important; }
 }
 </style>
 
