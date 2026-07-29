@@ -569,6 +569,9 @@ window.clientsData = {
     .guide-how-it-works-box > div[style*="display:flex"][style*="gap:20px"] > div:first-child > div { justify-content: center !important; }
     .guide-how-it-works-box > div[style*="display:flex"][style*="gap:20px"] > div:last-child { overflow-x: auto !important; }
     
+    /* Hide How it works section on mobile */
+    .guide-how-it-works-box { display: none !important; }
+    
     /* Page content */
     .page-content { padding: 16px !important; }
 }
