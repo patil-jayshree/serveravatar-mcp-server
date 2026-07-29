@@ -88,7 +88,7 @@
         .nav-title { font-weight: 700; font-size: 1.1rem; letter-spacing: -0.02em; }
         .nav-title span { color: var(--accent-primary); }
         .nav-links { display: flex; align-items: center; gap: 0.25rem; }
-        .nav-link { padding: 8px 14px; color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; font-weight: 500; border-radius: var(--radius-md); transition: all var(--transition-fast); white-space: nowrap; }
+        .nav-links .nav-link { padding: 8px 14px; color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; font-weight: 500; border-radius: var(--radius-md); transition: all var(--transition-fast); white-space: nowrap; }
         .nav-link:hover { color: var(--text-primary); background: var(--bg-card-hover); }
         .nav-link.active { color: var(--accent-primary); background: var(--accent-primary-muted); }
         .nav-right { display: flex; align-items: center; gap: 8px; }
