@@ -11,6 +11,58 @@ $csrf = csrf_token();
 .clients-table-body { }
 .clients-loading { display: flex; align-items: center; justify-content: center; min-height: 100px; color: var(--text-secondary); }
 .clients-loading i { font-size: 1.5rem; animation: spin 0.8s linear infinite; }
+
+/* ========== RESPONSIVE STYLES - CLIENTS PAGE ========== */
+
+/* Mobile: 360px to 767px */
+@media (max-width: 767px) {
+    .page-header { flex-direction: column !important; gap: 1rem !important; }
+    .page-header > div:first-child { order: 1 !important; }
+    .page-header > .refresh-btn { order: 2 !important; align-self: flex-end !important; }
+    .page-title { font-size: 1.25rem !important; flex-wrap: wrap !important; gap: 6px !important; }
+    .active-clients-badge { font-size: 0.7rem !important; padding: 2px 8px !important; }
+    .page-subtitle { font-size: 0.8rem !important; }
+    
+    /* Horizontal scroll for table */
+    .card { overflow-x: auto !important; -webkit-overflow-scrolling: touch !important; padding-bottom: 8px !important; }
+    .clients-table-header { min-width: 700px !important; font-size: 11px !important; }
+    .clients-tr { min-width: 700px !important; font-size: 12px !important; }
+    .client-info { display: flex !important; align-items: center !important; gap: 8px !important; }
+    .client-icon-wrap img, .client-icon-wrap span { width: 28px !important; height: 28px !important; }
+    .client-name { font-size: 12px !important; }
+    .badge-active { font-size: 9px !important; padding: 2px 6px !important; }
+    .client-date { font-size: 11px !important; }
+    .client-date br { display: none !important; }
+    .client-activity { font-size: 11px !important; }
+    
+    /* Empty state */
+    .clients-empty { padding: 2rem !important; }
+    .clients-empty-icon svg { width: 60px !important; height: 60px !important; }
+    .clients-empty-title { font-size: 14px !important; }
+    .clients-empty-desc { font-size: 12px !important; }
+}
+
+/* Tablet: 768px to 834px */
+@media (min-width: 768px) and (max-width: 834px) {
+    .clients-table-header { font-size: 11px !important; }
+    .clients-tr { font-size: 12px !important; }
+}
+
+/* Laptop: 1024px to 1280px */
+@media (min-width: 1024px) and (max-width: 1280px) {
+    .clients-table-header { font-size: 12px !important; }
+    .clients-tr { font-size: 13px !important; }
+}
+
+/* Desktop: 1281px to 1439px */
+@media (min-width: 1281px) and (max-width: 1439px) {
+    .clients-table-header { font-size: 12px !important; }
+}
+
+/* Large Desktop: 1440px+ */
+@media (min-width: 1440px) {
+    /* No changes needed - full layout */
+}
 @endsection
 
 @section('content')
