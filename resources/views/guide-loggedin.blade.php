@@ -508,9 +508,10 @@ window.clientsData = {
     .guide-card h2 { font-size: 20px !important; }
     
     /* How it works - title row + steps row on tablet */
-    .guide-how-it-works-box { gap: 16px !important; padding: 16px !important; }
-    .guide-how-it-works-box > div[style*="display:flex"][style*="gap:20px"] { gap: 16px !important; }
-    .guide-how-it-works-box > div[style*="display:flex"][style*="gap:20px"] > div:last-child { overflow-x: auto !important; padding: 8px 0 !important; }
+    .guide-how-it-works-box { flex-direction: column !important; gap: 16px !important; padding: 16px !important; }
+    .guide-how-it-works-box > div[style*="display:flex"][style*="gap:20px"] { flex-direction: column !important; gap: 16px !important; }
+    .guide-how-it-works-box > div[style*="display:flex"][style*="gap:20px"] > div { flex: none !important; width: 100% !important; }
+    .guide-how-it-works-box > div[style*="display:flex"][style*="gap:20px"] > div:last-child { overflow-x: auto !important; padding: 8px 0 !important; justify-content: flex-start !important; }
 }
 
 /* Mobile: 360px to 767px */
