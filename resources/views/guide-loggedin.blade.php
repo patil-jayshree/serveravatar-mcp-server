@@ -635,26 +635,27 @@ window.clientsData = {
 /* Laptop: 1024px to 1280px */
 @media (min-width: 1024px) and (max-width: 1280px) {
     /* Page content - prevent overflow */
-    .page-content, .container { overflow-x: hidden !important; max-width: 100% !important; padding-left: 16px !important; padding-right: 16px !important; }
+    .page-content, .container { overflow-x: hidden !important; max-width: 100% !important; padding: 12px !important; }
     
-    .guide-banner { padding: 12px 16px !important; overflow-x: hidden !important; box-sizing: border-box !important; }
-    .guide-banner h1 { font-size: 20px !important; }
-    .guide-banner p { max-width: 400px !important; font-size: 13px !important; }
-    .guide-banner img { width: 220px !important; height: 160px !important; }
+    .guide-banner { padding: 12px !important; overflow-x: hidden !important; box-sizing: border-box !important; width: 100% !important; }
+    .guide-banner h1 { font-size: 18px !important; }
+    .guide-banner p { max-width: 350px !important; font-size: 12px !important; }
+    .guide-banner img { width: 180px !important; height: 140px !important; }
     
-    /* All flex rows */
-    div[style*="display:flex"][style*="gap:24px"] { gap: 16px !important; overflow-x: hidden !important; box-sizing: border-box !important; }
+    /* All flex rows - stack vertically to prevent overflow */
+    div[style*="display:flex"][style*="gap:24px"] { flex-direction: column !important; gap: 12px !important; overflow-x: hidden !important; box-sizing: border-box !important; width: 100% !important; }
     
-    /* Card grids - 3 columns for 4-col grids */
-    div[style*="grid-template-columns:repeat(4,1fr)"] { grid-template-columns: repeat(3, 1fr) !important; overflow-x: hidden !important; }
+    /* Card grids - 2 columns */
+    div[style*="grid-template-columns:repeat(4,1fr)"] { grid-template-columns: repeat(2, 1fr) !important; overflow-x: hidden !important; }
+    div[style*="grid-template-columns:repeat(3,1fr)"] { grid-template-columns: repeat(2, 1fr) !important; overflow-x: hidden !important; }
     
     /* Cards */
-    .guide-card { padding: 20px !important; overflow-x: hidden !important; box-sizing: border-box !important; }
-    .guide-card h2 { font-size: 20px !important; }
+    .guide-card { padding: 16px !important; overflow-x: hidden !important; box-sizing: border-box !important; width: 100% !important; flex: none !important; }
+    .guide-card h2 { font-size: 18px !important; }
     
     /* How it works section */
-    .guide-how-it-works-box { gap: 16px !important; padding: 16px !important; overflow-x: hidden !important; box-sizing: border-box !important; }
-    .guide-how-it-works-box > div[style*="display:flex"][style*="gap:20px"] { gap: 16px !important; overflow-x: hidden !important; }
+    .guide-how-it-works-box { gap: 12px !important; padding: 12px !important; overflow-x: hidden !important; box-sizing: border-box !important; }
+    .guide-how-it-works-box > div[style*="display:flex"][style*="gap:20px"] { gap: 12px !important; overflow-x: hidden !important; flex-wrap: wrap !important; }
     .guide-how-it-works-box > div[style*="display:flex"][style*="gap:20px"] > div:last-child { overflow-x: auto !important; padding: 8px 0 !important; }
 }
 </style>
