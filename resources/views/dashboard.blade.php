@@ -182,8 +182,16 @@
 
         /* Quick Setup Section */
         .quick-setup-section { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 1.5rem; margin-bottom: 1rem; opacity: 0; transform: translateY(15px); animation: dashFadeIn 0.5s ease 0.7s forwards; }
-        .quick-setup-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
-        .quick-setup-steps { display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
+        .quick-setup-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+        .quick-setup-header .section-title { font-size: 1.1rem; font-weight: 700; }
+        .quick-setup-header .section-desc { font-size: 0.85rem; color: var(--text-secondary); }
+        .quick-setup-steps { display: flex; align-items: stretch; justify-content: center; gap: 0.5rem; flex-wrap: nowrap; overflow-x: auto; padding-bottom: 0.5rem; }
+        .quick-setup-step-card { background: var(--accent-primary-muted); border: 2px solid var(--accent-primary); border-radius: 10px; padding: 1rem; text-align: center; display: flex; flex-direction: column; align-items: center; min-width: 120px; flex: 1; height: 140px; }
+        .quick-setup-step-number { width: 36px; height: 36px; border-radius: 50%; background: var(--accent-primary); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; margin-bottom: 0.75rem; flex-shrink: 0; }
+        .quick-setup-step-content { width: 100%; flex: 1; display: flex; flex-direction: column; justify-content: center; }
+        .quick-setup-step-title { font-size: 15px; font-weight: 600; margin-bottom: 0.25rem; color: var(--accent-primary); }
+        .quick-setup-step-desc { font-size: 12px; font-weight: 400; color: var(--accent-primary); line-height: 1.4; opacity: 0.8; }
+        .quick-setup-arrow { color: var(--accent-primary); font-size: 1.5rem; flex-shrink: 0; }
 
         /* Welcome Back Card */
         .welcome-back-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 1.5rem 2rem; margin-bottom: 1rem; }
@@ -621,8 +629,12 @@
             .mcp-status-bar { display: grid !important; grid-template-columns: repeat(3, 1fr) !important; gap: 0.5rem !important; width: 100% !important; box-sizing: border-box !important; }
             .mcp-status-item { width: 100% !important; box-sizing: border-box !important; flex: none !important; }
             .mcp-status-divider { display: none !important; }
-            .quick-setup-steps { flex-wrap: wrap; gap: 0.5rem; }
-            .quick-setup-steps > div { min-width: calc(50% - 0.5rem); flex: 0 0 calc(50% - 0.5rem); }
+            .quick-setup-steps { flex-wrap: wrap; gap: 0.5rem; overflow-x: visible; padding-bottom: 0; justify-content: flex-start; -webkit-overflow-scrolling: touch; }
+            .quick-setup-step-card { min-width: calc(33.33% - 0.5rem); flex: 0 0 calc(33.33% - 0.5rem); height: auto; padding: 0.75rem; flex-direction: column; }
+            .quick-setup-step-number { width: 28px; height: 28px; font-size: 12px; margin-bottom: 0.5rem; }
+            .quick-setup-step-title { font-size: 12px; }
+            .quick-setup-step-desc { font-size: 10px; line-height: 1.3; }
+            .quick-setup-arrow { display: none; }
             .step-arrow { display: none; }
             .wb-top { flex-direction: row !important; align-items: center !important; gap: 0.75rem; }
             .wb-greeting-line { flex-direction: row !important; align-items: center !important; gap: 0.5rem; white-space: nowrap; }
@@ -648,6 +660,17 @@
             .wb-actions { display: grid !important; grid-template-columns: repeat(4, 1fr) !important; gap: 0.5rem !important; width: 100% !important; box-sizing: border-box !important; }
             .wb-action-btn { width: 100% !important; }
             .page-content { width: 100% !important; max-width: 100% !important; overflow-x: hidden; }
+            /* Quick Setup - Laptop */
+            .quick-setup-section { padding: 1rem !important; }
+            .quick-setup-header { margin-bottom: 1rem; }
+            .quick-setup-header .section-title { font-size: 1rem; }
+            .quick-setup-header .section-desc { font-size: 0.8rem; }
+            .quick-setup-steps { flex-wrap: wrap; gap: 0.5rem; overflow-x: visible; padding-bottom: 0; justify-content: flex-start; }
+            .quick-setup-step-card { min-width: calc(33.33% - 0.5rem); flex: 0 0 calc(33.33% - 0.5rem); height: auto; padding: 0.75rem; flex-direction: column; }
+            .quick-setup-step-number { width: 28px; height: 28px; font-size: 12px; margin-bottom: 0.5rem; }
+            .quick-setup-step-title { font-size: 12px; }
+            .quick-setup-step-desc { font-size: 10px; line-height: 1.3; }
+            .quick-setup-arrow { display: none; }
         }
         
         /* Desktop: 1281px and above */
@@ -708,8 +731,18 @@
             .copy-url-btn { width: 100%; justify-content: center; }
             .page-title { font-size: 1.5rem; }
             .page-header { margin-bottom: 0.75rem; }
-            .quick-setup-steps { flex-direction: column; gap: 0.5rem; }
-            .quick-setup-steps > div { min-width: 100%; flex: 1; height: auto; }
+            .quick-setup-section { padding: 1rem !important; }
+            .quick-setup-header { flex-direction: row; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
+            .quick-setup-header .section-icon { width: 36px; height: 36px; }
+            .quick-setup-header .section-title { font-size: 1rem; }
+            .quick-setup-header .section-desc { font-size: 0.75rem; display: block; }
+            .quick-setup-steps { flex-direction: column; gap: 0.5rem; overflow-x: visible; padding-bottom: 0; }
+            .quick-setup-step-card { min-width: 100%; flex: 1; height: auto; padding: 0.75rem; flex-direction: row; gap: 0.75rem; text-align: left; }
+            .quick-setup-step-number { width: 32px; height: 32px; font-size: 12px; margin-bottom: 0; flex-shrink: 0; }
+            .quick-setup-step-content { flex: 1; justify-content: center; }
+            .quick-setup-step-title { font-size: 13px; }
+            .quick-setup-step-desc { font-size: 11px; }
+            .quick-setup-arrow { display: none; }
             .step-arrow { display: none; }
             .section-header { flex-wrap: nowrap !important; }
             .section-header .btn { position: static; margin-top: 0.5rem; width: 100%; justify-content: center; }
@@ -752,6 +785,16 @@
             .info-card-label { font-size: 11px !important; }
             .info-card-email { font-size: 10px !important; word-break: break-all !important; }
             .activity-section, .quick-setup-section, .mcp-status-card, .card { padding: 0.75rem !important; width: 100% !important; box-sizing: border-box !important; }
+            .quick-setup-section { padding: 0.75rem !important; }
+            .quick-setup-header { flex-direction: column; align-items: flex-start; gap: 0.5rem; margin-bottom: 0.75rem; flex-wrap: wrap; }
+            .quick-setup-header .section-icon { width: 28px; height: 28px; flex-shrink: 0; }
+            .quick-setup-header .section-icon i { font-size: 0.8rem; }
+            .quick-setup-header .section-title { font-size: 0.9rem; }
+            .quick-setup-header .section-desc { font-size: 0.7rem; display: block; white-space: normal; overflow: visible; text-overflow: unset; }
+            .quick-setup-step-card { min-width: 100%; height: auto; padding: 0.5rem; flex-direction: row; gap: 0.5rem; }
+            .quick-setup-step-number { width: 28px; height: 28px; font-size: 11px; margin-bottom: 0; }
+            .quick-setup-step-title { font-size: 12px; }
+            .quick-setup-step-desc { font-size: 10px; }
             .activity-item { flex-wrap: nowrap !important; align-items: flex-start !important; gap: 0.5rem !important; overflow: visible !important; }
             .activity-content { flex: 1 !important; min-width: 0 !important; overflow: hidden !important; }
             .activity-description { white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important; font-size: 0.8rem !important; }
@@ -793,43 +836,43 @@
                     </div>
                 </div>
                 <div class="quick-setup-steps">
-                    <div style="background:#F3EEFF;border:2px solid #D8B4FE;border-radius:10px;padding:1rem;text-align:center;display:flex;flex-direction:column;align-items:center;min-width:120px;flex:1;height:140px;" data-dt-bg="#2A1F45" data-dt-border="#7E22CE" data-dt-color="#F3E8FF">
-                        <div style="width:36px;height:36px;border-radius:50%;background:#7C3AED;color:white;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;margin-bottom:0.75rem;">1</div>
-                        <div style="width:100%;flex:1;display:flex;flex-direction:column;justify-content:center;">
-                            <h3 style="font-size:15px;font-weight:600;margin-bottom:0.25rem;color:#7C3AED;">Add API Key</h3>
-                            <p style="font-size:12px;font-weight:400;color:#7C3AED;line-height:1.4;opacity:0.8;">Connect your ServerAvatar account</p>
+                    <div class="quick-setup-step-card">
+                        <div class="quick-setup-step-number">1</div>
+                        <div class="quick-setup-step-content">
+                            <h3 class="quick-setup-step-title">Add API Key</h3>
+                            <p class="quick-setup-step-desc">Connect your ServerAvatar account</p>
                         </div>
                     </div>
-                    <div style="color:#7C3AED;font-size:1.5rem;flex-shrink:0;">→</div>
-                    <div style="background:#F3EEFF;border:2px solid #D8B4FE;border-radius:10px;padding:1rem;text-align:center;display:flex;flex-direction:column;align-items:center;min-width:120px;flex:1;height:140px;" data-dt-bg="#2A1F45" data-dt-border="#7E22CE" data-dt-color="#F3E8FF">
-                        <div style="width:36px;height:36px;border-radius:50%;background:#7C3AED;color:white;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;margin-bottom:0.75rem;">2</div>
-                        <div style="width:100%;flex:1;display:flex;flex-direction:column;justify-content:center;">
-                            <h3 style="font-size:15px;font-weight:600;margin-bottom:0.25rem;color:#7C3AED;">Copy MCP URL</h3>
-                            <p style="font-size:12px;font-weight:400;color:#7C3AED;line-height:1.4;opacity:0.8;">Get your MCP endpoint</p>
+                    <div class="quick-setup-arrow">→</div>
+                    <div class="quick-setup-step-card">
+                        <div class="quick-setup-step-number">2</div>
+                        <div class="quick-setup-step-content">
+                            <h3 class="quick-setup-step-title">Copy MCP URL</h3>
+                            <p class="quick-setup-step-desc">Get your MCP endpoint</p>
                         </div>
                     </div>
-                    <div style="color:#7C3AED;font-size:1.5rem;flex-shrink:0;">→</div>
-                    <div style="background:#F3EEFF;border:2px solid #D8B4FE;border-radius:10px;padding:1rem;text-align:center;display:flex;flex-direction:column;align-items:center;min-width:120px;flex:1;height:140px;" data-dt-bg="#2A1F45" data-dt-border="#7E22CE" data-dt-color="#F3E8FF">
-                        <div style="width:36px;height:36px;border-radius:50%;background:#7C3AED;color:white;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;margin-bottom:0.75rem;">3</div>
-                        <div style="width:100%;flex:1;display:flex;flex-direction:column;justify-content:center;">
-                            <h3 style="font-size:15px;font-weight:600;margin-bottom:0.25rem;color:#7C3AED;">Add to Client</h3>
-                            <p style="font-size:12px;font-weight:400;color:#7C3AED;line-height:1.4;opacity:0.8;">Connect ChatGPT, Claude, Cursor & more</p>
+                    <div class="quick-setup-arrow">→</div>
+                    <div class="quick-setup-step-card">
+                        <div class="quick-setup-step-number">3</div>
+                        <div class="quick-setup-step-content">
+                            <h3 class="quick-setup-step-title">Add to Client</h3>
+                            <p class="quick-setup-step-desc">Connect ChatGPT, Claude, Cursor & more</p>
                         </div>
                     </div>
-                    <div style="color:#7C3AED;font-size:1.5rem;flex-shrink:0;">→</div>
-                    <div style="background:#F3EEFF;border:2px solid #D8B4FE;border-radius:10px;padding:1rem;text-align:center;display:flex;flex-direction:column;align-items:center;min-width:120px;flex:1;height:140px;" data-dt-bg="#2A1F45" data-dt-border="#7E22CE" data-dt-color="#F3E8FF">
-                        <div style="width:36px;height:36px;border-radius:50%;background:#7C3AED;color:white;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;margin-bottom:0.75rem;">4</div>
-                        <div style="width:100%;flex:1;display:flex;flex-direction:column;justify-content:center;">
-                            <h3 style="font-size:15px;font-weight:600;margin-bottom:0.25rem;color:#7C3AED;">Authenticate</h3>
-                            <p style="font-size:12px;font-weight:400;color:#7C3AED;line-height:1.4;opacity:0.8;">Verify your connection</p>
+                    <div class="quick-setup-arrow">→</div>
+                    <div class="quick-setup-step-card">
+                        <div class="quick-setup-step-number">4</div>
+                        <div class="quick-setup-step-content">
+                            <h3 class="quick-setup-step-title">Authenticate</h3>
+                            <p class="quick-setup-step-desc">Verify your connection</p>
                         </div>
                     </div>
-                    <div style="color:#7C3AED;font-size:1.5rem;flex-shrink:0;">→</div>
-                    <div style="background:#F3EEFF;border:2px solid #D8B4FE;border-radius:10px;padding:1rem;text-align:center;display:flex;flex-direction:column;align-items:center;min-width:120px;flex:1;height:140px;" data-dt-bg="#2A1F45" data-dt-border="#7E22CE" data-dt-color="#F3E8FF">
-                        <div style="width:36px;height:36px;border-radius:50%;background:#7C3AED;color:white;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;margin-bottom:0.75rem;">5</div>
-                        <div style="width:100%;flex:1;display:flex;flex-direction:column;justify-content:center;">
-                            <h3 style="font-size:15px;font-weight:600;margin-bottom:0.25rem;color:#7C3AED;">Start Using</h3>
-                            <p style="font-size:12px;font-weight:400;color:#7C3AED;line-height:1.4;opacity:0.8;">Access ServerAvatar tools</p>
+                    <div class="quick-setup-arrow">→</div>
+                    <div class="quick-setup-step-card">
+                        <div class="quick-setup-step-number">5</div>
+                        <div class="quick-setup-step-content">
+                            <h3 class="quick-setup-step-title">Start Using</h3>
+                            <p class="quick-setup-step-desc">Access ServerAvatar tools</p>
                         </div>
                     </div>
                 </div>
