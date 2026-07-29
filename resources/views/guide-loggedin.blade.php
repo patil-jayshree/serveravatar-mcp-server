@@ -477,6 +477,121 @@ window.clientsData = {
 .guide-final-banner .banner-link:hover { color: #6d28d9; }
 
 .guide-illustration { background: transparent; border-radius: 0; padding: 0; }
+
+/* ========== RESPONSIVE STYLES ========== */
+
+/* Tablet: 768px to 834px */
+@media (min-width: 768px) and (max-width: 834px) {
+    .guide-banner { flex-direction: row !important; padding: 16px 20px !important; }
+    .guide-banner h1 { font-size: 20px !important; }
+    .guide-banner p { font-size: 13px !important; max-width: 400px !important; }
+    .guide-banner img { width: 220px !important; height: 160px !important; }
+    .guide-banner > div:first-child { flex: 1 !important; }
+    
+    /* Two card rows */
+    div[style*="display:flex"][style*="gap:24px"] { gap: 16px !important; }
+    
+    /* Card grids - 2 columns */
+    div[style*="grid-template-columns:repeat(4,1fr)"] { grid-template-columns: repeat(2, 1fr) !important; }
+    div[style*="grid-template-columns:repeat(3,1fr)"] { grid-template-columns: repeat(2, 1fr) !important; }
+    
+    /* Feature boxes */
+    .guide-feature-box { padding: 16px 12px !important; }
+    .guide-feature-box .title { font-size: 12px !important; }
+    .guide-feature-box .desc { font-size: 10px !important; }
+    
+    /* Cards */
+    .guide-card { padding: 24px !important; }
+    .guide-card h2 { font-size: 20px !important; }
+}
+
+/* Mobile: 360px to 767px */
+@media (max-width: 767px) {
+    * { box-sizing: border-box !important; }
+    
+    /* Hero banner - stack vertically, ensure visible below fixed header */
+    .guide-banner { flex-direction: column !important; padding: 20px 16px !important; min-height: auto !important; align-items: center !important; text-align: center !important; margin-top: 20px !important; position: relative !important; z-index: 1 !important; }
+    .guide-banner > div:first-child { padding-top: 0 !important; padding-left: 0 !important; width: 100% !important; }
+    .guide-banner h1 { font-size: 20px !important; margin-bottom: 8px !important; }
+    .guide-banner p { font-size: 13px !important; max-width: 100% !important; }
+    .guide-banner img { width: 200px !important; height: 150px !important; padding-left: 0 !important; margin-top: 16px !important; }
+    
+    /* Two card rows - stack vertically */
+    div[style*="display:flex"][style*="gap:24px"] { 
+        flex-direction: column !important; 
+        gap: 16px !important; 
+        width: 100% !important; 
+    }
+    
+    /* Card grids - single column */
+    div[style*="grid-template-columns:repeat(4,1fr)"] { grid-template-columns: 1fr !important; }
+    div[style*="grid-template-columns:repeat(3,1fr)"] { grid-template-columns: 1fr !important; }
+    
+    /* Cards */
+    .guide-card { padding: 20px !important; width: 100% !important; flex: none !important; }
+    .guide-card h2 { font-size: 18px !important; }
+    .guide-card p { font-size: 13px !important; }
+    
+    /* Feature boxes */
+    .guide-feature-box { padding: 14px 12px !important; }
+    .guide-feature-box .title { font-size: 12px !important; }
+    .guide-feature-box .desc { font-size: 10px !important; }
+    
+    /* Info boxes and flow boxes */
+    .guide-info-box, .guide-flow-box { padding: 14px 12px !important; }
+    .guide-flow-box .title { font-size: 13px !important; }
+    .guide-flow-box .desc { font-size: 11px !important; }
+    
+    /* Timeline steps */
+    .guide-timeline-step .step-title { font-size: 13px !important; }
+    .guide-timeline-step .step-desc { font-size: 11px !important; }
+    
+    /* Note box */
+    .guide-note-box { padding: 14px 12px !important; font-size: 12px !important; margin-top: 16px !important; }
+    .guide-note-box .icon { font-size: 18px !important; min-width: 18px !important; }
+    
+    /* Tools section */
+    .guide-tools-banner-box { padding: 14px 12px !important; flex-direction: column !important; gap: 12px !important; }
+    .guide-tools-stat-box .stat-num { font-size: 16px !important; }
+    .guide-tools-stat-box .stat-label { font-size: 10px !important; }
+    
+    /* Page content */
+    .page-content { padding: 16px !important; }
+}
+
+/* Mobile Small: 360px to 480px */
+@media (max-width: 480px) {
+    .guide-banner h1 { font-size: 18px !important; }
+    .guide-banner p { font-size: 12px !important; }
+    .guide-banner img { width: 160px !important; height: 120px !important; }
+    
+    .guide-card { padding: 16px !important; }
+    .guide-card h2 { font-size: 16px !important; }
+    .guide-card p { font-size: 12px !important; }
+    
+    .guide-feature-box { padding: 12px 10px !important; }
+    .guide-feature-box .icon { font-size: 20px !important; margin-bottom: 8px !important; }
+    .guide-feature-box .title { font-size: 11px !important; }
+    .guide-feature-box .desc { font-size: 9px !important; }
+}
+
+/* Laptop: 1024px to 1280px */
+@media (min-width: 1024px) and (max-width: 1280px) {
+    .guide-banner { padding: 16px 20px !important; }
+    .guide-banner h1 { font-size: 22px !important; }
+    .guide-banner p { max-width: 480px !important; }
+    .guide-banner img { width: 260px !important; height: 180px !important; }
+    
+    /* Two card rows - keep side by side but adjust */
+    div[style*="display:flex"][style*="gap:24px"] { gap: 20px !important; }
+    
+    /* Card grids - 3 columns for 4-col grids */
+    div[style*="grid-template-columns:repeat(4,1fr)"] { grid-template-columns: repeat(3, 1fr) !important; }
+    
+    /* Cards */
+    .guide-card { padding: 28px !important; }
+    .guide-card h2 { font-size: 22px !important; }
+}
 </style>
 
 <div class="guide-banner" style="display:flex;flex-direction:row;align-items:flex-start;justify-content:space-between;padding:12px 24px 12px 24px;border-radius:12px;box-sizing:border-box;min-height:200px;">
