@@ -510,7 +510,7 @@ window.clientsData = {
     * { box-sizing: border-box !important; }
     
     /* Hero banner - stack vertically, ensure visible below fixed header */
-    .guide-banner { flex-direction: column !important; padding: 20px 16px !important; min-height: auto !important; align-items: center !important; text-align: center !important; margin-top: 20px !important; position: relative !important; z-index: 1 !important; }
+    .guide-banner { flex-direction: column !important; padding: 20px 16px !important; min-height: auto !important; align-items: center !important; text-align: center !important; margin-top: 45px !important; position: relative !important; z-index: 1 !important; }
     .guide-banner > div:first-child { padding-top: 0 !important; padding-left: 0 !important; width: 100% !important; }
     .guide-banner h1 { font-size: 20px !important; margin-bottom: 8px !important; }
     .guide-banner p { font-size: 13px !important; max-width: 100% !important; }
