@@ -494,6 +494,9 @@ window.clientsData = {
     /* Sections 3 & 4 - stack in separate rows */
     div[style*="display:flex"][style*="gap:24px"][style*="margin-top:24px"] { flex-direction: column !important; gap: 16px !important; }
     
+    /* Sections 7 & 8 - stack in separate rows */
+    div[style*="display:flex"][style*="gap:24px"][style*="margin-top:20px"]:has(> .guide-example-card) { flex-direction: column !important; gap: 16px !important; }
+    
     /* Card grids - 2 columns */
     div[style*="grid-template-columns:repeat(4,1fr)"] { grid-template-columns: repeat(2, 1fr) !important; }
     div[style*="grid-template-columns:repeat(3,1fr)"] { grid-template-columns: repeat(2, 1fr) !important; }
