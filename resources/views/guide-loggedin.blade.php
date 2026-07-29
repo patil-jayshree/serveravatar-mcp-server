@@ -572,6 +572,14 @@ window.clientsData = {
     /* Hide How it works section on mobile */
     .guide-how-it-works-box { display: none !important; }
     
+    /* Client cards - fix badge on mobile */
+    .guide-client-card { padding: 10px 12px !important; }
+    .guide-client-card .logo-wrap { width: 32px !important; height: 32px !important; }
+    .guide-client-card .logo-wrap img { width: 24px !important; height: 24px !important; }
+    .guide-client-card .name { font-size: 13px !important; }
+    .guide-client-card .desc { font-size: 11px !important; }
+    .guide-client-card .time-badge { font-size: 10px !important; padding: 2px 8px !important; }
+    
     /* Page content */
     .page-content { padding: 16px !important; }
 }
