@@ -578,7 +578,7 @@ window.clientsData = {
     .guide-client-card .logo-wrap img { width: 24px !important; height: 24px !important; }
     .guide-client-card .name { font-size: 13px !important; }
     .guide-client-card .desc { font-size: 11px !important; }
-    .guide-client-card .time-badge { font-size: 11px !important; padding: 4px 10px !important; }
+    .guide-client-card .time-badge { font-size: 10px !important; padding: 2px 8px !important; white-space: nowrap !important; }
     
     /* Page content */
     .page-content { padding: 16px !important; }
