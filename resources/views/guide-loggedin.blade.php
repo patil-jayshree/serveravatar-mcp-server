@@ -634,24 +634,27 @@ window.clientsData = {
 
 /* Laptop: 1024px to 1280px */
 @media (min-width: 1024px) and (max-width: 1280px) {
-    .guide-banner { padding: 16px 20px !important; }
+    /* Page content - prevent overflow */
+    .page-content, .container { overflow-x: hidden !important; max-width: 100vw !important; }
+    
+    .guide-banner { padding: 16px 20px !important; overflow-x: hidden !important; }
     .guide-banner h1 { font-size: 22px !important; }
     .guide-banner p { max-width: 480px !important; }
     .guide-banner img { width: 260px !important; height: 180px !important; }
     
     /* Two card rows - keep side by side but adjust */
-    div[style*="display:flex"][style*="gap:24px"] { gap: 20px !important; }
+    div[style*="display:flex"][style*="gap:24px"] { gap: 20px !important; overflow-x: hidden !important; }
     
     /* Card grids - 3 columns for 4-col grids */
-    div[style*="grid-template-columns:repeat(4,1fr)"] { grid-template-columns: repeat(3, 1fr) !important; }
+    div[style*="grid-template-columns:repeat(4,1fr)"] { grid-template-columns: repeat(3, 1fr) !important; overflow-x: hidden !important; }
     
     /* Cards */
-    .guide-card { padding: 28px !important; }
+    .guide-card { padding: 28px !important; overflow-x: hidden !important; }
     .guide-card h2 { font-size: 22px !important; }
     
     /* How it works section */
-    .guide-how-it-works-box { gap: 16px !important; padding: 16px !important; }
-    .guide-how-it-works-box > div[style*="display:flex"][style*="gap:20px"] { gap: 16px !important; }
+    .guide-how-it-works-box { gap: 16px !important; padding: 16px !important; overflow-x: hidden !important; }
+    .guide-how-it-works-box > div[style*="display:flex"][style*="gap:20px"] { gap: 16px !important; overflow-x: hidden !important; }
     .guide-how-it-works-box > div[style*="display:flex"][style*="gap:20px"] > div:last-child { overflow-x: auto !important; padding: 8px 0 !important; }
 }
 </style>
