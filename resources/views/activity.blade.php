@@ -170,6 +170,71 @@ $csrf = csrf_token();
 .page-btn.active { background: var(--accent-primary); border-color: var(--accent-primary); color: white; font-weight: 600; }
 .page-btn.disabled { opacity: 0.5; cursor: not-allowed; }
 .page-btn i { font-size: 10px; }
+
+/* ========== RESPONSIVE STYLES - ACTIVITY PAGE ========== */
+
+/* Mobile: 360px to 767px */
+@media (max-width: 767px) {
+    .page-header { flex-direction: row !important; align-items: center !important; gap: 1rem !important; }
+    .page-header > div:first-child { flex: 1 !important; }
+    .page-title { font-size: 1.25rem !important; }
+    .page-subtitle { font-size: 0.8rem !important; }
+    
+    /* Filter Bar - stack on mobile */
+    .filter-bar { flex-direction: column !important; gap: 0.5rem !important; }
+    .filter-search { width: 100% !important; min-width: unset !important; }
+    .filter-select { width: 100% !important; min-width: unset !important; }
+    .filter-clear { width: 100% !important; justify-content: center !important; }
+    
+    /* Activity Table - horizontal scroll */
+    .activity-table-card { overflow-x: auto !important; -webkit-overflow-scrolling: touch !important; }
+    .activity-table { min-width: 600px !important; }
+    .activity-table th { font-size: 10px !important; padding: 10px 12px !important; }
+    .activity-table td { padding: 12px !important; font-size: 12px !important; }
+    .event-cell { flex-direction: column !important; align-items: flex-start !important; gap: 8px !important; }
+    .event-icon { width: 32px !important; height: 32px !important; display: none !important; }
+    .event-icon svg { width: 14px !important; height: 14px !important; }
+    .event-info { gap: 4px !important; }
+    .event-desc { font-size: 12px !important; }
+    .event-badge { font-size: 9px !important; padding: 2px 6px !important; }
+    .client-cell { flex-direction: column !important; align-items: flex-start !important; gap: 6px !important; }
+    .client-name { font-size: 12px !important; }
+    .client-type { font-size: 10px !important; }
+    .time-cell { gap: 4px !important; }
+    .time-relative { font-size: 12px !important; }
+    .time-absolute { font-size: 10px !important; }
+    .view-btn { font-size: 11px !important; padding: 4px 8px !important; }
+    
+    /* Pagination */
+    .pagination-bar { flex-direction: column !important; gap: 0.75rem !important; align-items: center !important; }
+    .pagination-buttons { flex-wrap: wrap !important; justify-content: center !important; gap: 6px !important; }
+    
+    /* Event Panel */
+    .event-panel { width: 100% !important; }
+}
+
+/* Tablet: 768px to 834px */
+@media (min-width: 768px) and (max-width: 834px) {
+    .activity-table { font-size: 12px !important; }
+    .event-cell { gap: 8px !important; }
+    .event-icon { width: 34px !important; height: 34px !important; }
+}
+
+/* Laptop: 1024px to 1280px */
+@media (min-width: 1024px) and (max-width: 1280px) {
+    .filter-bar { gap: 0.5rem !important; }
+    .filter-select { min-width: 120px !important; font-size: 0.8rem !important; }
+}
+
+/* Desktop: 1281px to 1439px */
+@media (min-width: 1281px) and (max-width: 1439px) {
+    /* Full layout */
+}
+
+/* Large Desktop: 1440px+ */
+@media (min-width: 1440px) {
+    /* Full layout */
+}
 </style>
 @endsection
 
