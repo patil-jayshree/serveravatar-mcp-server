@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>ServerAvatar MCP Server Documentation</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">ServerAvatar MCP Server Documentation</h1>
+</header>
+<h1 id="serveravatar-mcp-server---complete-documentation">ServerAvatar
+MCP Server - Complete Documentation</h1>
+<p><strong>Version:</strong> 1.0.0 <strong>Date:</strong> July 29, 2026
+<strong>Documentation Generated:</strong> Automatically by OpenClaw</p>
+<hr />
+<h2 id="project-overview">1. Project Overview</h2>
+<h3 id="what-is-serveravatar-mcp-server">What is ServerAvatar MCP
+Server?</h3>
+<p>ServerAvatar MCP Server is a <strong>Model Context Protocol
+(MCP)</strong> implementation that integrates with <a
+href="https://serveravatar.com">ServerAvatar</a> - a cloud server
+management panel. This project enables AI clients (ChatGPT, Claude,
+Cursor, VS Code, Windsurf, etc.) to interact with ServerAvatar’s API,
+allowing users to manage their servers, applications, databases, and
+more through natural language commands.</p>
+<h3 id="purpose">Purpose</h3>
+<ul>
+<li><strong>Bridge AI with Server Management</strong>: Enable AI
+assistants to perform server management tasks</li>
+<li><strong>Unified Interface</strong>: Control servers, databases,
+applications, SSL certificates, domains, and more through 115 MCP
+tools</li>
+<li><strong>Streamlined Workflow</strong>: Reduce manual server
+management overhead</li>
+</ul>
+<h3 id="tech-stack">Tech Stack</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Component</th>
+<th>Technology</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Framework</td>
+<td>Laravel 13.8</td>
+</tr>
+<tr class="even">
+<td>PHP Version</td>
+<td>8.2+</td>
+</tr>
+<tr class="odd">
+<td>Database</td>
+<td>MariaDB</td>
+</tr>
+<tr class="even">
+<td>Protocol</td>
+<td>MCP (Model Context Protocol)</td>
+</tr>
+<tr class="odd">
+<td>Authentication</td>
+<td>Laravel Passport (OAuth)</td>
+</tr>
+<tr class="even">
+<td>Web Server</td>
+<td>Nginx</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="features-summary">2. Features Summary</h2>
+<h3 id="core-features">2.1 Core Features</h3>
+<h4 id="server-management-22-tools">🔧 Server Management (22 Tools)</h4>
+<ul>
+<li>Create, list, and delete servers</li>
+<li>View server usage, logs, and processes</li>
+<li>Manage server services (PHP-FPM, Nginx, etc.)</li>
+<li>Server restart scheduling</li>
+<li>Server tags management</li>
+<li>Server alerts configuration</li>
+</ul>
+<h4 id="firewall-management-4-tools">🛡️ Firewall Management (4
+Tools)</h4>
+<ul>
+<li>List firewall rules</li>
+<li>Create/delete firewall rules</li>
+<li>Toggle server firewall</li>
+</ul>
+<h4 id="cronjob-management-6-tools">⏰ Cronjob Management (6 Tools)</h4>
+<ul>
+<li>Create, list, update, and delete cronjobs</li>
+<li>Toggle cronjob status</li>
+</ul>
+<h4 id="database-management-7-tools">🗄️ Database Management (7
+Tools)</h4>
+<ul>
+<li>List server/organization databases</li>
+<li>Create/delete databases</li>
+<li>Manage database users</li>
+</ul>
+<h4 id="application-management-8-tools">🌐 Application Management (8
+Tools)</h4>
+<ul>
+<li>List and manage applications</li>
+<li>Create Node.js applications</li>
+<li>Deploy and manage SSR apps</li>
+<li>Get PM2 process details and logs</li>
+</ul>
+<h4 id="application-user-management-8-tools">👤 Application User
+Management (8 Tools)</h4>
+<ul>
+<li>Create and manage application users</li>
+<li>Control SSH and root access</li>
+<li>Remove user SSH keys</li>
+</ul>
+<h4 id="ssl-certificate-management-8-tools">🔒 SSL Certificate
+Management (8 Tools)</h4>
+<ul>
+<li>Install/uninstall SSL certificates</li>
+<li>Manage force HTTPS</li>
+<li>Auto-renewal support</li>
+</ul>
+<h4 id="domain-management-5-tools">🌏 Domain Management (5 Tools)</h4>
+<ul>
+<li>Create/delete domains</li>
+<li>Change primary domain</li>
+<li>Toggle domain status</li>
+</ul>
+<h4 id="supervisor-management-5-tools">📦 Supervisor Management (5
+Tools)</h4>
+<ul>
+<li>Manage Supervisor processes</li>
+<li>Create/update/delete supervisor configs</li>
+</ul>
+<h4 id="wordpress-toolkit-35-tools">📝 WordPress Toolkit (35+
+Tools)</h4>
+<ul>
+<li>WordPress core management</li>
+<li>Theme management (install, update, activate, uninstall)</li>
+<li>Plugin management (install, update, toggle, uninstall)</li>
+<li>Cache management</li>
+<li>Cron configuration</li>
+<li>Debug tools</li>
+<li>Search &amp; replace</li>
+<li>Object Cache Pro support</li>
+</ul>
+<h4 id="organization-management-3-tools">🏢 Organization Management (3
+Tools)</h4>
+<ul>
+<li>Create organizations</li>
+<li>List and get organization details</li>
+</ul>
+<h3 id="web-dashboard-features">2.2 Web Dashboard Features</h3>
+<table>
+<colgroup>
+<col style="width: 37%" />
+<col style="width: 62%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Page</th>
+<th>Features</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Dashboard</strong></td>
+<td>Quick setup guide, active connections stats, server overview</td>
+</tr>
+<tr class="even">
+<td><strong>MCP Server</strong></td>
+<td>Server information, IDE access tokens management</td>
+</tr>
+<tr class="odd">
+<td><strong>Tools</strong></td>
+<td>Browse and search all 115 MCP tools with descriptions</td>
+</tr>
+<tr class="even">
+<td><strong>Clients</strong></td>
+<td>View connected AI clients (ChatGPT, Claude, Cursor, etc.)</td>
+</tr>
+<tr class="odd">
+<td><strong>Activity</strong></td>
+<td>Real-time request/response logs with JSON viewer</td>
+</tr>
+<tr class="even">
+<td><strong>Integrations</strong></td>
+<td>Manage connected integrations</td>
+</tr>
+<tr class="odd">
+<td><strong>Guide</strong></td>
+<td>Step-by-step setup instructions for each AI client</td>
+</tr>
+<tr class="even">
+<td><strong>Profile</strong></td>
+<td>Account settings, API key management, password change</td>
+</tr>
+</tbody>
+</table>
+<h3 id="authentication-security">2.3 Authentication &amp; Security</h3>
+<ul>
+<li><strong>Multi-auth</strong>: Email/password login + OAuth via
+Laravel Passport</li>
+<li><strong>IDE Access Tokens</strong>: Token-based auth for IDE-based
+AI clients (Cursor, Windsurf, VS Code, Cline)</li>
+<li><strong>Per-user API Keys</strong>: Each user has their own API key
+for ServerAvatar</li>
+<li><strong>MCP Token Validation</strong>: Middleware validates MCP
+tokens on every request</li>
+<li><strong>Connection Tracking</strong>: Track active MCP connections
+with 30-minute activity window</li>
+</ul>
+<hr />
+<h2 id="mcp-tools-reference">3. MCP Tools Reference</h2>
+<h3 id="tool-categories-overview">Tool Categories Overview</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Category</th>
+<th>Count</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Server Management</td>
+<td>22</td>
+<td>Full server lifecycle management</td>
+</tr>
+<tr class="even">
+<td>Firewall</td>
+<td>4</td>
+<td>Firewall rules management</td>
+</tr>
+<tr class="odd">
+<td>Cronjob</td>
+<td>6</td>
+<td>Scheduled task management</td>
+</tr>
+<tr class="even">
+<td>Database</td>
+<td>7</td>
+<td>Database and user management</td>
+</tr>
+<tr class="odd">
+<td>Application</td>
+<td>8</td>
+<td>Application deployment and management</td>
+</tr>
+<tr class="even">
+<td>Application User</td>
+<td>8</td>
+<td>User access control</td>
+</tr>
+<tr class="odd">
+<td>SSL</td>
+<td>8</td>
+<td>SSL certificate management</td>
+</tr>
+<tr class="even">
+<td>WordPress</td>
+<td>35+</td>
+<td>WordPress-specific management</td>
+</tr>
+<tr class="odd">
+<td>Supervisor</td>
+<td>5</td>
+<td>Process supervisor management</td>
+</tr>
+<tr class="even">
+<td>Domain</td>
+<td>5</td>
+<td>Domain management</td>
+</tr>
+<tr class="odd">
+<td>Organization</td>
+<td>3</td>
+<td>Organization management</td>
+</tr>
+</tbody>
+</table>
+<h3 id="sample-tool-usage">Sample Tool Usage</h3>
+<p><strong>List all servers:</strong></p>
+<pre><code>Tool: list_servers
+Parameters: { &quot;organization_id&quot;: &quot;org_xxx&quot; }</code></pre>
+<p><strong>Create a database:</strong></p>
+<pre><code>Tool: create_database
+Parameters: { &quot;server_id&quot;: &quot;srv_xxx&quot;, &quot;name&quot;: &quot;my_database&quot; }</code></pre>
+<p><strong>Install WordPress theme:</strong></p>
+<pre><code>Tool: install_wordpress_theme
+Parameters: { &quot;application_id&quot;: &quot;app_xxx&quot;, &quot;theme&quot;: &quot;astra&quot; }</code></pre>
+<hr />
+<h2 id="ai-client-integration">4. AI Client Integration</h2>
+<h3 id="supported-ai-clients">Supported AI Clients</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Client</th>
+<th>Connection Method</th>
+<th>Token Type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>ChatGPT</strong></td>
+<td>MCP Connector</td>
+<td>IDE Access Token</td>
+</tr>
+<tr class="even">
+<td><strong>Claude</strong></td>
+<td>Custom Connector</td>
+<td>IDE Access Token</td>
+</tr>
+<tr class="odd">
+<td><strong>Cursor</strong></td>
+<td>MCP Settings</td>
+<td>IDE Access Token</td>
+</tr>
+<tr class="even">
+<td><strong>VS Code</strong></td>
+<td>MCP extension</td>
+<td>IDE Access Token</td>
+</tr>
+<tr class="odd">
+<td><strong>Windsurf</strong></td>
+<td>MCP settings</td>
+<td>IDE Access Token</td>
+</tr>
+</tbody>
+</table>
+<h3 id="setup-flow">Setup Flow</h3>
+<ol type="1">
+<li><strong>Generate IDE Access Token</strong> in MCP Server
+dashboard</li>
+<li><strong>Configure AI Client</strong> with:
+<ul>
+<li>MCP Server URL: <code>https://mcp.178.105.137.4.nip.io</code></li>
+<li>Auth Type: Bearer Token</li>
+<li>Token: Your generated access token</li>
+</ul></li>
+<li><strong>Start Managing</strong> your servers through natural
+language</li>
+</ol>
+<hr />
+<h2 id="production-deployment-steps">5. Production Deployment Steps</h2>
+<h3 id="server-requirements">5.1 Server Requirements</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Resource</th>
+<th>Minimum</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>CPU</td>
+<td>2 vCPU</td>
+</tr>
+<tr class="even">
+<td>RAM</td>
+<td>4 GB</td>
+</tr>
+<tr class="odd">
+<td>Storage</td>
+<td>40 GB SSD</td>
+</tr>
+<tr class="even">
+<td>OS</td>
+<td>Ubuntu 22.04 LTS</td>
+</tr>
+</tbody>
+</table>
+<h3 id="installation-steps">5.2 Installation Steps</h3>
+<h4 id="step-1-clone-the-repository">Step 1: Clone the Repository</h4>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /var/www/html</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone git@github.com:patil-jayshree/serveravatar-mcp-server.git</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> serveravatar-mcp-server</span></code></pre></div>
+<h4 id="step-2-install-dependencies">Step 2: Install Dependencies</h4>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">composer</span> install</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> install</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> run build</span></code></pre></div>
+<h4 id="step-3-configure-environment">Step 3: Configure Environment</h4>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> .env.example .env</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">php</span> artisan key:generate</span></code></pre></div>
+<p>Edit <code>.env</code>:</p>
+<pre class="env"><code>APP_URL=https://mcp.your-domain.com
+SERVERAVATAR_API_URL=https://api.serveravatar.com
+DB_HOST=127.0.0.1
+DB_DATABASE=serveravatar_mcp
+DB_USERNAME=your_user
+DB_PASSWORD=your_password</code></pre>
+<h4 id="step-4-database-setup">Step 4: Database Setup</h4>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">php</span> artisan migrate</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">php</span> artisan passport:install</span></code></pre></div>
+<h4 id="step-5-permissions">Step 5: Permissions</h4>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chown</span> <span class="at">-R</span> www-data:www-data /var/www/html/serveravatar-mcp-server</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">chmod</span> <span class="at">-R</span> 775 storage bootstrap/cache</span></code></pre></div>
+<h4 id="step-6-nginx-configuration">Step 6: Nginx Configuration</h4>
+<pre class="nginx"><code>server {
+    listen 80;
+    server_name mcp.your-domain.com;
+    return 301 https://$server_name$request_uri;
+}
+
+server {
+    listen 443 ssl http2;
+    server_name mcp.your-domain.com;
+    
+    root /var/www/html/serveravatar-mcp-server/public;
+    index index.php;
+    
+    ssl_certificate /etc/ssl/certs/your-cert.pem;
+    ssl_certificate_key /etc/ssl/private/your-key.pem;
+    
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+    
+    location ~ \.php$ {
+        fastcgi_pass unix:/var/run/php/php8.2-fpm.sock;
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+        include fastcgi_params;
+    }
+    
+    location /mcp {
+        proxy_pass http://127.0.0.1:8000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection &#39;upgrade&#39;;
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}</code></pre>
+<h4 id="step-7-ssl-certificate-lets-encrypt">Step 7: SSL Certificate
+(Let’s Encrypt)</h4>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install certbot python3-certbot-nginx</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> certbot <span class="at">--nginx</span> <span class="at">-d</span> mcp.your-domain.com</span></code></pre></div>
+<h4 id="step-8-start-mcp-server">Step 8: Start MCP Server</h4>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">php</span> artisan mcp:serve <span class="kw">&amp;</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Or use Supervisor (recommended)</span></span></code></pre></div>
+<h4 id="step-9-queue-worker-for-background-jobs">Step 9: Queue Worker
+(for background jobs)</h4>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">php</span> artisan queue:work redis <span class="at">--sleep</span><span class="op">=</span>3 <span class="at">--tries</span><span class="op">=</span>3</span></code></pre></div>
+<h3 id="production-checklist">5.3 Production Checklist</h3>
+<ul class="task-list">
+<li><label><input type="checkbox" />SSL certificate installed and
+auto-renewal configured</label></li>
+<li><label><input type="checkbox" />Database backups scheduled
+(daily)</label></li>
+<li><label><input type="checkbox" />Application logs
+monitored</label></li>
+<li><label><input type="checkbox" />Queue worker running with
+Supervisor</label></li>
+<li><label><input type="checkbox" />MCP server running with
+Supervisor</label></li>
+<li><label><input type="checkbox" />Firewall configured (only 80, 443
+open)</label></li>
+<li><label><input type="checkbox" />Environment variables secured (.env
+should not be in git)</label></li>
+<li><label><input type="checkbox" />OAuth keys generated
+(<code>php artisan passport:keys</code>)</label></li>
+<li><label><input type="checkbox" />API rate limiting
+configured</label></li>
+<li><label><input type="checkbox" />Monitoring alerts set
+up</label></li>
+</ul>
+<h3 id="supervisor-configuration">5.4 Supervisor Configuration</h3>
+<p>Create <code>/etc/supervisor/conf.d/serveravatar-mcp.conf</code>:</p>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode ini"><code class="sourceCode ini"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">[program:serveravatar-mcp]</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="dt">command</span><span class="ot">=</span><span class="st">php /var/www/html/serveravatar-mcp-server/artisan mcp:serve</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="dt">directory</span><span class="ot">=</span><span class="st">/var/www/html/serveravatar-mcp-server</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="dt">autostart</span><span class="ot">=</span><span class="kw">true</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="dt">autorestart</span><span class="ot">=</span><span class="kw">true</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="dt">user</span><span class="ot">=</span><span class="st">www-data</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="dt">redirect_stderr</span><span class="ot">=</span><span class="kw">true</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="dt">stdout_logfile</span><span class="ot">=</span><span class="st">/var/log/serveravatar-mcp.log</span></span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> supervisorctl reread</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> supervisorctl update</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> supervisorctl start serveravatar-mcp:<span class="pp">*</span></span></code></pre></div>
+<hr />
+<h2 id="api-reference">6. API Reference</h2>
+<h3 id="authentication">Authentication</h3>
+<p><strong>Bearer Token (IDE Access Token):</strong></p>
+<pre><code>Authorization: Bearer &lt;your-access-token&gt;</code></pre>
+<p><strong>MCP Protocol Endpoint:</strong></p>
+<pre><code>POST /mcp
+Content-Type: application/json
+
+{
+  &quot;jsonrpc&quot;: &quot;2.0&quot;,
+  &quot;id&quot;: 1,
+  &quot;method&quot;: &quot;tools/call&quot;,
+  &quot;params&quot;: {
+    &quot;name&quot;: &quot;list_servers&quot;,
+    &quot;arguments&quot;: { &quot;organization_id&quot;: &quot;org_xxx&quot; }
+  }
+}</code></pre>
+<h3 id="response-format">Response Format</h3>
+<div class="sourceCode" id="cb18"><pre
+class="sourceCode json"><code class="sourceCode json"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;jsonrpc&quot;</span><span class="fu">:</span> <span class="st">&quot;2.0&quot;</span><span class="fu">,</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;result&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;content&quot;</span><span class="fu">:</span> <span class="ot">[</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">{</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;type&quot;</span><span class="fu">:</span> <span class="st">&quot;text&quot;</span><span class="fu">,</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>        <span class="dt">&quot;text&quot;</span><span class="fu">:</span> <span class="st">&quot;{</span><span class="ch">\&quot;</span><span class="st">status</span><span class="ch">\&quot;</span><span class="st">: </span><span class="ch">\&quot;</span><span class="st">success</span><span class="ch">\&quot;</span><span class="st">, </span><span class="ch">\&quot;</span><span class="st">data</span><span class="ch">\&quot;</span><span class="st">: [...]}&quot;</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>      <span class="fu">}</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    <span class="ot">]</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<hr />
+<h2 id="configuration-reference">7. Configuration Reference</h2>
+<h3 id="environment-variables">Environment Variables</h3>
+<table>
+<colgroup>
+<col style="width: 31%" />
+<col style="width: 40%" />
+<col style="width: 28%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>APP_URL</code></td>
+<td>Application URL</td>
+<td><code>https://mcp.yourdomain.com</code></td>
+</tr>
+<tr class="even">
+<td><code>SERVERAVATAR_API_URL</code></td>
+<td>ServerAvatar API URL</td>
+<td><code>https://api.serveravatar.com</code></td>
+</tr>
+<tr class="odd">
+<td><code>SERVERAVATAR_API_KEY</code></td>
+<td>ServerAvatar API Key</td>
+<td><code>sk_xxx</code></td>
+</tr>
+<tr class="even">
+<td><code>DB_HOST</code></td>
+<td>Database host</td>
+<td><code>127.0.0.1</code></td>
+</tr>
+<tr class="odd">
+<td><code>DB_DATABASE</code></td>
+<td>Database name</td>
+<td><code>serveravatar_mcp</code></td>
+</tr>
+<tr class="even">
+<td><code>DB_USERNAME</code></td>
+<td>Database user</td>
+<td><code>forge</code></td>
+</tr>
+<tr class="odd">
+<td><code>DB_PASSWORD</code></td>
+<td>Database password</td>
+<td><code>***</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="middleware">Middleware</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Middleware</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>ValidateMcpToken</code></td>
+<td>Validates MCP access tokens</td>
+</tr>
+<tr class="even">
+<td><code>AuthenticateToken</code></td>
+<td>User authentication for IDE tokens</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="support-maintenance">8. Support &amp; Maintenance</h2>
+<h3 id="logs-location">Logs Location</h3>
+<ul>
+<li>Application: <code>/storage/logs/laravel.log</code></li>
+<li>MCP Server: <code>/var/log/serveravatar-mcp.log</code></li>
+<li>Nginx: <code>/var/log/nginx/access.log</code>,
+<code>/var/log/nginx/error.log</code></li>
+</ul>
+<h3 id="useful-commands">Useful Commands</h3>
+<div class="sourceCode" id="cb19"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Clear caches</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="ex">php</span> artisan config:clear</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="ex">php</span> artisan cache:clear</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="ex">php</span> artisan view:clear</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Rebuild caches</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="ex">php</span> artisan config:cache</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="ex">php</span> artisan route:cache</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Database</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="ex">php</span> artisan migrate:fresh <span class="at">--seed</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Passport</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="ex">php</span> artisan passport:client <span class="at">--personal</span></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a><span class="ex">php</span> artisan passport:keys</span></code></pre></div>
+<hr />
+<h2 id="project-structure">9. Project Structure</h2>
+<pre><code>serveravatar-mcp-server/
+├── app/
+│   ├── Http/
+│   │   ├── Controllers/       # Web controllers
+│   │   └── Middleware/        # Auth middleware
+│   ├── Mcp/
+│   │   ├── Traits/           # Shared API trait
+│   │   └── Tools/            # 115 MCP tools
+│   └── Services/             # Business logic
+├── config/
+│   └── mcp_tools.php         # Tool definitions
+├── resources/views/          # 10 Blade views
+├── routes/
+│   ├── web.php              # Web routes
+│   ├── api.php              # API routes
+│   └── ai.php               # MCP routes
+├── database/migrations/      # 20 migrations
+├── storage/app/              # File storage
+└── bootstrap/cache/          # Laravel cache</code></pre>
+<hr />
+<h2 id="quick-reference">10. Quick Reference</h2>
+<table>
+<colgroup>
+<col style="width: 46%" />
+<col style="width: 53%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Item</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Repository</strong></td>
+<td><code>git@github.com:patil-jayshree/serveravatar-mcp-server.git</code></td>
+</tr>
+<tr class="even">
+<td><strong>MCP Endpoint</strong></td>
+<td><code>https://mcp.178.105.137.4.nip.io/mcp</code></td>
+</tr>
+<tr class="odd">
+<td><strong>Tools Count</strong></td>
+<td>115</td>
+</tr>
+<tr class="even">
+<td><strong>Categories</strong></td>
+<td>11</td>
+</tr>
+<tr class="odd">
+<td><strong>Views</strong></td>
+<td>10</td>
+</tr>
+<tr class="even">
+<td><strong>Laravel</strong></td>
+<td>13.8</td>
+</tr>
+<tr class="odd">
+<td><strong>PHP</strong></td>
+<td>8.2+</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><strong>Document Generated:</strong> July 29, 2026 <strong>Project
+Status:</strong> ✅ Production Ready</p>
+</body>
+</html>
