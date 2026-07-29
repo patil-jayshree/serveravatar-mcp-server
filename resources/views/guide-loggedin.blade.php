@@ -637,7 +637,7 @@ window.clientsData = {
     /* Page content - prevent overflow */
     .page-content, .container { overflow-x: hidden !important; max-width: 100% !important; padding: 12px !important; }
     
-    .guide-banner { padding: 12px !important; overflow-x: hidden !important; box-sizing: border-box !important; width: 100% !important; margin-top: 20px !important; }
+    .guide-banner { padding: 12px !important; overflow-x: hidden !important; box-sizing: border-box !important; width: 100% !important; margin-top: 50px !important; min-height: auto !important; }
     .guide-banner h1 { font-size: 18px !important; }
     .guide-banner p { max-width: 350px !important; font-size: 12px !important; }
     .guide-banner img { width: 180px !important; height: 140px !important; }
