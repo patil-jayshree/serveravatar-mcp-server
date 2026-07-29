@@ -661,6 +661,14 @@ window.clientsData = {
     /* Flow boxes (AI Client, MCP Server, Real World) - centered with margin */
     div[style*="display:flex"][style*="flex-direction:column"] { padding-left: 20px !important; padding-right: 20px !important; box-sizing: border-box !important; }
     .guide-flow-box { margin-left: auto !important; margin-right: auto !important; max-width: 600px !important; }
+    
+    /* Section 6 How it works - title row + steps row */
+    .guide-how-it-works-box { flex-direction: column !important; gap: 16px !important; padding: 16px !important; }
+    .guide-how-it-works-box > div[style*="display:flex"][style*="gap:20px"] { flex-direction: column !important; gap: 16px !important; }
+    .guide-how-it-works-box > div[style*="display:flex"][style*="gap:20px"] > div { flex: none !important; width: 100% !important; }
+    .guide-how-it-works-box > div[style*="display:flex"][style*="gap:20px"] > div:first-child { text-align: center !important; }
+    .guide-how-it-works-box > div[style*="display:flex"][style*="gap:20px"] > div:first-child > div { justify-content: center !important; }
+    .guide-how-it-works-box > div[style*="display:flex"][style*="gap:20px"] > div:last-child { overflow-x: auto !important; padding: 8px 0 !important; justify-content: flex-start !important; }
 }
 </style>
 
