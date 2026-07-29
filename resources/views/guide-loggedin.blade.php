@@ -610,7 +610,8 @@ window.clientsData = {
     
     /* Modal - mobile fix */
     .guide-modal-content { width: calc(100vw - 32px) !important; max-width: calc(100vw - 32px) !important; max-height: 85vh !important; }
-    .guide-modal-header { padding: 16px !important; flex-wrap: wrap !important; }
+    .guide-modal-header { padding: 16px !important; flex-wrap: wrap !important; position: relative !important; }
+    .guide-modal-close-btn { position: absolute !important; top: 12px !important; right: 12px !important; z-index: 10 !important; }
     .guide-modal-sidebar { display: none !important; }
     .guide-modal-content > div:last-child { padding: 16px !important; max-height: calc(85vh - 100px) !important; }
 }
