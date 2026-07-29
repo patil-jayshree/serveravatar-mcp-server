@@ -658,9 +658,10 @@ window.clientsData = {
     .guide-how-it-works-box > div[style*="display:flex"][style*="gap:20px"] { gap: 12px !important; overflow-x: hidden !important; flex-wrap: wrap !important; }
     .guide-how-it-works-box > div[style*="display:flex"][style*="gap:20px"] > div:last-child { overflow-x: auto !important; padding: 8px 0 !important; }
     
-    /* Flow boxes (AI Client, MCP Server, Real World) - centered with margin */
-    div[style*="display:flex"][style*="flex-direction:column"] { padding-left: 20px !important; padding-right: 20px !important; box-sizing: border-box !important; }
-    .guide-flow-box { margin-left: auto !important; margin-right: auto !important; max-width: 600px !important; }
+    /* Flow boxes (AI Client, MCP Server, Real World) - in one line */
+    div[style*="display:flex"][style*="flex-direction:column"] { flex-direction: row !important; flex-wrap: wrap !important; gap: 12px !important; padding-left: 0 !important; padding-right: 0 !important; justify-content: center !important; }
+    .guide-flow-box { flex: 1 !important; min-width: 150px !important; max-width: 200px !important; margin: 0 auto !important; }
+    div[style*="display:flex"][style*="justify-content:center"][style*="margin:0"][style*="padding:0"] { display: none !important; }
 }
 </style>
 
