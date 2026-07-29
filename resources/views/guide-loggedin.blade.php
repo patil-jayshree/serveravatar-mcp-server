@@ -585,6 +585,14 @@ window.clientsData = {
     .guide-example-card .guide-command-item { padding: 10px 12px !important; }
     .guide-example-card .guide-command-item .cmd-text { font-size: 12px !important; }
     
+    /* Final banner - illustration above, centered text below on mobile */
+    .guide-final-banner { flex-direction: column !important; padding: 24px 20px !important; text-align: center !important; gap: 16px !important; }
+    .guide-final-banner > div:first-child { flex-direction: column !important; align-items: center !important; text-align: center !important; gap: 12px !important; }
+    .guide-final-banner > div:first-child img { width: 72px !important; height: 72px !important; }
+    .guide-final-banner .banner-text { text-align: center !important; }
+    .guide-final-banner .banner-text p { text-align: center !important; }
+    .guide-final-banner > div:last-child { align-items: center !important; }
+    
     /* Page content */
     .page-content { padding: 16px !important; }
 }
