@@ -17,6 +17,18 @@
     .mcp-url-row > div:first-child { width: 100% !important; flex: none !important; }
     .mcp-url-row > div:first-child span { font-size: 12px !important; word-break: break-all !important; }
     .mcp-url-row .btn-card-action { width: 100% !important; justify-content: center; }
+    .mcp-url-row .section-icon { width: 36px !important; height: 36px !important; min-width: 36px !important; }
+    .mcp-url-row .section-icon i { font-size: 0.9rem !important; }
+    
+    /* IDE Access Tokens Header */
+    .ide-tokens-header .header-icon { width: 40px !important; height: 40px !important; min-width: 40px !important; }
+    .ide-tokens-header .header-icon i { font-size: 1rem !important; }
+    .ide-tokens-header > div:first-child > div:first-child { width: 40px !important; height: 40px !important; min-width: 40px !important; }
+    .ide-tokens-header > div:first-child > div:first-child i { font-size: 1rem !important; }
+    
+    /* Section icons */
+    .section-icon { width: 32px !important; height: 32px !important; min-width: 32px !important; border-radius: 8px !important; display: flex !important; align-items: center !important; justify-content: center !important; }
+    .section-icon i { font-size: 0.9rem !important; }
     
     /* IDE Tokens Header - stack */
     .ide-tokens-header { flex-direction: column !important; gap: 1rem !important; align-items: flex-start !important; }
@@ -31,10 +43,28 @@
     .stats-grid { grid-template-columns: 1fr !important; gap: 0.75rem !important; overflow-x: hidden !important; width: 100% !important; box-sizing: border-box !important; }
     .stats-grid > div { width: 100% !important; min-width: 0 !important; overflow: hidden !important; }
     
-    /* Tokens List - horizontal scroll on mobile */
-    .tokens-list-wrapper { overflow-x: auto !important; padding-bottom: 8px !important; -webkit-overflow-scrolling: touch !important; }
-    .tokens-list-wrapper > div { min-width: max-content !important; }
-    .tokens-list-wrapper .token-item { gap: 20px !important; }
+    /* Tokens List - responsive on mobile */
+    .tokens-list-wrapper { overflow-x: visible !important; padding-bottom: 0 !important; -webkit-overflow-scrolling: touch !important; }
+    .tokens-list-wrapper > div { min-width: unset !important; width: 100% !important; }
+    .tokens-list-wrapper .token-item { flex-direction: column !important; align-items: flex-start !important; gap: 10px !important; padding: 1rem !important; }
+    .tokens-list-wrapper .token-item .token-info { width: 100% !important; }
+    .tokens-list-wrapper .token-item .token-info > div:first-child { font-size: 0.875rem !important; }
+    .tokens-list-wrapper .token-item .token-info > div:last-child { flex-wrap: wrap !important; gap: 8px !important; }
+    .tokens-list-wrapper .token-item .token-actions { flex-direction: row !important; width: 100% !important; justify-content: space-between !important; }
+    
+    /* Revoke Modal - responsive on mobile */
+    #revokeModal .modal-content { max-width: 100% !important; margin: 10px !important; border-radius: 12px !important; }
+    #revokeModal .modal-header { padding: 1rem !important; flex-direction: row !important; gap: 0.75rem !important; text-align: left !important; position: relative !important; align-items: center !important; }
+    #revokeModal .modal-header > div:first-child { flex-direction: row !important; align-items: center !important; gap: 0.75rem !important; }
+    #revokeModal .modal-header > button { position: absolute !important; top: 1rem !important; right: 1rem !important; }
+    #revokeModal .modal-body { padding: 1rem !important; }
+    #revokeModal .modal-footer { padding: 1rem !important; flex-direction: column !important; gap: 0.5rem !important; }
+    #revokeModal .modal-footer button { width: 100% !important; justify-content: center !important; }
+    
+    /* Token Display Box - responsive on mobile */
+    #tokenDisplay .token-box { flex-direction: column !important; gap: 10px !important; }
+    #tokenDisplay .token-box code { word-break: break-all !important; font-size: 11px !important; }
+    #tokenDisplay .copy-btn { width: 100% !important; justify-content: center !important; }
     
     /* Endpoint Info - stack to 1 column */
     .endpoint-grid { grid-template-columns: 1fr !important; gap: 0.75rem !important; }
@@ -162,9 +192,9 @@
                 <div style="flex: 1;">
                     <h4 style="margin: 0 0 4px 0; font-size: 1rem; font-weight: 600; color: var(--text-primary);">Access Token Generated</h4>
                     <p style="margin: 0 0 12px 0; font-size: 0.8rem; color: var(--text-secondary);">Your access token has been created successfully. <span style="color: #d97706; font-weight: 500;">This token will only be shown once.</span></p>
-                    <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 10px; padding: 12px; display: flex; align-items: center; justify-content: space-between; gap: 1rem;">
+                    <div class="token-box" style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 10px; padding: 12px; display: flex; align-items: center; justify-content: space-between; gap: 1rem;">
                         <code id="tokenValue" style="font-family: monospace; font-size: 0.85rem; color: var(--text-primary); word-break: break-all;"></code>
-                        <button onclick="copyToken()" id="copyTokenBtn" style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: transparent; border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-secondary); font-size: 0.8rem; font-weight: 600; cursor: pointer; white-space: nowrap;">
+                        <button onclick="copyToken()" id="copyTokenBtn" class="copy-btn" style="display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; background: transparent; border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-secondary); font-size: 0.8rem; font-weight: 600; cursor: pointer; white-space: nowrap;">
                             <i class="fas fa-copy"></i> <span id="copyBtnText">Copy</span>
                         </button>
                     </div>
@@ -372,7 +402,7 @@ async function loadTokens() {
         
         tokensList.innerHTML = sortedTokens.map(token => `
             <div class="token-item" style="display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1rem; background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: var(--radius-md); margin-bottom: 0.5rem;">
-                <div style="flex: 1;">
+                <div class="token-info" style="flex: 1;">
                     <div style="font-size: 0.9rem; font-weight: 600; color: var(--text-primary);">${escapeHtml(token.name.replace('mcp:', ''))}</div>
                     <div style="font-size: 0.75rem; color: var(--text-secondary); display: flex; align-items: center; gap: 12px;">
                         <span style="display: flex; align-items: center; gap: 5px;"><i class="far fa-calendar" style="color: var(--text-muted);"></i> Created ${formatDate(token.created_at)}</span>
@@ -380,7 +410,7 @@ async function loadTokens() {
                         <span style="display: flex; align-items: center; gap: 5px;"><i class="far fa-clock" style="color: var(--text-muted);"></i> ${token.last_used_at ? 'Last used ' + formatDate(token.last_used_at) : 'Never used'}</span>
                     </div>
                 </div>
-                <div style="display: flex; align-items: center; gap: 8px;">
+                <div class="token-actions" style="display: flex; align-items: center; gap: 8px;">
                     <span style="display: inline-flex; align-items: center; padding: 1px 6px; background: rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.3); border-radius: 20px; font-size: 0.65rem; font-weight: 600; color: #22c55e; text-transform: uppercase; letter-spacing: 0.3px;">Active</span>
                     <button onclick="revokeToken('${token.id}', '${escapeHtml(token.name)}')" 
                         style="display: inline-flex; align-items: center; gap: 4px; padding: 6px 12px; background: transparent; border: 1px solid #ef4444; border-radius: var(--radius-sm); color: #ef4444; font-size: 0.75rem; font-weight: 600; cursor: pointer;">
@@ -605,9 +635,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
 <!-- Revoke Token Modal -->
 <div id="revokeModal" class="modal-overlay" style="display: none;">
-    <div style="background: var(--bg-card); border-radius: 16px; width: 100%; max-width: 520px; overflow: hidden; box-shadow: 0 25px 80px rgba(0,0,0,0.5); border: 1px solid var(--border-color);">
+    <div class="modal-content" style="background: var(--bg-card); border-radius: 16px; width: 100%; max-width: 520px; overflow: hidden; box-shadow: 0 25px 80px rgba(0,0,0,0.5); border: 1px solid var(--border-color);">
         <!-- Header -->
-        <div style="display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border-color);">
+        <div class="modal-header" style="display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border-color);">
             <div style="display: flex; align-items: center; gap: 0.75rem;">
                 <div style="width: 40px; height: 40px; border-radius: 10px; background: rgba(239,68,68,0.12); display: flex; align-items: center; justify-content: center;">
                     <i class="fas fa-exclamation-triangle" style="color: #ef4444; font-size: 1.1rem;"></i>
@@ -620,7 +650,7 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
         
         <!-- Body -->
-        <div style="padding: 1.25rem 1.5rem;">
+        <div class="modal-body" style="padding: 1.25rem 1.5rem;">
             <!-- Warning Box -->
             <div style="background: rgba(239,68,68,0.06); border: 1px solid rgba(239,68,68,0.15); border-radius: 12px; padding: 1rem; margin-bottom: 1rem;">
                 <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 0.5rem;">
@@ -658,7 +688,7 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
         
         <!-- Footer -->
-        <div style="padding: 1rem 1.25rem; border-top: 1px solid var(--border-color); display: flex; justify-content: flex-end; gap: 0.75rem;">
+        <div class="modal-footer" style="padding: 1rem 1.25rem; border-top: 1px solid var(--border-color); display: flex; justify-content: flex-end; gap: 0.75rem;">
             <button type="button" onclick="closeRevokeModal()" style="padding: 0.625rem 1.25rem; background: var(--bg-primary); border: 1px solid var(--border-color); border-radius: 10px; color: var(--text-secondary); font-size: 0.875rem; font-weight: 600; cursor: pointer;">Cancel</button>
             <button type="button" id="confirmRevokeBtn" onclick="confirmRevoke()" disabled style="padding: 0.625rem 1.25rem; background: #ef4444; border: none; border-radius: 10px; color: white; font-size: 0.875rem; font-weight: 600; cursor: pointer; opacity: 0.5; display: flex; align-items: center; gap: 6px;">
                 <i class="fas fa-trash"></i> Revoke Token
