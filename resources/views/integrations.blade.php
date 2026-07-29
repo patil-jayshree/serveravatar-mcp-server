@@ -13,6 +13,54 @@
 .integration-card.simple { padding: 1.25rem; }
 .badge-popular { background: rgba(251, 191, 36, 0.15); color: #d97706; }
 .badge-popular i { margin-right: 4px; }
+
+/* ========== RESPONSIVE STYLES ========== */
+
+/* Mobile: 360px to 767px */
+@media (max-width: 767px) {
+    .page-header { margin-bottom: 1.5rem; }
+    .page-title { font-size: 1.5rem !important; }
+    .page-subtitle { font-size: 0.875rem !important; }
+    
+    .category-section { margin-bottom: 1.5rem; }
+    .category-header { flex-direction: row; align-items: center; gap: 10px; margin-bottom: 0.75rem; }
+    .category-title { font-size: 1rem; }
+    
+    .integration-grid { grid-template-columns: 1fr; gap: 0.75rem; }
+    .integration-card.simple { padding: 1rem; }
+    .integration-card .integration-logo { width: 36px; height: 36px; min-width: 36px; }
+    .integration-card .integration-logo img { width: 24px !important; height: 24px !important; }
+    .integration-name { font-size: 0.875rem; }
+    .integration-desc { font-size: 0.75rem; }
+    
+    /* MCP Universal Banner */
+    .mcp-universal-banner { flex-direction: column !important; padding: 1rem !important; text-align: center; gap: 12px !important; }
+    .mcp-universal-banner > div:first-child { flex-direction: column !important; text-align: center !important; }
+    .mcp-universal-banner .banner-btn { width: 100%; justify-content: center; }
+}
+
+/* Tablet: 768px to 834px */
+@media (min-width: 768px) and (max-width: 834px) {
+    .integration-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    .category-header { gap: 10px; }
+    .category-title { font-size: 1rem; }
+}
+
+/* Laptop: 1024px to 1280px */
+@media (min-width: 1024px) and (max-width: 1280px) {
+    .integration-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    .integration-card.simple { padding: 1rem; }
+}
+
+/* Desktop: 1281px to 1439px */
+@media (min-width: 1281px) and (max-width: 1439px) {
+    .integration-grid { grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+}
+
+/* Large Desktop: 1440px+ */
+@media (min-width: 1440px) {
+    .integration-grid { grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+}
 @endsection
 
 @section('content')
@@ -239,7 +287,7 @@
 </div>
 
 <!-- MCP is Universal Banner -->
-<div style="background: rgba(139, 92, 246, 0.08); border: 1px solid rgba(139, 92, 246, 0.2); border-radius: 12px; padding: 1rem 1.5rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem;">
+<div class="mcp-universal-banner" style="background: rgba(139, 92, 246, 0.08); border: 1px solid rgba(139, 92, 246, 0.2); border-radius: 12px; padding: 1rem 1.5rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem;">
     <div style="display: flex; align-items: center; gap: 0.875rem;">
         <div style="width: 36px; height: 36px; min-width: 36px; background: rgba(139, 92, 246, 0.12); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
             <i class="fas fa-star" style="color: var(--accent-primary); font-size: 0.9rem;"></i>
