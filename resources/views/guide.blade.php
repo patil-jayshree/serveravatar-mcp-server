@@ -15,7 +15,72 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/fontawesome.css">
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script>
+window.clientsData = {
+    chatgpt: {
+        name: 'ChatGPT',
+        image: '/images/clients/chatgpt-dark.png',
+        imageLight: '/images/clients/chatgpt-light.png',
+        badge: '2 min',
+        steps: [
+            { title: 'Log in to your ChatGPT Account', desc: 'Open ChatGPT and sign in to your account.' },
+            { title: 'Enable Developer Mode', desc: 'Navigate to Settings and enable Developer Mode.' },
+            { title: 'Create MCP Connector', desc: 'Click "Create New", name it "ServerAvatar MCP", and paste the connection URL.' },
+            { title: 'Start Using ServerAvatar MCP', desc: 'Open a new chat and start managing your infrastructure!' }
+        ]
+    },
+    claude: {
+        name: 'Claude',
+        image: '/images/clients/claude.png',
+        badge: '2 min',
+        steps: [
+            { title: 'Log in to your Claude account', desc: 'Open Claude.ai and sign in to your account.' },
+            { title: 'Open Settings', desc: 'Navigate to Settings.' },
+            { title: 'Add a custom connector', desc: 'Click "Add Extension", name it "ServerAvatar MCP", and paste the connection URL.' },
+            { title: 'Start Managing MCP', desc: 'Start a new conversation and use ServerAvatar tools!' }
+        ]
+    },
+    cursor: {
+        name: 'Cursor',
+        image: '/images/clients/cursor-dark.png',
+        imageLight: '/images/clients/cursor-light.png',
+        badge: '3 min',
+        steps: [
+            { title: 'Install & Sign In', desc: 'Download and install Cursor, then sign in to your account.' },
+            { title: 'Generate Token', desc: 'Go to your dashboard, navigate to MCP Panel, and generate a new IDE Access Token.' },
+            { title: 'Open Settings', desc: 'Press Cmd/Ctrl + , to open Settings, then navigate to the MCP section.' },
+            { title: 'Configuration', desc: 'Click "Add MCP Server", select HTTP, name it "ServerAvatar MCP", and paste the URL and token.' },
+            { title: 'Verify the Connection', desc: 'Click "Check" next to your server to verify the connection is working.' },
+            { title: 'Start using MCP', desc: 'Start coding and managing your servers directly!' }
+        ]
+    },
+    vscode: {
+        name: 'VS Code',
+        image: '/images/clients/vscode.png',
+        badge: '3 min',
+        steps: [
+            { title: 'Install VS Code', desc: 'Download and install Visual Studio Code.' },
+            { title: 'Install Copilot Extensions', desc: 'Install GitHub Copilot and GitHub Copilot Chat extensions.' },
+            { title: 'Add ServerAvatar MCP', desc: 'Add your MCP server to VS Code.' },
+            { title: 'Authenticate', desc: 'OAuth or IDE Access Token.' },
+            { title: 'Start Using', desc: 'Open GitHub Copilot Chat in Agent mode.' }
+        ]
+    },
+    windsurf: {
+        name: 'Windsurf',
+        image: '/images/clients/windsurf-dark.png',
+        imageLight: '/images/clients/windsurf-light.png',
+        badge: '3 min',
+        steps: [
+            { title: 'Open Windsurf Settings', desc: 'Launch Windsurf and open Settings.' },
+            { title: 'Go to MCP Settings', desc: 'Navigate to the MCP section in settings.' },
+            { title: 'Generate an IDE Access Token', desc: 'Go to your ServerAvatar dashboard, navigate to MCP Panel, and generate a new IDE Access Token.' },
+            { title: 'Add MCP Server', desc: 'Click "Add Server", name it "ServerAvatar MCP", select HTTP, paste the URL and token.' },
+            { title: 'Start Using', desc: 'Start building with AI-powered server management!' }
+        ]
+    }
+};
+</script>
     <style>
         :root {
             --bg-primary: #f8fafc; --bg-secondary: #f1f5f9; --bg-tertiary: #e2e8f0; --bg-card: #ffffff;
@@ -118,7 +183,7 @@
         .guide-timeline-step .step-num { width: 32px; height: 32px; background: var(--accent-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 14px; font-weight: 700; flex-shrink: 0; position: relative; z-index: 1; }
         .guide-timeline-step .step-title { font-size: 14px; font-weight: 600; color: var(--text-primary); line-height: 32px; }
         .guide-timeline-step .step-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.5; }
-        
+        .guide-timeline-line { width: 2px; height: 32px; border-left: 2px dotted var(--border-color); margin-left: 15px; margin-top: -32px; padding-top: 32px; box-sizing: border-box; }
 
         /* Note Box */
         .guide-note-box { background: var(--accent-primary-muted); border: 1px solid var(--accent-primary); border-radius: 12px; padding: 20px; display: flex; align-items: flex-start; gap: 14px; margin-bottom: 20px; }
@@ -270,8 +335,8 @@
         .footer a { color: var(--accent-primary); }
 
         /* Modal Styles */
-        .guide-modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 9999; background: rgba(0,0,0,0.5); display: none; }
-        .guide-modal-overlay.show { display: flex; align-items: center; justify-content: center; }
+        .guide-modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 9999; background: rgba(0,0,0,0.5); }
+        
         .guide-modal-content { background: var(--bg-card); border-radius: 20px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); width: 95%; max-width: 900px; max-height: 90vh; display: flex; flex-direction: column; overflow: hidden; }
         .guide-modal-header { background: var(--bg-card); border-bottom: 1px solid var(--border-color); padding: 20px 24px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
         .guide-modal-logo-wrap { width: 44px; height: 44px; min-width: 44px; background: var(--bg-secondary); border-radius: 10px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
@@ -320,6 +385,56 @@
         .guide-modal-error-text { font-size: 14px; color: var(--text-primary); margin: 0; line-height: 1.5; }
         .guide-modal-success-box { background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2); border-radius: 10px; padding: 14px 16px; display: flex; align-items: center; gap: 12px; margin-top: 16px; }
         .guide-modal-success-box p { font-size: 14px; color: var(--text-primary); margin: 0; font-weight: 500; }
+        
+        /* VS Code Modal Specific */
+        .guide-modal-vscode-info { background: var(--accent-primary-muted); border: 1px solid var(--accent-primary); border-radius: 12px; padding: 16px; margin-bottom: 12px; }
+        .guide-modal-vscode-info .info-icon { width: 24px; height: 24px; min-width: 24px; background: var(--accent-primary); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; }
+        .guide-modal-vscode-info p { font-size: 13px; color: var(--accent-primary); margin: 0; line-height: 1.5; }
+        .guide-modal-vscode-section-title h4 { font-size: 18px; font-weight: 700; color: var(--text-primary); margin: 0 0 8px 0; }
+        .guide-modal-vscode-section-title p { font-size: 14px; color: var(--text-secondary); margin: 0; }
+        .guide-modal-oauth-card { background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 12px; margin-bottom: 12px; overflow: hidden; }
+        .guide-modal-oauth-header { padding: 16px 16px 8px 16px; display: flex; align-items: center; gap: 12px; cursor: pointer; }
+        .guide-modal-oauth-icon { width: 48px; height: 48px; min-width: 48px; background: #10b981; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+        .guide-modal-oauth-icon i { font-size: 20px; }
+        .guide-modal-oauth-badge { background: rgba(16, 185, 129, 0.2); color: #10b981; font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 20px; display: inline-block; margin-bottom: 4px; }
+        .guide-modal-oauth-title { font-size: 15px; font-weight: 600; color: #10b981; margin: 0; }
+        .guide-modal-oauth-arrow { color: #10b981; font-size: 14px; transition: transform 0.3s; }
+        .guide-modal-oauth-body { padding: 0 16px 16px 76px; }
+        .guide-modal-oauth-body p { font-size: 13px; color: #10b981; margin: 0 0 6px 0; }
+        .guide-modal-oauth-body i { color: #10b981; margin-right: 8px; }
+        .guide-modal-oauth-content { padding: 0 16px 16px 16px; border-top: 1px solid rgba(16, 185, 129, 0.3); }
+        .guide-modal-token-card { background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 12px; margin-bottom: 12px; overflow: hidden; }
+        .guide-modal-token-header { padding: 16px 16px 8px 16px; display: flex; align-items: center; gap: 12px; cursor: pointer; }
+        .guide-modal-token-icon { width: 48px; height: 48px; min-width: 48px; background: #f59e0b; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+        .guide-modal-token-icon i { font-size: 20px; }
+        .guide-modal-token-badge { background: rgba(245, 158, 11, 0.2); color: #f59e0b; font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 20px; display: inline-block; margin-bottom: 4px; }
+        .guide-modal-token-title { font-size: 15px; font-weight: 600; color: #f59e0b; margin: 0; }
+        .guide-modal-token-arrow { color: #f59e0b; font-size: 14px; transition: transform 0.3s; }
+        .guide-modal-token-body { padding: 0 16px 16px 76px; }
+        .guide-modal-token-body p { font-size: 13px; color: #f59e0b; margin: 0 0 6px 0; }
+        .guide-modal-token-body i { color: #f59e0b; margin-right: 8px; }
+        .guide-modal-idetoken-card { background: var(--accent-primary-muted); border: 1px solid var(--accent-primary); border-radius: 12px; margin-bottom: 12px; overflow: hidden; }
+        .guide-modal-idetoken-header { padding: 16px 16px 8px 16px; display: flex; align-items: center; gap: 12px; cursor: pointer; }
+        .guide-modal-idetoken-icon { width: 48px; height: 48px; min-width: 48px; background: var(--accent-primary); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+        .guide-modal-idetoken-icon i { font-size: 20px; }
+        .guide-modal-idetoken-title { font-size: 15px; font-weight: 600; color: var(--accent-primary); margin: 0; }
+        .guide-modal-idetoken-arrow { color: var(--accent-primary); font-size: 14px; transition: transform 0.3s; }
+        .guide-modal-idetoken-body { padding: 0 16px 16px 76px; }
+        .guide-modal-idetoken-body p { font-size: 13px; color: var(--accent-primary); margin: 0 0 6px 0; }
+        .guide-modal-idetoken-body i { color: var(--accent-primary); margin-right: 8px; }
+        .guide-modal-idetoken-content { padding: 0 16px 16px 16px; border-top: 1px solid var(--accent-primary); }
+        .guide-modal-code { background: var(--bg-tertiary); padding: 2px 8px; border-radius: 12px; font-size: 12px; color: var(--accent-primary); font-weight: 500; font-family: monospace; }
+        .guide-modal-code-inline { background: var(--bg-tertiary); padding: 2px 8px; border-radius: 4px; font-size: 13px; color: var(--accent-primary); font-family: monospace; }
+        .guide-modal-bold-text { font-size: 14px; color: var(--text-primary); margin: 16px 0 0 0; line-height: 1.5; }
+        .guide-modal-bold-text strong { font-weight: 600; }
+        .guide-modal-check-item { font-size: 13px; color: #10b981; margin: 0 0 6px 0; }
+        .guide-modal-check-item i { color: #10b981; margin-right: 8px; }
+        .guide-modal-idetoken-check { font-size: 13px; color: var(--accent-primary); margin: 0 0 6px 0; }
+        .guide-modal-idetoken-check i { color: var(--accent-primary); margin-right: 8px; }
+        .guide-modal-help-box { background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 12px; padding: 16px; display: flex; align-items: flex-start; gap: 12px; }
+        .guide-modal-help-box .help-icon { width: 24px; height: 24px; min-width: 24px; background: #f59e0b; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; flex-shrink: 0; }
+        .guide-modal-help-box .help-icon i { font-size: 12px; }
+        .guide-modal-help-box p { font-size: 13px; color: var(--text-primary); margin: 0; line-height: 1.5; }
 
         /* Icon Dark/Light */
         .icon-dark { display: none; }
@@ -538,6 +653,22 @@
         </div>
     </div>
 
+    <div x-data="{
+        modalOpen: false,
+        selectedClient: null,
+        clients: window.clientsData || {},
+        openModal(client) {
+            this.selectedClient = this.clients[client];
+            this.modalOpen = true;
+            document.body.style.overflow = 'hidden';
+        },
+        closeModal() {
+            this.modalOpen = false;
+            this.selectedClient = null;
+            document.body.style.overflow = '';
+        }
+    }" x-init="console.log('Alpine initialized, clients:', clients);">
+
     <!-- Main Content -->
     <main class="main">
         <div class="container">
@@ -666,46 +797,180 @@
                     </div>
                 </div>
 
-                <!-- 4 Feature Cards Row -->
-                <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-bottom:24px;">
+                <!-- What is MCP Section -->
+                <div style="display:flex;gap:24px;margin-bottom:24px;width:100%;box-sizing:border-box;">
+                    
                     <!-- Card 1: What is MCP? -->
-                    <div style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:12px;">
-                        <div style="width:52px;height:52px;background:var(--accent-primary-muted);border-radius:14px;display:flex;align-items:center;justify-content:center;">
-                            <i class="fas fa-cube" style="color:var(--accent-primary);font-size:22px;"></i>
+                    <div class="guide-card" style="flex:1.7;">
+                        <div style="margin-bottom:20px;">
+                            <h2 style="font-size:24px;font-weight:700;margin:0 0 12px 0;line-height:1.2;"><i class="fas fa-cube" style="color:var(--accent-primary);margin-right:10px;"></i> What is MCP?</h2>
+                            <p style="font-size:14px;color:var(--text-secondary);line-height:1.6;margin:0;">Model Context Protocol (MCP) is an open standard that allows AI applications to securely connect with external tools and data sources. It acts as a bridge between AI assistants and your real-world infrastructure.</p>
                         </div>
-                        <h3 style="font-size:17px;font-weight:700;color:var(--text-primary);margin:0;line-height:1.3;"><span style="color:var(--accent-primary);">1.</span> What is MCP?</h3>
-                        <p style="font-size:13px;color:var(--text-secondary);margin:0;line-height:1.6;flex:1;">MCP (Model Context Protocol) is an open protocol that enables AI assistants to securely connect with external systems and perform actions.</p>
-                        <a href="{{ route('login') }}" style="font-size:13px;font-weight:600;color:var(--accent-primary);text-decoration:none;display:flex;align-items:center;gap:4px;">Learn more <i class="fas fa-arrow-right" style="font-size:11px;"></i></a>
-                    </div>
-
-                    <!-- Card 2: How MCP Works -->
-                    <div style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:12px;">
-                        <div style="width:52px;height:52px;background:var(--accent-primary-muted);border-radius:14px;display:flex;align-items:center;justify-content:center;">
-                            <i class="fas fa-puzzle-piece" style="color:var(--accent-primary);font-size:22px;"></i>
+                        
+                        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;">
+                            <div class="guide-feature-box">
+                                <div class="icon"><i class="fas fa-globe"></i></div>
+                                <div class="title">Universal Connection</div>
+                                <div class="desc">One protocol, many integrations</div>
+                            </div>
+                            <div class="guide-feature-box">
+                                <div class="icon"><i class="fas fa-shield-alt"></i></div>
+                                <div class="title">Secure</div>
+                                <div class="desc">Authentication built-in</div>
+                            </div>
+                            <div class="guide-feature-box">
+                                <div class="icon"><i class="fas fa-bolt"></i></div>
+                                <div class="title">Real-Time Data</div>
+                                <div class="desc">Live information access</div>
+                            </div>
+                            <div class="guide-feature-box">
+                                <div class="icon"><i class="fas fa-wrench"></i></div>
+                                <div class="title">Tools Access</div>
+                                <div class="desc">Extensive capabilities</div>
+                            </div>
                         </div>
-                        <h3 style="font-size:17px;font-weight:700;color:var(--text-primary);margin:0;line-height:1.3;"><span style="color:var(--accent-primary);">2.</span> How MCP Works</h3>
-                        <p style="font-size:13px;color:var(--text-secondary);margin:0;line-height:1.6;flex:1;">MCP acts as a bridge between your AI client and ServerAvatar, allowing seamless communication and real-time actions.</p>
-                        <a href="{{ route('login') }}" style="font-size:13px;font-weight:600;color:var(--accent-primary);text-decoration:none;display:flex;align-items:center;gap:4px;">Learn more <i class="fas fa-arrow-right" style="font-size:11px;"></i></a>
+                        
+                        <!-- Info Box -->
+                        <div class="guide-info-box" style="margin-top:16px;">
+                            <div class="icon"><i class="fas fa-info-circle"></i></div>
+                            <div class="text">The AI client (ChatGPT, Claude, etc.) connects to an MCP server. The server exposes "tools" that the AI can use. When you ask the AI to do something, it can call these tools in real-time.</div>
+                        </div>
                     </div>
+                    
+                    <!-- Card 2: How It Works -->
+                    <div class="guide-card" style="flex:1;">
+                        <div style="margin-bottom:24px;">
+                            <h2 style="font-size:24px;font-weight:700;margin:0 0 8px 0;line-height:1.2;"><i class="fas fa-puzzle-piece" style="color:var(--accent-primary);margin-right:10px;"></i> How MCP Works</h2>
+                            <p style="font-size:14px;color:var(--text-secondary);line-height:1.6;margin:0;">MCP follows a simple client-server architecture.</p>
+                        </div>
+                        
+                        <div style="display:flex;flex-direction:column;gap:6px;">
+                            <div class="guide-flow-box">
+                                <div class="icon"><i class="fas fa-robot"></i></div>
+                                <div style="flex:1;">
+                                    <div class="title">AI Client</div>
+                                    <div class="desc">ChatGPT, Claude, Cursor</div>
+                                </div>
+                            </div>
+                            
+                            <div style="display:flex;justify-content:center;margin:0;padding:0;">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-primary)" stroke-width="2"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+                            </div>
+                            
+                            <div class="guide-flow-box">
+                                <div class="icon"><i class="fas fa-server"></i></div>
+                                <div style="flex:1;">
+                                    <div class="title">MCP Server</div>
+                                    <div class="desc">ServerAvatar MCP</div>
+                                </div>
+                            </div>
+                            
+                            <div style="display:flex;justify-content:center;margin:0;padding:0;">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-primary)" stroke-width="2"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+                            </div>
+                            
+                            <div class="guide-flow-box">
+                                <div class="icon"><i class="fas fa-globe"></i></div>
+                                <div style="flex:1;">
+                                    <div class="title">Real World</div>
+                                    <div class="desc">Servers, Databases, APIs</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
+                <!-- What You Can Do + Quick Setup Row -->
+                <div style="display:flex;gap:24px;margin-bottom:24px;width:100%;box-sizing:border-box;">
+                    
                     <!-- Card 3: What You Can Do -->
-                    <div style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:12px;">
-                        <div style="width:52px;height:52px;background:var(--accent-primary-muted);border-radius:14px;display:flex;align-items:center;justify-content:center;">
-                            <i class="fas fa-terminal" style="color:var(--accent-primary);font-size:22px;"></i>
+                    <div class="guide-card" style="flex:1.7;">
+                        <div style="margin-bottom:20px;">
+                            <h2 style="font-size:24px;font-weight:700;margin:0 0 8px 0;line-height:1.2;"><i class="fas fa-terminal" style="color:var(--accent-primary);margin-right:10px;"></i> What You Can Do with ServerAvatar MCP</h2>
+                            <p style="font-size:14px;color:var(--text-secondary);line-height:1.6;margin:0;">Manage your entire infrastructure using simple, natural language through your AI assistant.</p>
                         </div>
-                        <h3 style="font-size:17px;font-weight:700;color:var(--text-primary);margin:0;line-height:1.3;"><span style="color:var(--accent-primary);">3.</span> What You Can Do</h3>
-                        <p style="font-size:13px;color:var(--text-secondary);margin:0;line-height:1.6;flex:1;">Manage servers, applications, databases, cron jobs, firewall, backups, logs, and much more — all using simple natural language.</p>
-                        <a href="#try-asking" style="font-size:13px;font-weight:600;color:var(--accent-primary);text-decoration:none;display:flex;align-items:center;gap:4px;">Explore examples <i class="fas fa-arrow-right" style="font-size:11px;"></i></a>
+                        
+                        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
+                            <div class="guide-feature-box">
+                                <div class="icon"><i class="fas fa-cog"></i></div>
+                                <div class="title">Server Management</div>
+                                <div class="desc">Restart services, monitor resources, check logs and more.</div>
+                            </div>
+                            <div class="guide-feature-box">
+                                <div class="icon"><i class="fas fa-cube"></i></div>
+                                <div class="title">Application Management</div>
+                                <div class="desc">Create, deploy, update and manage all your applications.</div>
+                            </div>
+                            <div class="guide-feature-box">
+                                <div class="icon"><i class="fas fa-database"></i></div>
+                                <div class="title">Database Management</div>
+                                <div class="desc">Create, delete, and manage databases with ease.</div>
+                            </div>
+                            <div class="guide-feature-box">
+                                <div class="icon"><i class="fas fa-shield-alt"></i></div>
+                                <div class="title">Security & SSL</div>
+                                <div class="desc">Install SSL certificates and manage firewall rules.</div>
+                            </div>
+                            <div class="guide-feature-box">
+                                <div class="icon"><i class="fab fa-wordpress"></i></div>
+                                <div class="title">WordPress Management</div>
+                                <div class="desc">Manage WordPress sites, plugins, themes, and updates.</div>
+                            </div>
+                            <div class="guide-feature-box">
+                                <div class="icon"><i class="fas fa-clock"></i></div>
+                                <div class="title">Cronjob Automation</div>
+                                <div class="desc">Create, manage, and monitor scheduled tasks.</div>
+                            </div>
+                        </div>
                     </div>
-
+                    
                     <!-- Card 4: Quick Setup -->
-                    <div style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:12px;">
-                        <div style="width:52px;height:52px;background:var(--accent-primary-muted);border-radius:14px;display:flex;align-items:center;justify-content:center;">
-                            <i class="fas fa-rocket" style="color:var(--accent-primary);font-size:22px;"></i>
+                    <div class="guide-card" style="flex:1;">
+                        <div style="margin-bottom:20px;">
+                            <h2 style="font-size:24px;font-weight:700;margin:0 0 8px 0;line-height:1.2;"><i class="fas fa-rocket" style="color:var(--accent-primary);margin-right:10px;"></i> Quick Setup</h2>
+                            <p style="font-size:14px;color:var(--text-secondary);line-height:1.6;margin:0;">Connect ServerAvatar MCP in 4 simple steps.</p>
                         </div>
-                        <h3 style="font-size:17px;font-weight:700;color:var(--text-primary);margin:0;line-height:1.3;"><span style="color:var(--accent-primary);">4.</span> Quick Setup</h3>
-                        <p style="font-size:13px;color:var(--text-secondary);margin:0;line-height:1.6;flex:1;">Get connected in a few minutes. We'll guide you through each step to connect your AI client with ServerAvatar MCP.</p>
+                        
+                        <div style="display:flex;flex-direction:column;gap:0;padding-top:0;">
+                            <div class="guide-timeline-step">
+                                <div class="step-num">1</div>
+                                <div class="step-content">
+                                    <div class="step-title">Generate API Key</div>
+                                    <div class="step-desc">Get your API Key from ServerAvatar Account Settings → API Access.</div>
+                                </div>
+                            </div>
+                            <div class="guide-timeline-line"></div>
+                            <div class="guide-timeline-step">
+                                <div class="step-num">2</div>
+                                <div class="step-content">
+                                    <div class="step-title">Connect Your Account</div>
+                                    <div class="step-desc">Add the API Key in ServerAvatar MCP Account Settings → API Access.</div>
+                                </div>
+                            </div>
+                            <div class="guide-timeline-line"></div>
+                            <div class="guide-timeline-step">
+                                <div class="step-num">3</div>
+                                <div class="step-content">
+                                    <div class="step-title">Copy MCP Server URL</div>
+                                    <div class="step-desc">Go to Endpoint & Tokens and copy your MCP Server URL.</div>
+                                </div>
+                            </div>
+                            <div class="guide-timeline-line"></div>
+                            <div class="guide-timeline-step">
+                                <div class="step-num">4</div>
+                                <div class="step-content">
+                                    <div class="step-title">Connect AI Client</div>
+                                    <div class="step-desc">Use the URL to connect your preferred AI client and start managing.</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                </div>
+
+                <!-- Note Box -->
+                <div class="guide-note-box" style="margin-bottom:24px;">
+                    <div class="icon"><i class="fas fa-lightbulb"></i></div>
+                    <div class="text"><strong style="font-weight:600;">Note:</strong> IDE Access Tokens are only required for IDE-based AI clients such as Cursor, Windsurf, VS Code, Cline, and Continue. Browser-based AI clients like ChatGPT and Claude connect using the MCP Server URL and do not require an IDE Access Token.</div>
                 </div>
 
                 <!-- Try AI Assistant Section -->
@@ -773,7 +1038,7 @@
                                     <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3px;">
                                         <div style="font-size:13px;font-weight:600;color:var(--text-primary);">ChatGPT</div>
                                         <div style="font-size:10px;color:var(--text-secondary);line-height:1.3;">Connect via Apps & Custom GPTs</div>
-                                        <a href="{{ route('login') }}" style="font-size:11px;font-weight:500;color:var(--accent-primary);text-decoration:none;display:flex;align-items:center;gap:3px;margin-top:4px;">View Setup <span>→</span></a>
+                                        <button @click="openModal('chatgpt')" style="font-size:11px;font-weight:500;color:var(--accent-primary);background:none;border:none;cursor:pointer;display:flex;align-items:center;gap:3px;margin-top:4px;padding:0;">View Setup <span>→</span></button>
                                     </div>
                                 </div>
                             </div>
@@ -787,7 +1052,7 @@
                                     <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3px;">
                                         <div style="font-size:13px;font-weight:600;color:var(--text-primary);">Claude</div>
                                         <div style="font-size:10px;color:var(--text-secondary);line-height:1.3;">Connect via Custom Connectors</div>
-                                        <a href="{{ route('login') }}" style="font-size:11px;font-weight:500;color:var(--accent-primary);text-decoration:none;display:flex;align-items:center;gap:3px;margin-top:4px;">View Setup <span>→</span></a>
+                                        <button @click="openModal('claude')" style="font-size:11px;font-weight:500;color:var(--accent-primary);background:none;border:none;cursor:pointer;display:flex;align-items:center;gap:3px;margin-top:4px;padding:0;">View Setup <span>→</span></button>
                                     </div>
                                 </div>
                             </div>
@@ -802,7 +1067,7 @@
                                     <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3px;">
                                         <div style="font-size:13px;font-weight:600;color:var(--text-primary);">Cursor</div>
                                         <div style="font-size:10px;color:var(--text-secondary);line-height:1.3;">Connect via mcp.json</div>
-                                        <a href="{{ route('login') }}" style="font-size:11px;font-weight:500;color:var(--accent-primary);text-decoration:none;display:flex;align-items:center;gap:3px;margin-top:4px;">View Setup <span>→</span></a>
+                                        <button @click="openModal('cursor')" style="font-size:11px;font-weight:500;color:var(--accent-primary);background:none;border:none;cursor:pointer;display:flex;align-items:center;gap:3px;margin-top:4px;padding:0;">View Setup <span>→</span></button>
                                     </div>
                                 </div>
                             </div>
@@ -816,7 +1081,7 @@
                                     <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3px;">
                                         <div style="font-size:13px;font-weight:600;color:var(--text-primary);">VS Code</div>
                                         <div style="font-size:10px;color:var(--text-secondary);line-height:1.3;">Connect via MCP Extension</div>
-                                        <a href="{{ route('login') }}" style="font-size:11px;font-weight:500;color:var(--accent-primary);text-decoration:none;display:flex;align-items:center;gap:3px;margin-top:4px;">View Setup <span>→</span></a>
+                                        <button @click="openModal('vscode')" style="font-size:11px;font-weight:500;color:var(--accent-primary);background:none;border:none;cursor:pointer;display:flex;align-items:center;gap:3px;margin-top:4px;padding:0;">View Setup <span>→</span></button>
                                     </div>
                                 </div>
                             </div>
@@ -1034,29 +1299,829 @@
         </footer>
     </main>
 
-    <!-- Modal -->
-    <div id="guideModal" class="guide-modal-overlay">
-        <div class="guide-modal-content">
-            <div class="guide-modal-header">
-                <div class="guide-modal-header-left" style="display:flex;align-items:center;gap:14px;">
-                    <div class="guide-modal-logo-wrap">
-                        <img id="modalLogo" src="/images/clients/chatgpt-dark.png" alt="">
+<div x-show="modalOpen" x-cloak class="guide-modal-overlay" @click.self="closeModal()">
+    <div x-show="selectedClient" class="guide-modal-content" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:900px;max-width:calc(100vw - 48px);max-height:90vh;" @click.stop>
+        
+        <!-- Modal Header (Fixed) -->
+        <div class="guide-modal-header">
+            <div style="display:flex;align-items:center;gap:16px;">
+                <template x-if="selectedClient && selectedClient.imageLight">
+                    <div style="display:flex;">
+                        <img :src="selectedClient.image" :alt="selectedClient.name" class="icon-dark" style="width:48px;height:48px;object-fit:contain;border-radius:8px;">
+                        <img :src="selectedClient.imageLight" :alt="selectedClient.name" class="icon-light" style="width:48px;height:48px;object-fit:contain;border-radius:8px;">
                     </div>
-                    <div class="guide-modal-header-titles">
-                        <h3 id="modalTitle">ChatGPT</h3>
-                        <p id="modalSubtitle">Step-by-step setup guide</p>
+                </template>
+                <template x-if="selectedClient && !selectedClient.imageLight">
+                    <div class="guide-modal-logo-wrap" style="width:48px;height:48px;border-radius:8px;display:flex;align-items:center;justify-content:center;">
+                        <img :src="selectedClient.image" :alt="selectedClient.name" style="width:40px;height:40px;object-fit:contain;">
                     </div>
+                </template>
+                <div>
+                    <h3 class="guide-modal-header-title" style="font-size:20px;font-weight:700;margin:0;" x-text="selectedClient ? selectedClient.name + ' Setup Guide' : ''"></h3>
+                    <p class="guide-modal-header-subtitle" style="font-size:13px;margin:6px 0 0 0;" x-text="selectedClient ? 'Follow the steps below to connect ServerAvatar MCP with ' + selectedClient.name : ''"></p>
                 </div>
-                <button class="guide-modal-close-btn" onclick="closeModal()">
-                    <i class="fas fa-times"></i>
-                </button>
             </div>
-            <div class="guide-modal-body">
-                <div class="guide-modal-sidebar" id="modalSidebar"></div>
-                <div class="guide-modal-main" id="modalMain"></div>
+            <button @click="closeModal()" class="guide-modal-close-btn" style="background:none;border:none;cursor:pointer;padding:8px;font-size:20px;line-height:1;">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <!-- Modal Body -->
+        <div style="display:flex;flex:1;overflow:hidden;min-height:0;max-height:calc(90vh - 140px);">
+            
+            <!-- Sidebar (Fixed) -->
+            <div class="guide-modal-sidebar" style="width:240px;padding:20px;flex-shrink:0;overflow-y:auto;overflow-x:hidden;">
+                
+                <template x-for="(step, index) in selectedClient ? selectedClient.steps : []" :key="index">
+                    <div style="display:flex;align-items:center;gap:12px;padding:12px 0;">
+                        <div style="display:flex;align-items:center;gap:12px;position:relative;">
+                            <div class="guide-modal-step-num" style="width:28px;height:28px;min-width:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex-shrink:0;z-index:1;" x-text="index + 1"></div>
+                            <template x-if="index < (selectedClient ? selectedClient.steps.length - 1 : 0)">
+                                <div class="guide-step-dotted-line" style="position:absolute;left:13px;top:28px;width:2px;height:28px;z-index:0;"></div>
+                            </template>
+                        </div>
+                        <div x-text="step.title" :class="index === 0 ? 'guide-modal-step-text-active' : 'guide-modal-step-text'" style="font-size:14px;font-weight:500;line-height:1.4;flex:1;"></div>
+                    </div>
+                </template>
+                
+                <div class="guide-modal-need-help" style="margin-top:60px;padding:12px;border-radius:16px;">
+                    <p style="font-size:14px;font-weight:700;margin:0 0 8px 0;">Need Help?</p>
+                    <p class="guide-modal-need-help-desc" style="font-size:13px;margin:0 0 8px 0;">Contact our support team</p>
+                    <a href="https://support.serveravatar.com" target="_blank" style="display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;text-decoration:none;">
+                        Get Support <i class="fas fa-arrow-right" style="font-size:10px;"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Main Content (Scrollable) -->
+            <div style="flex:1;padding:24px;overflow-y:auto;overflow-x:hidden;min-height:0;">
+                
+                <!-- ChatGPT Info Note -->
+                <template x-if="selectedClient && selectedClient.name === 'ChatGPT'">
+                    <div class="guide-modal-info-note">
+                        <i class="fas fa-info-circle" style="color:#7c3aed;font-size:20px;margin-top:2px;"></i>
+                        <div>
+                            <p class="note-title">Important Note</p>
+                            <p class="note-text">MCP connectors are available only on supported ChatGPT plans and may not be available for every account.</p>
+                        </div>
+                    </div>
+                </template>
+                
+                <!-- ChatGPT Step 1 Card -->
+                <template x-if="selectedClient && selectedClient.name === 'ChatGPT'">
+                    <div class="guide-modal-step-card">
+                        <h4>Step 1: <span>Enable Developer Mode</span></h4>
+                        <div style="display:flex;flex-direction:column;gap:10px;">
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">1</div>
+                                <p class="guide-modal-substep-text">Log in to your ChatGPT account</p>
+                            </div>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">2</div>
+                                <p class="guide-modal-substep-text">Open Settings</p>
+                            </div>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">3</div>
+                                <p class="guide-modal-substep-text">Enable Developer Mode (if available for your account)</p>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+                
+                <!-- ChatGPT Step 2 Card -->
+                <template x-if="selectedClient && selectedClient.name === 'ChatGPT'">
+                    <div class="guide-modal-step-card">
+                        <h4>Step 2: <span>Create a New MCP Connector</span></h4>
+                        <div style="display:flex;flex-direction:column;gap:10px;">
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">1</div>
+                                <p class="guide-modal-substep-text">Open Settings</p>
+                            </div>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">2</div>
+                                <p class="guide-modal-substep-text">Go to Apps (or Plugins, depending on your ChatGPT version)</p>
+                            </div>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">3</div>
+                                <p class="guide-modal-substep-text">Click Create New</p>
+                            </div>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">4</div>
+                                <p class="guide-modal-substep-text">Enter a name: ServerAvatar MCP</p>
+                            </div>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">5</div>
+                                <p class="guide-modal-substep-text">Paste your MCP Server URL into the Connection URL field</p>
+                            </div>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">6</div>
+                                <p class="guide-modal-substep-text">Save the connector</p>
+                            </div>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">7</div>
+                                <p class="guide-modal-substep-text">Complete the authorization process if prompted</p>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+                
+                <!-- ChatGPT Step 3 Card -->
+                <template x-if="selectedClient && selectedClient.name === 'ChatGPT'">
+                    <div class="guide-modal-step-card">
+                        <h4>Step 3: <span>Start Using ServerAvatar MCP</span></h4>
+                        <div style="display:flex;flex-direction:column;gap:10px;">
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">1</div>
+                                <p class="guide-modal-substep-text">Open a new chat/Conversion</p>
+                            </div>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">2</div>
+                                <p class="guide-modal-substep-text">Select the ServerAvatar MCP connector from the top model dropdown</p>
+                            </div>
+                        </div>
+                        <p style="font-size:14px;color:#6b7280;margin:16px 0 12px 0;">You can now use natural language commands such as:</p>
+                        <div style="display:flex;flex-wrap:nowrap;gap:8px;overflow-x:auto;">
+                            <button class="guide-modal-example-btn">List all my servers</button>
+                            <button class="guide-modal-example-btn">Show server status</button>
+                            <button class="guide-modal-example-btn">Create new database</button>
+                            <button class="guide-modal-example-btn">Deploy WordPress</button>
+                        </div>
+                    </div>
+                </template>
+                
+                <!-- ChatGPT Limitation Warning -->
+                <template x-if="selectedClient && selectedClient.name === 'ChatGPT'">
+                    <div style="margin-top:1rem;padding:0.875rem 1rem;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.25);border-radius:10px;">
+                        <div style="display:flex;align-items:flex-start;gap:10px;">
+                            <div style="width:32px;height:32px;min-width:32px;background:rgba(245,158,11,0.15);border-radius:8px;display:flex;align-items:center;justify-content:center;">
+                                <i class="fas fa-shield-halved" style="color:#fbbf24;font-size:0.9rem;"></i>
+                            </div>
+                            <div>
+                                <div style="font-size:0.8rem;font-weight:600;color:var(--text-primary);margin-bottom:3px;">OpenAI Safety Restriction</div>
+                                <p style="margin:0;font-size:0.75rem;color:var(--text-secondary);line-height:1.5;">ChatGPT may block operations involving passwords, credentials, or sensitive data for security reasons. Use <strong>Claude</strong>, <strong>Cursor</strong> or <strong>any other AI client</strong> for full functionality.</p>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+                
+                <!-- Claude Step 1 Card -->
+                <template x-if="selectedClient && selectedClient.name === 'Claude'">
+                    <div class="guide-modal-step-card">
+                        <h4>Step 1: <span>Open Claude Settings</span></h4>
+                        <div style="display:flex;flex-direction:column;gap:10px;">
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">1</div>
+                                <p class="guide-modal-substep-text">Log into your Claude account</p>
+                            </div>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">2</div>
+                                <p class="guide-modal-substep-text">Open Settings</p>
+                            </div>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">3</div>
+                                <p class="guide-modal-substep-text">Navigate to Connectors or Customize (depending on your Claude version)</p>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+                
+                <!-- Claude Step 2 Card -->
+                <template x-if="selectedClient && selectedClient.name === 'Claude'">
+                    <div class="guide-modal-step-card">
+                        <h4>Step 2: <span>Add a Custom Connector</span></h4>
+                        <div style="display:flex;flex-direction:column;gap:10px;">
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">1</div>
+                                <p class="guide-modal-substep-text">Click Add Custom Connector</p>
+                            </div>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">2</div>
+                                <p class="guide-modal-substep-text">Enter a connector name: ServerAvatar MCP</p>
+                            </div>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">3</div>
+                                <p class="guide-modal-substep-text">Paste your MCP Server URL into the connection URL field</p>
+                            </div>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">4</div>
+                                <p class="guide-modal-substep-text">Save the connector</p>
+                            </div>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">5</div>
+                                <p class="guide-modal-substep-text">Complete the authorization process if required</p>
+                            </div>
+                        </div>
+                        <p style="font-size:13px;color:#6b7280;margin:16px 0 0 0;line-height:1.5;">After a successful connection, the ServerAvatar MCP connector will be available in Claude.</p>
+                    </div>
+                </template>
+                
+                <!-- Claude Step 3 Card -->
+                <template x-if="selectedClient && selectedClient.name === 'Claude'">
+                    <div class="guide-modal-step-card">
+                        <h4 class="guide-modal-step-title">Step 3: <span>Start Managing Your Servers</span></h4>
+                        <div style="display:flex;flex-direction:column;gap:10px;">
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">1</div>
+                                <p class="guide-modal-substep-text">Open a new Claude chat</p>
+                            </div>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">2</div>
+                                <p class="guide-modal-substep-text">Select your ServerAvatar MCP connector</p>
+                            </div>
+                        </div>
+                        <p style="font-size:14px;color:#6b7280;margin:16px 0 12px 0;">You can now ask Claude to perform ServerAvatar operations, for example:</p>
+                        <div style="display:flex;flex-wrap:nowrap;gap:8px;overflow-x:auto;">
+                            <button class="guide-modal-example-btn">Create an application</button>
+                            <button class="guide-modal-example-btn">List servers</button>
+                            <button class="guide-modal-example-btn">Manage databases</button>
+                            <button class="guide-modal-example-btn">Install SSL certificates</button>
+                            <button class="guide-modal-example-btn">Change application settings</button>
+                        </div>
+                    </div>
+                </template>
+                
+                <!-- Cursor Step 1 Card -->
+                <template x-if="selectedClient && selectedClient.name === 'Cursor'">
+                    <div class="guide-modal-step-card">
+                        <h4>Step 1: <span>Install and Sign In</span></h4>
+                        <div style="display:flex;flex-direction:column;gap:10px;">
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">1</div>
+                                <p class="guide-modal-substep-text">Download and install Cursor IDE on your computer</p>
+                            </div>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">2</div>
+                                <p class="guide-modal-substep-text">Sign in to your Cursor account</p>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+                
+                <!-- Cursor Step 2 Card -->
+                <template x-if="selectedClient && selectedClient.name === 'Cursor'">
+                    <div class="guide-modal-step-card">
+                        <h4>Step 2: <span>Generate an IDE Access Token</span></h4>
+                        <div class="guide-modal-note-box">
+                            <p><strong>Note:</strong> An access token is required before connecting Cursor.</p>
+                        </div>
+                        <div style="display:flex;flex-direction:column;gap:10px;">
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">1</div>
+                                <p class="guide-modal-substep-text">Log in to ServerAvatar MCP</p>
+                            </div>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">2</div>
+                                <p class="guide-modal-substep-text">Navigate to Endpoint & Tokens</p>
+                            </div>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">3</div>
+                                <p class="guide-modal-substep-text">Under IDE Access Tokens, enter a token name (e.g., Cursor Development)</p>
+                            </div>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">4</div>
+                                <p class="guide-modal-substep-text">Click Generate Token</p>
+                            </div>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">5</div>
+                                <p class="guide-modal-substep-text">Copy the generated token immediately (it won't be shown again)</p>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+                
+                <!-- Cursor Step 3 Card -->
+                <template x-if="selectedClient && selectedClient.name === 'Cursor'">
+                    <div class="guide-modal-step-card">
+                        <h4>Step 3: <span>Open MCP Settings</span></h4>
+                        <div style="display:flex;flex-direction:column;gap:10px;">
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">1</div>
+                                <p class="guide-modal-substep-text">Open Cursor</p>
+                            </div>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">2</div>
+                                <p class="guide-modal-substep-text">Navigate to Settings → Tools & MCP</p>
+                            </div>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">3</div>
+                                <p class="guide-modal-substep-text">Under Installed MCP Servers, click + Add New MCP Server</p>
+                            </div>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">4</div>
+                                <p class="guide-modal-substep-text">Cursor will open the mcp.json configuration file</p>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+                
+                <!-- Cursor Step 4 Card -->
+                <template x-if="selectedClient && selectedClient.name === 'Cursor'">
+                    <div class="guide-modal-step-card">
+                        <h4>Step 4: <span>Configure ServerAvatar MCP</span></h4>
+                        <p class="guide-modal-desc-text">Modify your mcp.json file with the following configuration:</p>
+                        <div style="background:#1e1e2e;border-radius:12px;padding:16px;margin-bottom:12px;overflow-x:auto;position:relative;">
+                            <div style="position:absolute;top:12px;left:16px;font-size:12px;color:#9ca3af;"><i class="fas fa-file-code" style="margin-right:6px;"></i>mcp.json</div>
+                            <button onclick="copyCode(this)" style="position:absolute;top:12px;right:12px;background:#374151;border:none;border-radius:6px;padding:6px 10px;cursor:pointer;color:#9ca3af;font-size:12px;display:flex;align-items:center;gap:4px;">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <pre style="font-size:12px;color:#a5f3cb;margin:0;line-height:1.7;white-space:pre;padding-top:24px;">{
+  "mcpServers": {
+    "serveravatar-mcp" : {
+      "url" : "YOUR_MCP_SERVER_URL",
+      "headers": {
+        "Authorization": "Bearer YOUR_IDE_ACCESS_TOKEN"
+      }
+    }
+  }
+}</pre>
+                        </div>
+                        <p style="font-size:14px;font-weight:600;color:#7c3aed;margin:0 0 12px 0;">Replace:</p>
+                        <div style="display:flex;flex-direction:column;gap:10px;">
+                            <div class="guide-modal-substep">
+                                <div style="width:6px;height:6px;min-width:6px;background:#7c3aed;border-radius:50%;flex-shrink:0;"></div>
+                                <p class="guide-modal-substep-text"><code class="guide-modal-code">YOUR_MCP_SERVER_URL</code> with the MCP Server URL from ServerAvatar MCP → Endpoint & Tokens</p>
+                            </div>
+                            <div class="guide-modal-substep">
+                                <div style="width:6px;height:6px;min-width:6px;background:#7c3aed;border-radius:50%;flex-shrink:0;"></div>
+                                <p class="guide-modal-substep-text"><code class="guide-modal-code">YOUR_IDE_ACCESS_TOKEN</code> with the IDE Access Token you generated</p>
+                            </div>
+                        </div>
+                        <div class="guide-modal-tip-box" style="margin-top:16px;">
+                            <p><strong>Don't forget!</strong> Save the <code class="guide-modal-code">mcp.json</code> file after making the changes.</p>
+                        </div>
+                    </div>
+                </template>
+                
+                <!-- Cursor Step 5 Card -->
+                <template x-if="selectedClient && selectedClient.name === 'Cursor'">
+                    <div class="guide-modal-step-card">
+                        <h4>Step 5: <span>Verify the Connection</span></h4>
+                        <div style="display:flex;flex-direction:column;gap:10px;">
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">1</div>
+                                <p class="guide-modal-substep-text">Return to Settings → Tools & MCP.</p>
+                            </div>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">2</div>
+                                <p class="guide-modal-substep-text">Verify that ServerAvatar MCP appears under Installed MCP Servers.</p>
+                            </div>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">3</div>
+                                <p class="guide-modal-substep-text">Ensure the server status shows Connected or Available.</p>
+                            </div>
+                        </div>
+                        <div class="guide-modal-error-box">
+                            <p class="guide-modal-error-text">If the connection fails, verify your MCP Server URL and IDE Access Token, then reload Cursor.</p>
+                        </div>
+                    </div>
+                </template>
+                
+                <!-- Cursor Step 6 Card -->
+                <template x-if="selectedClient && selectedClient.name === 'Cursor'">
+                    <div class="guide-modal-step-card">
+                        <h4>Step 6: <span>Start Using ServerAvatar MCP</span></h4>
+                        <p class="guide-modal-desc-text">Open a new AI chat or Agent session in Cursor and start using natural language commands, for example:</p>
+                        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;">
+                            <button class="guide-modal-example-btn">List my servers</button>
+                            <button class="guide-modal-example-btn">Create a WordPress application</button>
+                            <button class="guide-modal-example-btn">List databases</button>
+                            <button class="guide-modal-example-btn">Restart Nginx</button>
+                            <button class="guide-modal-example-btn">Install an SSL certificate</button>
+                        </div>
+                        <p class="guide-modal-desc-text" style="margin:0 0 16px 0;">Cursor will automatically invoke the appropriate ServerAvatar MCP tools when required.</p>
+                        <div class="guide-modal-tip-box">
+                            <p><strong>💡 Tip:</strong> If you update the mcp.json file, reload or restart Cursor to ensure the new MCP configuration is loaded.</p>
+                        </div>
+                    </div>
+                </template>
+                
+                <!-- VS Code Info Note -->
+                <template x-if="selectedClient && selectedClient.name === 'VS Code'">
+                    <div class="guide-modal-vscode-info">
+                        <div style="display:flex;align-items:flex-start;gap:12px;">
+                            <div class="info-icon">i</div>
+                            <p>Visual Studio Code supports connecting to ServerAvatar MCP using <strong>OAuth Authorization (Recommended)</strong> or <strong>IDE Access Tokens (Manual Configuration)</strong>.</p>
+                        </div>
+                    </div>
+                </template>
+                
+                <!-- VS Code Section Title -->
+                <template x-if="selectedClient && selectedClient.name === 'VS Code'">
+                    <div class="guide-modal-vscode-section-title" style="margin-bottom:12px;">
+                        <h4>Choose Authentication Method</h4>
+                        <p>Select the method you want to use to connect to ServerAvatar MCP.</p>
+                    </div>
+                </template>
+                
+                <!-- VS Code OAuth Card -->
+                <template x-if="selectedClient && selectedClient.name === 'VS Code'">
+                    <div class="guide-modal-oauth-card">
+                        <div onclick="toggleVsCodeCard('oauth')" style="cursor:pointer;">
+                            <div class="guide-modal-oauth-header">
+                                <div class="guide-modal-oauth-icon">
+                                    <i class="fas fa-shield-alt" style="font-size:20px;"></i>
+                                </div>
+                                <div style="flex:1;">
+                                    <span class="guide-modal-oauth-badge">Recommended</span>
+                                    <p class="guide-modal-oauth-title">OAuth Authorization</p>
+                                </div>
+                                <i id="vscode-oauth-arrow" class="fas fa-chevron-down" style="color:#10b981;font-size:14px;transition:transform 0.3s;" class="guide-modal-oauth-arrow"></i>
+                            </div>
+                            <div style="padding:0 16px 16px 76px;">
+                                <p class="guide-modal-check-item"><i class="fas fa-check-circle"></i>Secure and easy to set up</p>
+                                <p class="guide-modal-check-item"><i class="fas fa-check-circle"></i>No tokens to manage</p>
+                                <p class="guide-modal-check-item"><i class="fas fa-check-circle"></i>One-click browser authorization</p>
+                            </div>
+                        </div>
+                        <div id="vscode-oauth-content" style="display:none;padding:0 16px 16px 16px;border-top:1px solid #6ee7b7;">
+                            <div class="guide-modal-step-card" style="margin-top:16px;">
+                                <h4>Step 1: <span>Install and Sign In</span></h4>
+                                <div style="display:flex;flex-direction:column;gap:10px;">
+                                    <div class="guide-modal-substep">
+                                        <div class="guide-modal-substep-num">1</div>
+                                        <p class="guide-modal-substep-text">Install the latest version of Visual Studio Code.</p>
+                                    </div>
+                                    <div class="guide-modal-substep">
+                                        <div class="guide-modal-substep-num">2</div>
+                                        <p class="guide-modal-substep-text">Install the GitHub Copilot and GitHub Copilot Chat extensions.</p>
+                                    </div>
+                                    <div class="guide-modal-substep">
+                                        <div class="guide-modal-substep-num">3</div>
+                                        <p class="guide-modal-substep-text">Sign in with your GitHub account.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="guide-modal-step-card" style="margin-top:12px;">
+                                <h4>Step 2: <span>Add Your MCP Server</span></h4>
+                                <div style="display:flex;flex-direction:column;gap:10px;">
+                                    <div class="guide-modal-substep">
+                                        <div class="guide-modal-substep-num">1</div>
+                                        <p class="guide-modal-substep-text">Press <strong>Ctrl + Shift + P</strong>.</p>
+                                    </div>
+                                    <div class="guide-modal-substep">
+                                        <div class="guide-modal-substep-num">2</div>
+                                        <p class="guide-modal-substep-text">Run: <code class="guide-modal-code-inline">MCP: Add Server</code></p>
+                                    </div>
+                                    <div class="guide-modal-substep">
+                                        <div class="guide-modal-substep-num">3</div>
+                                        <p class="guide-modal-substep-text">Select <strong>HTTP (Remote) MCP Server</strong>.</p>
+                                    </div>
+                                    <div class="guide-modal-substep">
+                                        <div class="guide-modal-substep-num">4</div>
+                                        <p class="guide-modal-substep-text">Enter your ServerAvatar MCP Endpoint URL.</p>
+                                    </div>
+                                    <div class="guide-modal-substep">
+                                        <div class="guide-modal-substep-num">5</div>
+                                        <p class="guide-modal-substep-text">Enter a name (for example, <strong>ServerAvatar MCP</strong>).</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="guide-modal-step-card" style="margin-top:12px;">
+                                <h4>Step 3: <span>Authorize</span></h4>
+                                <div style="display:flex;flex-direction:column;gap:10px;">
+                                    <div class="guide-modal-substep">
+                                        <div class="guide-modal-substep-num">1</div>
+                                        <p class="guide-modal-substep-text">Visual Studio Code will automatically open your browser.</p>
+                                    </div>
+                                    <div class="guide-modal-substep">
+                                        <div class="guide-modal-substep-num">2</div>
+                                        <p class="guide-modal-substep-text">Sign in to your ServerAvatar MCP account if prompted.</p>
+                                    </div>
+                                    <div class="guide-modal-substep">
+                                        <div class="guide-modal-substep-num">3</div>
+                                        <p class="guide-modal-substep-text">Click <strong>Authorize</strong>.</p>
+                                    </div>
+                                    <div class="guide-modal-substep">
+                                        <div class="guide-modal-substep-num">4</div>
+                                        <p class="guide-modal-substep-text">Return to Visual Studio Code.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="guide-modal-step-card" style="margin-top:12px;">
+                                <h4>Step 4: <span>Verify</span></h4>
+                                <div style="display:flex;flex-direction:column;gap:10px;">
+                                    <div class="guide-modal-substep">
+                                        <div class="guide-modal-substep-num">1</div>
+                                        <p class="guide-modal-substep-text">Open <strong>Extensions → MCP Servers</strong>.</p>
+                                    </div>
+                                    <div class="guide-modal-substep">
+                                        <div class="guide-modal-substep-num">2</div>
+                                        <p class="guide-modal-substep-text">Your ServerAvatar MCP server should appear under <strong>Installed</strong>.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="guide-modal-step-card" style="margin-top:12px;">
+                                <h4>Step 5: <span>Start Using</span></h4>
+                                <div style="display:flex;flex-direction:column;gap:10px;">
+                                    <div class="guide-modal-substep">
+                                        <div class="guide-modal-substep-num">1</div>
+                                        <p class="guide-modal-substep-text">Open <strong>GitHub Copilot Chat</strong> in <strong>Agent mode</strong>.</p>
+                                    </div>
+                                    <div class="guide-modal-substep">
+                                        <div class="guide-modal-substep-num">2</div>
+                                        <p class="guide-modal-substep-text">Use your connected MCP server to manage your infrastructure with natural language.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+                
+                <!-- VS Code IDE Token Card -->
+                <template x-if="selectedClient && selectedClient.name === 'VS Code'">
+                    <div class="guide-modal-idetoken-card">
+                        <div onclick="toggleVsCodeCard('token')" style="cursor:pointer;">
+                            <div class="guide-modal-idetoken-header">
+                                <div class="guide-modal-idetoken-icon">
+                                    <i class="fas fa-key"></i>
+                                </div>
+                                <div style="flex:1;">
+                                    <p class="guide-modal-idetoken-title">IDE Access Token</p>
+                                </div>
+                                <i id="vscode-token-arrow" class="fas fa-chevron-down guide-modal-idetoken-arrow"></i>
+                            </div>
+                            <div class="guide-modal-idetoken-body">
+                                <p class="guide-modal-idetoken-check"><i class="fas fa-check-circle"></i>Manual configuration</p>
+                                <p class="guide-modal-idetoken-check"><i class="fas fa-check-circle"></i>Use your IDE Access Token</p>
+                                <p class="guide-modal-idetoken-check"><i class="fas fa-check-circle"></i>Works with any MCP client</p>
+                            </div>
+                        </div>
+                        <div id="vscode-token-content" class="guide-modal-idetoken-content" style="display:none;">
+                            <div style="padding-top:16px;">
+                                <div class="guide-modal-step-card">
+                                    <h4>Step 1: <span>Generate an IDE Access Token</span></h4>
+                                    <div style="display:flex;flex-direction:column;gap:10px;">
+                                        <div class="guide-modal-substep">
+                                            <div class="guide-modal-substep-num">1</div>
+                                            <p class="guide-modal-substep-text">Log in to ServerAvatar MCP.</p>
+                                        </div>
+                                        <div class="guide-modal-substep">
+                                            <div class="guide-modal-substep-num">2</div>
+                                            <p class="guide-modal-substep-text">Open Endpoint & Tokens.</p>
+                                        </div>
+                                        <div class="guide-modal-substep">
+                                            <div class="guide-modal-substep-num">3</div>
+                                            <p class="guide-modal-substep-text">Generate an IDE Access Token.</p>
+                                        </div>
+                                        <div class="guide-modal-substep">
+                                            <div class="guide-modal-substep-num">4</div>
+                                            <p class="guide-modal-substep-text">Copy the token immediately.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="guide-modal-step-card">
+                                    <h4>Step 2: <span>Open MCP Configuration</span></h4>
+                                    <div style="display:flex;flex-direction:column;gap:10px;">
+                                        <div class="guide-modal-substep">
+                                            <div class="guide-modal-substep-num">1</div>
+                                            <p class="guide-modal-substep-text">Press: <strong>Ctrl + Shift + P</strong></p>
+                                        </div>
+                                        <div class="guide-modal-substep">
+                                            <div class="guide-modal-substep-num">2</div>
+                                            <p class="guide-modal-substep-text">Run: <code class="guide-modal-code-inline">MCP: Open User Configuration</code></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="guide-modal-step-card">
+                                    <h4>Step 3: <span>Configure ServerAvatar MCP</span></h4>
+                                    <p class="guide-modal-desc-text">Add the following configuration:</p>
+                                    <div style="background:#1e1e2e;border-radius:12px;padding:16px;margin-bottom:12px;overflow-x:auto;position:relative;">
+                                        <div style="position:absolute;top:12px;left:16px;font-size:12px;color:#9ca3af;"><i class="fas fa-file-code" style="margin-right:6px;"></i>mcp.json</div>
+                                        <button onclick="copyCode(this)" style="position:absolute;top:12px;right:12px;background:#374151;border:none;border-radius:6px;padding:6px 10px;cursor:pointer;color:#9ca3af;font-size:12px;display:flex;align-items:center;gap:4px;">
+                                            <i class="fas fa-copy"></i> Copy
+                                        </button>
+                                        <pre style="font-size:12px;color:#a5f3cb;margin:0;line-height:1.7;white-space:pre;padding-top:24px;">{
+  "inputs": [
+    {
+      "type": "promptString",
+      "id": "serveravatar-token",
+      "description": "ServerAvatar IDE Access Token",
+      "password": true
+    }
+  ],
+  "servers": {
+    "serveravatar-mcp": {
+      "type": "http",
+      "url": "YOUR_MCP_SERVER_URL",
+      "headers": {
+        "Authorization": "Bearer YOUR_IDE_ACCESS_TOKEN"
+      }
+    }
+  }
+}</pre>
+                                    </div>
+                                    <p style="font-size:14px;font-weight:600;color:#7c3aed;margin:0 0 12px 0;">Replace:</p>
+                                    <div style="display:flex;flex-direction:column;gap:10px;">
+                                        <div class="guide-modal-substep">
+                                            <div style="width:6px;height:6px;min-width:6px;background:#7c3aed;border-radius:50%;flex-shrink:0;"></div>
+                                            <p class="guide-modal-substep-text"><code class="guide-modal-code">YOUR_MCP_SERVER_URL</code> with your ServerAvatar MCP Endpoint.</p>
+                                        </div>
+                                        <div class="guide-modal-substep">
+                                            <div style="width:6px;height:6px;min-width:6px;background:#7c3aed;border-radius:50%;flex-shrink:0;"></div>
+                                            <p class="guide-modal-substep-text"><code class="guide-modal-code">YOUR_IDE_ACCESS_TOKEN</code> with your generated IDE Access Token.</p>
+                                        </div>
+                                    </div>
+                                    <p class="guide-modal-bold-text"><strong>Save the file.</strong></p>
+                                </div>
+                                <div class="guide-modal-step-card">
+                                    <h4>Step 4: <span>Reload VS Code</span></h4>
+                                    <div style="display:flex;flex-direction:column;gap:10px;">
+                                        <div class="guide-modal-substep">
+                                            <div class="guide-modal-substep-num">1</div>
+                                            <p class="guide-modal-substep-text">Run: <code class="guide-modal-code-inline">Developer: Reload Window</code></p>
+                                        </div>
+                                        <div class="guide-modal-substep">
+                                            <div class="guide-modal-substep-num">2</div>
+                                            <p class="guide-modal-substep-text">Or restart Visual Studio Code.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="guide-modal-step-card">
+                                    <h4>Step 5: <span>Verify</span></h4>
+                                    <div style="display:flex;flex-direction:column;gap:10px;">
+                                        <div class="guide-modal-substep">
+                                            <div class="guide-modal-substep-num">1</div>
+                                            <p class="guide-modal-substep-text">Open: <strong>Extensions → MCP Servers</strong></p>
+                                        </div>
+                                        <div class="guide-modal-substep">
+                                            <div class="guide-modal-substep-num">2</div>
+                                            <p class="guide-modal-substep-text">Confirm that ServerAvatar MCP appears under <strong>Installed</strong>.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="guide-modal-step-card">
+                                    <h4>Step 6: <span>Start Using</span></h4>
+                                    <div style="display:flex;flex-direction:column;gap:10px;">
+                                        <div class="guide-modal-substep">
+                                            <div class="guide-modal-substep-num">1</div>
+                                            <p class="guide-modal-substep-text">Open <strong>GitHub Copilot Chat</strong> in <strong>Agent mode</strong>.</p>
+                                        </div>
+                                        <div class="guide-modal-substep">
+                                            <div class="guide-modal-substep-num">2</div>
+                                            <p class="guide-modal-substep-text">Use: <code class="guide-modal-code-inline">@ServerAvatar MCP</code></p>
+                                        </div>
+                                        <div class="guide-modal-substep">
+                                            <div class="guide-modal-substep-num">3</div>
+                                            <p class="guide-modal-substep-text">Then ask natural language commands, for example:</p>
+                                        </div>
+                                    </div>
+                                    <div style="display:flex;flex-wrap:nowrap;gap:8px;margin:12px 0 0 0;overflow-x:auto;">
+                                        <button class="guide-modal-example-btn">List all my servers</button>
+                                        <button class="guide-modal-example-btn">Create a WordPress application</button>
+                                        <button class="guide-modal-example-btn">Install an SSL certificate</button>
+                                        <button class="guide-modal-example-btn">Create a database</button>
+                                    </div>
+                                    <p class="guide-modal-substep-text">GitHub Copilot will automatically invoke the appropriate ServerAvatar MCP tools.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+                
+                <!-- VS Code Help Section -->
+                <template x-if="selectedClient && selectedClient.name === 'VS Code'">
+                    <div class="guide-modal-help-box" style="margin-top:16px;margin-bottom:10px;">
+                        <div class="help-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <div>
+                            <p class="help-title">Not sure which one to choose?</p>
+                            <p>We recommend using <strong>OAuth Authorization</strong> for an easier and more secure experience. <strong>IDE Access Token</strong> is great for manual configuration or testing purposes.</p>
+                        </div>
+                    </div>
+                </template>
+                
+                <script>
+                function toggleVsCodeCard(card) {
+                    var oauthContent = document.getElementById('vscode-oauth-content');
+                    var tokenContent = document.getElementById('vscode-token-content');
+                    var oauthArrow = document.getElementById('vscode-oauth-arrow');
+                    var tokenArrow = document.getElementById('vscode-token-arrow');
+                    
+                    if (card === 'oauth') {
+                        if (oauthContent.style.display === 'none' || oauthContent.style.display === '') {
+                            oauthContent.style.display = 'block';
+                            oauthArrow.style.transform = 'rotate(180deg)';
+                            tokenContent.style.display = 'none';
+                            tokenArrow.style.transform = 'rotate(0deg)';
+                        } else {
+                            oauthContent.style.display = 'none';
+                            oauthArrow.style.transform = 'rotate(0deg)';
+                        }
+                    } else {
+                        if (tokenContent.style.display === 'none' || tokenContent.style.display === '') {
+                            tokenContent.style.display = 'block';
+                            tokenArrow.style.transform = 'rotate(180deg)';
+                            oauthContent.style.display = 'none';
+                            oauthArrow.style.transform = 'rotate(0deg)';
+                        } else {
+                            tokenContent.style.display = 'none';
+                            tokenArrow.style.transform = 'rotate(0deg)';
+                        }
+                    }
+                }
+                </script>
+                
+                <!-- Windsurf Step 1 Card -->
+                <template x-if="selectedClient && selectedClient.name === 'Windsurf'">
+                    <div class="guide-modal-step-card">
+                        <h4>Step 1: <span>Install Windsurf</span></h4>
+                        <div style="display:flex;flex-direction:column;gap:10px;">
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">1</div>
+                                <p class="guide-modal-substep-text">Download and install Windsurf IDE</p>
+                            </div>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">2</div>
+                                <p class="guide-modal-substep-text">Launch Windsurf and create an account</p>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+                
+                <!-- Windsurf Step 2 Card -->
+                <template x-if="selectedClient && selectedClient.name === 'Windsurf'">
+                    <div class="guide-modal-step-card">
+                        <h4>Step 2: <span>Generate an IDE Access Token</span></h4>
+                        <div style="background:#f5f3ff;border:1px solid #ddd6fe;border-radius:8px;padding:12px 16px;margin-bottom:12px;">
+                            <p style="font-size:13px;color:#7c3aed;margin:0;line-height:1.5;"><strong>Note:</strong> An access token is required before connecting Windsurf.</p>
+                        </div>
+                        <div style="display:flex;flex-direction:column;gap:10px;">
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">1</div>
+                                <p class="guide-modal-substep-text">Log in to ServerAvatar MCP</p>
+                            </div>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">2</div>
+                                <p class="guide-modal-substep-text">Navigate to Endpoint & Tokens</p>
+                            </div>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">3</div>
+                                <p class="guide-modal-substep-text">Generate a new IDE Access Token</p>
+                            </div>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">4</div>
+                                <p class="guide-modal-substep-text">Copy the token immediately</p>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+                
+                <!-- Windsurf Step 3 Card -->
+                <template x-if="selectedClient && selectedClient.name === 'Windsurf'">
+                    <div class="guide-modal-step-card">
+                        <h4>Step 3: <span>Add ServerAvatar MCP to Windsurf</span></h4>
+                        <div style="display:flex;flex-direction:column;gap:10px;">
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">1</div>
+                                <p class="guide-modal-substep-text">Open Windsurf Settings</p>
+                            </div>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">2</div>
+                                <p class="guide-modal-substep-text">Go to Extensions or MCP Settings</p>
+                            </div>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">3</div>
+                                <p class="guide-modal-substep-text">Add a new MCP server with your Server URL and token</p>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+                
+                <!-- Windsurf Step 4 Card -->
+                <template x-if="selectedClient && selectedClient.name === 'Windsurf'">
+                    <div class="guide-modal-step-card">
+                        <h4>Step 4: <span>Start Using</span></h4>
+                        <div style="display:flex;flex-direction:column;gap:10px;">
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">1</div>
+                                <p class="guide-modal-substep-text">Open the Windsurf AI chat</p>
+                            </div>
+                            <div class="guide-modal-substep">
+                                <div class="guide-modal-substep-num">2</div>
+                                <p class="guide-modal-substep-text">Start using natural language commands</p>
+                            </div>
+                        </div>
+                        <p style="font-size:14px;color:#6b7280;margin:16px 0 12px 0;">Example commands:</p>
+                        <div style="display:flex;flex-wrap:wrap;gap:8px;">
+                            <button class="guide-modal-example-btn">List all my servers</button>
+                            <button class="guide-modal-example-btn">Create a database</button>
+                            <button class="guide-modal-example-btn">Deploy WordPress</button>
+                        </div>
+                    </div>
+                </template>
+                
+                <!-- Success Message -->
+                <div class="guide-modal-success-box" style="border-radius:12px;padding:16px 20px;display:flex;align-items:center;">
+                    <div style="color:#22c55e;font-size:20px;"><i class="fas fa-check-circle"></i></div>
+                    <p style="font-size:14px;font-weight:600;margin:0;">You're all set! Start managing your infrastructure with AI.</p>
+                </div>
             </div>
         </div>
     </div>
+</div>
+
+<!-- Closing x-data div -->
 
     <script>
         // Theme Toggle
@@ -1103,125 +2168,11 @@
         
         // Close drawer on Escape key
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
+                    if (e.key === 'Escape') {
                 closeNavDrawer();
             }
         });
-
-        // Client Data
-        const clients = {
-            chatgpt: {
-                name: 'ChatGPT',
-                image: '/images/clients/chatgpt-dark.png',
-                imageLight: '/images/clients/chatgpt-light.png',
-                steps: [
-                    { title: 'Enable Developer Mode', content: '<div class="guide-modal-step-card"><h4>Step 1: <span>Enable Developer Mode</span></h4><div class="guide-modal-substep"><div class="guide-modal-substep-num">1</div><p class="guide-modal-substep-text">Log in to your ChatGPT account</p></div><div class="guide-modal-substep"><div class="guide-modal-substep-num">2</div><p class="guide-modal-substep-text">Open Settings</p></div><div class="guide-modal-substep"><div class="guide-modal-substep-num">3</div><p class="guide-modal-substep-text">Enable Developer Mode (if available for your account)</p></div></div>' },
-                    { title: 'Create MCP Connector', content: '<div class="guide-modal-step-card"><h4>Step 2: <span>Create a New MCP Connector</span></h4><div class="guide-modal-substep"><div class="guide-modal-substep-num">1</div><p class="guide-modal-substep-text">Open Settings</p></div><div class="guide-modal-substep"><div class="guide-modal-substep-num">2</div><p class="guide-modal-substep-text">Go to Apps (or Plugins, depending on your ChatGPT version)</p></div><div class="guide-modal-substep"><div class="guide-modal-substep-num">3</div><p class="guide-modal-substep-text">Click Create New</p></div><div class="guide-modal-substep"><div class="guide-modal-substep-num">4</div><p class="guide-modal-substep-text">Enter a name: ServerAvatar MCP</p></div><div class="guide-modal-substep"><div class="guide-modal-substep-num">5</div><p class="guide-modal-substep-text">Paste your MCP Server URL into the Connection URL field</p></div><div class="guide-modal-substep"><div class="guide-modal-substep-num">6</div><p class="guide-modal-substep-text">Save the connector</p></div><div class="guide-modal-substep"><div class="guide-modal-substep-num">7</div><p class="guide-modal-substep-text">Complete the authorization process if prompted</p></div></div>' },
-                    { title: 'Start Using', content: '<div class="guide-modal-step-card"><h4>Step 3: <span>Start Using ServerAvatar MCP</span></h4><div class="guide-modal-substep"><div class="guide-modal-substep-num">1</div><p class="guide-modal-substep-text">Open a new chat/conversation</p></div><div class="guide-modal-substep"><div class="guide-modal-substep-num">2</div><p class="guide-modal-substep-text">Select the ServerAvatar MCP connector from the top model dropdown</p></div></div><p class="guide-modal-desc-text">You can now use natural language commands such as:</p><div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;"><button class="guide-modal-example-btn">List all my servers</button><button class="guide-modal-example-btn">Show server status</button><button class="guide-modal-example-btn">Create new database</button><button class="guide-modal-example-btn">Deploy WordPress</button></div><div class="guide-modal-success-box"><p>🎉 You\'re all set! Start managing your infrastructure with AI.</p></div>' }
-                ]
-            },
-            claude: {
-                name: 'Claude',
-                image: '/images/clients/claude.png',
-                steps: [
-                    { title: 'Open Claude Settings', content: '<div class="guide-modal-step-card"><h4>Step 1: <span>Open Claude Settings</span></h4><div class="guide-modal-substep"><div class="guide-modal-substep-num">1</div><p class="guide-modal-substep-text">Log into your Claude account</p></div><div class="guide-modal-substep"><div class="guide-modal-substep-num">2</div><p class="guide-modal-substep-text">Open Settings</p></div><div class="guide-modal-substep"><div class="guide-modal-substep-num">3</div><p class="guide-modal-substep-text">Navigate to Connectors or Customize (depending on your Claude version)</p></div></div>' },
-                    { title: 'Add Custom Connector', content: '<div class="guide-modal-step-card"><h4>Step 2: <span>Add a Custom Connector</span></h4><div class="guide-modal-substep"><div class="guide-modal-substep-num">1</div><p class="guide-modal-substep-text">Click Add Custom Connector</p></div><div class="guide-modal-substep"><div class="guide-modal-substep-num">2</div><p class="guide-modal-substep-text">Enter a connector name: ServerAvatar MCP</p></div><div class="guide-modal-substep"><div class="guide-modal-substep-num">3</div><p class="guide-modal-substep-text">Paste your MCP Server URL into the connection URL field</p></div><div class="guide-modal-substep"><div class="guide-modal-substep-num">4</div><p class="guide-modal-substep-text">Save the connector</p></div><div class="guide-modal-substep"><div class="guide-modal-substep-num">5</div><p class="guide-modal-substep-text">Complete the authorization process if required</p></div></div><p class="guide-modal-desc-text">After a successful connection, the ServerAvatar MCP connector will be available in Claude.</p>' },
-                    { title: 'Start Managing', content: '<div class="guide-modal-step-card"><h4>Step 3: <span>Start Managing Your Servers</span></h4><div class="guide-modal-substep"><div class="guide-modal-substep-num">1</div><p class="guide-modal-substep-text">Open a new Claude chat</p></div><div class="guide-modal-substep"><div class="guide-modal-substep-num">2</div><p class="guide-modal-substep-text">Select your ServerAvatar MCP connector</p></div></div><p class="guide-modal-desc-text">You can now ask Claude to perform ServerAvatar operations, for example:</p><div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;"><button class="guide-modal-example-btn">Create an application</button><button class="guide-modal-example-btn">List servers</button><button class="guide-modal-example-btn">Manage databases</button><button class="guide-modal-example-btn">Install SSL certificates</button><button class="guide-modal-example-btn">Change application settings</button></div><div class="guide-modal-success-box"><p>🎉 You\'re all set! Start managing your infrastructure with AI.</p></div>' }
-                ]
-            },
-            cursor: {
-                name: 'Cursor',
-                image: '/images/clients/cursor-dark.png',
-                imageLight: '/images/clients/cursor-light.png',
-                steps: [
-                    { title: 'Install and Sign In', content: '<div class="guide-modal-step-card"><h4>Step 1: <span>Install and Sign In</span></h4><div class="guide-modal-substep"><div class="guide-modal-substep-num">1</div><p class="guide-modal-substep-text">Download and install Cursor IDE on your computer</p></div><div class="guide-modal-substep"><div class="guide-modal-substep-num">2</div><p class="guide-modal-substep-text">Sign in to your Cursor account</p></div></div>' },
-                    { title: 'Generate Token', content: '<div class="guide-modal-step-card"><h4>Step 2: <span>Generate an IDE Access Token</span></h4><div class="guide-modal-note-box"><p><strong>Note:</strong> An access token is required before connecting Cursor.</p></div><div class="guide-modal-substep"><div class="guide-modal-substep-num">1</div><p class="guide-modal-substep-text">Log in to ServerAvatar MCP</p></div><div class="guide-modal-substep"><div class="guide-modal-substep-num">2</div><p class="guide-modal-substep-text">Navigate to Endpoint & Tokens</p></div><div class="guide-modal-substep"><div class="guide-modal-substep-num">3</div><p class="guide-modal-substep-text">Under IDE Access Tokens, enter a token name (e.g., Cursor Development)</p></div><div class="guide-modal-substep"><div class="guide-modal-substep-num">4</div><p class="guide-modal-substep-text">Click Generate Token</p></div><div class="guide-modal-substep"><div class="guide-modal-substep-num">5</div><p class="guide-modal-substep-text">Copy the generated token immediately (it won\'t be shown again)</p></div></div>' },
-                    { title: 'Open MCP Settings', content: '<div class="guide-modal-step-card"><h4>Step 3: <span>Open MCP Settings</span></h4><div class="guide-modal-substep"><div class="guide-modal-substep-num">1</div><p class="guide-modal-substep-text">Open Cursor</p></div><div class="guide-modal-substep"><div class="guide-modal-substep-num">2</div><p class="guide-modal-substep-text">Navigate to Settings → Tools & MCP</p></div><div class="guide-modal-substep"><div class="guide-modal-substep-num">3</div><p class="guide-modal-substep-text">Under Installed MCP Servers, click + Add New MCP Server</p></div><div class="guide-modal-substep"><div class="guide-modal-substep-num">4</div><p class="guide-modal-substep-text">Cursor will open the mcp.json configuration file</p></div></div>' },
-                    { title: 'Configure', content: '<div class="guide-modal-step-card"><h4>Step 4: <span>Configure ServerAvatar MCP</span></h4><p class="guide-modal-desc-text">Modify your mcp.json file with the following configuration:</p><div class="guide-modal-code-block"><div class="code-title">mcp.json</div><pre>{ "mcpServers": { "serveravatar-mcp": { "url": "YOUR_MCP_SERVER_URL", "headers": { "Authorization": "Bearer YOUR_IDE_ACCESS_TOKEN" } } } }</pre></div><p style="font-size:14px;font-weight:600;color:var(--accent-primary);margin:16px 0 12px 0;">Replace:</p><div class="guide-modal-substep"><div style="width:6px;height:6px;min-width:6px;background:var(--accent-primary);border-radius:50%;flex-shrink:0;"></div><p class="guide-modal-substep-text"><code class="guide-modal-code">YOUR_MCP_SERVER_URL</code> with the MCP Server URL from ServerAvatar MCP → Endpoint & Tokens</p></div><div class="guide-modal-substep"><div style="width:6px;height:6px;min-width:6px;background:var(--accent-primary);border-radius:50%;flex-shrink:0;"></div><p class="guide-modal-substep-text"><code class="guide-modal-code">YOUR_IDE_ACCESS_TOKEN</code> with the IDE Access Token you generated</p></div><div class="guide-modal-tip-box" style="margin-top:16px;"><p><strong>Don\'t forget!</strong> Save the <code class="guide-modal-code">mcp.json</code> file after making the changes.</p></div></div>' },
-                    { title: 'Verify Connection', content: '<div class="guide-modal-step-card"><h4>Step 5: <span>Verify the Connection</span></h4><div class="guide-modal-substep"><div class="guide-modal-substep-num">1</div><p class="guide-modal-substep-text">Return to Settings → Tools & MCP.</p></div><div class="guide-modal-substep"><div class="guide-modal-substep-num">2</div><p class="guide-modal-substep-text">Verify that ServerAvatar MCP appears under Installed MCP Servers.</p></div><div class="guide-modal-substep"><div class="guide-modal-substep-num">3</div><p class="guide-modal-substep-text">Ensure the server status shows Connected or Available.</p></div></div><div class="guide-modal-error-box"><p class="guide-modal-error-text">If the connection fails, verify your MCP Server URL and IDE Access Token, then reload Cursor.</p></div>' },
-                    { title: 'Start Using', content: '<div class="guide-modal-step-card"><h4>Step 6: <span>Start Using ServerAvatar MCP</span></h4><p class="guide-modal-desc-text">Open a new AI chat or Agent session in Cursor and start using natural language commands, for example:</p><div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;"><button class="guide-modal-example-btn">List my servers</button><button class="guide-modal-example-btn">Create a WordPress application</button><button class="guide-modal-example-btn">List databases</button><button class="guide-modal-example-btn">Restart Nginx</button><button class="guide-modal-example-btn">Install an SSL certificate</button></div><p class="guide-modal-desc-text">Cursor will automatically invoke the appropriate ServerAvatar MCP tools when required.</p><div class="guide-modal-tip-box"><p><strong>💡 Tip:</strong> If you update the mcp.json file, reload or restart Cursor to ensure the new MCP configuration is loaded.</p></div><div class="guide-modal-success-box"><p>🎉 You\'re all set! Start managing your infrastructure with AI.</p></div>' }
-                ]
-            },
-            vscode: {
-                name: 'VS Code',
-                image: '/images/clients/vscode.png',
-                steps: [
-                    { title: 'Install VS Code', content: '<div class="guide-modal-info-note"><i class="fas fa-info-circle icon"></i><p>Visual Studio Code supports connecting to ServerAvatar MCP using <strong>OAuth Authorization (Recommended)</strong> or <strong>IDE Access Tokens (Manual Configuration)</strong>.</p></div><div class="guide-modal-step-card"><h4>Step 1: <span>Install and Sign In</span></h4><div class="guide-modal-substep"><div class="guide-modal-substep-num">1</div><p class="guide-modal-substep-text">Install the latest version of Visual Studio Code.</p></div><div class="guide-modal-substep"><div class="guide-modal-substep-num">2</div><p class="guide-modal-substep-text">Install the GitHub Copilot and GitHub Copilot Chat extensions.</p></div><div class="guide-modal-substep"><div class="guide-modal-substep-num">3</div><p class="guide-modal-substep-text">Sign in with your GitHub account.</p></div></div>' },
-                    { title: 'Add MCP Server', content: '<div class="guide-modal-step-card"><h4>Step 2: <span>Add Your MCP Server</span></h4><div class="guide-modal-substep"><div class="guide-modal-substep-num">1</div><p class="guide-modal-substep-text">Press <strong>Ctrl + Shift + P</strong>.</p></div><div class="guide-modal-substep"><div class="guide-modal-substep-num">2</div><p class="guide-modal-substep-text">Run: <code class="guide-modal-code">MCP: Add Server</code></p></div><div class="guide-modal-substep"><div class="guide-modal-substep-num">3</div><p class="guide-modal-substep-text">Select <strong>HTTP (Remote) MCP Server</strong>.</p></div><div class="guide-modal-substep"><div class="guide-modal-substep-num">4</div><p class="guide-modal-substep-text">Enter your ServerAvatar MCP Endpoint URL.</p></div><div class="guide-modal-substep"><div class="guide-modal-substep-num">5</div><p class="guide-modal-substep-text">Enter a name (for example, <strong>ServerAvatar MCP</strong>).</p></div></div>' },
-                    { title: 'Authorize', content: '<div class="guide-modal-step-card"><h4>Step 3: <span>Authorize</span></h4><div class="guide-modal-substep"><div class="guide-modal-substep-num">1</div><p class="guide-modal-substep-text">Visual Studio Code will automatically open your browser.</p></div><div class="guide-modal-substep"><div class="guide-modal-substep-num">2</div><p class="guide-modal-substep-text">Sign in to your ServerAvatar MCP account if prompted.</p></div><div class="guide-modal-substep"><div class="guide-modal-substep-num">3</div><p class="guide-modal-substep-text">Click <strong>Authorize</strong>.</p></div><div class="guide-modal-substep"><div class="guide-modal-substep-num">4</div><p class="guide-modal-substep-text">Return to Visual Studio Code.</p></div></div><div class="guide-modal-success-box"><p>🎉 You\'re all set! Start managing your infrastructure with AI.</p></div>' },
-                    { title: 'Start Using', content: '<div class="guide-modal-step-card"><h4>Step 4: <span>Start Using</span></h4><div class="guide-modal-substep"><div class="guide-modal-substep-num">1</div><p class="guide-modal-substep-text">Open <strong>GitHub Copilot Chat</strong> in <strong>Agent mode</strong>.</p></div><div class="guide-modal-substep"><div class="guide-modal-substep-num">2</div><p class="guide-modal-substep-text">Use your connected MCP server to manage your infrastructure with natural language.</p></div></div>' }
-                ]
-            },
-            windsurf: {
-                name: 'Windsurf',
-                image: '/images/clients/windsurf-dark.png',
-                imageLight: '/images/clients/windsurf-light.png',
-                steps: [
-                    { title: 'Install Windsurf', content: '<div class="guide-modal-step-card"><h4>Step 1: <span>Install Windsurf</span></h4><div class="guide-modal-substep"><div class="guide-modal-substep-num">1</div><p class="guide-modal-substep-text">Download and install Windsurf IDE</p></div><div class="guide-modal-substep"><div class="guide-modal-substep-num">2</div><p class="guide-modal-substep-text">Launch Windsurf and create an account</p></div></div>' },
-                    { title: 'Generate Token', content: '<div class="guide-modal-step-card"><h4>Step 2: <span>Generate an IDE Access Token</span></h4><div class="guide-modal-note-box"><p><strong>Note:</strong> An access token is required before connecting Windsurf.</p></div><div class="guide-modal-substep"><div class="guide-modal-substep-num">1</div><p class="guide-modal-substep-text">Log in to ServerAvatar MCP</p></div><div class="guide-modal-substep"><div class="guide-modal-substep-num">2</div><p class="guide-modal-substep-text">Navigate to Endpoint & Tokens</p></div><div class="guide-modal-substep"><div class="guide-modal-substep-num">3</div><p class="guide-modal-substep-text">Generate a new IDE Access Token</p></div><div class="guide-modal-substep"><div class="guide-modal-substep-num">4</div><p class="guide-modal-substep-text">Copy the token immediately</p></div></div>' },
-                    { title: 'Add MCP Server', content: '<div class="guide-modal-step-card"><h4>Step 3: <span>Add ServerAvatar MCP to Windsurf</span></h4><div class="guide-modal-substep"><div class="guide-modal-substep-num">1</div><p class="guide-modal-substep-text">Open Windsurf Settings</p></div><div class="guide-modal-substep"><div class="guide-modal-substep-num">2</div><p class="guide-modal-substep-text">Go to Extensions or MCP Settings</p></div><div class="guide-modal-substep"><div class="guide-modal-substep-num">3</div><p class="guide-modal-substep-text">Add a new MCP server with your Server URL and token</p></div></div>' },
-                    { title: 'Start Using', content: '<div class="guide-modal-step-card"><h4>Step 4: <span>Start Using</span></h4><div class="guide-modal-substep"><div class="guide-modal-substep-num">1</div><p class="guide-modal-substep-text">Open the Windsurf AI chat</p></div><div class="guide-modal-substep"><div class="guide-modal-substep-num">2</div><p class="guide-modal-substep-text">Start using natural language commands</p></div></div><p class="guide-modal-desc-text">Example commands:</p><div style="display:flex;flex-wrap:wrap;gap:8px;"><button class="guide-modal-example-btn">List all my servers</button><button class="guide-modal-example-btn">Create a database</button><button class="guide-modal-example-btn">Deploy WordPress</button></div><div class="guide-modal-success-box" style="margin-top:16px;"><p>🎉 You\'re all set! Start managing your infrastructure with AI.</p></div>' }
-                ]
-            }
-        };
-
-        let currentClient = null;
-        let currentStep = 0;
-
-        function openModal(clientKey) {
-            const client = clients[clientKey];
-            if (!client) return;
-
-            currentClient = clientKey;
-            currentStep = 0;
-
-            const theme = document.documentElement.getAttribute('data-theme');
-            document.getElementById('modalLogo').src = theme === 'dark' && client.imageLight ? client.imageLight : client.image;
-            document.getElementById('modalTitle').textContent = client.name;
-            document.getElementById('modalSubtitle').textContent = 'Step-by-step setup guide';
-
-            // Build sidebar
-            const sidebar = document.getElementById('modalSidebar');
-            sidebar.innerHTML = client.steps.map((step, i) => `
-                <div class="guide-modal-sidebar-step ${i === 0 ? 'active' : ''}" onclick="showStep(${i})">
-                    <div class="guide-modal-step-num">${i + 1}</div>
-                    <span class="${i === 0 ? 'guide-modal-step-text-active' : 'guide-modal-step-text'}">${step.title}</span>
-                </div>
-            `).join('');
-
-            showStep(0);
-            document.getElementById('guideModal').classList.add('show');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function showStep(index) {
-            if (!currentClient) return;
-            const client = clients[currentClient];
-            if (!client || !client.steps[index]) return;
-
-            document.querySelectorAll('.guide-modal-sidebar-step').forEach((el, i) => {
-                el.classList.toggle('active', i === index);
-                el.querySelector('span').className = i === index ? 'guide-modal-step-text-active' : 'guide-modal-step-text';
-            });
-
-            document.getElementById('modalMain').innerHTML = client.steps[index].content;
-            currentStep = index;
-        }
-
-        function closeModal() {
-            document.getElementById('guideModal').classList.remove('show');
-            document.body.style.overflow = '';
-            currentClient = null;
-            currentStep = 0;
-        }
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeModal();
-        });
-
-        document.getElementById('guideModal').addEventListener('click', (e) => {
-            if (e.target.id === 'guideModal') closeModal();
-        });
     </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.0/dist/cdn.min.js"></script>
 </body>
 </html>
