@@ -443,7 +443,7 @@ window.clientsData = {
         [data-theme="dark"] .icon-light { display: none; }
 
         /* ========== RESPONSIVE STYLES ========== */
-
+        
         /* Mobile Only: 360px to 767px */
         @media (min-width: 360px) and (max-width: 767px) {
             .container { padding: 0 1rem; }
@@ -470,6 +470,12 @@ window.clientsData = {
             
             /* Feature Cards */
             [style*="display:grid;grid-template-columns:repeat(4,1fr)"] { grid-template-columns: 1fr !important; }
+            
+            /* MCP Cards Row - Flex containers */
+            [style*="display:flex;gap:24px;margin-bottom:24px;width:100%;box-sizing:border-box"] { flex-direction: column !important; gap: 16px !important; }
+            [style*="display:flex;gap:24px;margin-bottom:24px;width:100%;box-sizing:border-box"] > div { max-width: 100% !important; flex: none !important; width: 100% !important; }
+            [style*="display:flex;gap:24px;margin-bottom:24px;width:100%;box-sizing:border-box"] > div[style*="flex:1.7"] { flex: none !important; width: 100% !important; }
+            [style*="display:flex;gap:24px;margin-bottom:24px;width:100%;box-sizing:border-box"] > div[style*="flex:1"] { flex: none !important; width: 100% !important; }
             
             /* Example Buttons */
             [style*="display:grid;grid-template-columns:repeat(5,1fr)"] { grid-template-columns: 1fr !important; }
@@ -505,6 +511,10 @@ window.clientsData = {
             [style*="display:grid;grid-template-columns:repeat(4,1fr)"] { grid-template-columns: repeat(2, 1fr) !important; }
             [style*="display:grid;grid-template-columns:repeat(5,1fr)"] { grid-template-columns: repeat(2, 1fr) !important; }
             [style*="display:grid;grid-template-columns:repeat(3,1fr)"] { grid-template-columns: repeat(2, 1fr) !important; }
+            
+            /* MCP Cards Row - Flex containers */
+            [style*="display:flex;gap:24px;margin-bottom:24px;width:100%;box-sizing:border-box"] { flex-direction: column !important; gap: 16px !important; }
+            [style*="display:flex;gap:24px;margin-bottom:24px;width:100%;box-sizing:border-box"] > div { max-width: 100% !important; flex: none !important; width: 100% !important; }
             
             /* Steps */
             [style*="display:flex;align-items:flex-start;justify-content:space-between"] { flex-wrap: wrap !important; gap: 16px !important; justify-content: center !important; }
